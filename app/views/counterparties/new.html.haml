@@ -1,0 +1,8 @@
+= render partial: 'shared/navbar'
+.ctrl{'ng-controller' => 'CounterpartiesCtrl'}
+  .form
+
+  .list
+    %ul{'ng-repeat' => 'counterparty in counterparties'}
+      %li {{ counterparty.name }}
+
