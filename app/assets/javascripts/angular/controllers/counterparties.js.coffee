@@ -1,9 +1,3 @@
-app = angular.module('Counterparties', ['ngResource', 'xeditable'])
-
-app.factory 'Counterparty', ['$resource', ($resource) ->
-  $resource('/counterparties/:id', {id: '@id'}, {update: {method: 'PUT'}})
-]
-
 @CounterpartiesCtrl = ['$scope', '$q', 'Counterparty', ($scope, $q , Counterparty) ->
   $scope.counterparties = Counterparty.query()
 

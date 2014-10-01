@@ -1,0 +1,2 @@
+class Translation < Article
+end

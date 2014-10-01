@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  root 'counterparties#new'
+  root 'home#index'
 
   resources :counterparties
+  resources :articles
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

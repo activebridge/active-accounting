@@ -1,0 +1,14 @@
+span.article_type {
+  font-style: italic;
+  font-size: 10px;
+  font-weight: bold;
+  &.Cost {
+    color: red;
+  }
+  &.Revenue {
+    color: green;
+  }
+  &.Translation {
+    color: blue;
+  }
+}

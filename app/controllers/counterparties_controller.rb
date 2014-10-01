@@ -2,13 +2,16 @@ class CounterpartiesController < ApplicationController
   before_action :find_conterparty, only: [:destroy, :update]
 
   def index
-    render json: Counterparty.all, status: 200
+    json = ActiveModel::ArraySerializer.new(Counterparty.all,
+                                           each_serializer: CounterpartySerializer,
+                                           root: nil)
+    render json: json, status: 200
   end
 
   def create
     counterparty = Counterparty.new(counterparty_params)
     if counterparty.save
-      render json: counterparty, status: 200
+      render json: CounterpartySerializer.new(counterparty), status: 200
     else
       render json: {status: :error, error: counterparty.errors.messages}, status: 422
     end
@@ -19,10 +22,9 @@ class CounterpartiesController < ApplicationController
     head(200)
   end
 
-
   def update
     if @counterparty.update_attributes(counterparty_params)
-      render json: @counterparty, status: 201
+      render json: CounterpartySerializer.new(@counterparty), status: 201
     else
       render json: {status: :error, error: @counterparty.errors.messages}, status: 422
     end
