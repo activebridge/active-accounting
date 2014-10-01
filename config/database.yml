@@ -1,0 +1,13 @@
+default: &default
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+  username: eugene
+  password: password
+
+development:
+  <<: *default
+  database: active-accounting-dev
+test:
+  <<: *default
+  database: active-accounting-test
