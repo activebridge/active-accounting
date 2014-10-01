@@ -1,8 +1,15 @@
 = render partial: 'shared/navbar'
 .ctrl{'ng-controller' => 'CounterpartiesCtrl'}
   .form
+    %form{'ng-submit' => 'add()'}
+      %input{'type' => 'text', 'ng-model' => 'newCounterparty.name'}
+      %button{type: 'submit'}
+        Add
 
   .list
     %ul{'ng-repeat' => 'counterparty in counterparties'}
-      %li {{ counterparty.name }}
-
+      %li
+        {{ counterparty.name }}
+        |
+        %a.delete{'href' => 'javascript: void(false);', 'ng-click' => 'delete(counterparty.id)'}
+          Видалити
