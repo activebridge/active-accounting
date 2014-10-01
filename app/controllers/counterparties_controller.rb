@@ -1,5 +1,5 @@
 class CounterpartiesController < ApplicationController
-  before_action :find_conterparty, only: :destroy
+  before_action :find_conterparty, only: [:destroy, :update]
 
   def index
     render json: Counterparty.all, status: 200
@@ -19,11 +19,20 @@ class CounterpartiesController < ApplicationController
     head(200)
   end
 
-  def counterparty_params
-    params.require(:counterparty).permit(:name)
+
+  def update
+    if @counterparty.update_attributes(counterparty_params)
+      render json: @counterparty, status: 201
+    else
+      render json: {status: :error, error: @counterparty.errors.messages}, status: 422
+    end
   end
 
   private
+
+  def counterparty_params
+    params.require(:counterparty).permit(:name)
+  end
 
   def find_conterparty
     @counterparty = Counterparty.find(params[:id])

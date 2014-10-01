@@ -1,16 +1,17 @@
-app = angular.module('Counterparties', ['ngResource'])
+app = angular.module('Counterparties', ['ngResource', 'xeditable'])
 
 app.factory 'Counterparty', ['$resource', ($resource) ->
-  $resource('/counterparties/:id', {id: '@id'})
+  $resource('/counterparties/:id', {id: '@id'}, {update: {method: 'PUT'}})
 ]
 
-@CounterpartiesCtrl = ['$scope', 'Counterparty', ($scope, Counterparty) ->
+@CounterpartiesCtrl = ['$scope', '$q', 'Counterparty', ($scope, $q , Counterparty) ->
   $scope.counterparties = Counterparty.query()
 
   $scope.add = ->
     counterparty = Counterparty.save($scope.newCounterparty,
       () ->
         $scope.counterparties.push(counterparty)
+        $scope.newCounterparty = {}
     )
 
   $scope.delete = (counterparty_id) ->
@@ -20,4 +21,15 @@ app.factory 'Counterparty', ['$resource', ($resource) ->
       , (success) ->
         $scope.counterparties = Counterparty.query()
         return
+
+  $scope.update = (counterparty_id, name) ->
+    d = $q.defer()
+    Counterparty.update( id: counterparty_id, {counterparty: {name: name}}
+      () ->
+        d.resolve()
+      (response) ->
+        d.resolve response.data.errors['name'][0]
+    )
+    return d.promise
+
 ]
