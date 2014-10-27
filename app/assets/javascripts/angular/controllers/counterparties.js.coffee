@@ -1,4 +1,4 @@
-@CounterpartiesCtrl = ['$scope', '$q', 'Counterparty', ($scope, $q , Counterparty) ->
+@CounterpartiesCtrl = ['$scope', '$q', 'Counterparty', ($scope, $q, Counterparty) ->
   $scope.counterparties = Counterparty.query()
 
   $scope.add = ->

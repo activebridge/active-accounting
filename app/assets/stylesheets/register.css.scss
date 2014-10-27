@@ -1,7 +1,23 @@
-table.register tr td {
-  padding: 10px;
-}
+.registers {
+  form table tr {
+    th {
+      text-align: left;
+    }
+    td input, td select {
+      width: 150px;
+    }
+  }
 
-span.error {
-  color: red;
+
+  table.register tr td {
+    padding: 10px;
+  }
+
+  span.error {
+    color: red;
+  }
+
+  .list {
+    margin-top: 25px;
+  }
 }

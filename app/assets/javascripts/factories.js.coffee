@@ -9,3 +9,7 @@ angular.module('accounting.services').factory 'Article', ['$resource', ($resourc
 angular.module('accounting.services').factory 'Register', ['$resource', ($resource) ->
   $resource('/registers/:id', {id: '@id'}, {update: {method: 'PUT'}})
 ]
+
+angular.module('accounting.services').factory 'Report', ['$resource', ($resource) ->
+  $resource('/reports')
+]

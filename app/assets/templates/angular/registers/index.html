@@ -1,48 +1,83 @@
 <div class="registers">
-  Реєстр
   <div class="ctrl ng-scope">
     <div class="form">
       <form ng-submit="add()" class="ng-pristine ng-valid">
-        Дата:
-        <input type="text" id='date' ng-model="newRegister.date" class="ng-pristine ng-valid">
-        <span class='error'>{{newRegister.errors.date}}</span>
-        <br/>
+        <table cellspacing="0">
+          <tr>
+            <th>
+              Дата
+            </th>
+            <th>
+              Стаття
+            </th>
+            <th>
+              Контрагент
+            </th>
+            <th>
+              Сума
+            </th>
+            <th>
+              Примітка
+            </th>
+            <th></th>
+          </tr>
 
-        Стаття:
-        <select ng-model="newRegister.article_id" id='article'>
-          <option ng-repeat="article in articles" value={{article.id}}>
-          {{article.name}}
-          </option>
-        </select>
-        <span class='error'>{{newRegister.errors.article}}</span>
-        <br/>
-
-        Контрагент:
-        <select ng-model="newRegister.counterparty_id">
-          <option ng-repeat="counterparty in counterparties" value={{counterparty.id}}>
-          {{counterparty.name}}
-          </option>
-        </select>
-        <br/>
-
-        Сума:
-        <input type="text" ng-model="newRegister.value" id='value'>
-        <span class='error'>{{newRegister.errors.value}}</span>
-        <br/>
-
-        Примітка:
-        <textarea ng-model="newRegister.notes">
-        </textarea>
-        <br/>
-
-        <button type="submit">
-          Додати
-        </button>
+          <tr>
+            <td>
+              <input type="text" id='date' ng-model="newRegister.date" class="ng-pristine ng-valid">
+              <span class='error'>{{newRegister.errors.date}}</span>
+            </td>
+            <td>
+              <select ng-model="newRegister.article_id" id='article'>
+                <option ng-repeat="article in articles" value={{article.id}}>
+                {{article.name}} ({{article.type_msg}})
+                </option>
+              </select>
+              <span class='error'>{{newRegister.errors.article}}</span>
+            </td>
+            <td>
+              <select ng-model="newRegister.counterparty_id">
+                <option ng-repeat="counterparty in counterparties" value={{counterparty.id}}>
+                {{counterparty.name}}
+                </option>
+              </select>
+            </td>
+            <td>
+              <input type="text" ng-model="newRegister.value" id='value'>
+              <span class='error'>{{newRegister.errors.value}}</span>
+            </td>
+            <td>
+              <input type="text" ng-model="newRegister.notes">
+            </td>
+            <td>
+              <button type="submit">
+                Додати
+              </button>
+            </td>
+          </tr>
+        </table>
       </form>
     </div>
-    <div class="list">
 
+
+    <div class="list">
       <table class="ng-scope register">
+        <tr>
+          <th>
+            Дата
+          </th>
+          <th>
+            Стаття
+          </th>
+          <th>
+            Контрагент
+          </th>
+          <th>
+            Сума
+          </th>
+          <th>
+          </th>
+        </tr>
         <tr ng-repeat="register in registers" >
           <td>
             {{ register.date }}

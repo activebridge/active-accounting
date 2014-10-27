@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :counterparties
   resources :articles
   resources :registers
+  resources :reports
 
   root 'home#index'
 
