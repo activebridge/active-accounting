@@ -5,14 +5,16 @@
       <form ng-submit="add()" class="ng-pristine ng-valid">
         Дата:
         <input type="text" id='date' ng-model="newRegister.date" class="ng-pristine ng-valid">
+        <span class='error'>{{newRegister.errors.date}}</span>
         <br/>
 
         Стаття:
-        <select ng-model="newRegister.article_id">
+        <select ng-model="newRegister.article_id" id='article'>
           <option ng-repeat="article in articles" value={{article.id}}>
           {{article.name}}
           </option>
         </select>
+        <span class='error'>{{newRegister.errors.article}}</span>
         <br/>
 
         Контрагент:
@@ -24,7 +26,8 @@
         <br/>
 
         Сума:
-        <input type="text" ng-model="newRegister.value" class="ng-pristine ng-valid">
+        <input type="text" ng-model="newRegister.value" id='value'>
+        <span class='error'>{{newRegister.errors.value}}</span>
         <br/>
 
         Примітка:

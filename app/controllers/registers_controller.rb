@@ -13,7 +13,7 @@ class RegistersController < ApplicationController
     if register.save
       render json: RegisterSerializer.new(register), status: 200
     else
-      render json: {status: :error, error: register.errors.messages}, status: 422
+      render json: {status: :error, errors: register.errors.messages}, status: 422
     end
   end
 

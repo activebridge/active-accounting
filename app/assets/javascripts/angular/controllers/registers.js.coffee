@@ -1,6 +1,7 @@
 @RegistersCtrl = ['$scope', '$q', 'Register', 'Article', 'Counterparty', ($scope, $q, Register, Article, Counterparty) ->
 
   $scope.newRegister = {}
+  $scope.newRegister.errors = {}
 
   $scope.registers = Register.query()
   $scope.articles = Article.query()
@@ -15,6 +16,8 @@
       () ->
         $scope.registers.push(register)
         $scope.newRegister = {}
+      , (response) ->
+        $scope.newRegister.errors = response.data.errors
     )
 
   $scope.delete = (register_id) ->
@@ -25,13 +28,15 @@
         $scope.registers = Register.query()
         return
 
-  $scope.update = (register_id, name) ->
+  $scope.update = (register_id, field, value) ->
     d = $q.defer()
-    Register.update( id: register_id, {register: {name: name}}
+    params = {}
+    params[field] = value
+    Register.update( id: register_id, {register: params}
       () ->
         d.resolve()
       (response) ->
-        d.resolve response.data.errors['name'][0]
+        d.resolve response.data.errors[field][0]
     )
     return d.promise
 
