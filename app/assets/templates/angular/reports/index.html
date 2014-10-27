@@ -1,1 +1,25 @@
-hello
+<table cellspacing="0">
+  <tr>
+    <th>Стаття</th>
+    <th>Сума</th>
+  </tr>
+  <tr ng-repeat='item in by_type_items'>
+    <td>
+      {{ item.article }}
+    </td>
+    <td>
+      {{ item.value }}
+    </td>
+  </tr>
+</table>
+
+<table style='margin-top: 15px;'>
+  <tr ng-repeat='item in by_article_items'>
+    <td>
+      {{ item.article }}
+    </td>
+    <td>
+      {{ item.value }}
+    </td>
+  </tr>
+</table>

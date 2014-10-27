@@ -6,6 +6,6 @@ class RegisterSerializer < ActiveModel::Serializer
   end
 
   def article
-    object.article.name
+    object.article.name_with_type
   end
 end
