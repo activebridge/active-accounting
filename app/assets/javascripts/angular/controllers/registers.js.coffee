@@ -1,7 +1,14 @@
-@RegistersCtrl = ['$scope', '$q', 'Register', ($scope, $q, Register) ->
+@RegistersCtrl = ['$scope', '$q', 'Register', 'Article', 'Counterparty', ($scope, $q, Register, Article, Counterparty) ->
 
-  $scope.articles = Register.query()
-  $('#date').datepicker()
+  $scope.newRegister = {}
+
+  $scope.registers = Register.query()
+  $scope.articles = Article.query()
+  $scope.counterparties = Counterparty.query()
+  $('#date').datepicker
+    dateFormat: 'dd-mm-yy',
+    onSelect: (date, obj) ->
+      $scope.newRegister.date = date
 
   $scope.add = ->
     register = Register.save($scope.newRegister,

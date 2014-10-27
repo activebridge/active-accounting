@@ -10,8 +10,8 @@
       </form>
     </div>
     <div class="list">
-      <ul ng-repeat="counterparty in counterparties">
-        <li>
+      <ul>
+        <li ng-repeat="counterparty in counterparties">
           <span class="name" editable-text="counterparty.name" onbeforesave="update(counterparty.id, $data)">
             {{ counterparty.name }}
           </span>

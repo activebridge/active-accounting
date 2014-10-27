@@ -15,8 +15,8 @@
       </form>
     </div>
     <div class="list">
-      <ul ng-repeat="article in articles">
-        <li>
+      <ul>
+        <li ng-repeat="article in articles">
           <span class="name" editable-text="article.name" onbeforesave="update(article.id, $data)">
             {{ article.name }}
             <span class="{{article.type %> %> article_type">({{ article.type_msg }})</span>

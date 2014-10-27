@@ -8,11 +8,19 @@
         <br/>
 
         Стаття:
-        <input type="text" ng-model="newRegister.article" class="ng-pristine ng-valid">
+        <select ng-model="newRegister.article_id">
+          <option ng-repeat="article in articles" value={{article.id}}>
+            {{article.name}}
+          </option>
+        </select>
         <br/>
 
         Контрагент:
-        <input type="text" ng-model="newRegister.counterparty" class="ng-pristine ng-valid">
+        <select ng-model="newRegister.counterparty_id">
+          <option ng-repeat="counterparty in counterparties" value={{counterparty.id}}>
+            {{counterparty.name}}
+          </option>
+        </select>
         <br/>
 
         Сума:
@@ -20,7 +28,8 @@
         <br/>
 
         Примітка:
-        <input type="text" ng-model="newRegister.notes" class="ng-pristine ng-valid">
+        <textarea ng-model="newRegister.notes">
+        </textarea>
         <br/>
 
         <button type="submit">
@@ -32,7 +41,7 @@
       <ul class="ng-scope">
         <li ng-repeat="register in registers" >
           <span onbeforesave="update(register.id, $data)" editable-text="register.name" class="name ng-scope ng-binding editable editable-click">
-           {{ register.date }}
+            {{ register.date }} | {{ register.counterparty }} | {{ register.article }} | {{ register.value }} | {{ register.notes }}
           </span>
           |
           <a ng-click="delete(register.id)" href="javascript: void(false);" class="delete">
@@ -43,10 +52,3 @@
     </div>
   </div>
 </div>
-
-<script type='text/javascript'>
-  $( document ).ready( function() {
-      console.log($('#date'))
-      $('#date').datepicker();
-      } )
-</script>
