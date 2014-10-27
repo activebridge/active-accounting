@@ -10,7 +10,7 @@
         Стаття:
         <select ng-model="newRegister.article_id">
           <option ng-repeat="article in articles" value={{article.id}}>
-            {{article.name}}
+          {{article.name}}
           </option>
         </select>
         <br/>
@@ -18,7 +18,7 @@
         Контрагент:
         <select ng-model="newRegister.counterparty_id">
           <option ng-repeat="counterparty in counterparties" value={{counterparty.id}}>
-            {{counterparty.name}}
+          {{counterparty.name}}
           </option>
         </select>
         <br/>
@@ -38,17 +38,32 @@
       </form>
     </div>
     <div class="list">
-      <ul class="ng-scope">
-        <li ng-repeat="register in registers" >
-          <span onbeforesave="update(register.id, $data)" editable-text="register.name" class="name ng-scope ng-binding editable editable-click">
-            {{ register.date }} | {{ register.counterparty }} | {{ register.article }} | {{ register.value }} | {{ register.notes }}
-          </span>
-          |
-          <a ng-click="delete(register.id)" href="javascript: void(false);" class="delete">
-            Видалити
-          </a>
-        </li>
-      </ul>
+
+      <table class="ng-scope register">
+        <tr ng-repeat="register in registers" >
+          <td>
+            {{ register.date }}
+          </td>
+          <td>
+            {{ register.article }}
+          </td>
+          <td>
+            {{ register.counterparty }}
+          </td>
+          <td>
+            {{ register.value }}
+          </td>
+          <td>
+            {{ register.notes }}
+          </td>
+          <td>
+            <a ng-click="delete(register.id)" href="javascript: void(false);" class="delete">
+              Видалити
+            </a>
+          </td>
+        </tr>
+      </table>
+
     </div>
   </div>
 </div>

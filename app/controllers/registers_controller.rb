@@ -1,4 +1,6 @@
 class RegistersController < ApplicationController
+  before_action :find_register, only: :destroy
+
   def index
     json = ActiveModel::ArraySerializer.new(Register.all,
                                            each_serializer: RegisterSerializer,
@@ -15,9 +17,18 @@ class RegistersController < ApplicationController
     end
   end
 
+  def destroy
+    @register.destroy
+    head(200)
+  end
+
   private
 
   def register_params
     params.require(:register).permit!
+  end
+
+  def find_register
+    @register = Register.find params[:id]
   end
 end
