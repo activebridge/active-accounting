@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  root 'home#index'
 
+  get 'home' => 'home#index'
   resources :counterparties
   resources :articles
+  resources :registers
+
+  root 'home#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

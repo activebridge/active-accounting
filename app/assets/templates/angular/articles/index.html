@@ -1,0 +1,33 @@
+<div class="articles">
+  Статті
+  <div class="ctrl" ng-controller="ArticlesCtrl">
+    <div class="form">
+      <form ng-submit="add()">
+        <input ng-model="newArticle.name" type="text"></input>
+        <select ng-model="newArticle.type">
+          <option value="Revenue">Надходження</option>
+          <option value="Cost">Витрати</option>
+          <option value="Translation">Трансляція</option>
+        </select>
+        <button type="submit">
+          Додати
+        </button>
+      </form>
+    </div>
+    <div class="list">
+      <ul ng-repeat="article in articles">
+        <li>
+          <span class="name" editable-text="article.name" onbeforesave="update(article.id, $data)">
+            {{ article.name }}
+            <span class="{{article.type %> %> article_type">({{ article.type_msg }})</span>
+          </span>
+          |
+          <a class="delete" href="javascript: void(false);" ng-click="delete(article.id)">
+            Видалити
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+

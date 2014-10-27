@@ -1,0 +1,26 @@
+<div class="registers">
+  Реєстр
+  <div class="ctrl ng-scope">
+    <div class="form">
+      <form ng-submit="add()" class="ng-pristine ng-valid">
+        <input type="text" ng-model="newRegister.name" class="ng-pristine ng-valid">
+        <button type="submit">
+          Додати
+        </button>
+      </form>
+    </div>
+    <div class="list">
+      <ul class="ng-scope">
+        <li ng-repeat="register in registers" >
+          <span onbeforesave="update(register.id, $data)" editable-text="register.name" class="name ng-scope ng-binding editable editable-click">
+           {{ register.date }}
+          </span>
+          |
+          <a ng-click="delete(register.id)" href="javascript: void(false);" class="delete">
+            Видалити
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
