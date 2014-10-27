@@ -10,19 +10,25 @@ class ReportsController < ApplicationController
 
   private
 
-  def by_article
-    revenues = Register.revenues.group_by_article
-    costs = Register.costs.group_by_article
-    translations = Register.translations.group_by_article
-    revenues + costs + translations
+  def revenues
+    Register.revenues.group_by_article
+  end
+
+  def costs
+    Register.costs.group_by_article
+  end
+
+  def translations
+    Register.translations.group_by_article
   end
 
   def by_type
-    revenue = Register.revenues.group_by_article_type.first
-    cost = Register.costs.group_by_article_type.first
-    translation = Register.translations.group_by_article_type.first
+    by_types = Register.by_type.to_a
 
-    collection = ByTypeReportItemDecorator.decorate_collection([revenue, cost, translation])
+    revenue = by_types.find { |i| i.type == Article::TYPES::REVENUE }
+    cost = by_types.find { |i| i.type == Article::TYPES::COST }
+
+    collection = ByTypeReportItemDecorator.decorate_collection(by_types)
     collection.push(ByTypeReportItemDecorator.new({type: 'Profit', sum: (revenue.sum - cost.sum)}))
   end
 end

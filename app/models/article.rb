@@ -24,5 +24,17 @@ class Article < ActiveRecord::Base
     "#{ name } (#{ type_msg })"
   end
 
+  def revenue?
+    type == TYPES::REVENUE
+  end
+
+  def translation?
+    type == TYPES::TRANSLATION
+  end
+
+  def cost?
+    type == TYPES::COST
+  end
+
   alias_method :article_name, :name_with_type
 end

@@ -13,13 +13,52 @@
   </tr>
 </table>
 
-<table style='margin-top: 15px;'>
-  <tr ng-repeat='item in by_article_items'>
-    <td>
-      {{ item.article }}
-    </td>
-    <td>
-      {{ item.value }}
-    </td>
-  </tr>
-</table>
+
+<div class='report'>
+  <table style='margin-top: 15px;'>
+    <tr>
+      <th class='title'>Надходження</th>
+      <th>{{ totalRevenue }}</th>
+    </tr>
+    <tr ng-repeat='item in revenues'>
+      <td>
+        {{ item.article }}
+      </td>
+      <td>
+        {{ item.value }}
+      </td>
+    </tr>
+  </table>
+
+
+  <table style='margin-top: 15px;'>
+    <tr>
+      <th class='title'>Витрати</th>
+      <th>{{ totalCost }}</th>
+    </tr>
+    <tr ng-repeat='item in costs'>
+      <td>
+        {{ item.article }}
+      </td>
+      <td>
+        {{ item.value }}
+      </td>
+    </tr>
+  </table>
+
+
+  <table style='margin-top: 15px;'>
+    <tr>
+      <th class='title'>Трансляція</th>
+      <th>{{ totalTranslation }}</th>
+    </tr>
+    <tr ng-repeat='item in translations'>
+      <td>
+        {{ item.article }}
+      </td>
+      <td>
+        {{ item.value }}
+      </td>
+    </tr>
+  </table>
+</div>
