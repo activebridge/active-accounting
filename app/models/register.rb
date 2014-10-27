@@ -20,5 +20,9 @@ class Register < ActiveRecord::Base
     select("article_id, sum(value)").group("article_id").order("")
   }
 
+  scope :by_month, -> (date) {
+    where("extract(month from date) = ? AND extract(year from date) = ?", date.month, date.year)
+  }
+
   delegate :article_name, :type, to: :article
 end

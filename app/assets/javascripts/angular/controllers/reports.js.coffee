@@ -1,26 +1,44 @@
 @ReportsCtrl = ['$scope', 'Report', ($scope, Report) ->
 
-  $scope.totalRevenue = 0
-  $scope.totalCost = 0
-  $scope.totalTranslation = 0
-  $scope.totalProfit = 0
+  $scope.load = ->
+    $scope.totalRevenue = 0
+    $scope.totalCost = 0
+    $scope.totalTranslation = 0
+    $scope.totalProfit = 0
 
-  $scope.revenues = Report.query
-    report_type: 'revenues'
-    , (response) ->
-      $(response).each (k, v) ->
-        $scope.totalRevenue += v.value
+    $scope.revenues = Report.query
+      report_type: 'revenues'
+      , month: $('#month-picker').val()
+      , (response) ->
+        $(response).each (k, v) ->
+          $scope.totalRevenue += v.value
 
-  $scope.costs = Report.query
-    report_type: 'costs'
-    , (response) ->
-      $(response).each (k, v) ->
-        $scope.totalCost += v.value
-      $scope.totalProfit = $scope.totalRevenue - $scope.totalCost
+    $scope.costs = Report.query
+      report_type: 'costs'
+      , month: $('#month-picker').val()
+      , (response) ->
+        $(response).each (k, v) ->
+          $scope.totalCost += v.value
+        $scope.totalProfit = $scope.totalRevenue - $scope.totalCost
 
-  $scope.translations = Report.query
-    report_type: 'translations'
-    , (response) ->
-      $(response).each (k, v) ->
-        $scope.totalTranslation += v.value
+    $scope.translations = Report.query
+      report_type: 'translations'
+      , month: $('#month-picker').val()
+      , (response) ->
+        $(response).each (k, v) ->
+          $scope.totalTranslation += v.value
+
+
+
+  curr_date = new Date()
+  $('#month-picker').val((curr_date.getMonth()+1) + '/' + curr_date.getFullYear())
+
+  $('#month-picker').change ->
+    $scope.load()
+
+  $('#month-picker').MonthPicker
+    ShowIcon: false
+
+  $scope.load()
+
 ]

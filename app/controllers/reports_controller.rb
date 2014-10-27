@@ -1,4 +1,6 @@
 class ReportsController < ApplicationController
+  before_action :parse_month
+
   def index
     json = ActiveModel::ArraySerializer.new(send(params[:report_type]),
                                            each_serializer: ReportItemSerializer,
@@ -10,15 +12,16 @@ class ReportsController < ApplicationController
 
   private
 
-  def revenues
-    RegisterDecorator.decorate_collection(Register.revenues.group_by_article)
+  [:revenues, :costs, :translations].each do |type|
+    define_method(type) do
+      RegisterDecorator.decorate_collection(Register.send(type)
+                                            .group_by_article
+                                            .by_month(@month),
+                                            @month)
+    end
   end
 
-  def costs
-    RegisterDecorator.decorate_collection(Register.costs.group_by_article)
-  end
-
-  def translations
-    RegisterDecorator.decorate_collection(Register.translations.group_by_article)
+  def parse_month
+    @month = params[:month].blank? ? Date.today : Date.parse(params[:month])
   end
 end

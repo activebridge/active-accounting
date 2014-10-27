@@ -1,27 +1,35 @@
-.report ul {
-  padding: 0;
+.report {
 
-  div { float: left; }
-  width: 400px;
-  text-align: left;
-
-  .title { width: 300px; }
-  .value { width: 100px; text-align: right; }
-
-  li {
-    &.Revenue { color: green; }
-    &.Cost { color: red; }
-    &.Translation { color: blue; }
-
-    &.header { font-weight: bold; }
-  }
-
-  ul.nested-report-items li .nested {
-    font-size: 14px;
-    &.title {
-      padding-left: 15px;
-      width: 285px;
+  .month-picker-wrapper {
+    input {
+      width: 100px;
     }
   }
 
+  ul {
+    padding: 0;
+
+    div { float: left; }
+    width: 400px;
+    text-align: left;
+
+    .title { width: 300px; }
+    .value { width: 100px; text-align: right; }
+
+    li {
+      &.Revenue { color: green; }
+      &.Cost { color: red; }
+      &.Translation { color: blue; }
+
+      &.header { font-weight: bold; }
+    }
+
+    ul.nested-report-items li .nested {
+      font-size: 14px;
+      &.title {
+        padding-left: 15px;
+        width: 285px;
+      }
+    }
+  }
 }

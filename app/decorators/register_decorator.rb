@@ -1,12 +1,13 @@
 class RegisterDecorator
-  attr_accessor :register
+  attr_accessor :register, :month
 
-  def initialize(register)
+  def initialize(register, month)
     @register = register
+    @month = month
   end
 
-  def self.decorate_collection items
-    items.map { |item| self.new(item) }
+  def self.decorate_collection items, month
+    items.map { |item| self.new(item, month) }
   end
 
   delegate :article_name, :sum, :type, to: :register
@@ -16,5 +17,6 @@ class RegisterDecorator
             .select("counterparty_id, sum(value)")
             .group("counterparty_id")
             .order("")
+            .by_month(month)
   end
 end
