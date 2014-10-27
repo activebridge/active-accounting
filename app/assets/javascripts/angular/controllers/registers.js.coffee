@@ -1,5 +1,7 @@
 @RegistersCtrl = ['$scope', '$q', 'Register', ($scope, $q, Register) ->
+
   $scope.articles = Register.query()
+  $('#date').datepicker()
 
   $scope.add = ->
     register = Register.save($scope.newRegister,

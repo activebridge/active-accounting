@@ -3,7 +3,26 @@
   <div class="ctrl ng-scope">
     <div class="form">
       <form ng-submit="add()" class="ng-pristine ng-valid">
-        <input type="text" ng-model="newRegister.name" class="ng-pristine ng-valid">
+        Дата:
+        <input type="text" id='date' ng-model="newRegister.date" class="ng-pristine ng-valid">
+        <br/>
+
+        Стаття:
+        <input type="text" ng-model="newRegister.article" class="ng-pristine ng-valid">
+        <br/>
+
+        Контрагент:
+        <input type="text" ng-model="newRegister.counterparty" class="ng-pristine ng-valid">
+        <br/>
+
+        Сума:
+        <input type="text" ng-model="newRegister.value" class="ng-pristine ng-valid">
+        <br/>
+
+        Примітка:
+        <input type="text" ng-model="newRegister.notes" class="ng-pristine ng-valid">
+        <br/>
+
         <button type="submit">
           Додати
         </button>
@@ -24,3 +43,10 @@
     </div>
   </div>
 </div>
+
+<script type='text/javascript'>
+  $( document ).ready( function() {
+      console.log($('#date'))
+      $('#date').datepicker();
+      } )
+</script>
