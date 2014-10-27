@@ -20,10 +20,5 @@ class Register < ActiveRecord::Base
     select("article_id, sum(value)").group("article_id").order("")
   }
 
-  scope :by_type, -> {
-    joins(:article)
-    .select("type, sum(value)").group('type').order("")
-  }
-
-  delegate :article_name, to: :article
+  delegate :article_name, :type, to: :article
 end
