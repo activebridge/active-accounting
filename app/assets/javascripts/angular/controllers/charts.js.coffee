@@ -9,23 +9,25 @@
       profitData = []
 
       $(response).each (k, v) ->
-        revenueData.push([v.month, v.revenue])
-        costData.push([v.month, v.cost])
-        translationData.push([v.month, v.translation])
-        profitData.push([v.month, v.profit])
+        revenueData.push([v.month.toString(), v.revenue, v.cost, v.translation, v.profit])
 
-      generalChart = new JSChart('chartcontainer', 'line')
+      generalChart = new JSChart('chartcontainer', 'bar')
       generalChart.setDataArray(revenueData, 'revenue')
-      generalChart.setDataArray(costData, 'cost')
-      generalChart.setDataArray(translationData, 'translation')
-      generalChart.setDataArray(profitData, 'profit')
-      generalChart.setLineColor('#ff0f0f', 'revenue')
-      generalChart.setLineColor('#5555AA', 'translation')
-      generalChart.setLineColor('#0fff0f', 'cost')
+
+
+      generalChart.setBarColor('#ff0f0f', 1)
+      generalChart.setBarColor('#5555AA', 2)
+      generalChart.setBarColor('#0fff0f', 3)
+      generalChart.setBarColor('#E4DB7B', 4)
 
       generalChart.setLegendShow(true)
       generalChart.setAxisNameX('Місяць')
       generalChart.setAxisNameY('Сума')
+
+      generalChart.setLegendForBar(1, 'Revenue')
+      generalChart.setLegendForBar(2, 'Cost')
+      generalChart.setLegendForBar(3, 'Translation')
+      generalChart.setLegendForBar(4, 'Profit')
 
       generalChart.setSize(800, 400)
 
