@@ -11,3 +11,7 @@ development:
 test:
   <<: *default
   database: active-accounting-test
+
+production:
+  <<: *default
+  database: active_accounting_production2
