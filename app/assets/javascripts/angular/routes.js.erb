@@ -19,6 +19,10 @@ angular.module('ActiveAccounting').config([
         templateUrl: '<%= asset_path('angular/reports/index.html') %>',
         controller: 'ReportsCtrl'
       })
+      .when('/charts', {
+        templateUrl: '<%= asset_path('angular/charts/index.html') %>',
+        controller: 'ChartsCtrl'
+      })
       .otherwise({ redirectTo: '/home' });
   }
 ]).config(["$httpProvider", function($httpProvider) {

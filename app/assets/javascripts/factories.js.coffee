@@ -13,3 +13,7 @@ angular.module('accounting.services').factory 'Register', ['$resource', ($resour
 angular.module('accounting.services').factory 'Report', ['$resource', ($resource) ->
   $resource('/reports')
 ]
+
+angular.module('accounting.services').factory 'Chart', ['$resource', ($resource) ->
+  $resource('/charts')
+]

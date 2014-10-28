@@ -2,7 +2,7 @@ class RegistersController < ApplicationController
   before_action :find_register, only: :destroy
 
   def index
-    json = ActiveModel::ArraySerializer.new(Register.all,
+    json = ActiveModel::ArraySerializer.new(Register.order('created_at desc'),
                                            each_serializer: RegisterSerializer,
                                            root: nil)
     render json: json, status: 200

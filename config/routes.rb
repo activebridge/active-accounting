@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   resources :counterparties
   resources :articles
   resources :registers
-  resources :reports
+  resources :reports, only: :index
+  resources :charts
 
   root 'home#index'
 

@@ -14,7 +14,7 @@
   $scope.add = ->
     register = Register.save($scope.newRegister,
       () ->
-        $scope.registers.push(register)
+        $scope.registers.unshift(register)
         $scope.newRegister = {}
       , (response) ->
         $scope.newRegister.errors = response.data.errors
