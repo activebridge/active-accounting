@@ -25,4 +25,14 @@ class Register < ActiveRecord::Base
   }
 
   delegate :article_name, :type, to: :article
+
+  scope :group_by_month, -> {
+    joins(:article).select(" month(date) as month,
+                             sum(case when articles.type = '#{Article::TYPES::REVENUE}' then value else 0 end) as revenue,
+                             sum(case when articles.type = '#{Article::TYPES::COST}' then value else 0 end) as cost,
+                             sum(case when articles.type = '#{Article::TYPES::TRANSLATION}' then value else 0 end) as translation,
+
+                             (sum(case when articles.type = '#{Article::TYPES::REVENUE}' then value else 0 end) - sum(case when articles.type = '#{Article::TYPES::COST}' then value else 0 end)) as profit
+                           ").group("month(date)")
+  }
 end

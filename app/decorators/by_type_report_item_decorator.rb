@@ -1,4 +1,4 @@
-class ByTypeReportItemDecorator
+class ByTypeReportItemDecorator < BaseDecorator
   attr_accessor :type, :sum
 
   def initialize(item)
@@ -15,7 +15,4 @@ class ByTypeReportItemDecorator
     }[type]
   end
 
-  def self.decorate_collection items
-    items.map { |item| self.new(item) }
-  end
 end
