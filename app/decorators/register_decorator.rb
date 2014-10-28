@@ -14,7 +14,7 @@ class RegisterDecorator
 
   def counterparties
     Register.where(article_id: register.article_id)
-            .select("counterparty_id, sum(value)")
+            .select("counterparty_id, sum(value) as sum")
             .group("counterparty_id")
             .order("")
             .by_month(month)

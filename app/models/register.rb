@@ -17,7 +17,7 @@ class Register < ActiveRecord::Base
   }
 
   scope :group_by_article, -> {
-    select("article_id, sum(value)").group("article_id").order("")
+    select("article_id, sum(value) as sum").group("article_id").order("")
   }
 
   scope :by_month, -> (date) {

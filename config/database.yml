@@ -1,8 +1,8 @@
 default: &default
-  adapter: postgresql
+  adapter: mysql2
   pool: 5
   timeout: 5000
-  username: eugene
+  username: root
   password: password
 
 development:
