@@ -2,8 +2,8 @@
 lock '3.2.1'
 
 server '162.243.222.107', roles: [:app, :web, :db], primary: true
-user = 'eugene'
-application = 'active-accounting'
+user = 'deployer'
+application = 'active-accounting2'
 
 set :user, user
 set :application, application
@@ -12,7 +12,7 @@ set :default_env, { rvm_bin_path: '~/.rvm/bin' }
 set :rvm_type, :user
 set :rvm_ruby_version, '2.0.0'
 set :default_shell, '/bin/bash -l'
-set :keep_releases, 3
+set :keep_releases, 2
 set :branch, 'master'
 set :pty, true
 set :use_sudo, false
@@ -53,7 +53,7 @@ namespace :db do
   desc "Create database and database user"
   task :create_mysql_database do
     ask :db_root_password, ''
-    ask :db_name, "active-accounting-production"
+    ask :db_name, "active_accounting_production2"
     ask :db_user, 'root'
     ask :db_pass, ''
 
@@ -70,7 +70,7 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       execute :touch, release_path.join('tmp/restart.txt')
     end
-    end
+  end
 
   after :publishing, :restart
 
@@ -83,4 +83,5 @@ namespace :deploy do
       end
     end
   end
+  before "deploy", "deploy:check_revision"
 end
