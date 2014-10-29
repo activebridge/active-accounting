@@ -25,7 +25,6 @@
           <tr>
             <td>
               <input type="text" id='date' ng-model="newRegister.date" class="ng-pristine ng-valid">
-              <span class='error'>{{newRegister.errors.date}}</span>
             </td>
             <td>
               <select ng-model="newRegister.article_id" id='article'>
@@ -33,7 +32,6 @@
                 {{article.name}} ({{article.type_msg}})
                 </option>
               </select>
-              <span class='error'>{{newRegister.errors.article}}</span>
             </td>
             <td>
               <select ng-model="newRegister.counterparty_id">
@@ -44,7 +42,6 @@
             </td>
             <td>
               <input type="text" ng-model="newRegister.value" id='value'>
-              <span class='error'>{{newRegister.errors.value}}</span>
             </td>
             <td>
               <input type="text" ng-model="newRegister.notes">
@@ -55,10 +52,27 @@
               </button>
             </td>
           </tr>
+
+          <tr>
+            <td>
+              <span class='error'>{{newRegister.errors.date}}</span>
+            </td>
+            <td>
+              <span class='error'>{{newRegister.errors.article}}</span>
+            </td>
+            <td>
+            </td>
+            <td>
+             <span class='error'>{{newRegister.errors.value}}</span>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+          </tr>
         </table>
       </form>
     </div>
-
 
     <div class="list">
       <table class="ng-scope register">
