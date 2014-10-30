@@ -4,14 +4,16 @@
 # is considered to be the first unless any hosts have the primary
 # property set.  Don't declare `role :all`, it's a meta role.
 
-user = 'deployer'
+user = 'vitalik'
 application = 'active-accounting'
 set :user, user
 set :deploy_to, "/home/#{user}/apps/#{application}"
+set :tmp_dir, "/home/#{user}/tmp"
+set :rails_env, 'production'
 
-role :app, %w{deployer@162.243.222.107}
-role :web, %w{deployer@162.243.222.107}
-role :db,  %w{deployer@162.243.222.107}
+role :app, %w{vitalik@162.243.222.107}
+role :web, %w{vitalik@162.243.222.107}
+role :db,  %w{vitalik@162.243.222.107}
 
 
 # Extended Server Syntax
@@ -20,7 +22,7 @@ role :db,  %w{deployer@162.243.222.107}
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server '162.243.222.107', user: 'deployer', roles: %w{web app}, my_property: :my_value
+server '162.243.222.107', user: 'vitalik', roles: %w{web app}, my_property: :my_value
 
 
 # Custom SSH Options
@@ -48,3 +50,14 @@ server '162.243.222.107', user: 'deployer', roles: %w{web app}, my_property: :my
 #     auth_methods: %w(publickey password)
 #     # password: 'please use keys'
 #   }
+
+
+
+namespace :deploy do
+  task :copy_database_yml do
+    `cp #{release_path.join('config/deploy/db/vitalik_db_settings.yml')} #{release_path.join('config/database.yml')}`
+  end
+
+  after 'deploy', 'deploy:copy_database_yml'
+  after 'deploy', 'deploy:restart'
+end

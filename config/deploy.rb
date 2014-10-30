@@ -2,10 +2,8 @@
 lock '3.2.1'
 
 server '162.243.222.107', roles: [:app, :web, :db], primary: true
-user = 'deployer'
 application = 'active-accounting2'
 
-set :user, user
 set :application, application
 set :repo_url, 'git@github.com:activebridge/active-accounting.git'
 set :default_env, { rvm_bin_path: '~/.rvm/bin' }
@@ -16,14 +14,11 @@ set :keep_releases, 2
 set :branch, 'master'
 set :pty, true
 set :use_sudo, false
-set :port, 3001
-
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, "/home/#{user}/apps/#{application}"
 
 # Default value for :scm is :git
 set :scm, :git
@@ -83,5 +78,6 @@ namespace :deploy do
       end
     end
   end
+
   before "deploy", "deploy:check_revision"
 end
