@@ -51,13 +51,11 @@ server '162.243.222.107', user: 'vitalik', roles: %w{web app}, my_property: :my_
 #     # password: 'please use keys'
 #   }
 
-
-
 namespace :deploy do
-  task :copy_database_yml do
-    `cp #{release_path.join('config/deploy/db/vitalik_db_settings.yml')} #{release_path.join('config/database.yml')}`
+  task :setup_db do
+    `ln -nfs /home/#{user}/database.yml #{release_path.join('config/database.yml')}`
   end
 
-  after 'deploy', 'deploy:copy_database_yml'
+  after 'deploy', 'deploy:setup_db'
   after 'deploy', 'deploy:restart'
 end
