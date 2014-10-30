@@ -53,7 +53,7 @@ server '162.243.222.107', user: 'vitalik', roles: %w{web app}, my_property: :my_
 
 namespace :deploy do
   task :setup_db do
-    `ln -nfs /home/#{user}/database.yml #{release_path.join('config/database.yml')}`
+    `ln -nfs /home/#{user}/database.yml /home/#{user}/apps/#{application}/current/config/database.yml`
   end
 
   after 'deploy', 'deploy:setup_db'
