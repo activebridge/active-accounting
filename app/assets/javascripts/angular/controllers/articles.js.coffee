@@ -8,6 +8,21 @@
         $scope.newArticle = {}
     )
 
+  $scope.type_msgs = [
+    {
+      value: 1
+      text: "Надходження"
+    }
+    {
+      value: 2
+      text: "Витрати"
+    }
+    {
+      value: 3
+      text: "Трансляція"
+    }
+  ]
+
   $scope.delete = (article_id) ->
     if confirm('Впевнений?')
       Article.delete
