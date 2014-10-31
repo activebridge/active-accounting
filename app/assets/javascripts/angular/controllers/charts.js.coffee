@@ -15,19 +15,19 @@
       generalChart.setDataArray(revenueData, 'revenue')
 
 
-      generalChart.setBarColor('#ff0f0f', 1)
-      generalChart.setBarColor('#5555AA', 2)
-      generalChart.setBarColor('#0fff0f', 3)
-      generalChart.setBarColor('#E4DB7B', 4)
+      generalChart.setBarColor('#32CD32', 1)
+      generalChart.setBarColor('#F62817', 2)
+      generalChart.setBarColor('#FDD017', 3)
+      generalChart.setBarColor('#008080', 4)
 
       generalChart.setLegendShow(true)
       generalChart.setAxisNameX('Місяць')
       generalChart.setAxisNameY('Сума')
 
-      generalChart.setLegendForBar(1, 'Revenue')
-      generalChart.setLegendForBar(2, 'Cost')
-      generalChart.setLegendForBar(3, 'Translation')
-      generalChart.setLegendForBar(4, 'Profit')
+      generalChart.setLegendForBar(1, 'Надходження')
+      generalChart.setLegendForBar(2, 'Витрати')
+      generalChart.setLegendForBar(3, 'Трансляція')
+      generalChart.setLegendForBar(4, 'Прибуток')
 
       generalChart.setSize(800, 400)
 
