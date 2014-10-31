@@ -1,5 +1,6 @@
 class RegistersController < ApplicationController
-  before_action :find_register, :parse_month, only: :destroy
+  before_action :parse_month, only: :destroy
+  before_action :find_register, only: [:destroy, :update]
 
   def index
     json = ActiveModel::ArraySerializer.new(Register.order('created_at desc').by_month(parse_month),
@@ -22,6 +23,13 @@ class RegistersController < ApplicationController
     head(200)
   end
 
+  def update
+    if @register.update_attributes(register_params)
+      render json: RegisterSerializer.new(@register), status: 201
+    else
+      render json: {status: :error, error: @register.errors.messages}, status: 422
+    end
+  end
   private
 
   def register_params

@@ -73,7 +73,6 @@
         </table>
       </form>
     </div>
-
     <div class="list">
       <div class='month-picker-wrapper'>
         Місяць: <input type='text' id='month-picker'/>
@@ -93,32 +92,63 @@
             <a href='' ng-class="{'up_arrow' : predicate=='value' && reverse, 'down_arrow' : predicate=='value' && !reverse}" ng-click="predicate='value'; reverse=!reverse">Сума</a>
           </th>
           <th>
+            Примітки
           </th>
         </tr>
         <tr ng-repeat="register in registers | orderBy:predicate:reverse" >
           <td>
-            {{ register.date }}
+            <span id="dateform" editable-text="register.date" e-name="date" e-form="rowform">
+              <div class="buttons" ng-show="!rowform.$visible">
+                {{ register.date }}
+              </div>
+            </span>
           </td>
           <td>
-            {{ register.article }}
+            <span editable-select="register.article_id" e-name="article_id" e-form="rowform" e-ng-options="s.id as (s.name + ' (' + s.type_msg + ')') for s in articles">
+            <div class="buttons" ng-show="!rowform.$visible">
+              {{ register.article }}
+            </div>
+            </span> 
           </td>
           <td>
-            {{ register.counterparty }}
+            <span editable-select="counterparty_id" e-name="counterparty_id" e-form="rowform" e-ng-options="s.id as s.name for s in counterparties">
+              <div class="buttons" ng-show="!rowform.$visible">
+                {{ register.counterparty }}
+              </div>
+            </span>
+         </td>
+          <td>
+            <span editable-text="register.value" e-name="value" e-form="rowform">
+              <div class="buttons" ng-show="!rowform.$visible">
+                {{ register.value }}
+              </div>
+            </span>
           </td>
           <td>
-            {{ register.value }}
+            <span editable-text="register.notes" e-name="notes" e-form="rowform">
+              <div class="buttons" ng-show="!rowform.$visible">
+                {{ register.notes }}
+              </div>
+            </span>
           </td>
-          <td>
-            {{ register.notes }}
-          </td>
-          <td>
-            <a ng-click="delete(register.id)" href="javascript: void(false);" class="delete">
-              Видалити
-            </a>
+          <td style="white-space: nowrap">
+            <form editable-form name="rowform" onbeforesave="update(register.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline">
+              <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                Зберегти
+              </button>
+              <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                Відмінити
+              </button>
+            </form>
+          <div class="buttons" ng-show="!rowform.$visible">
+            <button class="btn btn-primary" ng-click="rowform.$show()">Редагувати
+            </button>
+            <button class="btn btn-primary" ng-click="delete(register.id)" href="javascript: void(false);" class="delete">Видалити
+            </button>
+          </div>
           </td>
         </tr>
       </table>
-
     </div>
   </div>
 </div>

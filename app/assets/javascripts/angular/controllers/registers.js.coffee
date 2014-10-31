@@ -1,5 +1,4 @@
 @RegistersCtrl = ['$scope', '$q', 'Register', 'Article', 'Counterparty', ($scope, $q, Register, Article, Counterparty) ->
-
   $scope.load = ->
     $scope.registers = Register.query(month: $('#month-picker').val())
     $('.select2-container').select2('val', '')
@@ -14,6 +13,10 @@
     $('select#counterparty').select2({width: '200px'})
 
   $('#date').datepicker
+    dateFormat: 'dd-mm-yy',
+    onSelect: (date, obj) ->
+      $scope.newRegister.date = date
+  $('#dateform').datepicker
     dateFormat: 'dd-mm-yy',
     onSelect: (date, obj) ->
       $scope.newRegister.date = date
@@ -49,12 +52,11 @@
         $scope.load()
         return
 
-  $scope.update = (register_id, field, value) ->
+   $scope.update = (register_id, data) ->
     d = $q.defer()
-    params = {}
-    params[field] = value
-    Register.update( id: register_id, {register: params}
-      () ->
+    Register.update( id: register_id, {register: data}
+      (response) ->
+        $scope.registers = Register.query()
         d.resolve()
       (response) ->
         d.resolve response.data.errors[field][0]
