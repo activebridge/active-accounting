@@ -17,14 +17,14 @@
     <div class="list">
       <ul>
         <li ng-repeat="article in articles">
-          <span class="name" editable-text="article.name" e-name="name" e-form="rowform" onbeforesave="update(article.id, $data)" e-required>
+          <span class="name" editable-text="article.name" e-name="name" e-form="rowform" e-required>
             {{ article.name }}
           </span>
-          <span class="{{ article.type }} article_type" editable-select="article.type_msg" e-name="type_msg" e-form="rowform"onbeforesave="(article.id, $data)" e-ng-options="s.value as s.text for s in type_msgs">
+          <span class="{{ article.type }} article_type" id="article_{{ article.id }}" editable-select="article.type" e-name="type" e-form="rowform" e-ng-options="s.value as s.text for s in type_msgs">
             ({{ article.type_msg }})
           </span>
           |
-          <form editable-form name="rowform" onbeforesave="saveUser($data, user.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == user">
+          <form editable-form name="rowform" onbeforesave="update(article.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == article">
             <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
               Зберегти
             </button>
@@ -32,7 +32,7 @@
               Відміна
             </button>
           </form>
-        <div class="buttons" ng-show="!rowform.$visible">
+        <div class="btn" ng-show="!rowform.$visible">
           <button class="btn btn-primary" ng-click="rowform.$show()">Змітити</button>
           <button class="btn btn-danger" ng-click="delete(article.id)">Видалити</button>
         </li>

@@ -10,15 +10,15 @@
 
   $scope.type_msgs = [
     {
-      value: 1
+      value: "Revenue"
       text: "Надходження"
     }
     {
-      value: 2
+      value: "Cost"
       text: "Витрати"
     }
     {
-      value: 3
+      value: "Translation"
       text: "Трансляція"
     }
   ]
@@ -31,14 +31,14 @@
         $scope.articles = Article.query()
         return
 
-  $scope.update = (article_id, name) ->
+  $scope.update = (article_id, data) ->
     d = $q.defer()
-    Article.update( id: article_id, {article: {name: name}}
-      () ->
+    article = Article.update( id: article_id, {article: data}
+      (response) ->
+        $("#article_" + article_id).text("(#{response.type_msg})")
         d.resolve()
       (response) ->
         d.resolve response.data.errors['name'][0]
     )
     return d.promise
-
 ]
