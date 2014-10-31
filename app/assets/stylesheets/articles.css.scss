@@ -14,3 +14,13 @@ span.article_type {
 }
 
 .btn, .form-buttons { display: inline-table; }
+
+.editable-error {
+  color: red;
+  position: absolute;
+  top: 24px;
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+  z-index: 999;
+}
