@@ -35,7 +35,7 @@
     d = $q.defer()
     article = Article.update( id: article_id, {article: data}
       (response) ->
-        $("#article_" + article_id).text("(#{response.type_msg})")
+        $scope.articles = Article.query()
         d.resolve()
       (response) ->
         d.resolve response.data.errors['name'][0]
