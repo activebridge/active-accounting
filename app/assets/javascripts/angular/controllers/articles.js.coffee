@@ -8,6 +8,9 @@
         $scope.newArticle = {}
     )
 
+  $scope.checkName = (data) ->
+    "can't be blank"  unless data?
+
   $scope.type_msgs = [
     {
       value: "Revenue"
