@@ -30,6 +30,7 @@ set :use_sudo, false
 
 # Default value for :linked_files is []
 set :linked_files, %w{config/database.yml}
+set :linked_files, %w{config/application.yml}
 
 # Default value for :scm is :git
 set :scm, :git
