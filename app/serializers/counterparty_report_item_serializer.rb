@@ -6,6 +6,6 @@ class CounterpartyReportItemSerializer < ActiveModel::Serializer
   end
 
   def value
-    object.sum
+    object.sum.round(2)
   end
 end

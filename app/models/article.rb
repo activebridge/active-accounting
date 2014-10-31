@@ -4,10 +4,6 @@ class Article < ActiveRecord::Base
     REVENUE = 'Revenue'
     COST = 'Cost'
     TRANSLATION = 'Translation'
-
-    def self.type_msg type
-
-    end
   end
 
   validates :type, :name, presence: true

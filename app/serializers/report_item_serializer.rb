@@ -10,7 +10,7 @@ class ReportItemSerializer < ActiveModel::Serializer
   end
 
   def value
-    object.sum
+    object.sum.round(2)
   end
 
   def counterparties
