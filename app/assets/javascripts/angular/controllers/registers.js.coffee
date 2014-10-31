@@ -16,10 +16,10 @@
     dateFormat: 'dd-mm-yy',
     onSelect: (date, obj) ->
       $scope.newRegister.date = date
-  $('#dateform').datepicker
-    dateFormat: 'dd-mm-yy',
-    onSelect: (date, obj) ->
-      $scope.newRegister.date = date
+
+  $scope.clickTest = ->
+    $('input#dateform').datepicker
+      dateFormat: 'dd-mm-yy'
 
   curr_date = new Date()
 

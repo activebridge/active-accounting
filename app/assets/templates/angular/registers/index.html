@@ -97,7 +97,7 @@
         </tr>
         <tr ng-repeat="register in registers | orderBy:predicate:reverse" >
           <td>
-            <span id="dateform" editable-text="register.date" e-name="date" e-form="rowform">
+            <span e-id="dateform" editable-text="register.date" e-name="date" e-form="rowform">
               <div class="buttons" ng-show="!rowform.$visible">
                 {{ register.date }}
               </div>
@@ -105,9 +105,9 @@
           </td>
           <td>
             <span editable-select="register.article_id" e-name="article_id" e-form="rowform" e-ng-options="s.id as (s.name + ' (' + s.type_msg + ')') for s in articles">
-            <div class="buttons" ng-show="!rowform.$visible">
-              {{ register.article }}
-            </div>
+              <div class="buttons" ng-show="!rowform.$visible">
+                {{ register.article }}
+              </div>
             </span> 
           </td>
           <td>
@@ -141,7 +141,7 @@
               </button>
             </form>
           <div class="buttons" ng-show="!rowform.$visible">
-            <button class="btn btn-primary" ng-click="rowform.$show()">Редагувати
+            <button class="btn btn-primary" ng-click="rowform.$show(); clickTest()">Редагувати
             </button>
             <button class="btn btn-primary" ng-click="delete(register.id)" href="javascript: void(false);" class="delete">Видалити
             </button>
