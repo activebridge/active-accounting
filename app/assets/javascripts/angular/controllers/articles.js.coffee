@@ -8,6 +8,21 @@
         $scope.newArticle = {}
     )
 
+  $scope.type_msgs = [
+    {
+      value: "Revenue"
+      text: "Надходження"
+    }
+    {
+      value: "Cost"
+      text: "Витрати"
+    }
+    {
+      value: "Translation"
+      text: "Трансляція"
+    }
+  ]
+
   $scope.delete = (article_id) ->
     if confirm('Впевнений?')
       Article.delete
@@ -16,14 +31,14 @@
         $scope.articles = Article.query()
         return
 
-  $scope.update = (article_id, name) ->
+  $scope.update = (article_id, data) ->
     d = $q.defer()
-    Article.update( id: article_id, {article: {name: name}}
-      () ->
+    article = Article.update( id: article_id, {article: data}
+      (response) ->
+        $scope.articles = Article.query()
         d.resolve()
       (response) ->
         d.resolve response.data.errors['name'][0]
     )
     return d.promise
-
 ]
