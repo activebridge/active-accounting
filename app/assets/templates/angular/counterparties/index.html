@@ -30,6 +30,9 @@
           <span class="date" editable-text="counterparty.start_date" onbeforesave="update(counterparty.id, $data)" ng-click='datepicker()'>
             {{ counterparty.start_date }}
           </span>
+          <a href="#" editable-checkbox="counterparty.active" onbeforesave="update_ac(counterparty.id, $data)" e-title="Active?">
+            {{ counterparty.active && "Active!" || "Not Active" }}
+          </a>
           |
           <a class="delete" href="javascript: void(false);" ng-click="delete(counterparty.id)">
             Видалити

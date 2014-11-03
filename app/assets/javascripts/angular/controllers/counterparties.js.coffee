@@ -11,6 +11,7 @@
   $scope.add = ->
     counterparty = Counterparty.save($scope.newCounterparty,
       () ->
+        counterparty.active = true
         $scope.counterparties.push(counterparty)
         $scope.newCounterparty = {}
     )
@@ -22,6 +23,17 @@
       , (success) ->
         $scope.counterparties = Counterparty.query()
         return
+
+  $scope.update_ac = (counterparty_id, status) ->
+    d = $q.defer()
+    console.log(status)
+    Counterparty.update( id: counterparty_id, {counterparty: {active: status}}
+      () ->
+        d.resolve()
+      (response) ->
+        d.resolve response.data.errors['active'][0]
+    )
+    return d.promise
 
   $scope.update = (counterparty_id, name) ->
     d = $q.defer()
