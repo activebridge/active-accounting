@@ -21,7 +21,6 @@
             </th>
             <th></th>
           </tr>
-
           <tr>
             <td>
               <input type="text" id='date' ng-model="newRegister.date" class="ng-pristine ng-valid">
@@ -52,7 +51,6 @@
               </button>
             </td>
           </tr>
-
           <tr>
             <td>
               <span class='error'>{{newRegister.errors.date}}</span>
@@ -104,14 +102,14 @@
             </span>
           </td>
           <td>
-            <span editable-select="register.article_id" e-name="article_id" e-form="rowform" e-ng-options="s.id as (s.name + ' (' + s.type_msg + ')') for s in articles">
+            <span editable-select="register.article_id" e-name="article_id" e-form="rowform"  e-ng-options="s.id as (s.name + ' (' + s.type_msg + ')') for s in articles">
               <div class="buttons" ng-show="!rowform.$visible">
                 {{ register.article }}
               </div>
             </span> 
           </td>
           <td>
-            <span editable-select="counterparty_id" e-name="counterparty_id" e-form="rowform" e-ng-options="s.id as s.name for s in counterparties">
+            <span editable-select="register.counterparty_id" e-name="counterparty_id" e-form="rowform" e-ng-options="s.id as s.name for s in counterparties">
               <div class="buttons" ng-show="!rowform.$visible">
                 {{ register.counterparty }}
               </div>
