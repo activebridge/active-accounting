@@ -16,3 +16,8 @@ form.editable-wrap {
     color: black;
   }
 }
+
+.list_n > .editable-click, a.editable-click { color: gray; }
+.list_true > .editable-click, a.editable-click { color: green; }
+.list_false > .editable-click, a.editable-click { color: gray; }
+.status-count { font-size: 13px; }
