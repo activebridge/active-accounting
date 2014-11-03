@@ -1,8 +1,8 @@
 class RegistersController < ApplicationController
-  before_action :find_register, only: :destroy
+  before_action :find_register, :parse_month, only: :destroy
 
   def index
-    json = ActiveModel::ArraySerializer.new(Register.order('created_at desc'),
+    json = ActiveModel::ArraySerializer.new(Register.order('created_at desc').by_month(parse_month),
                                            each_serializer: RegisterSerializer,
                                            root: nil)
     render json: json, status: 200
@@ -31,4 +31,9 @@ class RegistersController < ApplicationController
   def find_register
     @register = Register.find params[:id]
   end
+
+  def parse_month
+    @month = params[:month].blank? ? Date.today : Date.parse(params[:month])
+  end
+
 end
