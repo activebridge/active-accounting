@@ -43,7 +43,7 @@
       , (response) ->
         $scope.newRegister.errors = response.data.errors
     )
-
+  
   $scope.delete = (register_id) ->
     if confirm('Впевнений?')
       Register.delete
@@ -51,7 +51,7 @@
       , (success) ->
         $scope.load()
         return
-
+  
    $scope.update = (register_id, data) ->
     d = $q.defer()
     Register.update( id: register_id, {register: data}
@@ -63,4 +63,5 @@
     )
     return d.promise
   $scope.load()
+
 ]
