@@ -6,9 +6,11 @@
   $scope.newRegister = {}
   $scope.newRegister.errors = {}
 
-  $scope.articles = Article.query()
+  $scope.articles = Article.query ->
+    $('select#article').select2({width: '200px'})
 
-  $scope.counterparties = Counterparty.query()
+  $scope.counterparties = Counterparty.query ->
+    $('select#counterparty').select2({width: '200px'})
 
   $('#date').datepicker
     dateFormat: 'dd-mm-yy',

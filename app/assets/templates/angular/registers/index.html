@@ -34,7 +34,7 @@
               </select>
             </td>
             <td>
-              <select ng-model="newRegister.counterparty_id">
+              <select ng-model="newRegister.counterparty_id" id='counterparty'>
                 <option ng-repeat="counterparty in counterparties" value={{counterparty.id}}>
                 {{counterparty.name}}
                 </option>
