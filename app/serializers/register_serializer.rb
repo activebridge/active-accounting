@@ -1,11 +1,13 @@
 class RegisterSerializer < ActiveModel::Serializer
-  attributes :id, :date, :counterparty, :counterparty_id, :article, :article_id, :value, :notes
+  attributes :id, :date, :counterparty, :article, :value, :notes
 
   def counterparty
-    object.counterparty.name if object.counterparty
+    name = object.counterparty.name if object.counterparty
+   	{name: name, id: object.counterparty_id}
   end
 
   def article
-    object.article.name_with_type
+  	name = object.article.name_with_type
+    {name: name, id: object.article_id}
   end
 end

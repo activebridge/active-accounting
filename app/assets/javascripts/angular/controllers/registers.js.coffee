@@ -17,10 +17,10 @@
     onSelect: (date, obj) ->
       $scope.newRegister.date = date
 
-  $scope.clickTest = ->
-    $('input#dateform').datepicker
-      dateFormat: 'dd-mm-yy'
-
+  $scope.datepickerinUpdate = ->
+    $('input.dateup').datepicker({ dateFormat: "dd-mm-yy" }).focus()
+    return
+  
   curr_date = new Date()
 
   $scope.newRegister.date = $.datepicker.formatDate('dd-mm-yy', curr_date)
@@ -47,7 +47,7 @@
   $scope.delete = (register_id) ->
     if confirm('Впевнений?')
       Register.delete
-        id: register_id
+        id: register.id
       , (success) ->
         $scope.load()
         return
