@@ -47,7 +47,7 @@
   $scope.delete = (register_id) ->
     if confirm('Впевнений?')
       Register.delete
-        id: register.id
+        id: register_id
       , (success) ->
         $scope.load()
         return
