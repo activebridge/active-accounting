@@ -19,9 +19,9 @@
 
   curr_date = new Date()
 
-  $scope.newRegister.date = $.datepicker.formatDate('dd-mm-yy', curr_date);
-  month_picker_date = $.datepicker.formatDate('mm/yy', curr_date)
+  $scope.newRegister.date = $.datepicker.formatDate('dd-mm-yy', curr_date)
 
+  month_picker_date = $.datepicker.formatDate('mm/yy', curr_date)
   $('#month-picker').val(month_picker_date)
 
   $('#month-picker').change ->
