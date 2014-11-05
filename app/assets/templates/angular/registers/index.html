@@ -81,21 +81,21 @@
       <table class="ng-scope register">
         <tr>
           <th>
-            Дата
+            <a href='' ng-class="{'up_arrow' : predicate=='date' && reverse, 'down_arrow' : predicate=='date' && !reverse}" ng-click="predicate='date'; reverse=!reverse">Дата</a>
           </th>
           <th>
-            Стаття
+            <a href='' ng-class="{'up_arrow' : predicate=='article' && reverse, 'down_arrow' : predicate=='article' && !reverse}" ng-click="predicate='article'; reverse=!reverse">Стаття</a>
           </th>
           <th>
-            Контрагент
+            <a href='' ng-class="{'up_arrow' : predicate=='counterparty' && reverse, 'down_arrow' : predicate=='counterparty' && !reverse}" ng-click="predicate='counterparty'; reverse=!reverse">Контрагент</a>
           </th>
           <th>
-            Сума
+            <a href='' ng-class="{'up_arrow' : predicate=='value' && reverse, 'down_arrow' : predicate=='value' && !reverse}" ng-click="predicate='value'; reverse=!reverse">Сума</a>
           </th>
           <th>
           </th>
         </tr>
-        <tr ng-repeat="register in registers" >
+        <tr ng-repeat="register in registers | orderBy:predicate:reverse" >
           <td>
             {{ register.date }}
           </td>
