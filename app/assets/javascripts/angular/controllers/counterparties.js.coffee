@@ -1,13 +1,7 @@
 @CounterpartiesCtrl = ['$scope', '$q', '$timeout', 'Counterparty', ($scope, $q, $timeout, Counterparty) ->
   $scope.load = ->
-    $scope.counterparties = Counterparty.query({}, (response) ->
-      q = undefined
-      $(response).each (k, v) ->
-        q = 0  if k is 0
-        q += 1  if v.active is true
-      $(response).each (k, v) ->
-        $scope.totalNoActive = v.id  if k + 1 is q
-    )
+    $scope.counterparties_active = Counterparty.query(status: 1)
+    $scope.counterparties_no_active = Counterparty.query(status: 0)
 
   $('#start_date').datepicker
     dateFormat: 'dd-mm-yy'
@@ -29,7 +23,7 @@
       Counterparty.delete
         id: counterparty_id
       , (success) ->
-        $scope.counterparties = Counterparty.query()
+        $scope.load()
         return
 
   $scope.update = (counterparty_id, data) ->

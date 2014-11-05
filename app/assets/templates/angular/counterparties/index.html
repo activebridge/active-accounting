@@ -23,10 +23,10 @@
     </div>
     <div class="list">
       <ul>
-        <span class="separator">
-          Aктивні контрагенти:
+        <span class="name-block">
+          Aктивні контрагенти ({{ counterparties_active.length }}):
         </span>
-        <li class="list-count list_{{ counterparty.active }}" ng-repeat="counterparty in counterparties">
+        <li class="list-count list_{{ counterparty.active }}" ng-repeat="counterparty in counterparties_active">
           <span class="name" editable-text="counterparty.name" onbeforesave="update(counterparty.id, {name: $data})">
             {{ counterparty.name }}
           </span>
@@ -40,9 +40,21 @@
           <a class="delete" href="javascript: void(false);" ng-click="delete(counterparty.id)">
             Видалити
           </a>
-          <span class="separator" ng-show = "{{ counterparty.id }} == totalNoActive">
-            Не активні контрагенти:
+        </li>
+        <span class="name-block">
+          Не активні контрагенти ({{ counterparties_no_active.length }}):
+        </span>
+        <li class="list-count list_{{ counterparty.active }}" ng-repeat="counterparty in counterparties_no_active">
+          <span class="name" editable-text="counterparty.name" onbeforesave="update(counterparty.id, {name: $data})">
+            {{ counterparty.name }}
           </span>
+          <a href="#" class="status-count" editable-checkbox="counterparty.active" onbeforesave="update(counterparty.id, {active: $data})" e-title="Active?">
+            {{ counterparty.active && "[статус]" || "[статус]" }}
+          </a>
+          |
+          <a class="delete" href="javascript: void(false);" ng-click="delete(counterparty.id)">
+            Видалити
+          </a>
         </li>
       </ul>
     </div>
