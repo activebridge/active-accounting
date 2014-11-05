@@ -1,11 +1,15 @@
 @ArticlesCtrl = ['$scope', '$q', 'Article', ($scope, $q , Article) ->
   $scope.articles = Article.query()
+  $scope.newArticle = {}
+  $scope.newArticle.errors = {}
 
   $scope.add = ->
     article = Article.save($scope.newArticle,
       () ->
         $scope.articles.push(article)
         $scope.newArticle = {}
+      , (response) ->
+        $scope.newArticle.errors = response.data.error
     )
 
   $scope.checkName = (data) ->
