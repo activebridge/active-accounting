@@ -1,5 +1,14 @@
 @CounterpartiesCtrl = ['$scope', '$q', '$timeout', 'Counterparty', ($scope, $q, $timeout, Counterparty) ->
-  $scope.counterparties = Counterparty.query()
+  $scope.load = ->
+    $scope.totalActive = 0 
+
+    $scope.counterparties = Counterparty.query
+      report_type: 'revenues'
+      , (response) ->
+        $(response).each (k, v) ->
+          $scope.totalActive += 1 if v.active is true
+        $(response).each (k, v) ->
+          $scope.totalNoActive = v.id if k+1 is $scope.totalActive
 
   $('#start_date').datepicker
     dateFormat: 'dd-mm-yy'
@@ -11,9 +20,8 @@
   $scope.add = ->
     counterparty = Counterparty.save($scope.newCounterparty,
       () ->
-        counterparty.active = true
         $scope.counterparties.push(counterparty)
-        $scope.newCounterparty = {}
+        $scope.load()
     )
 
   $scope.delete = (counterparty_id) ->
@@ -24,18 +32,18 @@
         $scope.counterparties = Counterparty.query()
         return
 
-  $scope.update_ac = (counterparty_id, status) ->
+  $scope.update_status = (counterparty_id, status) ->
     d = $q.defer()
-    console.log(status)
     Counterparty.update( id: counterparty_id, {counterparty: {active: status}}
       () ->
         d.resolve()
+        $scope.load()
       (response) ->
         d.resolve response.data.errors['active'][0]
     )
     return d.promise
 
-  $scope.update = (counterparty_id, name) ->
+  $scope.update_name = (counterparty_id, name) ->
     d = $q.defer()
     Counterparty.update( id: counterparty_id, {counterparty: {name: name}}
       () ->
@@ -45,4 +53,5 @@
     )
     return d.promise
 
+  $scope.load()
 ]

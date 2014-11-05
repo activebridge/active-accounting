@@ -23,20 +23,26 @@
     </div>
     <div class="list">
       <ul>
-        <li class="list_n list_{{ counterparty.active }}" ng-repeat="counterparty in counterparties">
-          <span class="name" editable-text="counterparty.name" onbeforesave="update(counterparty.id, $data)">
+        <span class="separator">
+          Aктивні контрагенти:
+        </span>
+        <li class="list-count list_{{ counterparty.active }}" ng-repeat="counterparty in counterparties">
+          <span class="name" editable-text="counterparty.name" onbeforesave="update_name(counterparty.id, $data)">
             {{ counterparty.name }}
           </span>
           <span class="date" editable-text="counterparty.start_date" onbeforesave="update(counterparty.id, $data)" ng-click='datepicker()'>
             {{ counterparty.start_date }}
           </span>         
-          <a href="#" class="status-count" editable-checkbox="counterparty.active" onbeforesave="update_ac(counterparty.id, $data)" e-title="Active?">
-            {{ counterparty.active && "(active)" || "(not active)" }}
+          <a href="#" class="status-count" editable-checkbox="counterparty.active" onbeforesave="update_status(counterparty.id, $data)" e-title="Active?">
+            {{ counterparty.active && "[статус]" || "[статус]" }}
           </a>
           |
           <a class="delete" href="javascript: void(false);" ng-click="delete(counterparty.id)">
             Видалити
           </a>
+          <span class="separator" ng-show = "{{ counterparty.id }} == totalNoActive">
+            Не активні контрагенти:
+          </span>
         </li>
       </ul>
     </div>

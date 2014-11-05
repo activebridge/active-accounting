@@ -18,6 +18,13 @@ form.editable-wrap {
 }
 
 .list_n > .editable-click, a.editable-click { color: gray; }
-.list_true > .editable-click, a.editable-click { color: green; }
-.list_false > .editable-click, a.editable-click { color: gray; }
+.list-count > .editable-click, a.editable-click { border-bottom: none; }
+.list_false > .editable-click, a.editable-click { text-decoration: line-through; }
 .status-count { font-size: 13px; }
+
+.separator {
+  color: #1c6b1c;
+  display: block;
+  margin-top: 40px;
+  margin-bottom: 5px;
+}
