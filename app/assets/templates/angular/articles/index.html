@@ -24,12 +24,12 @@
             ({{ article.type_msg }})
           </span>
           |
-          <form editable-form name="rowform" onbeforesave="update(article.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == article">
+          <form editable-form name="rowform" onbeforesave="update(article.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline save_buttons" shown="inserted == article">
             <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">Зберегти</button>
             <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">Відміна</button>
           </form>
-        <div class="btn" ng-show="!rowform.$visible">
-          <button class="btn btn-primary" ng-click="rowform.$show()">Змінити</button>
+        <div class="btn change_buttons" ng-show="!rowform.$visible">
+          <button class="btn btn-primary change_button" ng-click="show(); rowform.$show(); after_show()">Змінити</button>
           <button class="btn btn-danger" ng-click="delete(article.id)">Видалити</button>
         </div>
         </li>
