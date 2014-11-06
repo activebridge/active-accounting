@@ -73,10 +73,10 @@ function Datepicker() {
 	this._dayOverClass = "ui-datepicker-days-cell-over"; // The name of the day hover marker class
 	this.regional = []; // Available regional settings, indexed by language code
 	this.regional[""] = { // Default regional settings
-		closeText: "Done", // Display text for close link
+		closeText: "Закрити", // Display text for close link
 		prevText: "Попередня", // Display text for previous month link
 		nextText: "Наступна", // Display text for next month link
-		currentText: "Today", // Display text for current month link
+		currentText: "Сьогодні", // Display text for current month link
 		monthNames: ['Січень','Лютий','Березень','Квітень','Травень','Червень',
 	'Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'], // Names of months for drop-down and formatting
 		monthNamesShort: ['Січ','Лют','Бер','Кві','Тра','Чер',
@@ -143,7 +143,7 @@ function Datepicker() {
 	};
 	$.extend(this._defaults, this.regional[""]);
 	this.regional.en = $.extend( true, {}, this.regional[ "" ]);
-	this.regional[ "en-US" ] = $.extend( true, {}, this.regional.en );
+	this.regional[ "uk" ] = $.extend( true, {}, this.regional.en );
 	this.dpDiv = datepicker_bindHover($("<div id='" + this._mainDivId + "' class='ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all'></div>"));
 }
 
