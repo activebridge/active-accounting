@@ -55,9 +55,10 @@
             {{ counterparty.active && "[статус]" || "[статус]" }}
           </a>
           |
-          <a class="delete" href="javascript: void(false);" ng-click="delete(counterparty.id)">
+          <a class="delete" href="javascript: void(false);" ng-click="delete(counterparty.id, counterparty.employment)">
             Видалити
           </a>
+          <img class="mess-warning" src="assets/warning.jpg" ng-show="{{ counterparty.employment }}" title="Видалення не рекомендоване. Даний контрагент має зв’язки.">
         </li>
       </ul>
     </div>
