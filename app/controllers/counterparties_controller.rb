@@ -2,12 +2,12 @@ class CounterpartiesController < ApplicationController
   before_action :find_conterparty, only: [:destroy, :update]
 
   def index
-    if params[:status] == nil
-      json = ActiveModel::ArraySerializer.new(Counterparty.all,
+    if params[:status] != nil
+      json = ActiveModel::ArraySerializer.new(Counterparty.where(active: params[:status]),
                                            each_serializer: CounterpartySerializer,
                                            root: nil)
     else
-      json = ActiveModel::ArraySerializer.new(Counterparty.where(active: params[:status]),
+      json = ActiveModel::ArraySerializer.new(Counterparty.all,
                                            each_serializer: CounterpartySerializer,
                                            root: nil)
     end
