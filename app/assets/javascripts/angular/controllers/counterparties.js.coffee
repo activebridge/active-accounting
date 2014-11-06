@@ -19,7 +19,7 @@
     )
 
   $scope.delete = (counterparty_id, employment) ->
-    alert('Данний контрагент є в риєстрі. Видалення може порушити структуру БД!!!') if employment is true
+    alert('Контрагент використовується в риєстрі. Видалення може порушити структуру БД!!!') if employment is true
     if confirm('Впевнений?')
       Counterparty.delete
         id: counterparty_id
