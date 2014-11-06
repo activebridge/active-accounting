@@ -13,9 +13,8 @@
   $scope.add = ->
     counterparty = Counterparty.save($scope.newCounterparty,
       () ->
-        $scope.counterparties.push(counterparty)
+        $scope.counterparties_active.push(counterparty)
         $scope.newCounterparty = {}
-        $scope.load()
     )
 
   $scope.delete = (counterparty_id) ->
