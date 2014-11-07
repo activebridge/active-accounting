@@ -32,4 +32,15 @@
       }
     }
   }
+
+  .register_table {
+    display: inline-table;
+    margin-bottom: 15px;
+    margin-left: 60px;
+    margin-top: 15px;
+  }
+
+  .title_revenue, .title_cost, .title_item {
+    cursor: pointer;
+  }
 }
