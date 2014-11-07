@@ -1,5 +1,12 @@
-@CounterpartiesCtrl = ['$scope', '$q', 'Counterparty', ($scope, $q, Counterparty) ->
+@CounterpartiesCtrl = ['$scope', '$q', '$timeout', 'Counterparty', ($scope, $q, $timeout, Counterparty) ->
   $scope.counterparties = Counterparty.query()
+
+  $('#start_date').datepicker
+    dateFormat: 'dd-mm-yy'
+
+  $scope.datepicker = () ->
+    $timeout ->
+      $('.editable-input').datepicker()
 
   $scope.add = ->
     counterparty = Counterparty.save($scope.newCounterparty,

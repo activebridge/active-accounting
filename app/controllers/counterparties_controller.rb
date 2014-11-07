@@ -33,7 +33,7 @@ class CounterpartiesController < ApplicationController
   private
 
   def counterparty_params
-    params.require(:counterparty).permit(:name)
+    params.require(:counterparty).permit!
   end
 
   def find_conterparty

@@ -3,10 +3,22 @@
   <div class="ctrl" ng-controller="CounterpartiesCtrl">
     <div class="form">
       <form ng-submit="add()">
-        <input ng-model="newCounterparty.name" type="text"></input>
-        <button type="submit">
-          Додати
-        </button>
+        <table>
+          <tr>
+            <th>Ім’я</th>
+            <th>Дата</th>
+            <th></th>
+          </tr>
+          <tr>
+            <td>
+              <input ng-model="newCounterparty.name" type="text"></input>
+            </td>
+            <td>
+              <input ng-model='newCounterparty.start_date' type='text' id='start_date'></input>
+            </td>
+            <td><button type="submit">Додати</button></td>
+          </tr>
+        </table>
       </form>
     </div>
     <div class="list">
@@ -14,6 +26,9 @@
         <li ng-repeat="counterparty in counterparties">
           <span class="name" editable-text="counterparty.name" onbeforesave="update(counterparty.id, $data)">
             {{ counterparty.name }}
+          </span>
+          <span class="date" editable-text="counterparty.start_date" onbeforesave="update(counterparty.id, $data)" ng-click='datepicker()'>
+            {{ counterparty.start_date }}
           </span>
           |
           <a class="delete" href="javascript: void(false);" ng-click="delete(counterparty.id)">
