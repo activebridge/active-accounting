@@ -18,33 +18,7 @@
       <div class='title title_revenue' ng-click='register_show=!register_show'> {{ revenue.article }} </div>
       <div class='value'> {{ revenue.value }} </div>
 
-      <table class="ng-scope register_table" ng-show='register_show'>
-        <tr>
-          <th>Дата</th>
-          <th>Стаття</th>
-          <th>Контрагент</th>
-          <th>Сума</th>
-          <th></th>
-        </tr>
-
-        <tr ng-repeat='register in revenue.registers'>
-          <td>
-            {{ register.date }}
-          </td>
-          <td>
-            {{ register.article }}
-          </td>
-          <td>
-            {{ register.counterparty }}
-          </td>
-          <td>
-            {{ register.value }}
-          </td>
-          <td>
-            {{ register.notes }}
-          </td>
-        </tr>
-      </table>
+      <sg-register-table registers='revenue.registers' show='register_show'></sg-register-table>
 
       <ul class='nested-report-items'>
         <li ng-repeat='c in revenue.counterparties' class="{{ revenue.article_type }}">
@@ -73,33 +47,7 @@
       <div class='title title_cost' ng-click='register_show=!register_show'> {{ cost.article }} </div>
       <div class='value'> {{ cost.value }} </div>
 
-      <table class="ng-scope register_table" ng-show='register_show'>
-        <tr>
-          <th>Дата</th>
-          <th>Стаття</th>
-          <th>Контрагент</th>
-          <th>Сума</th>
-          <th></th>
-        </tr>
-
-        <tr ng-repeat='register in cost.registers'>
-          <td>
-            {{ register.date }}
-          </td>
-          <td>
-            {{ register.article }}
-          </td>
-          <td>
-            {{ register.counterparty }}
-          </td>
-          <td>
-            {{ register.value }}
-          </td>
-          <td>
-            {{ register.notes }}
-          </td>
-        </tr>
-      </table>
+      <sg-register-table registers='cost.registers' show='register_show'></sg-register-table>
 
       <ul class='nested-report-items'>
         <li ng-repeat='c in cost.counterparties' class="{{ cost.article_type }}">
@@ -141,33 +89,7 @@
       <div class='title title_item' ng-click='register_show=!register_show'> {{ item.article }} </div>
       <div class='value'> {{ item.value }} </div>
 
-      <table class="ng-scope register_table" ng-show='register_show'>
-        <tr>
-          <th>Дата</th>
-          <th>Стаття</th>
-          <th>Контрагент</th>
-          <th>Сума</th>
-          <th></th>
-        </tr>
-
-        <tr ng-repeat='register in item.registers'>
-          <td>
-            {{ register.date }}
-          </td>
-          <td>
-            {{ register.article }}
-          </td>
-          <td>
-            {{ register.counterparty }}
-          </td>
-          <td>
-            {{ register.value }}
-          </td>
-          <td>
-            {{ register.notes }}
-          </td>
-        </tr>
-      </table>
+      <sg-register-table registers='item.registers' show='register_show'></sg-register-table>
 
       <ul class='nested-report-items'>
         <li ng-repeat='c in item.counterparties' class="{{ item.article_type }}">

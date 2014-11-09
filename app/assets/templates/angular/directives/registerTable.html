@@ -1,0 +1,27 @@
+<table class="ng-scope register_table" ng-show='show'>
+  <tr>
+    <th>Дата</th>
+    <th>Стаття</th>
+    <th>Контрагент</th>
+    <th>Сума</th>
+    <th></th>
+  </tr>
+
+  <tr ng-repeat='register in registers'>
+    <td>
+      {{ register.date }}
+    </td>
+    <td>
+      {{ register.article }}
+    </td>
+    <td>
+      {{ register.counterparty }}
+    </td>
+    <td>
+      {{ register.value }}
+    </td>
+    <td>
+      {{ register.notes }}
+    </td>
+  </tr>
+</table>

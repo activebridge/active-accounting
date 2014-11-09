@@ -3,5 +3,3 @@ angular.module('accounting.services', [
   'ngResource',
   'xeditable'
 ])
-
-angular.module('ActiveAccounting', ['accounting.services'])
