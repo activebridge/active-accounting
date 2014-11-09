@@ -5,8 +5,6 @@
     $scope.totalCost = 0
     $scope.totalTranslation = 0
     $scope.totalProfit = 0
-    $scope.revenues_complete = false
-    $scope.costs_complete = false
 
     $scope.revenues = Report.query
       report_type: 'revenues'
@@ -14,7 +12,6 @@
       , (response) ->
         $(response).each (k, v) ->
           $scope.totalRevenue += v.value
-        $scope.revenues_complete = true
 
     $scope.costs = Report.query
       report_type: 'costs'
@@ -22,11 +19,9 @@
       , (response) ->
         $(response).each (k, v) ->
           $scope.totalCost += v.value
-        $scope.costs_complete = true
 
-    $scope.$watchCollection '[costs_complete, revenues_complete]', () ->
-      if $scope.revenues_complete && $scope.costs_complete
-        $scope.totalProfit = $scope.totalRevenue - $scope.totalCost
+    $scope.$watchCollection '[totalRevenue, totalCost]', () ->
+      $scope.totalProfit = $scope.totalRevenue - $scope.totalCost
 
     $scope.translations = Report.query
       report_type: 'translations'
