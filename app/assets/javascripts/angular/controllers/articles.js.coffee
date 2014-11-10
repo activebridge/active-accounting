@@ -30,6 +30,19 @@
     }
   ]
 
+  $scope.show = () ->
+    $('.name, .article_type').removeClass("editable-hide")
+    $(".editable-text, .editable-select").remove()
+    $('.list').find('.change_buttons').removeClass('ng-hide')
+    $('.list').find('.save_buttons').addClass('ng-hide')
+    $(this)[0].rowform.$visible = false
+    return
+
+  $scope.after_show = () ->
+    $(".editable-text, .editable-select").parent().find('.change_buttons').addClass('ng-hide')
+    $(".editable-text, .editable-select").parent().find('.save_buttons').removeClass('ng-hide')
+    return
+
   $scope.delete = (article_id) ->
     if confirm('Впевнений?')
       Article.delete
