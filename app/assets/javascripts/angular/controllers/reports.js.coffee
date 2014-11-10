@@ -19,7 +19,9 @@
       , (response) ->
         $(response).each (k, v) ->
           $scope.totalCost += v.value
-        $scope.totalProfit = $scope.totalRevenue - $scope.totalCost
+
+    $scope.$watchCollection '[totalRevenue, totalCost]', () ->
+      $scope.totalProfit = $scope.totalRevenue - $scope.totalCost
 
     $scope.translations = Report.query
       report_type: 'translations'
