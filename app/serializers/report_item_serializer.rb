@@ -1,5 +1,5 @@
 class ReportItemSerializer < ActiveModel::Serializer
-  attributes :article, :value, :counterparties, :article_type
+  attributes :article, :value, :counterparties, :registers, :article_type
 
   def article
     object.article_name
@@ -16,6 +16,12 @@ class ReportItemSerializer < ActiveModel::Serializer
   def counterparties
     ActiveModel::ArraySerializer.new(object.counterparties,
                                     each_serializer: CounterpartyReportItemSerializer,
+                                    root: nil)
+  end
+
+  def registers
+    ActiveModel::ArraySerializer.new(object.registers,
+                                    each_serializer: RegisterSerializer,
                                     root: nil)
   end
 end
