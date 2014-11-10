@@ -11,7 +11,9 @@ class Counterparty < ActiveRecord::Base
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
 
-  def assigned
+  def assigned?
     registers.any?
   end
+
+  alias_method :assigned, :assigned?
 end

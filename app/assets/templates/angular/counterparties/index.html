@@ -55,8 +55,8 @@
             {{ counterparty.active && "[статус]" || "[статус]" }}
           </a>
           |
-          <button class="delete" ng-show="!{{ counterparty.assigned }}" ng-click="delete(counterparty.id)">Видалити</button>
-          <img class="mess-warning" src="assets/warning.png" ng-show="{{ counterparty.assigned }}" title="Видалення не можливе. Контрагент має зв’язки.">
+          <button class="delete" ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)">Видалити</button>
+          <img class="mess-warning" src="assets/warning.png" ng-show="counterparty.assigned" title="Видалення не можливе. Контрагент має зв’язки.">
         </li>
       </ul>
     </div>

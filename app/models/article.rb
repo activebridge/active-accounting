@@ -34,9 +34,10 @@ class Article < ActiveRecord::Base
     type == TYPES::COST
   end
 
-  def assigned
+  def assigned?
     registers.any?
   end
 
   alias_method :article_name, :name_with_type
+  alias_method :assigned, :assigned?
 end

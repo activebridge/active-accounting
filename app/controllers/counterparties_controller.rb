@@ -18,7 +18,7 @@ class CounterpartiesController < ApplicationController
   end
 
   def destroy
-    @counterparty.destroy unless @counterparty.assigned
+    @counterparty.destroy unless @counterparty.assigned?
     head(200)
   end
 

@@ -33,8 +33,8 @@
           </form>
         <div class="btn" ng-show="!rowform.$visible">
           <button class="btn btn-primary" ng-click="rowform.$show()">Змінити</button>
-          <button class="btn btn-danger" ng-show="!{{ article.assigned }}" ng-click="delete(article.id)">Видалити</button>
-          <img class="mess-warning" src="assets/warning.png" ng-show="{{ article.assigned }}" title="Видалення не можливе. Стаття має зв’язки.">
+          <button class="btn btn-danger" ng-show="!article.assigned" ng-click="delete(article.id)">Видалити</button>
+          <img class="mess-warning" src="assets/warning.png" ng-show="article.assigned" title="Видалення не можливе. Стаття має зв’язки.">
         </div>
 
         </li>
