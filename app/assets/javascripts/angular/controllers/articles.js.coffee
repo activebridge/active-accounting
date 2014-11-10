@@ -30,8 +30,7 @@
     }
   ]
 
-  $scope.delete = (article_id, employment) ->
-    alert('Стаття використовується в риєстрі. Видалення може порушити структуру БД!!!') if employment is true
+  $scope.delete = (article_id) ->
     if confirm('Впевнений?')
       Article.delete
         id: article_id
