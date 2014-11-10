@@ -2,6 +2,7 @@
 
   $scope.load = ->
     $scope.registers = Register.query(month: $('#month-picker').val())
+    $('.select2-container').select2('val', '')
 
   $scope.newRegister = {}
   $scope.newRegister.errors = {}
@@ -34,7 +35,7 @@
     register = Register.save($scope.newRegister,
       () ->
         $scope.registers.unshift(register)
-        $scope.newRegister = {}
+        $scope.newRegister = {date: $scope.newRegister.date}
         $scope.load()
       , (response) ->
         $scope.newRegister.errors = response.data.errors
