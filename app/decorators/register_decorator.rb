@@ -21,6 +21,6 @@ class RegisterDecorator
   end
 
   def registers
-    Register.where(article_id: register.article_id)
+    Register.where(article_id: register.article_id).by_month(month)
   end
 end
