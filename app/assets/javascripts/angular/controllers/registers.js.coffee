@@ -10,7 +10,7 @@
   $scope.articles = Article.query ->
     $('select#article').select2({width: '200px'})
 
-  $scope.counterparties = Counterparty.query(status: 1) ->
+  $scope.counterparties = Counterparty.query(status: true) ->
     $('select#counterparty').select2({width: '200px'})
 
   $('#date').datepicker
