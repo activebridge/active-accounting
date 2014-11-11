@@ -7,7 +7,7 @@
   $scope.newRegister.errors = {}
 
   $scope.articles = Article.query ->
-    $('select#article').select2({width: '200px'})
+    $('select.article').select2({width: '200px'})
 
   $scope.counterparties = Counterparty.query ->
     $('select#counterparty').select2({width: '200px'})
@@ -17,7 +17,7 @@
     onSelect: (date, obj) ->
       $scope.newRegister.date = date
 
-  $scope.datepickerinUpdate = ->
+  $scope.openDatepicker = ->
     $('input.dateup').datepicker({ dateFormat: "dd-mm-yy" }).focus()
     return
   
@@ -42,7 +42,7 @@
         $scope.load()
       , (response) ->
         $scope.newRegister.errors = response.data.errors
-    )
+      )
   
   $scope.delete = (register_id) ->
     if confirm('Впевнений?')
@@ -59,9 +59,13 @@
         $scope.registers = Register.query()
         d.resolve()
       (response) ->
-        d.resolve response.data.errors[field][0]
+        d.resolve('')
+        $scope.response_id = response.data.id
+        $scope.errors = response.data.error   
     )
     return d.promise
   $scope.load()
 
+  $scope.clearError = () ->
+    $scope.errors = []
 ]

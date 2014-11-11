@@ -27,7 +27,7 @@ class RegistersController < ApplicationController
     if @register.update_attributes(register_params)
       render json: RegisterSerializer.new(@register), status: 201
     else
-      render json: {status: :error, error: @register.errors.messages}, status: 422
+      render json: {status: :error, error: @register.errors.messages, id: @register.id}, status: 422
     end
   end
   private

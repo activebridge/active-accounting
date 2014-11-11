@@ -26,7 +26,7 @@
               <input type="text" id='date' ng-model="newRegister.date" class="ng-pristine ng-valid">
             </td>
             <td>
-              <select ng-model="newRegister.article_id" id='article'>
+              <select ng-model="newRegister.article_id" class='article'>
                 <option ng-repeat="article in articles" value={{article.id}}>
                 {{article.name}} ({{article.type_msg}})
                 </option>
@@ -95,11 +95,12 @@
         </tr>
         <tr ng-repeat="register in registers | orderBy:predicate:reverse" >
           <td>
-            <span e-class="dateup" e-ng-click="datepickerinUpdate()" editable-text="register.date" e-name="date" e-form="rowform">
+            <span e-class="dateup" e-ng-click="openDatepicker()" editable-text="register.date" e-name="date" e-form="rowform">
               <div class="buttons" ng-show="!rowform.$visible">
                 {{ register.date }}
               </div>
             </span>
+            <span class='errors' ng-show='response_id == register.id'>{{errors.date}}</span>
           </td>
           <td>
             <span editable-select="register.article.id" e-name="article_id" e-form="rowform"  e-ng-options="s.id as (s.name + ' (' + s.type_msg + ')') for s in articles">
@@ -121,6 +122,7 @@
                 {{ register.value }}
               </div>
             </span>
+            <span class='errors' ng-show='response_id == register.id'>{{errors.value}}</span>
           </td>
           <td>
             <span editable-text="register.notes" e-name="notes" e-form="rowform">
@@ -132,7 +134,7 @@
           <td class="space">
             <form editable-form name="rowform" onbeforesave="update(register.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline">
               <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">Зберегти</button>
-              <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">Відмінити</button>
+              <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); clearError()" class="btn btn-default">Відмінити</button>
             </form>
             <div class="buttons" ng-show="!rowform.$visible">
               <button class="btn btn-primary" ng-click="rowform.$show()">Редагувати</button>

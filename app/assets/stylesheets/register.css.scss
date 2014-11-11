@@ -16,7 +16,7 @@
 }
 
   table.register tr td {
-    padding: 3px;
+    padding: 5px;
   }
 
   .list {
@@ -33,4 +33,10 @@
 .select2-result-label {
   font-size: 14px
 }
+
 .space { white-space: nowrap; }
+
+span.errors {
+  color: red;
+  position: absolute;
+}
