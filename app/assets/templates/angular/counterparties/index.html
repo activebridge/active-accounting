@@ -30,9 +30,9 @@
           <span class="name" editable-text="counterparty.name" onbeforesave="update(counterparty.id, {name: $data})">
             {{ counterparty.name }}
           </span>
-          <span class="date" editable-text="counterparty.start_date" onbeforesave="update(counterparty.id, $data)" ng-click='datepicker()'>
+          <span class="date" editable-text="counterparty.start_date" onbeforesave="update(counterparty.id, {start_date: $data})" ng-click='datepicker()'>
             {{ counterparty.start_date }}
-          </span>         
+          </span>
           <a href="#" class="status-count" editable-checkbox="counterparty.active" onbeforesave="update(counterparty.id, {active: $data})" e-title="Active?">
             {{ counterparty.active && "[статус]" || "[статус]" }}
           </a>
@@ -47,6 +47,9 @@
         <li class="list-count list_{{ counterparty.active }}" ng-repeat="counterparty in inactiveCounterparties">
           <span class="name" editable-text="counterparty.name" onbeforesave="update(counterparty.id, {name: $data})">
             {{ counterparty.name }}
+          </span>
+          <span class="date" editable-text="counterparty.start_date" onbeforesave="update(counterparty.id, {start_date: $data})" ng-click='datepicker()'>
+            {{ counterparty.start_date }}
           </span>
           <a href="#" class="status-count" editable-checkbox="counterparty.active" onbeforesave="update(counterparty.id, {active: $data})" e-title="Active?">
             {{ counterparty.active && "[статус]" || "[статус]" }}
