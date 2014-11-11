@@ -26,7 +26,7 @@
         <span class="name-block">
           Aктивні контрагенти ({{ active_counterparties.length }}):
         </span>
-        <li class="list-count list_{{ counterparty.active }}" ng-repeat="counterparty in active_counterparties">
+        <li class="list-count list_{{ counterparty.active }}" ng-repeat="counterparty in activeCounterparties">
           <span class="name" editable-text="counterparty.name" onbeforesave="update(counterparty.id, {name: $data})">
             {{ counterparty.name }}
           </span>
@@ -44,7 +44,7 @@
         <span class="name-block">
           Не активні контрагенти ({{ inactive_counterparties.length }}):
         </span>
-        <li class="list-count list_{{ counterparty.active }}" ng-repeat="counterparty in inactive_counterparties">
+        <li class="list-count list_{{ counterparty.active }}" ng-repeat="counterparty in inactiveCounterparties">
           <span class="name" editable-text="counterparty.name" onbeforesave="update(counterparty.id, {name: $data})">
             {{ counterparty.name }}
           </span>

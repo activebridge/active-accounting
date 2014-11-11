@@ -1,7 +1,7 @@
 @CounterpartiesCtrl = ['$scope', '$q', '$timeout', 'Counterparty', ($scope, $q, $timeout, Counterparty) ->
   $scope.load = ->
-    $scope.active_counterparties = Counterparty.query(scope: 'active')
-    $scope.inactive_counterparties = Counterparty.query(scope: 'inactive')
+    $scope.activeCounterparties = Counterparty.query(scope: 'active')
+    $scope.inactiveCounterparties = Counterparty.query(scope: 'inactive')
 
   $('#start_date').datepicker
     dateFormat: 'dd-mm-yy'
@@ -13,7 +13,7 @@
   $scope.add = ->
     counterparty = Counterparty.save($scope.newCounterparty,
       () ->
-        $scope.active_counterparties.push(counterparty)
+        $scope.activeCounterparties.push(counterparty)
         $scope.newCounterparty = {}
     )
 
