@@ -35,6 +35,7 @@ group :development, :test do
 
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'rspec-collection_matchers'
   gem 'faker'
   gem 'factory_girl_rails'
   gem 'shoulda'

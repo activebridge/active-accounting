@@ -8,10 +8,23 @@ ul {
 form.editable-wrap {
   position: absolute;
   top: 0;
+  background-color: white;
 }
 
 .counterparties {
   .date {
     color: black;
   }
+}
+
+.list_n > .editable-click, a.editable-click { color: gray; }
+.list-count > .editable-click, a.editable-click { border-bottom: none; }
+.list_false > .editable-click, a.editable-click { text-decoration: line-through; }
+.status-count { font-size: 13px; }
+
+.name-block {
+  color: #1c6b1c;
+  display: block;
+  margin-top: 40px;
+  margin-bottom: 5px;
 }

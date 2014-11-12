@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141031145916) do
+ActiveRecord::Schema.define(version: 20141105130155) do
 
   create_table "articles", force: true do |t|
     t.string   "name"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20141031145916) do
   create_table "counterparties", force: true do |t|
     t.string   "name"
     t.date     "start_date"
-    t.boolean  "active"
+    t.boolean  "active",     default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

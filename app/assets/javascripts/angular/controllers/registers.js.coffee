@@ -9,8 +9,10 @@
   $scope.articles = Article.query ->
     $('select.article').select2({width: '200px'})
 
-  $scope.counterparties = Counterparty.query ->
-    $('select#counterparty').select2({width: '200px'})
+  $scope.counterparties = Counterparty.query
+    scope: 'active'
+    () ->
+      $('select#counterparty').select2({width: '200px'})
 
   $('#date').datepicker
     dateFormat: 'dd-mm-yy',
