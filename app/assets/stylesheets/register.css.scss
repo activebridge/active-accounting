@@ -9,6 +9,8 @@
 
   }
 .list {
+  .dateup { width: 87px; }
+
   input, td, th, select {
     width: 150px;
     text-align: left;
@@ -62,3 +64,5 @@ table.ng-scope {
     padding: 5px;
   }
 }
+
+.editable-wrap { width: 100%; }
