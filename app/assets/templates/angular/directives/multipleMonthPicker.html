@@ -1,0 +1,3 @@
+<div class='multiple-month-picker'>
+  <label for="{{month}}" ng-init='clicked = currentMonth == month ? true : false' class="month-picker-label" ng-repeat='month in months' ng-click='clicked=!clicked; show(month, clicked)' ng-class='{checked_label: clicked}'>{{month}}</label>
+</div>

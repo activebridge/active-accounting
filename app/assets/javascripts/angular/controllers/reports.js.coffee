@@ -1,45 +1,70 @@
 @ReportsCtrl = ['$scope', 'Report', ($scope, Report) ->
 
   $scope.load = ->
-    $scope.totalRevenue = 0
-    $scope.totalCost = 0
-    $scope.totalTranslation = 0
-    $scope.totalProfit = 0
+    $scope.monthNames = 'JanFebMarAprMayJunJulAugSepOctNovDec'
+    $scope.currentMonth = $scope.monthNameByNumber(new Date().getMonth()+1)
+    $scope.currentMonthNumber = $scope.monthNames.indexOf($scope.currentMonth) / 3 + 1
+    $scope.totalProfits = []
+    $scope.totalRevenues = []
+    $scope.totalCosts = []
+    $scope.totalTranslations = []
+    $scope.revenues = []
+    $scope.costs = []
+    $scope.translations = []
+    $scope.clicked = []
 
-    $scope.revenues = Report.query
+    $scope.loadDates($scope.currentMonthNumber)
+    $scope.clicked[$scope.currentMonthNumber] = true
+
+  $scope.dateParse = (month) ->
+    year = new Date().getFullYear()
+    return month + '/' + year
+
+  $scope.show = (month, clicked) ->
+    date = $scope.dateParse month
+    monthNumber = $scope.monthNames.indexOf(month) / 3 + 1
+
+    if clicked
+      $scope.loadDates(monthNumber)
+      $scope.clicked[monthNumber] = true
+    else
+      $scope.clicked[monthNumber] = false
+      $scope.revenues[monthNumber] = null
+      $scope.costs[monthNumber] = null
+      $scope.translations[monthNumber] = null
+
+  $scope.range = (start, end) ->
+    return [start..end]
+
+  $scope.monthNameByNumber = (number) ->
+    return $scope.monthNames.substr((number-1)*3, 3)
+
+  $scope.loadDates = (month) ->
+    $scope.revenues[month] = Report.query
       report_type: 'revenues'
-      , month: $('#month-picker').val()
+      , month: $scope.dateParse(month)
       , (response) ->
+        $scope.totalRevenues[month] = 0
         $(response).each (k, v) ->
-          $scope.totalRevenue += v.value
+          $scope.totalRevenues[month] += v.value
+        $scope.totalProfits[month] = $scope.totalRevenues[month] - $scope.totalCosts[month]
 
-    $scope.costs = Report.query
+    $scope.costs[month] = Report.query
       report_type: 'costs'
-      , month: $('#month-picker').val()
+      , month: $scope.dateParse(month)
       , (response) ->
+        $scope.totalCosts[month] = 0
         $(response).each (k, v) ->
-          $scope.totalCost += v.value
+          $scope.totalCosts[month] += v.value
+        $scope.totalProfits[month] = $scope.totalRevenues[month] - $scope.totalCosts[month]
 
-    $scope.$watchCollection '[totalRevenue, totalCost]', () ->
-      $scope.totalProfit = $scope.totalRevenue - $scope.totalCost
-
-    $scope.translations = Report.query
+    $scope.translations[month] = Report.query
       report_type: 'translations'
-      , month: $('#month-picker').val()
+      , month: $scope.dateParse(month)
       , (response) ->
+        $scope.totalTranslations[month] = 0
         $(response).each (k, v) ->
-          $scope.totalTranslation += v.value
-
-
-
-  curr_date = new Date()
-  $('#month-picker').val((curr_date.getMonth()+1) + '/' + curr_date.getFullYear())
-
-  $('#month-picker').change ->
-    $scope.load()
-
-  $('#month-picker').MonthPicker
-    ShowIcon: false
+          $scope.totalTranslations[month] += v.value
 
   $scope.load()
 
