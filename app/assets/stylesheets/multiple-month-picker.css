@@ -6,21 +6,6 @@
   padding: 0 7px;
 }
 
-.month-picker-fieldset {
-  display: inline-block;
-  padding: 0 7px;
-  background: rgba(black, .4);
-  border-radius: 5px;
-  @include box-shadow(inset 0 0 0 1px rgba(black, .7),
-                      inset 0 2px 2px rgba(black, .3),
-                      0 1px rgba(white, .1));
-
-  > input {
-    position: absolute;
-    clip: rect(1px, 1px, 1px, 1px);
-  }
-}
-
 .month-picker-label, .month-picker-nav {
   display: inline-block;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -40,30 +25,6 @@ input:focus + .month-picker-label, .month-picker-nav:focus {
   font-size: 14px;
   font-weight: 200;
   color: #8d8ba6;
-
-  &, &:before { @include transition(.15s ease-out); }
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    bottom: -2px;
-    left: -2px;
-    right: -2px;
-    border: 2px solid;
-    border-color: #e4e0fb #b6b1d1 #b6b1d1;
-    border-radius: 6px;
-    opacity: 0;
-    @include box-shadow(0 0 1px rgba(black, .2));
-  }
-
-  input:checked + & {
-    color: white;
-    background: #302e42;
-    @include linear-gradient(top, #302e42, #29253b);
-
-    &:before { opacity: 1; }
-  }
 }
 
 .month-picker-nav {
@@ -79,6 +40,4 @@ input:focus + .month-picker-label, .month-picker-nav:focus {
 .checked_label {
   color: white;
   background: #302e42;
-  @include linear-gradient(top, #302e42, #29253b);
-  &:before { opacity: 1; }
 }
