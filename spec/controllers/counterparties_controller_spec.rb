@@ -3,22 +3,25 @@ require 'rails_helper'
 RSpec.describe CounterpartiesController, :type => :controller do
 
   describe "#index" do
-    let!(:activeCounterparty) { FactoryGirl.create(:counterparty) }
-    let!(:inactiveCounterparty) { FactoryGirl.create(:counterparty, active: false) }
+    let!(:active_counterparty) { FactoryGirl.create(:counterparty) }
+    let!(:inactive_counterparty) { FactoryGirl.create(:counterparty, active: false) }
 
-    it 'unload only active counterparties' do
-      get :index, scope: 'active', format: :json
-      JSON.parse(response.body).each do |json|
-        json["active"].should == true
+    context 'returns active ' do
+      before do
+        get :index, scope: 'active', format: :json
       end
+
+      it { expect(json).to have(1).items }
+      it { expect(json.first["active"]).to be_truthy }
     end
 
-    it 'unload only inactive counterparties' do
-      get :index, scope: 'inactive', format: :json
-      JSON.parse(response.body).each do |json|
-        json["active"].should == false
+    context 'inactive' do
+      before do
+        get :index, scope: 'inactive', format: :json
       end
+
+      it { expect(json).to have(1).items }
+      it { expect(json.first["active"]).to be_falsey }
     end
   end
-
 end
