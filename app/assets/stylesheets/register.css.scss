@@ -37,6 +37,7 @@
 .space { white-space: nowrap; }
 
 span.errors {
-  color: red;
+  display: table;
+  color: #F00;
   position: absolute;
 }
