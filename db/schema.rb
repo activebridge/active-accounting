@@ -14,14 +14,14 @@
 ActiveRecord::Schema.define(version: 20141031145916) do
 
   create_table "articles", force: true do |t|
-    t.string   "name",       limit: 255
-    t.string   "type",       limit: 255
+    t.string   "name"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "counterparties", force: true do |t|
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.date     "start_date"
     t.boolean  "active"
     t.datetime "created_at"

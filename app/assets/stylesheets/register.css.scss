@@ -6,11 +6,17 @@
     td input, td select {
       width: 150px;
     }
-  }
 
+  }
+.list {
+  input, td, th, select {
+    width: 150px;
+    text-align: left;
+  }
+}
 
   table.register tr td {
-    padding: 3px;
+    padding: 5px;
   }
 
   .list {
@@ -26,4 +32,12 @@
 
 .select2-result-label {
   font-size: 14px
+}
+
+.space { white-space: nowrap; }
+
+span.errors {
+  display: table;
+  color: #F00;
+  position: absolute;
 }
