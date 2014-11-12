@@ -77,10 +77,10 @@
       </div>
       <table class="ng-scope register">
         <tr>
-          <th>
+          <th class='date'>
             <a href='' ng-class="{'up_arrow' : predicate=='date' && reverse, 'down_arrow' : predicate=='date' && !reverse}" ng-click="predicate='date'; reverse=!reverse">Дата</a>
           </th>
-          <th>
+          <th class='article'>
             <a href='' ng-class="{'up_arrow' : predicate=='article' && reverse, 'down_arrow' : predicate=='article' && !reverse}" ng-click="predicate='article'; reverse=!reverse">Стаття</a>
           </th>
           <th>
@@ -106,8 +106,11 @@
             <span editable-select="register.article.id" e-name="article_id" e-form="rowform"  e-ng-options="s.id as (s.name + ' (' + s.type_msg + ')') for s in articles">
               <div class="buttons" ng-show="!rowform.$visible">
                 {{register.article.name}}
+                <span class="{{ register.article.type }} article_type">
+                  ({{ register.article.type_msg }})
+                </span>
               </div>
-            </span> 
+            </span>
           </td>
           <td>
             <span editable-select="register.counterparty.id" e-name="counterparty_id" e-form="rowform" e-ng-options="s.id as s.name for s in counterparties">

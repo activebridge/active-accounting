@@ -13,11 +13,3 @@
  *= require_tree .
  *= require_self
  */
-
-span.error {
-  color: red;
-}
-
-div.form{
-  display: inline-table;
-}

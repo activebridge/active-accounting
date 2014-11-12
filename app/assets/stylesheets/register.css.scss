@@ -41,3 +41,24 @@ span.errors {
   color: #F00;
   position: absolute;
 }
+
+span.error {
+  color: red;
+}
+
+div.form {
+  display: inline-table;
+}
+
+table.ng-scope {
+  tr:nth-child(even) { background-color: #CCC; }
+  tr:nth-child(odd) { background-color: #FFF; }
+  border-spacing: 0;
+  font-size: 12px;
+  width: 100%;
+  th.article { width: 30%; }
+  th.date { width: 8%; }
+  tr:first-child th {
+    padding: 5px;
+  }
+}
