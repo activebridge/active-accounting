@@ -37,9 +37,8 @@
             {{ counterparty.active && "[статус]" || "[статус]" }}
           </a>
           |
-          <a class="delete" href="javascript: void(false);" ng-click="delete(counterparty.id)">
-            Видалити
-          </a>
+          <button class="delete" ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)">Видалити</button>
+          <span class="mess-warning" ng-show="counterparty.assigned" title="Видалення не можливе. Контрагент має зв’язки."></span>
         </li>
         <span class="name-block">
           Не активні контрагенти ({{ inactiveCounterparties.length }}):
