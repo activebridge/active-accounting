@@ -23,8 +23,8 @@
     $('input.dateup').datepicker({ dateFormat: "dd-mm-yy" }).focus()
     return
 
-  $scope.openSelect2 = ->
-    $('select.articleselect2, select.counterpartyselect2').select2({width: '200px'})
+  $scope.showSelect = ->
+    $('.search-select').select2({width: '100%'})
     return
   
   curr_date = new Date()

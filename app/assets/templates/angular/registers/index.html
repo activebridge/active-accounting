@@ -95,7 +95,7 @@
         </tr>
         <tr ng-repeat="register in registers | orderBy:predicate:reverse" >
           <td>
-            <span e-class="dateup" e-ng-click="openDatepicker()" e-ng-focus="openSelect2()" editable-text="register.date" e-name="date" e-form="rowform">
+            <span e-class="dateup" e-ng-click="openDatepicker()" e-ng-focus="showSelect()" editable-text="register.date" e-name="date" e-form="rowform">
               <div class="buttons" ng-show="!rowform.$visible">
                 {{ register.date }}
               </div>
@@ -103,7 +103,7 @@
             <span class='errors' ng-show='response_id == register.id'>{{errors.date}}</span>
           </td>
           <td>
-            <span editable-select="register.article.id" e-class="articleselect2" e-name="article_id" e-form="rowform"  e-ng-options="s.id as (s.name + ' (' + s.type_msg + ')') for s in articles">
+            <span editable-select="register.article.id" e-class="search-select" e-name="article_id" e-form="rowform"  e-ng-options="s.id as (s.name + ' (' + s.type_msg + ')') for s in articles">
               <div class="buttons" ng-show="!rowform.$visible">
                 {{register.article.name}}
                 <span class="{{ register.article.type }} article_type">
@@ -113,7 +113,7 @@
             </span>
           </td>
           <td>
-            <span editable-select="register.counterparty.id" e-class="counterpartyselect2" e-name="counterparty_id" e-form="rowform" e-ng-options="s.id as s.name for s in counterparties">
+            <span editable-select="register.counterparty.id" e-class="search-select" e-name="counterparty_id" e-form="rowform" e-ng-options="s.id as s.name for s in counterparties">
               <div class="buttons" ng-show="!rowform.$visible">
                 {{ register.counterparty.name }}
               </div>
