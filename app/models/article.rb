@@ -1,5 +1,7 @@
 class Article < ActiveRecord::Base
 
+  has_many :registers
+
   module TYPES
     REVENUE = 'Revenue'
     COST = 'Cost'
@@ -32,5 +34,10 @@ class Article < ActiveRecord::Base
     type == TYPES::COST
   end
 
+  def assigned?
+    registers.any?
+  end
+
   alias_method :article_name, :name_with_type
+  alias_method :assigned, :assigned?
 end

@@ -1,4 +1,7 @@
 class Counterparty < ActiveRecord::Base
+
+  has_many :registers
+
   validates :name, presence: true
 
   scope :by_active, -> (scope) {
@@ -7,4 +10,10 @@ class Counterparty < ActiveRecord::Base
 
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
+
+  def assigned?
+    registers.any?
+  end
+
+  alias_method :assigned, :assigned?
 end

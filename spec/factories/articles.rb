@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :article do
-    name "MyString"
-    type ""
+    name { Faker::Name.name }
+    type "Cost"
   end
 end

@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article.destroy
+    @article.destroy unless @article.assigned?
     head(200)
   end
 
