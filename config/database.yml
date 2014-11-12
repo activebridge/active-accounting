@@ -3,7 +3,7 @@ default: &default
   pool: 5
   timeout: 5000
   username: root
-  password: 587588
+  password: 
 
 development:
   <<: *default
