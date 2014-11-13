@@ -31,8 +31,8 @@
 
       generalChart.setSize(800, 400)
       generalChart.setTitle('')
-      generalChart.setAxisPaddingLeft(60)
-      
+      generalChart.setAxisPaddingLeft(65)
+
       generalChart.draw()
 
 ]
