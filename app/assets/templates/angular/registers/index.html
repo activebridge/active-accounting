@@ -33,7 +33,7 @@
               </select>
             </td>
             <td>
-              <select ng-model="newRegister.counterparty_id" id='counterparty'>
+              <select ng-model="newRegister.counterparty_id" class='counterparty'>
                 <option ng-repeat="counterparty in counterparties" value={{counterparty.id}}>
                 {{counterparty.name}}
                 </option>
@@ -74,7 +74,28 @@
     <div class="list">
       <div class='month-picker-wrapper'>
         Місяць: <input type='text' id='month-picker'/>
+        <a ng-click="showFilter()" href="javascript: void(false);" class="filter">Фільтр</a>
       </div>
+      <form ng-submit="registersFilter()" ng-show ="filterActive" class="ng-pristine ng-valid">
+        Дата:
+        <input type="text" id='dateFilter' ng-model="myFilter.date" class="ng-pristine ng-valid">
+        Статті:
+        <select class='article search' ng-model="myFilter.article_id">
+          <option ng-repeat="article in searchArticles" value={{article.id}}>
+          {{article.name}} ({{article.type_msg}})
+          </option>
+        </select>
+        Контрагент:
+        <select class='counterparty search' ng-model="myFilter.counterparty_id">
+          <option ng-repeat="counterparty in counterparties" value={{counterparty.id}}>
+            {{counterparty.name}}
+          </option>
+        </select>
+        Сума(min):
+        <input type="text" class="search" ng-model="myFilter.value">
+        <button type="submit">Пошук</button>
+        <button type="button" ng-show ="filterActive" ng-click="cleanFilter()">Очистити</button>
+      </form>
       <table class="ng-scope register">
         <tr>
           <th class='date'>

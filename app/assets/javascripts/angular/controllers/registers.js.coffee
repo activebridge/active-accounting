@@ -6,18 +6,44 @@
   $scope.newRegister = {}
   $scope.newRegister.errors = {}
 
+  $scope.showFilter = ->
+    $scope.filterActive = !($scope.filterActive)
+    $scope.cleanFilter()
+
+  $scope.registersFilter = ->
+    $scope.registers = Register.query($scope.myFilter)
+    $('#month-picker').val('')
+    return
+
+  $scope.cleanFilter = ->
+    $('select.search').select2('val', '')
+    $('input.search').val('')
+    $('#dateFilter').val('')
+    $scope.myFilter = {}
+    return
+
+  $scope.searchArticles = Article.query ->
+    $('select.article').select2({width: '200px'})
+
   $scope.articles = Article.query ->
     $('select.article').select2({width: '200px'})
+    $scope.searchArticles.unshift(
+      {type_msg: "НАДХОДЖЕННЯ", id: "revenues"},
+      {type_msg: "ВИТРАТИ", id: "costs"},
+      {type_msg: "ТРАНСЛЯЦІЯ", id: "translations"}
+    )
 
   $scope.counterparties = Counterparty.query
     scope: 'active'
     () ->
-      $('select#counterparty').select2({width: '200px'})
+      $('select.counterparty').select2({width: '200px'})
 
   $('#date').datepicker
     dateFormat: 'dd-mm-yy',
     onSelect: (date, obj) ->
       $scope.newRegister.date = date
+
+  $('#dateFilter').datepicker(dateFormat: 'yy-mm-dd')
 
   $scope.openDatepicker = ->
     $('input.dateup').datepicker({ dateFormat: "dd-mm-yy" }).focus()

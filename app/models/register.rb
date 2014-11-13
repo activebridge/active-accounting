@@ -24,6 +24,18 @@ class Register < ActiveRecord::Base
     where("extract(month from date) = ? AND extract(year from date) = ?", date.month, date.year)
   }
 
+  scope :by_date, -> (date) { where(date: date) if date }
+  scope :by_counterparty, -> (data) { where(counterparty_id: data) if data}
+  scope :by_value, -> (data) { where('value >= ?', data) if data}
+
+  scope :by_article, -> (data) {
+    if data == 'revenues' or data == 'costs' or data == 'translations'
+      self.send(data)
+    elsif data
+      where(article_id: data)
+    end
+  }
+
   delegate :article_name, :type, to: :article
 
   scope :group_by_month, -> {
