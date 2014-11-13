@@ -5,7 +5,7 @@
       <form ng-submit="add()">
         <input ng-model="newArticle.name" type="text" onbeforesave="checkName($data)"></input>
         <div class='form'>
-          <select ng-model="newArticle.type">
+          <select class="sel" ng-model="newArticle.type">
             <option value="Revenue">Надходження</option>
             <option value="Cost">Витрати</option>
             <option value="Translation">Трансляція</option>
