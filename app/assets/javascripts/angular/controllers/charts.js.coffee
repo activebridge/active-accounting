@@ -30,6 +30,8 @@
       generalChart.setLegendForBar(4, 'Трансляція')
 
       generalChart.setSize(800, 400)
+      generalChart.setTitle('')
+      generalChart.setAxisPaddingLeft(65)
 
       generalChart.draw()
 
