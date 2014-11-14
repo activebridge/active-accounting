@@ -140,8 +140,8 @@
               <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); clearError()" class="btn btn-default">Відмінити</button>
             </form>
             <div class="buttons" ng-show="!rowform.$visible">
-              <button class="btn btn-primary" ng-click="rowform.$show()">Редагувати</button>
-              <button class="btn btn-primary" ng-click="delete(register.id)" href="javascript: void(false);" class="delete">Видалити</button>
+              <button class="btn btn-primary show_btn" ng-click="rowform.$show()">Редагувати</button>
+              <button class="btn btn-primary show_btn" ng-click="delete(register.id)" href="javascript: void(false);" class="delete">Видалити</button>
             </div>
           </td>
         </tr>

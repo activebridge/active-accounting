@@ -66,3 +66,15 @@ table.ng-scope {
 }
 
 table.register > tbody > tr > td > .editable-select { width: 100%; }
+
+.hidd { display: none; }
+
+tr {
+  height: 40px;
+
+  &:hover {
+    .hidd{
+    display: initial;
+    }
+  }
+}
