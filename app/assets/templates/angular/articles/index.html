@@ -5,7 +5,7 @@
       <form ng-submit="add()">
         <input ng-model="newArticle.name" type="text" onbeforesave="checkName($data)"></input>
         <div class='form'>
-          <select class="sel" ng-model="newArticle.type">
+          <select id="select" ng-model="newArticle.type">
             <option value="Revenue">Надходження</option>
             <option value="Cost">Витрати</option>
             <option value="Translation">Трансляція</option>
@@ -20,13 +20,12 @@
     <div class="list">
       <ul>
         <li ng-repeat="article in articles">
-          <span class="name" editable-text="article.name" onbeforesave="checkName($data)" e-name="name" e-form="rowform" e-required>
+          <span class="name" editable-text="article.name" e-ng-focus="showSelects()"onbeforesave="checkName($data)" e-name="name" e-form="rowform" e-required>
             {{ article.name }}
           </span>
-          <span class="{{ article.type }} article_type" editable-select="article.type" e-name="type" e-form="rowform" e-ng-options="s.value as s.text for s in type_msgs">
+          <span class="{{ article.type }} article_type" e-class="search-select" editable-select="article.type" e-name="type" e-form="rowform" e-ng-options="s.value as s.text for s in type_msgs">
             ({{ article.type_msg }})
           </span>
-          |
           <form editable-form name="rowform" onbeforesave="update(article.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == article">
             <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">Зберегти</button>
             <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">Відміна</button>
