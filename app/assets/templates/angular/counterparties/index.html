@@ -16,7 +16,7 @@
             <td>
               <input ng-model='newCounterparty.start_date' type='text' id='start_date'></input>
             </td>
-            <td><button type="submit">Додати</button></td>
+            <td><button class="btn" type="submit">Додати</button></td>
           </tr>
         </table>
       </form>
@@ -37,7 +37,7 @@
             {{ counterparty.active && "[статус]" || "[статус]" }}
           </a>
           |
-          <button class="delete" ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)">Видалити</button>
+          <button class="delete btn" ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)">Видалити</button>
           <span class="mess-warning" ng-show="counterparty.assigned" title="Видалення не можливе. Контрагент має зв’язки."></span>
         </li>
         <span class="name-block">
@@ -54,7 +54,7 @@
             {{ counterparty.active && "[статус]" || "[статус]" }}
           </a>
           |
-          <button class="delete" ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)">Видалити</button>
+          <button class="delete btn" ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)">Видалити</button>
           <span class="mess-warning" ng-show="counterparty.assigned" title="Видалення не можливе. Контрагент має зв’язки."></span>
         </li>
       </ul>
