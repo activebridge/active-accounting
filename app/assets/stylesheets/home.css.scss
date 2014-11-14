@@ -19,6 +19,8 @@ input {
   background-image: -moz-linear-gradient(center bottom, #eee 0%, #fff 50%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#eeeeee', GradientType = 0);
   background-image: linear-gradient(to top, #eee 0%, #fff 50%);
+  z-index: 999;
+  position: relative;
 }
 
 .btn {
