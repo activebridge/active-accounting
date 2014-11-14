@@ -41,6 +41,7 @@
     ShowIcon: false
 
   $scope.add = ->
+    $scope.newRegister.value = $scope.newRegister.value.replace(",",".")
     register = Register.save($scope.newRegister,
       () ->
         $scope.registers.unshift(register)
