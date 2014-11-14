@@ -66,3 +66,18 @@ table.ng-scope {
 }
 
 table.register > tbody > tr > td > .editable-select { width: 100%; }
+
+.show_btn {
+  display: none;
+}
+
+tr {
+  height: 40px;
+
+  &:hover {
+    .show_btn{
+      display: block;
+      float: left;
+    }
+  }
+}
