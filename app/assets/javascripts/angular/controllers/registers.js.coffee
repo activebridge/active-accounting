@@ -5,9 +5,9 @@
 
   $scope.newRegister = {}
   $scope.newRegister.errors = {}
+  $scope.filter= {}
 
   $scope.filter.show = ->
-    console.log($scope.filter)
     $scope.filter.active = !($scope.filter.active)
     $scope.filter.clear()
 
@@ -88,7 +88,10 @@
     d = $q.defer()
     Register.update( id: register_id, {register: data}
       (response) ->
-        $scope.registers = Register.query()
+        if $('#month-picker').val()
+          $scope.load()
+        else
+          $scope.filter.fetchRegisters()
         d.resolve()
       (response) ->
         d.resolve('')
