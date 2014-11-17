@@ -1,8 +1,9 @@
 @ChartsCtrl = ['$scope', 'Chart', ($scope, Chart) ->
+  $('#month-picker').MonthPicker
+    ShowIcon: false
   $scope.data = Chart.query
-    year: 2014
+    year: ($scope.year || '2014')
     , (response) ->
-
       revenueData = []
       costData = []
       translationData = []

@@ -43,6 +43,10 @@ class Register < ActiveRecord::Base
     elsif data
       where(article_id: data)
     end
+
+  scope :by_year, -> (my_year) {
+    where("extract(year from date) = ?", my_year)
+
   }
 
   delegate :article_name, :type, to: :article

@@ -1,6 +1,6 @@
 class ChartsController < ApplicationController
   def index
-    json = ActiveModel::ArraySerializer.new(Register.group_by_month,
+    json = ActiveModel::ArraySerializer.new(Register.by_year(params[:year]).group_by_month,
                                           each_serializer: Charts::GeneralSerializer,
                                           root: nil)
 
