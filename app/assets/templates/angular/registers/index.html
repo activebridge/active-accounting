@@ -76,7 +76,7 @@
         Місяць: <input type='text' id='month-picker'/>
         <a ng-click="showFilter()" href="javascript: void(false);" class="filter">Фільтр</a>
       </div>
-      <form ng-submit="registersFilter()" ng-show ="filterActive" class="ng-pristine ng-valid">
+      <form ng-submit="registersFilter()" ng-show ="filterActive" class="form-filter ng-pristine ng-valid">
         Дата:
         <input type="text" id='dateFilter' ng-model="myFilter.date" class="ng-pristine ng-valid">
         Статті:
@@ -96,8 +96,8 @@
         </select>
         Сума(min):
         <input type="text" class="value search" ng-model="myFilter.value">
-        <button type="submit">Пошук</button>
-        <button type="button" ng-show ="filterActive" ng-click="clearFilter()">Очистити</button>
+        <button class="btn btn-primary" type="submit">Пошук</button>
+        <button class="btn btn-primary" type="button" ng-show ="filterActive" ng-click="clearFilter()">Очистити</button>
       </form>
       <table class="ng-scope register">
         <tr>
