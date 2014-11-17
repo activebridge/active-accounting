@@ -16,6 +16,9 @@
     $('#month-picker').val('')
     return
 
+  $scope.valueOnlyNumeric = ->
+    $("input.value").numeric({ decimalPlaces: 2, negative: false })
+
   $scope.filter.clear = ->
     $('select.search').select2('val', '')
     $('input.search').val('')
@@ -50,6 +53,7 @@
 
   $scope.showSelect = ->
     $('.search-select').select2({width: '100%'})
+    $scope.valueOnlyNumeric()
     return
   
   curr_date = new Date()
@@ -66,7 +70,6 @@
     ShowIcon: false
 
   $scope.add = ->
-    $scope.newRegister.value = $scope.newRegister.value.replace(",",".")
     register = Register.save($scope.newRegister,
       () ->
         $scope.registers.unshift(register)
@@ -100,6 +103,7 @@
     )
     return d.promise
   $scope.load()
+  $scope.valueOnlyNumeric()
 
   $scope.clearError = () ->
     $scope.errors = []
