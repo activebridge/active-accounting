@@ -74,13 +74,13 @@
     <div class="list">
       <div class='month-picker-wrapper'>
         Місяць: <input type='text' id='month-picker'/>
-        <a ng-click="showFilter()" href="javascript: void(false);" class="filter">Фільтр</a>
+        <a ng-click="filter.show()" href="javascript: void(false);" class="filter">Фільтр</a>
       </div>
-      <form ng-submit="registersFilter()" ng-show ="filterActive" class="form-filter ng-pristine ng-valid">
+      <form ng-submit="filter.fetchRegisters()" ng-show ="filter.active" class="form-filter ng-pristine ng-valid">
         Дата:
-        <input type="text" id='dateFilter' ng-model="myFilter.date" class="ng-pristine ng-valid">
+        <input type="text" id='dateFilter' ng-model="filter.data.date" class="ng-pristine ng-valid">
         Статті:
-        <select class='article search' ng-model="myFilter.article_id">
+        <select class='article search' ng-model="filter.data.article_id">
           <option ng-repeat="type in articleTypes" value={{type.value}}>
           {{type.text}}
           </option>
@@ -89,15 +89,15 @@
           </option>
         </select>
         Контрагент:
-        <select class='counterparty search' ng-model="myFilter.counterparty_id">
+        <select class='counterparty search' ng-model="filter.data.counterparty_id">
           <option ng-repeat="counterparty in counterparties" value={{counterparty.id}}>
             {{counterparty.name}}
           </option>
         </select>
         Сума(min):
-        <input type="text" class="value search" ng-model="myFilter.value">
+        <input type="text" class="value search" ng-model="filter.data.value">
         <button class="btn btn-primary" type="submit">Пошук</button>
-        <button class="btn btn-primary" type="button" ng-show ="filterActive" ng-click="clearFilter()">Очистити</button>
+        <button class="btn btn-primary" type="button" ng-click="filter.clear()">Очистити</button>
       </form>
       <table class="ng-scope register">
         <tr>

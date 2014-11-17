@@ -6,20 +6,21 @@
   $scope.newRegister = {}
   $scope.newRegister.errors = {}
 
-  $scope.showFilter = ->
-    $scope.filterActive = !($scope.filterActive)
-    $scope.clearFilter()
+  $scope.filter.show = ->
+    console.log($scope.filter)
+    $scope.filter.active = !($scope.filter.active)
+    $scope.filter.clear()
 
-  $scope.registersFilter = ->
-    $scope.registers = Register.query($scope.myFilter)
+  $scope.filter.fetchRegisters = ->
+    $scope.registers = Register.query($scope.filter.data)
     $('#month-picker').val('')
     return
 
-  $scope.clearFilter = ->
+  $scope.filter.clear = ->
     $('select.search').select2('val', '')
     $('input.search').val('')
     $('#dateFilter').val('')
-    $scope.myFilter = {}
+    $scope.filter.data = {}
     return
 
   $scope.articles = Article.query ->
