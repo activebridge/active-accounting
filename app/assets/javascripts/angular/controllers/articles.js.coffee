@@ -1,7 +1,14 @@
 @ArticlesCtrl = ['$scope', '$q', 'Article', ($scope, $q , Article) ->
-  $scope.articles = Article.query()
   $scope.newArticle = {}
   $scope.newArticle.errors = {}
+
+  $scope.articles = Article.query ->
+    $('#select').select2({width: '200px'})
+    return
+    
+  $scope.showSelects = ->
+    $('.search-select').select2({width: '200px'})
+    return 
 
   $scope.add = ->
     article = Article.save($scope.newArticle,
@@ -11,6 +18,7 @@
       , (response) ->
         $scope.newArticle.errors = response.data.error
     )
+
 
   $scope.checkName = (data) ->
     "can't be blank"  unless data?
