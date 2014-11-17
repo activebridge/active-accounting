@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe RegistersController, :type => :controller do
 
   describe "#index" do
-    let(:article_type_revenue) { FactoryGirl.create(:article, type: "Revenue") }
+    let(:article_type_revenue) { FactoryGirl.create(:article, type: Article::TYPES::REVENUE) }
     let!(:register_article_cost) { FactoryGirl.create(:register, value: 200) }
     let!(:register_date_not_yesterday) { FactoryGirl.create(:register, date: Date.yesterday-1, value: 150) }
     let!(:register_article_revenue) { FactoryGirl.create(:register, article_id: article_type_revenue.id ) }

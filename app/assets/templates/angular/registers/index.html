@@ -81,7 +81,10 @@
         <input type="text" id='dateFilter' ng-model="myFilter.date" class="ng-pristine ng-valid">
         Статті:
         <select class='article search' ng-model="myFilter.article_id">
-          <option ng-repeat="article in searchArticles" value={{article.id}}>
+          <option ng-repeat="type in typeArticles" value={{type.value}}>
+          {{type.text}}
+          </option>
+          <option ng-repeat="article in articles" value={{article.id}}>
           {{article.name}} ({{article.type_msg}})
           </option>
         </select>
@@ -92,9 +95,9 @@
           </option>
         </select>
         Сума(min):
-        <input type="text" class="search" ng-model="myFilter.value">
+        <input type="text" class="value search" ng-model="myFilter.value">
         <button type="submit">Пошук</button>
-        <button type="button" ng-show ="filterActive" ng-click="cleanFilter()">Очистити</button>
+        <button type="button" ng-show ="filterActive" ng-click="clearFilter()">Очистити</button>
       </form>
       <table class="ng-scope register">
         <tr>

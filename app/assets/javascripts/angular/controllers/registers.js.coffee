@@ -8,30 +8,28 @@
 
   $scope.showFilter = ->
     $scope.filterActive = !($scope.filterActive)
-    $scope.cleanFilter()
+    $scope.clearFilter()
 
   $scope.registersFilter = ->
     $scope.registers = Register.query($scope.myFilter)
     $('#month-picker').val('')
     return
 
-  $scope.cleanFilter = ->
+  $scope.clearFilter = ->
     $('select.search').select2('val', '')
     $('input.search').val('')
     $('#dateFilter').val('')
     $scope.myFilter = {}
     return
 
-  $scope.searchArticles = Article.query ->
-    $('select.article').select2({width: '200px'})
-
   $scope.articles = Article.query ->
     $('select.article').select2({width: '200px'})
-    $scope.searchArticles.unshift(
-      {type_msg: "НАДХОДЖЕННЯ", id: "revenues"},
-      {type_msg: "ВИТРАТИ", id: "costs"},
-      {type_msg: "ТРАНСЛЯЦІЯ", id: "translations"}
-    )
+
+  $scope.typeArticles = [
+    {value: "revenues", text: "(НАДХОДЖЕННЯ)"},
+    {value: "costs", text: "(ВИТРАТИ)"},
+    {value: "translations", text: "(ТРАНСЛЯЦІЯ)"}
+  ]
 
   $scope.counterparties = Counterparty.query
     scope: 'active'

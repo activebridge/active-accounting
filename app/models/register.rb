@@ -29,7 +29,7 @@ class Register < ActiveRecord::Base
   scope :by_value, -> (data) { where('value >= ?', data) if data}
 
   scope :by_article, -> (data) {
-    if data == 'revenues' or data == 'costs' or data == 'translations'
+    if ['revenues', 'costs', 'translations'].include? data
       self.send(data)
     elsif data
       where(article_id: data)
