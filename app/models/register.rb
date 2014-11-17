@@ -25,8 +25,8 @@ class Register < ActiveRecord::Base
   }
 
   scope :by_date, -> (date) { where(date: date) if date }
-  scope :by_counterparty, -> (data) { where(counterparty_id: data) if data}
-  scope :by_value, -> (data) { where('value >= ?', data) if data}
+  scope :by_counterparty, -> (data) { where(counterparty_id: data) if data }
+  scope :by_value, -> (data) { where('value >= ?', data) if data }
 
   scope :by_article, -> (data) {
     if ['revenues', 'costs', 'translations'].include? data

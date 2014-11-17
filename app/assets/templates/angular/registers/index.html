@@ -81,7 +81,7 @@
         <input type="text" id='dateFilter' ng-model="myFilter.date" class="ng-pristine ng-valid">
         Статті:
         <select class='article search' ng-model="myFilter.article_id">
-          <option ng-repeat="type in typeArticles" value={{type.value}}>
+          <option ng-repeat="type in articleTypes" value={{type.value}}>
           {{type.text}}
           </option>
           <option ng-repeat="article in articles" value={{article.id}}>

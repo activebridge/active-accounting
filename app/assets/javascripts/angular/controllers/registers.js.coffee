@@ -25,7 +25,7 @@
   $scope.articles = Article.query ->
     $('select.article').select2({width: '200px'})
 
-  $scope.typeArticles = [
+  $scope.articleTypes = [
     {value: "revenues", text: "(НАДХОДЖЕННЯ)"},
     {value: "costs", text: "(ВИТРАТИ)"},
     {value: "translations", text: "(ТРАНСЛЯЦІЯ)"}
