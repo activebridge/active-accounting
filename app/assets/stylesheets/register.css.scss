@@ -36,8 +36,6 @@
   font-size: 14px
 }
 
-.space { white-space: nowrap; }
-
 span.errors {
   display: table;
   color: #F00;
@@ -66,3 +64,15 @@ table.ng-scope {
 }
 
 table.register > tbody > tr > td > .editable-select { width: 100%; }
+
+.hidd { display: none; }
+
+tr {
+  height: 40px;
+
+  &:hover {
+    .hidd {
+      display: initial;
+    }
+  }
+}
