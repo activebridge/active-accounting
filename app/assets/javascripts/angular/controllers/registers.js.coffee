@@ -5,19 +5,44 @@
 
   $scope.newRegister = {}
   $scope.newRegister.errors = {}
+  $scope.filter= {}
+
+  $scope.filter.show = ->
+    $scope.filter.active = !($scope.filter.active)
+    $scope.filter.clear()
+
+  $scope.filter.fetchRegisters = ->
+    $scope.registers = Register.query($scope.filter.data)
+    $('#month-picker').val('')
+    return
+
+  $scope.filter.clear = ->
+    $('select.search').select2('val', '')
+    $('input.search').val('')
+    $('#dateFilter').val('')
+    $scope.filter.data = {}
+    return
 
   $scope.articles = Article.query ->
     $('select.article').select2({width: '200px'})
 
+  $scope.articleTypes = [
+    {value: "revenues", text: "(НАДХОДЖЕННЯ)"},
+    {value: "costs", text: "(ВИТРАТИ)"},
+    {value: "translations", text: "(ТРАНСЛЯЦІЯ)"}
+  ]
+
   $scope.counterparties = Counterparty.query
     scope: 'active'
     () ->
-      $('select#counterparty').select2({width: '200px'})
+      $('select.counterparty').select2({width: '200px'})
 
   $('#date').datepicker
     dateFormat: 'dd-mm-yy',
     onSelect: (date, obj) ->
       $scope.newRegister.date = date
+
+  $('#dateFilter').datepicker(dateFormat: 'yy-mm-dd')
 
   $scope.openDatepicker = ->
     $('input.dateup').datepicker({ dateFormat: "dd-mm-yy" }).focus()
@@ -63,7 +88,10 @@
     d = $q.defer()
     Register.update( id: register_id, {register: data}
       (response) ->
-        $scope.registers = Register.query()
+        if $('#month-picker').val()
+          $scope.load()
+        else
+          $scope.filter.fetchRegisters()
         d.resolve()
       (response) ->
         d.resolve('')

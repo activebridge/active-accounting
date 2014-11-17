@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :article do
     name { Faker::Name.name }
-    type "Cost"
+    type Article::TYPES::COST
   end
 end
