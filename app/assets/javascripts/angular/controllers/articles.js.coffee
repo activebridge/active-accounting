@@ -1,5 +1,4 @@
 @ArticlesCtrl = ['$scope', '$q', 'Article', ($scope, $q , Article) ->
-  $scope.articles = Article.query()
   $scope.newArticle = {}
   $scope.newArticle.errors = {}
 
