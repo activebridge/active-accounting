@@ -40,7 +40,7 @@
               </select>
             </td>
             <td>
-              <input type="text" ng-model="newRegister.value" id='value'>
+              <input type="text" ng-model="newRegister.value" class='value'>
             </td>
             <td>
               <input type="text" ng-model="newRegister.notes">
@@ -144,7 +144,7 @@
             </span>
          </td>
           <td>
-            <span editable-text="register.value" e-name="value" e-form="rowform">
+            <span editable-text="register.value" e-class="value" e-name="value" e-form="rowform">
               <div class="buttons" ng-show="!rowform.$visible">
                 {{ register.value }}
               </div>

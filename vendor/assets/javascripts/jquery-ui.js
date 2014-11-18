@@ -35,3 +35,4 @@
 //= require jquery-ui/tabs
 //= require jquery-ui/tooltip
 //= require jquery-ui/widget
+//= require jquery-ui/numeric
