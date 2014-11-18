@@ -17,7 +17,7 @@
     return
 
   $scope.valueOnlyNumeric = ->
-    $("input.value").numeric({ decimalPlaces: 2, negative: false })
+    $("input.value").numeric({ decimalPlaces: 2 })
 
   $scope.filter.clear = ->
     $('select.search').select2('val', '')
