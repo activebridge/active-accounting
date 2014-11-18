@@ -7,7 +7,7 @@
     <th></th>
   </tr>
 
-  <tr ng-repeat='register in registers'>
+  <tr ng-repeat='register in registers' ng-show='register.type == type && parseMonth(register.date, month)'>
     <td>
       {{ register.date }}
     </td>

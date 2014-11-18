@@ -1,8 +1,14 @@
 .report {
 
+  .month-list {
+    display: inline-flex;
+    padding-left: 257px;
+    padding-right: 30px;
+  }
+
+
   .month-report {
-    border: 1px solid;
-    vertical-align: top;
+    padding-right: 20px;
   }
 
   .month-picker-wrapper {
@@ -39,14 +45,31 @@
   }
 
   .register_table {
-    display: inline-table;
-    margin-bottom: 15px;
-    margin-left: 60px;
-    margin-top: 15px;
+    margin-left: -50px;
     width: 1024px;
   }
 
-  .title_revenue, .title_cost, .title_item {
+  .total-revenue, .article-value {
     cursor: pointer;
+  }
+
+  div {
+    &.Revenue { color: green; }
+    &.Cost { color: red; }
+    &.Translation { color: blue; }
+
+    &.header { font-weight: bold; }
+  }
+
+  div {
+    .value {
+      padding-top: 5px;
+    }
+  }
+
+  table {
+    tr.ng-scope {
+      text-align: center;
+    }
   }
 }

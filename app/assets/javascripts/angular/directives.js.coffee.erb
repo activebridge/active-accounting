@@ -7,6 +7,12 @@ app.directive "sgRegisterTable", ->
   scope:
     registers: '='
     show: '='
+    type: '@'
+    month: '='
+  link: (scope,element,attrs) ->
+    scope.parseMonth = (date, month) ->
+      d = date.split("-")
+      return (new Date(d[0], d[1] - 1, d[2]).getMonth()+1) == month
 
 app.directive "sgMultipleMonthPicker", ->
   restrict: "E"

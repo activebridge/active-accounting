@@ -21,6 +21,19 @@
     padding: 5px;
   }
 
+  table.ng-scope {
+    tr:nth-child(even) { background-color: #CCC; }
+    tr:nth-child(odd) { background-color: #FFF; }
+    border-spacing: 0;
+    font-size: 12px;
+    width: 100%;
+    th.article { width: 30%; }
+    th.date { width: 8%; }
+    tr:first-child th {
+      padding: 5px;
+    }
+  }
+
   .list {
     margin-top: 25px;
   }

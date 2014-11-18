@@ -1,5 +1,5 @@
 class ReportItemSerializer < ActiveModel::Serializer
-  attributes :article, :value, :counterparties, :registers, :article_type
+  attributes :article, :value, :counterparties, :registers, :value_sum, :article_type
 
   def article
     object.article_name
@@ -22,6 +22,11 @@ class ReportItemSerializer < ActiveModel::Serializer
   def registers
     ActiveModel::ArraySerializer.new(object.registers,
                                     each_serializer: RegisterSerializer,
+                                    root: nil)
+  end
+
+  def value_sum
+    ActiveModel::ArraySerializer.new(object.value_sum,
                                     root: nil)
   end
 end

@@ -1,5 +1,5 @@
 class CounterpartyReportItemSerializer < ActiveModel::Serializer
-  attributes :name, :value
+  attributes :name, :value, :date
 
   def name
     object.counterparty.try(:name)
@@ -7,5 +7,9 @@ class CounterpartyReportItemSerializer < ActiveModel::Serializer
 
   def value
     object.sum.round(2)
+  end
+
+  def date
+    object.try(:date)
   end
 end

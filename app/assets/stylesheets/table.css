@@ -1,0 +1,42 @@
+div.table {
+  height:0;
+}
+div.tr {
+  height:0;
+}
+
+div.bold {
+  font-weight: bold;
+}
+
+div.table[class] {height:auto; display: table;}
+div.tr[class] { height:auto; display: table-row;}
+div.td[class] {float:none; display: table-cell;}
+
+div.td {
+  height:100%; 
+  float:left;
+  padding: 3px;
+}
+#main {
+  width:100%;
+}
+#first {
+  position:relative;
+  z-index:1;
+  width:200px;
+}
+#second {
+  width:100%;
+  margin:0 -30% 0 -200px; 
+  padding:0 30% 0 200px;
+}
+
+#second[id] {
+  width:auto;
+  margin:0;
+  padding:0;
+}
+#third {
+  width:30%;
+}

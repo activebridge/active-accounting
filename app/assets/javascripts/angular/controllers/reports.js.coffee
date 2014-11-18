@@ -1,4 +1,4 @@
-@ReportsCtrl = ['$scope', 'Report', ($scope, Report) ->
+@ReportsCtrl = ['$scope', 'Report', 'Register', ($scope, Report, Register) ->
 
   $scope.load = ->
     $scope.monthNames = 'JanFebMarAprMayJunJulAugSepOctNovDec'
@@ -8,30 +8,35 @@
     $scope.totalRevenues = []
     $scope.totalCosts = []
     $scope.totalTranslations = []
-    $scope.revenues = []
-    $scope.costs = []
-    $scope.translations = []
     $scope.clicked = []
+    $scope.months = []
 
-    $scope.loadDates($scope.currentMonthNumber)
-    $scope.clicked[$scope.currentMonthNumber] = true
+    $scope.clicked_months = [$scope.dateParse($scope.currentMonthNumber)]
+    $scope.clicked = [$scope.currentMonthNumber]
+    $scope.loadDatas($scope.clicked_months)
 
   $scope.dateParse = (month) ->
     year = new Date().getFullYear()
     return month + '/' + year
 
   $scope.show = (month, clicked) ->
-    date = $scope.dateParse month
+    date = $scope.dateParse($scope.monthNames.indexOf(month) / 3 + 1)
     monthNumber = $scope.monthNames.indexOf(month) / 3 + 1
 
     if clicked
-      $scope.loadDates(monthNumber)
-      $scope.clicked[monthNumber] = true
+      $scope.clicked_months.push date
+      $scope.loadDatas($scope.clicked_months)
+      $scope.clicked.push monthNumber
     else
-      $scope.clicked[monthNumber] = false
-      $scope.revenues[monthNumber] = null
-      $scope.costs[monthNumber] = null
-      $scope.translations[monthNumber] = null
+      monthNumber = $scope.monthNames.indexOf(month) / 3 + 1
+      unclickedMonth = $scope.clicked.indexOf(monthNumber)
+      trashMonth = $scope.clicked_months.indexOf($scope.dateParse(monthNumber))
+      $scope.clicked_months.splice(trashMonth, 1)
+      $scope.clicked[unclickedMonth] = null
+      $scope.loadDatas($scope.clicked_months)
+
+  $scope.isShow = (month) ->
+    return $scope.clicked.indexOf(month) >= 0
 
   $scope.range = (start, end) ->
     return [start..end]
@@ -39,32 +44,45 @@
   $scope.monthNameByNumber = (number) ->
     return $scope.monthNames.substr((number-1)*3, 3)
 
-  $scope.loadDates = (month) ->
-    $scope.revenues[month] = Report.query
+  $scope.monthByDate = (date) ->
+    d = date.split("-")
+    return new Date(d[0], d[1] - 1, d[2]).getMonth()+1
+
+  $scope.getRegisters = (month) ->
+    $scope.registers = Register.query(month: $scope.dateParse(month))
+
+  $scope.loadDatas = (month) ->
+    $scope.revenues = Report.query
       report_type: 'revenues'
-      , month: $scope.dateParse(month)
+      , "month[]": $scope.clicked_months
       , (response) ->
-        $scope.totalRevenues[month] = 0
+        $scope.totalRevenues = []
         $(response).each (k, v) ->
-          $scope.totalRevenues[month] += v.value
-        $scope.totalProfits[month] = $scope.totalRevenues[month] - $scope.totalCosts[month]
+          $(v.value_sum).each (i, val) ->
+            $scope.totalRevenues[val[0]] = 0 unless $scope.totalRevenues[val[0]]
+            $scope.totalRevenues[val[0]] += val[1]
+            $scope.totalProfits[val[0]] = ($scope.totalRevenues[val[0]] || 0) - ($scope.totalCosts[val[0]] || 0)
 
-    $scope.costs[month] = Report.query
+    $scope.costs = Report.query
       report_type: 'costs'
-      , month: $scope.dateParse(month)
+      , "month[]": $scope.clicked_months
       , (response) ->
-        $scope.totalCosts[month] = 0
+        $scope.totalCosts = []
         $(response).each (k, v) ->
-          $scope.totalCosts[month] += v.value
-        $scope.totalProfits[month] = $scope.totalRevenues[month] - $scope.totalCosts[month]
+          $(v.value_sum).each (i, val) ->
+            $scope.totalCosts[val[0]] = 0 unless $scope.totalCosts[val[0]]
+            $scope.totalCosts[val[0]] += val[1]
+            $scope.totalProfits[val[0]] = ($scope.totalRevenues[val[0]] || 0) - ($scope.totalCosts[val[0]] || 0)
 
-    $scope.translations[month] = Report.query
+    $scope.translations = Report.query
       report_type: 'translations'
-      , month: $scope.dateParse(month)
+      , "month[]": $scope.clicked_months
       , (response) ->
-        $scope.totalTranslations[month] = 0
+        $scope.totalTranslations = []
         $(response).each (k, v) ->
-          $scope.totalTranslations[month] += v.value
+          $(v.value_sum).each (i, val) ->
+            $scope.totalTranslations[val[0]] = 0 unless $scope.totalTranslations[val[0]]
+            $scope.totalTranslations[val[0]] += val[1]
 
   $scope.load()
 
