@@ -13,14 +13,34 @@ class RegisterDecorator
   delegate :article_name, :sum, :type, to: :register
 
   def counterparties
-    Register.where(article_id: register.article_id)
-            .select("counterparty_id, sum(value) as sum")
-            .group("counterparty_id")
-            .order("")
-            .by_month(month)
+    registers = Register.where(article_id: register.article_id)
+                        .by_months(month)
+                        .group('counterparty_id')
+                        .group('month(date)')
+                        .sum(:value)
+    counterparties = []
+    registers.each do |k, v|
+      counterparties.push(k[0] => [k[1] => v])
+    end
+    counterparties = counterparties.group_by(&:keys).map{|k, v| {k.first => v.flat_map(&:values)}}
+    new_counterpartie_hash = {}
+    counterparties.each do |counterpartie|
+      counterpartie.each do |k, v|
+        new_counterpartie_hash[k] = v
+      end
+    end
+
+    article_counterpartie = {}
+    new_counterpartie_hash.each{|k, v|
+      article_counterpartie[k]=[]
+      v.each{|key,value|
+        article_counterpartie[k] << key
+      }
+    }
+    article_counterpartie
   end
 
-  def registers
-    Register.where(article_id: register.article_id).by_month(month)
+  def value_sum months
+    Register.where(article_id: register.article_id).by_months(months).group('month(date)').sum('value')
   end
 end
