@@ -6,4 +6,14 @@ class ChartsController < ApplicationController
 
     render json: json, status: 200
   end
+
+  def years
+    json = ActiveModel::ArraySerializer.new(Register.all,
+                                          each_serializer: Charts::YearSerializer,
+                                          root: nil)
+
+    #json = Charts::YearSerializer.new(Register.all)
+
+    render json: json, status: 200
+  end
 end

@@ -15,5 +15,11 @@ angular.module('accounting.services').factory 'Report', ['$resource', ($resource
 ]
 
 angular.module('accounting.services').factory 'Chart', ['$resource', ($resource) ->
-  $resource('/charts')
+  $resource '/charts/:id/:action',
+    id: '@id'
+  , years:
+    method: 'GET',
+    params:
+      action: 'years'
+    isArray: true
 ]
