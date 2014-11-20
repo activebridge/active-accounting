@@ -24,3 +24,23 @@ span.article_type {
   border-radius: 5px;
   z-index: 999;
 }
+
+.select-types {
+  display: inline-block;
+  top: -1px;
+  position: relative;
+}
+
+.submit-article {
+  top: 4px;
+  position: relative;
+}
+
+.articles {
+  .list { margin-top: 25px; }
+  .glyphicon { font-size: 15px; }
+
+  form {
+    .glyphicon { font-size: 20px; }
+  }
+}

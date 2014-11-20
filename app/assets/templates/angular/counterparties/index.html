@@ -16,7 +16,7 @@
             <td>
               <input ng-model='newCounterparty.start_date' type='text' id='start_date'></input>
             </td>
-            <td><button class="btn" type="submit">Додати</button></td>
+            <td><button class='icon-button' type="submit"><span class='glyphicon glyphicon-plus-sign'></span></button></td>
           </tr>
         </table>
       </form>
@@ -37,8 +37,8 @@
             {{ counterparty.active && "[статус]" || "[статус]" }}
           </a>
           |
-          <button class="delete btn" ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)">Видалити</button>
-          <span class="mess-warning" ng-show="counterparty.assigned" title="Видалення не можливе. Контрагент має зв’язки."></span>
+          <button class='icon-button' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)"><span class='glyphicon glyphicon-trash'></span></button>
+          <span class="glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned" title="Видалення не можливе. Контрагент має зв’язки."></span>
         </li>
         <span class="name-block">
           Не активні контрагенти ({{ inactiveCounterparties.length }}):
@@ -54,8 +54,8 @@
             {{ counterparty.active && "[статус]" || "[статус]" }}
           </a>
           |
-          <button class="delete btn" ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)">Видалити</button>
-          <span class="mess-warning" ng-show="counterparty.assigned" title="Видалення не можливе. Контрагент має зв’язки."></span>
+          <button class='icon-button' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)"><span class='glyphicon glyphicon-trash'></span></button>
+          <span class="glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned" title="Видалення не можливе. Контрагент має зв’язки."></span>
         </li>
       </ul>
     </div>

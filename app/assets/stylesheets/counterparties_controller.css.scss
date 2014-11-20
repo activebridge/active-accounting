@@ -29,18 +29,19 @@ form.editable-wrap {
   margin-bottom: 5px;
 }
 
-.mess-warning {
-  width: 15px;
-  height: 15px;
+.mess-info {
+  font-size: 16px;
   display: inline-block;
+  color: #ff8412;
+  top: 3px;
 }
 
-.list_true > form > span > label > input {
+.list-count > form > span > label > input {
   border: none;
   height: 14px;
 }
 
-.list_true > form > span > span > button {
+.list-count > form > span > span > button {
   border: 1px solid #aaa;
   color: #444;
   padding: 0 6px 0 6px;
