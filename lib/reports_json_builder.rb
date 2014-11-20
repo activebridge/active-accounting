@@ -20,17 +20,11 @@ class ReportsJsonBuilder
     result = []
     registers.each do |register|
       item = {}
-
       item['article'] = register.name
-      article_id = register.article_id
-
-      item['values'] = build_values(registers, article_id, 'article_id')
-
-      item['counterparties'] = build_counterparties(article_id, parsed_months)
-
+      item['values'] = build_values(registers, register.article_id, 'article_id')
+      item['counterparties'] = build_counterparties(register.article_id, parsed_months)
       item['article_type'] = type.capitalize.singularize
       item['article_id'] = register.article_id
-
       result << item
     end
     result.uniq
