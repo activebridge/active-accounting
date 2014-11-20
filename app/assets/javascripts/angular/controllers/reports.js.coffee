@@ -1,4 +1,4 @@
-@ReportsCtrl = ['$scope', 'Report', ($scope, Report) ->
+@ReportsCtrl = ['$scope', 'Report', 'Register', ($scope, Report, Register) ->
 
   $scope.load = ->
     $scope.totalProfit = 0
@@ -42,6 +42,11 @@
           $.each v.value, (key, value) ->
             $scope.totalTranslation[key] = 0 unless $scope.totalTranslation[key]
             $scope.totalTranslation[key] += value
+
+  $scope.getRegisters = (month, article_id, type) ->
+    date = month + '/' + (new Date().getFullYear())
+    $scope.registers = Register.query(month: date, article_id: article_id, type: type)
+    console.log $(".total-revenue")
 
   $scope.monthsChange = (month, clicked) ->
     m = $scope.months.indexOf(month)+1
