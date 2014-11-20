@@ -8,14 +8,14 @@
 
     $scope.revenues = Report.query
       report_type: 'revenues'
-      , month: $('#month-picker').val()
+      , 'months[]': $('#month-picker').val()
       , (response) ->
         $(response).each (k, v) ->
           $scope.totalRevenue += v.value
 
     $scope.costs = Report.query
       report_type: 'costs'
-      , month: $('#month-picker').val()
+      , 'months[]': $('#month-picker').val()
       , (response) ->
         $(response).each (k, v) ->
           $scope.totalCost += v.value
@@ -25,11 +25,10 @@
 
     $scope.translations = Report.query
       report_type: 'translations'
-      , month: $('#month-picker').val()
+      , 'months[]': $('#month-picker').val()
       , (response) ->
         $(response).each (k, v) ->
           $scope.totalTranslation += v.value
-
 
 
   curr_date = new Date()
