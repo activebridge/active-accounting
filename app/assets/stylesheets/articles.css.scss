@@ -39,8 +39,11 @@ span.article_type {
 .articles {
   .list { margin-top: 25px; }
   .glyphicon { font-size: 15px; }
+  span.error { position: absolute; }
 
   form {
     .glyphicon { font-size: 20px; }
   }
 }
+
+.name-add-article { display: inline-block; }

@@ -3,7 +3,10 @@
   <div class="ctrl" ng-controller="ArticlesCtrl">
     <div class="form">
       <form ng-submit="add()">
-        <input ng-model="newArticle.name" type="text" onbeforesave="checkName($data)"></input>
+        <div class="name-add-article">
+          <input ng-model="newArticle.name" type="text" onbeforesave="checkName($data)"></input>
+          <br> <span class='error'>{{newArticle.errors.name[0]}}</span>
+        </div>
         <div class="select-types">
           <select id="select" ng-model="newArticle.type">
             <option value="Revenue">Надходження</option>
