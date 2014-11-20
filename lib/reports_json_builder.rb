@@ -27,7 +27,15 @@ class ReportsJsonBuilder
       item['article_id'] = register.article_id
       result << item
     end
-    result.uniq
+
+    total_values = Register.send(type)
+                           .by_months(parsed_months)
+                           .group('month(date)')
+                           .sum('value')
+    [{
+          "articles" => result.uniq,
+          "total_values" => total_values
+        }]
   end
 
   def parsed_months

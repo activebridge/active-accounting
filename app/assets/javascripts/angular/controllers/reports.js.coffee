@@ -1,34 +1,30 @@
 @ReportsCtrl = ['$scope', 'Report', ($scope, Report) ->
 
   $scope.load = ->
-    $scope.totalRevenue = 0
-    $scope.totalCost = 0
-    $scope.totalTranslation = 0
     $scope.totalProfit = 0
 
-    $scope.revenues = Report.query
+
+    Report.query
       report_type: 'revenues'
       , 'months[]': $('#month-picker').val()
       , (response) ->
-        $(response).each (k, v) ->
-          $scope.totalRevenue += v.value
+        $scope.revenues = response[0].articles
+        $scope.totalRevenue = response[0].total_values
 
-    $scope.costs = Report.query
+    Report.query
       report_type: 'costs'
       , 'months[]': $('#month-picker').val()
       , (response) ->
-        $(response).each (k, v) ->
-          $scope.totalCost += v.value
+        $scope.costs = response[0].articles
+        $scope.totalCost = response[0].total_values
 
-    $scope.$watchCollection '[totalRevenue, totalCost]', () ->
-      $scope.totalProfit = $scope.totalRevenue - $scope.totalCost
-
-    $scope.translations = Report.query
+    Report.query
       report_type: 'translations'
       , 'months[]': $('#month-picker').val()
       , (response) ->
-        $(response).each (k, v) ->
-          $scope.totalTranslation += v.value
+        $scope.translation = response[0].articles
+        $scope.totalTranslation = response[0].total_values
+
 
 
   curr_date = new Date()
