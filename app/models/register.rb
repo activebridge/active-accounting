@@ -24,6 +24,10 @@ class Register < ActiveRecord::Base
     where("extract(month from date) = ? AND extract(year from date) = ?", date.month, date.year)
   }
 
+  scope :by_months, -> (dates) {
+    where("extract(month from date) in (#{dates})")
+  }
+
   scope :by_date, -> (date) { where(date: date) if date }
   scope :by_counterparty, -> (data) { where(counterparty_id: data) if data }
   scope :by_value, -> (data) { where('value >= ?', data) if data }

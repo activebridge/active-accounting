@@ -1,11 +1,11 @@
 class CounterpartyReportItemSerializer < ActiveModel::Serializer
-  attributes :name, :value
+  attributes :name, :values
 
   def name
-    object.counterparty.try(:name)
+    Counterparty.where(id: object[0]).first.name
   end
 
-  def value
-    object.sum.round(2)
+  def values
+    object[1]
   end
 end

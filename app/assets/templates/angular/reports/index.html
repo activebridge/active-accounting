@@ -1,106 +1,95 @@
 <div class='report'>
 
   <div class='month-picker-wrapper'>
-    Місяць: <input type='text' id='month-picker'/>
+    <label for="{{month}}" ng-init='clicked = currentMonth == month' class="month-picker-label multiple-month-picker" ng-click='clicked=!clicked; monthsChange(month, clicked)' ng-repeat='month in months' ng-class='{checked_label: clicked}'>{{month}}</label>
   </div>
 
-  <ul>
-    <li class='header'>
-      <div class='title'>
-        Надходження
+  <div class='table'>
+    <div class='tr header'>
+      <div class='td'></div>
+      <div class='td' ng-repeat="month in months" ng-show="isShow(parseMonthName(month))">
+        {{month}}
       </div>
-      <div class='value'>
-        {{ totalRevenue }}
+    </div>
+
+    <div class='tr header'>
+      <div class='td title'> Надходження</div>
+      <div class='td pointer' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month, null, "Revenue")'>
+        {{totalRevenue[month] || 0}}
       </div>
-    </li>
+      <br>
+      <sg-register-table class='total-revenue' registers='registers' show='tableShow'></sg-register-table>
+    </div>
 
-    <li ng-repeat='revenue in revenues'>
-      <div class='title title_revenue' ng-click='register_show=!register_show'> {{ revenue.article }} </div>
-      <div class='value'> {{ revenue.value }} </div>
-
-      <sg-register-table registers='revenue.registers' show='register_show'></sg-register-table>
-
-      <ul class='nested-report-items'>
-        <li ng-repeat='c in revenue.counterparties' class="{{ revenue.article_type }}">
-          <div ng-show="c.name">
-            <div class='title nested'>{{ c.name }}</div>
-            <div class='value nested'>{{ c.value }}</div>
-          </div>
-        </li>
-      </ul>
-    </li>
-  </ul>
-
-  <div class='clearboth'></div>
-
-  <ul>
-    <li class='header'>
-      <div class='title'>
-        Витрати
+    <div class='tr' ng-repeat="revenue in revenues">
+      <div class='td'>
+        {{revenue.article}}
+        <div class='tr {{revenue.article_type}}' ng-repeat="c in revenue.counterparties" ng-show="c.name">
+          <div class='td'>{{c.name}}</div>
+        </div>
       </div>
-      <div class='value'>
-        {{ totalCost }}
+      <div class='td' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
+        <div class='pointer' ng-click='tableShow=!tableShow; getRegisters(month, revenue.article_id, "Revenue")'>
+          {{revenue.value[month] || 0}}
+        </div>
+        <div class='tr value {{revenue.article_type}}' ng-repeat="c in revenue.counterparties">
+          <div class='td'>{{c.values[0][month] || 0}}</div>
+        </div>
       </div>
-    </li>
+      <br>
+      <sg-register-table registers='registers' show='tableShow'></sg-register-table>
+    </div>
 
-    <li ng-repeat='cost in costs'>
-      <div class='title title_cost' ng-click='register_show=!register_show'> {{ cost.article }} </div>
-      <div class='value'> {{ cost.value }} </div>
-
-      <sg-register-table registers='cost.registers' show='register_show'></sg-register-table>
-
-      <ul class='nested-report-items'>
-        <li ng-repeat='c in cost.counterparties' class="{{ cost.article_type }}">
-          <div ng-show="c.name">
-            <div class='title nested'>{{ c.name }}</div>
-            <div class='value nested'>{{ c.value }}</div>
-          </div>
-        </li>
-      </ul>
-    </li>
-  </ul>
-
-  <div class='clearboth'></div>
-
-  <ul>
-    <li class='header'>
-      <div class='title'>
-        Прибуток
+    <div class='tr header'>
+      <div class='td title'> Витрати </div>
+      <div class='td pointer' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month, revenue.article_id, "Revenue")'>
+        {{totalCost[month] || 0}}
+        <sg-register-table registers='registers' show='tableShow'></sg-register-table>
       </div>
-      <div class='value'>
-        {{ totalProfit }}
+    </div>
+
+    <div class='tr' ng-repeat="cost in costs">
+      <div class='td'>
+        {{cost.article}}
+        <div class='tr {{cost.article_type}}' ng-repeat="c in cost.counterparties" ng-show="c.name">
+          <div class='td'>{{c.name}}</div>
+        </div>
       </div>
-    </li>
-  </ul>
-
-  <div class='clearboth'></div>
-
-  <ul>
-    <li class='header'>
-      <div class='title'>
-        Трансляція
+      <div class='td' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
+        <div class='pointer' ng-click='tableShow=!tableShow; getRegisters(month, cost.article_id, "Cost")'>
+          {{cost.value[month] || 0}}
+          <sg-register-table registers='registers' show='tableShow'></sg-register-table>
+        </div>
+        <div class='tr value {{cost.article_type}}' ng-repeat="c in cost.counterparties">
+          <div class='td'>{{c.values[0][month] || 0}}</div>
+        </div>
       </div>
-      <div class='value'>
-        {{ totalTranslation }}
+    </div>
+
+    <div class='tr header'>
+      <div class='td title'> Трансляція </div>
+      <div class='td pointer' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month, null, "Translation")'>
+        {{totalTranslation[month] || 0}}
+        <sg-register-table registers='registers' show='tableShow'></sg-register-table>
       </div>
-    </li>
+    </div>
 
-    <li ng-repeat='item in translations'>
-      <div class='title title_item' ng-click='register_show=!register_show'> {{ item.article }} </div>
-      <div class='value'> {{ item.value }} </div>
-
-      <sg-register-table registers='item.registers' show='register_show'></sg-register-table>
-
-      <ul class='nested-report-items'>
-        <li ng-repeat='c in item.counterparties' class="{{ item.article_type }}">
-          <div ng-show="c.name">
-            <div class='title nested'>{{ c.name }}</div>
-            <div class='value nested'>{{ c.value }}</div>
-          </div>
-        </li>
-      </ul>
-    </li>
-  </ul>
-
-  <div class='clearboth'></div>
+    <div class='tr' ng-repeat="translation in translations">
+      <div class='td'>
+        {{translation.article}}
+        <div class='tr {{translation.article_type}}' ng-repeat="c in translation.counterparties" ng-show="c.name">
+          <div class='td'>{{c.name}}</div>
+        </div>
+      </div>
+      <div class='td' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
+        <div class='pointer' ng-click='tableShow=!tableShow; getRegisters(month, translation.article_id, "Translation")'>
+          {{translation.value[month] || 0}}
+          <sg-register-table registers='registers' show='tableShow'></sg-register-table>
+        </div>
+        <div class='tr value {{translation.article_type}}' ng-repeat="c in translation.counterparties">
+          <div class='td'>{{c.values[0][month] || 0}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

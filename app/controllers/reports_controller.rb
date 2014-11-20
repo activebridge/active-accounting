@@ -16,12 +16,18 @@ class ReportsController < ApplicationController
     define_method(type) do
       RegisterDecorator.decorate_collection(Register.send(type)
                                             .group_by_article
-                                            .by_month(@month),
+                                            .by_months(@month),
                                             @month)
     end
   end
 
   def parse_month
-    @month = params[:month].blank? ? Date.today : Date.parse(params[:month])
+    @month = if params[:month].blank?
+               '0'
+             else
+               months = []
+               params[:month].each{|m| months << Date.parse(m).month}
+               months.join(',')
+             end
   end
 end

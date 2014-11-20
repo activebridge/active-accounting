@@ -6,29 +6,22 @@
     }
   }
 
-  ul {
+  .tr {
     padding: 0;
-
-    div { float: left; }
-    width: 400px;
-    text-align: left;
-
-    .title { width: 300px; }
+    .title { width: 250px; }
     .value { width: 100px; text-align: right; }
 
-    li {
-      &.Revenue { color: green; }
-      &.Cost { color: red; }
-      &.Translation { color: blue; }
+    &.Revenue { color: green; }
+    &.Cost { color: red; }
+    &.Translation { color: blue; }
 
-      &.header { font-weight: bold; }
-    }
+    &.header { font-weight: bold; }
 
     ul.nested-report-items li .nested {
       font-size: 14px;
       &.title {
         padding-left: 15px;
-        width: 285px;
+        width: 185px;
       }
     }
   }
@@ -36,12 +29,12 @@
   .register_table {
     display: inline-table;
     margin-bottom: 15px;
-    margin-left: 60px;
-    margin-top: 15px;
+    margin-left: -200px;
+    margin-top: 20px;
     width: 1024px;
   }
 
-  .title_revenue, .title_cost, .title_item {
+  .pointer {
     cursor: pointer;
   }
 }

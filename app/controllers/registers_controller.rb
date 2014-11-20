@@ -5,13 +5,14 @@ class RegistersController < ApplicationController
   def index
     if params[:month]
       registers = Register.order('created_at desc').by_month(parse_month)
+      registers.where!(article_id: params['article_id']) if params['article_id']
     else
       registers = Register.by_article(params[:article_id])
                           .by_counterparty(params[:counterparty_id])
                           .by_date(params[:date])
                           .by_value(params[:value])
     end
-    json = ActiveModel::ArraySerializer.new(registers,
+    json = ActiveModel::ArraySerializer.new(parse_type(registers),
                                            each_serializer: RegisterSerializer,
                                            root: nil)
     render json: json, status: 200
@@ -50,6 +51,19 @@ class RegistersController < ApplicationController
 
   def parse_month
     @month = params[:month].blank? ? Date.today : Date.parse(params[:month])
+  end
+
+  def parse_type registers
+    case params['type']
+      when 'Revenue' then
+        registers.revenues
+      when 'Cost' then
+        registers.costs
+      when 'Translation' then
+        registers.translations
+      else
+        registers
+      end
   end
 
 end
