@@ -69,8 +69,8 @@
 
       <div class='values bold'>
         <div class='left'>Прибуток</div>
-        <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
-          {{totalRevenue[month] - totalCost[month]}}
+        <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
+          {{(totalRevenue[month] - totalCost[month]).toFixed(2)}}
         </div>
       </div>
 
