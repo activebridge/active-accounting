@@ -15,21 +15,24 @@
 
     <div class='values bold'> 
       <div class='left'>Надходження</div>  
-      <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month, $event, true)'>
+      <div class='pointer value pointer' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month, $event, tableShow, "revenues", null)'>
         {{totalRevenue[month] || 0}}
       </div>
     </div>
+    <div class='table'></div>
 
     <div ng-repeat="revenue in revenues">
       <div class='values'>
         <div class='left'>{{revenue.article}}</div>
-        <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month)'>
+        <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month, $event, tableShow, "revenues", revenue.article_id)'>
           {{revenue.values[month]}}
         </div>
       </div>
+      <div class='table'></div>
+
       <div ng-repeat="c in revenue.counterparties" class='values {{revenue.article_type}}'>
         <div class='left counterparty'>{{c.counterparty}}</div>
-        <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month)'>
+        <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
           {{c.values[month]}}
         </div>
       </div>
@@ -39,52 +42,60 @@
 
     <div class='values bold'>
       <div class='left'>Витрати</div>
-      <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month)'>
+      <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month, $event, tableShow, "costs", null)'>
         {{totalCost[month] || 0}}
       </div>
     </div>
+    <div class='table'></div>
 
     <div ng-repeat="cost in costs">
       <div class='values'>
         <div class='left'>{{cost.article}}</div>
-        <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month)'>
+        <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month, $event, tableShow, "costs", cost.article_id)'>
           {{cost.values[month]}}
         </div>
       </div>
+      <div class='table'></div>
+
       <div ng-repeat="c in cost.counterparties" class='values {{cost.article_type}}'>
         <div class='left counterparty'>{{c.counterparty}}</div>
-        <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month)'>
+        <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
           {{c.values[month]}}
         </div>
       </div>
     </div>
 
     <div class='clearboth'></div>
+
       <div class='values bold'>
         <div class='left'>Прибуток</div>
-        <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month)'>
+        <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
           {{totalRevenue[month] - totalCost[month]}}
         </div>
       </div>
+
     <div class='clearboth'></div>
 
     <div class='values bold'>
       <div class='left'>Трансляція</div>
-      <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month)'>
+      <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month, $event, tableShow, "translations", null)'>
         {{totalTranslation[month] || 0}}
       </div>
     </div>
+    <div class='table'></div>
 
     <div ng-repeat="translation in translations">
       <div class='values'>
         <div class='left'>{{translation.article}}</div>
-        <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month)'>
+        <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month, $event, tableShow, "translations", translation.article_id)'>
           {{translation.values[month]}}
         </div>
       </div>
+      <div class='table'></div>
+
       <div ng-repeat="c in translation.counterparties" class='values {{translation.article_type}}'>
         <div class='left counterparty'>{{c.counterparty}}</div>
-        <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='tableShow=!tableShow; getRegisters(month)'>
+        <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
           {{c.values[month]}}
         </div>
       </div>
@@ -93,7 +104,14 @@
   </div>
 </div>
 
-
-<div id='registers-template' style='display: none'>
-
+<div>
+  <table class="ng-scope register_table" ng-hide='true'>
+    <tr class='header'>
+      <th>Дата</th>
+      <th>Стаття</th>
+      <th>Контрагент</th>
+      <th>Сума</th>
+      <th></th>
+    </tr>
+  </table>
 </div>
