@@ -51,9 +51,31 @@
   $scope.parseMonthName = (month) ->
     return $scope.months.indexOf(month)+1
 
-  $scope.getRegisters = (month) ->
-    date = month + '/' + (new Date().getFullYear())
-    $scope.registers = Register.query(month: date)
+  $scope.getRegisters = (month, event, clicked, type, article_id) ->
+    tableDiv = $(event.target.parentElement).next()
+    if clicked
+      date = month + '/' + (new Date().getFullYear())
+      if tableDiv[0].innerHTML
+        tableDiv[0].innerHTML = ''
+      registers = Register.query
+        month: date,
+        type: type,
+        article_id: article_id,
+        () ->
+          html = $('.register_table').clone()
+          html.removeClass('ng-hide')
+          $.each registers, (k, v)->
+            tr =  $('<tr>').append(
+                    $('<td>').text(v.date),
+                    $('<td>').text(v.article.name),
+                    $('<td>').text(v.counterparty.name),
+                    $('<td>').text(v.value),
+                    $('<td>').text(v.notes || ''))
+            table = html.append(tr);
+            tableDiv.append(table)
+          tableDiv.append(html) unless registers.length
+    else
+      tableDiv[0].innerHTML = ''
 
   $scope.load()
 
