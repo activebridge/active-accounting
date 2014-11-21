@@ -3,8 +3,11 @@
   <div class="ctrl" ng-controller="ArticlesCtrl">
     <div class="form">
       <form ng-submit="add()">
-        <input ng-model="newArticle.name" type="text" onbeforesave="checkName($data)"></input>
-        <div class='form'>
+        <div class="name-add-article">
+          <input ng-model="newArticle.name" type="text" onbeforesave="checkName($data)"></input>
+          <br> <span class='error'>{{newArticle.errors.name[0]}}</span>
+        </div>
+        <div class="select-types">
           <select id="select" ng-model="newArticle.type">
             <option value="Revenue">Надходження</option>
             <option value="Cost">Витрати</option>
@@ -12,9 +15,7 @@
           </select>
           <br> <span class='error'>{{newArticle.errors.type[0]}}</span>
         </div>
-        <button class="btn" type="submit">
-          Додати
-        </button>
+        <button class="btn" type="submit">Додати</button>
       </form>
     </div>
     <div class="list">
@@ -27,15 +28,14 @@
             ({{ article.type_msg }})
           </span>
           <form editable-form name="rowform" onbeforesave="update(article.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == article">
-            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">Зберегти</button>
-            <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">Відміна</button>
+            <button type="submit" class='icon-button submit-article' ng-disabled="rowform.$waiting" ><span class='glyphicon glyphicon-check'></span></button>
+            <button type="button" class='icon-button submit-article' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class='glyphicon glyphicon-remove'></span></button>
           </form>
-        <div class="butn" ng-show="!rowform.$visible">
-          <button class="btn btn-primary" ng-click="rowform.$show()">Змінити</button>
-          <button class="btn btn-danger" ng-show="!article.assigned" ng-click="delete(article.id)">Видалити</button>
-          <span class="mess-warning" ng-show="article.assigned" title="Видалення не можливе. Стаття має зв’язки."></span>
-        </div>
-
+          <div class="butn" ng-show="!rowform.$visible">
+            <button class='icon-button' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
+            <button type="button" class='icon-button' ng-show="!article.assigned" ng-click="delete(article.id)"><span class='glyphicon glyphicon-trash'></span></button>
+            <span type="button" class="glyphicon glyphicon-info-sign mess-info" ng-show="article.assigned" title="Видалення не можливе. Контрагент має зв’язки."></span>
+          </div>
         </li>
       </ul>
     </div>

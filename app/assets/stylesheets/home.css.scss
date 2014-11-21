@@ -20,7 +20,7 @@ input {
   border: 1px solid #aaa;
   color: #444;
   border-radius: 4px;
-  height: 22px;
+  height: 26px;
   padding: 2px;
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eee), color-stop(0.5, #fff));
   background-image: -webkit-linear-gradient(center bottom, #eee 0%, #fff 50%);
@@ -36,7 +36,7 @@ input {
   color: #444;
   padding: 0 6px 0 6px;
   border-radius: 4px;
-  height: 29px;
+  height: 26px;
   width: 89px;
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eee), color-stop(0.5, #fff));
   background-image: -webkit-linear-gradient(center bottom, #eee 0%, #fff 50%);
@@ -44,3 +44,18 @@ input {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#eeeeee', GradientType = 0);
   background-image: linear-gradient(to top, #eee 0%, #fff 50%);
 }
+
+.icon-button {
+  background: transparent;
+  color: #867373;
+  border: none;
+  font-size: 20px;
+  padding: 0;
+  margin: 0 5px;
+
+  &:hover {
+    span { color: #070707; }
+  }
+}
+
+td { padding: 0 3px; }

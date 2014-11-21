@@ -15,6 +15,7 @@
       () ->
         $scope.articles.push(article)
         $scope.newArticle = {}
+        $('#select').select2('val', '')
       , (response) ->
         $scope.newArticle.errors = response.data.error
     )

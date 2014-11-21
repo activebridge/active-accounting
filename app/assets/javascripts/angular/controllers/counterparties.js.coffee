@@ -6,10 +6,9 @@
   $('#start_date').datepicker
     dateFormat: 'dd-mm-yy'
 
-  $scope.datepicker = () ->
-    $timeout ->
-      $('.editable-input').datepicker
-        dateFormat: 'dd-mm-yy'
+  $scope.openDatepicker = ->
+    $('.start_date').datepicker({ dateFormat: "dd-mm-yy" }).focus()
+    return
 
   $scope.add = ->
     counterparty = Counterparty.save($scope.newCounterparty,

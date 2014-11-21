@@ -11,16 +11,19 @@ form.editable-wrap {
   background-color: white;
 }
 
-.counterparties {
+.list_true {
+  .name { color: #08086f; }
+
   .date {
-    color: black;
+    color: #0c9484;
+    font-size: 13px;
   }
 }
 
-.list_n > .editable-click, a.editable-click { color: gray; }
-.list-count > .editable-click, a.editable-click { border-bottom: none; }
-.list_false > .editable-click, a.editable-click { text-decoration: line-through; }
-.status-count { font-size: 13px; }
+.list_false {
+  text-decoration: line-through;
+  color: gray;
+}
 
 .name-block {
   color: #1c6b1c;
@@ -29,30 +32,27 @@ form.editable-wrap {
   margin-bottom: 5px;
 }
 
-.mess-warning {
-  width: 15px;
-  height: 15px;
+.mess-info {
+  font-size: 16px;
   display: inline-block;
+  color: #ff8412;
+  top: 3px;
 }
 
-.list_true > form > span > label > input {
-  border: none;
-  height: 14px;
-}
+.counterparties {
+  .glyphicon { font-size: 15px; }
 
-.list_true > form > span > span > button {
-  border: 1px solid #aaa;
-  color: #444;
-  padding: 0 6px 0 6px;
-  border-radius: 4px;
-  height: 29px;
-  width: 89px;
-  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eee), color-stop(0.5, #fff));
-  background-image: -webkit-linear-gradient(center bottom, #eee 0%, #fff 50%);
-  background-image: -moz-linear-gradient(center bottom, #eee 0%, #fff 50%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#eeeeee', GradientType = 0);
-  background-image: linear-gradient(to top, #eee 0%, #fff 50%);
-  z-index: 999;
-  position: relative;
-}
+  form {
+    .glyphicon { font-size: 20px; }
+  }
 
+  .editable-checkbox {
+    font-size: 17px;
+    color: gray;
+
+    input {
+      top: 8px;
+      width: 20px;
+    }
+  }
+}

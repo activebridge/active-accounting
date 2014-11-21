@@ -51,3 +51,4 @@ end
 
 gem 'haml-rails'
 gem 'active_model_serializers'
+gem 'bootstrap-sass'
