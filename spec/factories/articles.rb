@@ -5,4 +5,8 @@ FactoryGirl.define do
     name { Faker::Name.name }
     type Article::TYPES::COST
   end
+
+  factory :revenue_article, parent: :article do
+    type Article::TYPES::REVENUE
+  end
 end

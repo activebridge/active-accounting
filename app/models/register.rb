@@ -16,12 +16,19 @@ class Register < ActiveRecord::Base
     joins(:article).where(articles: {type: Article::TYPES::TRANSLATION})
   }
 
-  scope :group_by_article, -> {
-    select("article_id, sum(value) as sum").group("article_id").order("")
-  }
-
   scope :by_month, -> (date) {
     where("extract(month from date) = ? AND extract(year from date) = ?", date.month, date.year)
+  }
+
+  scope :by_months, -> (dates) {
+    if dates
+      months = dates.map(&:month).join(',')
+      years = dates.map(&:year).join(',')
+    else
+      months = '0'
+      years = '0'
+    end
+    where("extract(month from date) in (#{months}) and extract(year from date) in (#{years})")
   }
 
   scope :by_date, -> (date) { where(date: date) if date }
