@@ -29,12 +29,12 @@
           </span>
           <form editable-form name="rowform" onbeforesave="update(article.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == article">
             <button type="submit" class='icon-button submit-article' ng-disabled="rowform.$waiting" ><span class='glyphicon glyphicon-check'></span></button>
-            <button class='icon-button submit-article' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class='glyphicon glyphicon-remove'></span></button>
+            <button type="button" class='icon-button submit-article' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class='glyphicon glyphicon-remove'></span></button>
           </form>
           <div class="butn" ng-show="!rowform.$visible">
             <button class='icon-button' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
-            <button class='icon-button' ng-show="!article.assigned" ng-click="delete(article.id)"><span class='glyphicon glyphicon-trash'></span></button>
-            <span class="glyphicon glyphicon-info-sign mess-info" ng-show="article.assigned" title="Видалення не можливе. Контрагент має зв’язки."></span>
+            <button type="button" class='icon-button' ng-show="!article.assigned" ng-click="delete(article.id)"><span class='glyphicon glyphicon-trash'></span></button>
+            <span type="button" class="glyphicon glyphicon-info-sign mess-info" ng-show="article.assigned" title="Видалення не можливе. Контрагент має зв’язки."></span>
           </div>
         </li>
       </ul>
