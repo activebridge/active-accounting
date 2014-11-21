@@ -32,27 +32,30 @@ RSpec.describe ReportsController, :type => :controller do
       end
 
       it { expect(json).to eq(
-        [
-          {
-            'article' => article.name,
-            'values' => { '10' => '10.0', '11' => '0' },
-            'counterparties' => [
-              'counterparty' => counterparty.name,
-              'values' => { '10' => '10.0', '11' => '0' }
-            ],
-            'article_type' => 'Revenue',
-            'article_id' => article.id
-          },
-          {
-            'article' => article2.name,
-            'values' => { '10' => '20.0', '11' => '25.0' },
-            'counterparties' => [
-              'counterparty' => counterparty2.name,
-              'values' => { '10' => '20.0', '11' => '25.0' }
-            ],
-            'article_type' => 'Revenue',
-            'article_id' => article2.id
-          }
+        ['articles' =>
+          [
+            {
+              'article' => article.name,
+              'values' => { '10' => '10.0', '11' => '0' },
+              'counterparties' => [
+                'counterparty' => counterparty.name,
+                'values' => { '10' => '10.0', '11' => '0' }
+              ],
+              'article_type' => 'Revenue',
+              'article_id' => article.id
+            },
+            {
+              'article' => article2.name,
+              'values' => { '10' => '20.0', '11' => '25.0' },
+              'counterparties' => [
+                'counterparty' => counterparty2.name,
+                'values' => { '10' => '20.0', '11' => '25.0' }
+              ],
+              'article_type' => 'Revenue',
+              'article_id' => article2.id
+            }
+          ],
+          'total_values' => { '10' => 30.0, '11' => 25.0 }
         ]
       ) }
     end

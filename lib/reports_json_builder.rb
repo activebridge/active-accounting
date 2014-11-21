@@ -13,6 +13,13 @@ class ReportsJsonBuilder
   private
 
   def hash
+     [{
+       "articles" => build_articles,
+       "total_values" => build_totals
+     }]
+  end
+
+  def build_articles
     registers = Register.send(type)
                         .by_months(parsed_months)
                         .group(['article_id', 'month(date)'])
@@ -28,6 +35,14 @@ class ReportsJsonBuilder
       result << item
     end
     result.uniq
+  end
+
+  def build_totals
+    totals = Register.send(type)
+                     .by_months(parsed_months)
+                     .group('month(date)')
+                     .sum('value')
+    totals.each { |k, v| totals[k] = v.round(2) }
   end
 
   def parsed_months
@@ -64,7 +79,7 @@ class ReportsJsonBuilder
     parsed_months.each do |date|
       registers.each do |r|
         if date.month == r.month && association_id == r.send(object_type)
-          result[date.month] = r.sum.to_s
+          result[date.month] = r.sum.round(2).to_s
         end
       end
       result[date.month] = '0' unless result[date.month]
