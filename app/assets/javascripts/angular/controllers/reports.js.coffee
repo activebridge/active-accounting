@@ -26,7 +26,7 @@
       report_type: 'translations'
       , 'months[]': $scope.clickedMonths
       , (response) ->
-        $scope.translation = response[0].articles
+        $scope.translations = response[0].articles
         $scope.totalTranslation = response[0].total_values
 
   $scope.monthsChange = (month, clicked) ->
