@@ -1,15 +1,15 @@
-<div class="list" ng-controller="ChartsCtrl">
+<div class="list">
   <div class="wrapper">
     <div class='year-picker'>
-      <label class="month-picker-label" type="checkbox" ng-repeat='year in years' ng-click='clicked=!clicked; CheckYears(year, clicked)' ng-class='{checked: clicked}' ng-init='clicked = curr_year == year; CheckYears(curr_year, clicked)'>{{year}}
+      <label class="year-picker-label" type="checkbox" ng-repeat='year in years' ng-click='clicked=!clicked; CheckYears(year, clicked)' ng-class='{checked: clicked}' ng-init='clicked = curr_year == year; CheckYears(curr_year, clicked)'>{{year}}
       </lable>
     </div>
   </div>
-</div>
-<div class="counterparties">
-  <div id="chartcontainer" class="ctrl" ng-controller="ChartsCtrl">
-    <div id="chartcontainer{{year}}"  class="{{year}}" ng-repeat='year in years'>
-    </div>   
+  <div class="counterparties">
+    <div id="chartcontainer" class="ctrl">
+      <div id="chartcontainer{{year}}"  class="{{year}}" ng-repeat='year in years'>
+      </div>   
+    </div>
   </div>
 </div>
 
