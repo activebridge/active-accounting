@@ -6,31 +6,26 @@
     }
   }
 
-  ul {
-    padding: 0;
+  .container, .values {
+    display: flex;
+  }
 
-    div { float: left; }
-    width: 400px;
-    text-align: left;
+  .left {
+    width: 200px;
+  }
 
-    .title { width: 300px; }
-    .value { width: 100px; text-align: right; }
+  .right {
+    width: 1024px;
+  }
 
-    li {
-      &.Revenue { color: green; }
-      &.Cost { color: red; }
-      &.Translation { color: blue; }
+  .value { width: 100px; text-align: right; }
 
-      &.header { font-weight: bold; }
-    }
+  div {
+    &.Revenue { color: green; }
+    &.Cost { color: red; }
+    &.Translation { color: blue; }
 
-    ul.nested-report-items li .nested {
-      font-size: 14px;
-      &.title {
-        padding-left: 15px;
-        width: 285px;
-      }
-    }
+    &.header { font-weight: bold; }
   }
 
   .register_table {
@@ -43,5 +38,14 @@
 
   .title_revenue, .title_cost, .title_item {
     cursor: pointer;
+  }
+
+  div.bold {
+    font-weight: bold;
+  }
+
+  div.counterparty {
+    padding-left: 10px;
+    width: 190px;
   }
 }
