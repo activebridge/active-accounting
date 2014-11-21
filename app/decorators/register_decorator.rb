@@ -14,13 +14,18 @@ class RegisterDecorator
 
   def counterparties
     Register.where(article_id: register.article_id)
-            .select("counterparty_id, sum(value) as sum")
+            .select("counterparty_id, sum(value) as sum, date")
             .group("counterparty_id")
             .order("")
-            .by_month(month)
+            .by_months(month)
   end
 
   def registers
-    Register.where(article_id: register.article_id).by_month(month)
+    Register.where(article_id: register.article_id)
+            .by_months(month)
+  end
+
+  def value_sum
+    Register.where(article_id: register.article_id).group('month(date)').sum(:value)
   end
 end

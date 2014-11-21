@@ -7,3 +7,21 @@ app.directive "sgRegisterTable", ->
   scope:
     registers: '='
     show: '='
+    type: '@'
+    month: '='
+  link: (scope,element,attrs) ->
+    scope.parseMonth = (date, month) ->
+      d = date.split("-")
+      return (new Date(d[0], d[1] - 1, d[2]).getMonth()+1) == month
+
+app.directive "sgMultipleMonthPicker", ->
+  restrict: "E"
+  templateUrl: '<%= asset_path('angular/directives/multipleMonthPicker.html') %>'
+  replace: true
+  scope:
+    currentMonth: '='
+  link: (scope,element,attrs) ->
+    scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+    scope.show = (month, clicked) ->
+      scope.$parent.show(month, clicked)

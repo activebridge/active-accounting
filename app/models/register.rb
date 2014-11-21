@@ -36,6 +36,10 @@ class Register < ActiveRecord::Base
     end
   }
 
+  scope :by_months, -> (dates) {
+    where("extract(month from date) in (#{dates})")
+  }
+
   delegate :article_name, :type, to: :article
 
   scope :group_by_month, -> {
