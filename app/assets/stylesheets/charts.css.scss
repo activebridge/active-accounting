@@ -3,3 +3,19 @@
   
   div img { display: none;}
 }
+
+.month-picker-label { 
+  padding: 0 3px;
+}
+
+.year-picker {
+  display: table;
+  border-radius: 5px;
+  background-color: #989898;
+  padding: 0 5px;
+}
+
+.checked { 
+  background-color: #e6e6e6;
+  cursor: pointer;
+}

@@ -1,4 +1,7 @@
 @ChartsCtrl = ['$scope', 'Chart', ($scope, Chart) ->
+
+  $scope.curr_year = new Date().getFullYear()
+  $scope.myYear = [$scope.curr_year] 
   $scope.load = (year, count) ->
   
     $scope.data = Chart.query
@@ -34,22 +37,20 @@
         generalChart.setAxisPaddingLeft(65)
 
         generalChart.draw()
-
-        
       
   loadYears = ->
     Chart.years (response) ->
       $scope.years = response[0]['years']
-      loadmass()
-  
+
   loadYears()
-  curr_date = new Date() 
-  
-  loadmass = ->
-    i = undefined
-    i = 0
-    while i < $scope.years.length
-      cont = 'chartcontainer'+$scope.years[i]
-      $scope.load($scope.years[i], cont)
-      i++
+  $scope.CheckYears = (value, clicked) ->
+    if clicked
+      $('#chartcontainer'+value).show()
+      if $scope.myYear.indexOf(value) <= 0
+        $scope.myYear.push(value) if value != $scope.curr_year
+        cont = 'chartcontainer'+value
+        $scope.load(value, cont)
+    else
+      $('#chartcontainer'+value).hide()
+    return
 ]

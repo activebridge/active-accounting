@@ -12,8 +12,6 @@ class ChartsController < ApplicationController
                                           each_serializer: Charts::YearSerializer,
                                           root: nil)
 
-    #json = Charts::YearSerializer.new(Register.all)
-
     render json: json, status: 200
   end
 end
