@@ -36,7 +36,7 @@ input {
   color: #444;
   padding: 0 6px 0 6px;
   border-radius: 4px;
-  height: 29px;
+  height: 26px;
   width: 89px;
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eee), color-stop(0.5, #fff));
   background-image: -webkit-linear-gradient(center bottom, #eee 0%, #fff 50%);
@@ -57,3 +57,5 @@ input {
     span { color: #070707; }
   }
 }
+
+td { padding: 0 3px; }

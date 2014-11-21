@@ -46,20 +46,20 @@
               <input type="text" ng-model="newRegister.notes">
             </td>
             <td>
-              <button class='icon-button' type="submit"><span class='glyphicon glyphicon-plus-sign'></span></button>
+              <button class="btn" type="submit">Додати</button>
             </td>
           </tr>
           <tr>
             <td>
-              <span class='error'>{{newRegister.errors.date}}</span>
+              <span class='error'>{{newRegister.errors.date[0]}}</span>
             </td>
             <td>
-              <span class='error'>{{newRegister.errors.article}}</span>
+              <span class='error'>{{newRegister.errors.article[0]}}</span>
             </td>
             <td>
             </td>
             <td>
-             <span class='error'>{{newRegister.errors.value}}</span>
+             <span class='error'>{{newRegister.errors.value[0]}}</span>
             </td>
             <td>
             </td>
