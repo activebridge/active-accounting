@@ -51,9 +51,11 @@
   $scope.parseMonthName = (month) ->
     return $scope.months.indexOf(month)+1
 
-  $scope.getRegisters = (month) ->
+  $scope.getRegisters = (month, event, clicked) ->
     date = month + '/' + (new Date().getFullYear())
-    $scope.registers = Register.query(month: date)
+    registers = Register.query (month: date) ->
+      html = $('#registers-template').clone()
+      #$(event.target.parentElement).after("<sg-register-table registers=" + registers + " show=" + clicked + "></sg-register-table>")
 
   $scope.load()
 
