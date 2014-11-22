@@ -51,31 +51,41 @@
   $scope.parseMonthName = (month) ->
     return $scope.months.indexOf(month)+1
 
-  $scope.getRegisters = (month, event, clicked, type, article_id) ->
-    tableDiv = $(event.target.parentElement).next()
-    if clicked
+  $scope.getRegisters = (month, event, type, article_id) ->
+    showRegistersTable = (month, article_id, type, reportItem)->
       date = month + '/' + (new Date().getFullYear())
-      if tableDiv[0].innerHTML
-        tableDiv[0].innerHTML = ''
       registers = Register.query
         month: date,
         type: type,
         article_id: article_id,
         () ->
-          html = $('.register_table').clone()
-          html.removeClass('ng-hide')
+          template = $('#registers-table-template').children('table').clone()
+          template.data('month', month)
+          template.data('article_id', article_id)
           $.each registers, (k, v)->
-            tr =  $('<tr>').append(
+            tr = $('<tr>').append(
                     $('<td>').text(v.date),
                     $('<td>').text(v.article.name),
-                    $('<td>').text(v.counterparty.name),
+                    $('<td>').text(if v.counterparty then v.counterparty.name else ''),
                     $('<td>').text(v.value),
                     $('<td>').text(v.notes || ''))
-            table = html.append(tr);
-            tableDiv.append(table)
-          tableDiv.append(html) unless registers.length
+            template.append(tr)
+          reportItem.after(template)
+
+    reportItem = $(event.target).parents('.report-item')
+    nextEl = reportItem.next()
+    alreadyDisplayedTable = nextEl.hasClass('registers-table')
+    if alreadyDisplayedTable
+      table = nextEl
+      justHideTable = (table.data('month') == month) && (table.data('article_id') == article_id)
+      if justHideTable
+        table.remove()
+      else
+        table.remove()
+        showRegistersTable(month, article_id, type, reportItem)
     else
-      tableDiv[0].innerHTML = ''
+      showRegistersTable(month, article_id, type, reportItem)
+
 
   $scope.load()
 

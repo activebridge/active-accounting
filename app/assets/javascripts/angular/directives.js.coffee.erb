@@ -1,9 +1,1 @@
 app = angular.module('ActiveAccounting', ['accounting.services'])
-
-app.directive "sgRegisterTable", ->
-  restrict: "E"
-  templateUrl: '<%= asset_path('angular/directives/registerTable.html') %>'
-  replace: true
-  scope:
-    registers: '='
-    show: '='
