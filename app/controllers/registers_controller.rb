@@ -4,7 +4,10 @@ class RegistersController < ApplicationController
 
   def index
     if params[:month]
-      registers = Register.order('created_at desc').by_month(parse_month)
+      registers = Register.order('created_at desc')
+                          .by_month(parse_month)
+                          .send(params['type'])
+      registers = registers.by_article(params['article_id']) if params['article_id']
     else
       registers = Register.by_article(params[:article_id])
                           .by_counterparty(params[:counterparty_id])
