@@ -52,7 +52,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.before do
-    request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(USER, PASSWORD)
+    request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(USER, PASSWORD) if defined? request
   end
 
   config.include Requests::JsonHelpers, :type => :controller
