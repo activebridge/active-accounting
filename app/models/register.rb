@@ -45,9 +45,8 @@ class Register < ActiveRecord::Base
     end
   }
   
-  scope :by_year, -> (my_year) {
-    where("extract(year from date) = ?", my_year)
-
+  scope :by_year, -> (year) {
+    where("extract(year from date) = ?", year)
   }
 
   delegate :article_name, :type, to: :article

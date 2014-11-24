@@ -1,11 +1,11 @@
-.multiple-month-picker {
+.multiple-picker {
   border-radius: 5px;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.698) inset, 0 2px 2px rgba(0, 0, 0, 0.3) inset, 0 1px rgba(255, 255, 255, 0.1);
   display: inline-block;
   padding: 0 7px;
 }
 
-.month-picker-label, .month-picker-nav {
+.picker-label, .month-picker-nav {
   display: inline-block;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 25px;
@@ -13,16 +13,16 @@
   cursor: pointer;
 }
 
-.month-picker-wrapper {
+.picker-wrapper {
   text-align: center;
 }
 
-input:focus + .month-picker-label, .month-picker-nav:focus {
+input:focus + .picker-label, .month-picker-nav:focus {
   outline: 2px solid  rgb(94, 158, 215);
   outline: 5px auto -webkit-focus-ring-color;
 }
 
-.month-picker-label {
+.picker-label {
   position: relative;
   padding: 0 7px;
   font-size: 14px;

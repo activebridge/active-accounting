@@ -1,7 +1,7 @@
 <div class='report'>
-  <div class='month-picker-wrapper'>
-    <div class='multiple-month-picker'>
-      <label for="{{month}}" ng-init='clicked = currentMonth == month' class="month-picker-label" ng-click='clicked=!clicked; monthsChange(month, clicked)' ng-repeat='month in months' ng-class='{checked_label: clicked}'>{{month}}</label>
+  <div class='picker-wrapper'>
+    <div class='multiple-picker'>
+      <label for="{{month}}" ng-init='clicked = currentMonth == month' class="picker-label" ng-click='clicked=!clicked; monthsChange(month, clicked)' ng-repeat='month in months' ng-class='{checked_label: clicked}'>{{month}}</label>
     </div>
   </div>
 

@@ -21,5 +21,5 @@ angular.module('accounting.services').factory 'Chart', ['$resource', ($resource)
     method: 'GET',
     params:
       action: 'years'
-    isArray: true
+    isArray: false
 ]

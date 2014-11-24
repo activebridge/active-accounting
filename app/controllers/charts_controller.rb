@@ -8,10 +8,8 @@ class ChartsController < ApplicationController
   end
 
   def years
-    json = ActiveModel::ArraySerializer.new(Register.all,
-                                          each_serializer: Charts::YearSerializer,
-                                          root: nil)
-
+    json = Register.pluck(:date).map(&:year).uniq.sort
+    
     render json: json, status: 200
   end
 end
