@@ -57,5 +57,5 @@
   setTimeout (->
     $scope.load($scope.currYear, 'chartcontainer' + $scope.currYear)  
     return
-    ), 50
+  ), 50
 ]
