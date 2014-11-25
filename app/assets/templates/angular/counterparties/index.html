@@ -42,7 +42,7 @@
             <span e-class="start_date" e-ng-click="openDatepicker()" class="date" editable-text="counterparty.start_date" e-name="start_date" e-form="rowform" ng-click='datepicker()'>
               [{{ counterparty.start_date }}]
             </span>
-            <span class="glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned; !rowform.$visible" title="Видалення не можливе. Контрагент має зв’язки.">
+            <span class="glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="Видалення не можливе. Контрагент має зв’язки.">
             </span>
             <div class="butn" ng-show="!rowform.$visible">
               <button type="button" class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
@@ -81,7 +81,7 @@
             <span e-class="start_date" e-ng-click="openDatepicker()" class="date" editable-text="counterparty.start_date" e-name="start_date" e-form="rowform" ng-click='datepicker()'>
               [{{ counterparty.start_date }}]
             </span>
-            <span class="glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned; !rowform.$visible" title="Видалення не можливе. Контрагент має зв’язки.">
+            <span class="glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="Видалення не можливе. Контрагент має зв’язки.">
             </span>
             <div class="butn" ng-show="!rowform.$visible">
               <button type="button" class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
