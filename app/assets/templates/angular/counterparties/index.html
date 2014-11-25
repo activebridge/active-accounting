@@ -32,7 +32,7 @@
           <th>Ім’я</th>
           <th>Дата</th>
         </tr>
-        <tr class="list-count list_{{ counterparty.active }}" ng-repeat="counterparty in activeCounterparties">
+        <tr class="list-count-article list_{{ counterparty.active }}" ng-repeat="counterparty in activeCounterparties">
           <td>
             <span class="name" editable-text="counterparty.name" e-name="name" e-form="rowform" e-required>
               {{ counterparty.name }}
@@ -71,7 +71,7 @@
           <th>Ім’я</th>
           <th>Дата</th>
         </tr>
-        <tr class="list-count list_{{ counterparty.active }}" ng-repeat="counterparty in inactiveCounterparties">
+        <tr class="list-count-article list_{{ counterparty.active }}" ng-repeat="counterparty in inactiveCounterparties">
           <td>
             <span class="name" editable-text="counterparty.name" e-name="name" e-form="rowform" e-required>
               {{ counterparty.name }}
