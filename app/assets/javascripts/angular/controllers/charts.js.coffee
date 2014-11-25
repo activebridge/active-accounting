@@ -1,9 +1,8 @@
 @ChartsCtrl = ['$scope', 'Chart', ($scope, Chart) ->
 
   $scope.currYear = new Date().getFullYear()
-  $scope.myYear = [$scope.currYear] 
+  $scope.myYear = [$scope.currYear]
   $scope.load = (year, container) ->
-
     $scope.data = Chart.query
       year: year
       , (response) ->
@@ -36,10 +35,11 @@
         generalChart.setAxisPaddingLeft(65)
 
         generalChart.draw()
-      
+
   loadYears = ->
     Chart.years (response) ->
       $scope.years = response['charts']
+      $scope.load($scope.currYear, 'chartcontainer' + $scope.currYear)
 
   loadYears()
 
@@ -53,9 +53,4 @@
     else
       $('#chartcontainer' + value).hide()
     return
-
-  setTimeout (->
-    $scope.load($scope.currYear, 'chartcontainer' + $scope.currYear)  
-    return
-  ), 50
 ]
