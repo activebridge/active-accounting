@@ -2,6 +2,7 @@
 
   $scope.currYear = new Date().getFullYear()
   $scope.myYear = [$scope.currYear] 
+  setTimeout($scope.load, 900)
   $scope.load = (year, container) ->
 
     $scope.data = Chart.query
@@ -50,6 +51,7 @@
         $scope.myYear.push(value)
         container = 'chartcontainer' + value
         $scope.load(value, container)
+
     else
       $('#chartcontainer' + value).hide()
     return
