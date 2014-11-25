@@ -41,6 +41,10 @@ form.editable-wrap {
 
 .counterparties {
   .glyphicon { font-size: 15px; }
+  
+  td, th { width: 182px; }
+
+  .activ { width: 50px; }
 
   form {
     .glyphicon { font-size: 20px; }
@@ -53,6 +57,18 @@ form.editable-wrap {
     input {
       top: 8px;
       width: 20px;
+    }
+  }
+}
+
+.hidde { display: none; }
+
+.list-count {
+  .icon-button { font-size: 10px; }
+
+  &:hover {
+    .hidde {
+      display: inline-table;
     }
   }
 }
