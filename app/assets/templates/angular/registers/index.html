@@ -94,8 +94,8 @@
         </select>
         Сума(min):
         <input type="text" class="value search" ng-model="filter.data.value">
-        <button type="submit" class='icon-button'><span class='glyphicon glyphicon-search'></span></button>
-        <button type="button" class='icon-button' ng-click="filter.clear()"><span class='glyphicon glyphicon-repeat'></span></button>
+        <button type="submit" class='icon-button' title="Пошук за фільтром"><span class='glyphicon glyphicon-search'></span></button>
+        <button type="button" class='icon-button' ng-click="filter.clear()" title="Очистити форму"><span class='glyphicon glyphicon-repeat'></span></button>
       </form>
       <table class="ng-scope register">
         <tr>
@@ -158,21 +158,24 @@
           </td>
           <td>
             <form editable-form name="rowform" onbeforesave="update(register.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline">
-              <button type="submit" class='icon-button' ng-disabled="rowform.$waiting" ><span class='glyphicon glyphicon-check'></span></button>
-              <button type="button" class='icon-button' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); clearError()"><span class='glyphicon glyphicon-remove'></span></button>
+              <button type="submit" class='icon-button' ng-disabled="rowform.$waiting" title="Зберегти зміни"><span class='glyphicon glyphicon-check'></span></button>
+              <button type="button" class='icon-button' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); clearError()" title="Відміна"><span class='glyphicon glyphicon-remove'></span></button>
             </form>
-            <div class="buttons_record" ng-show="!rowform.$visible && !rowform_color.$visible">
-              <button type="button" class='icon-button hidd' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
-              <button type="button" class='icon-button hidd' ng-click="delete(register.id)"><span class='glyphicon glyphicon-trash'></span></button>
+            <div class="buttons_record" ng-show="!rowform.$visible && !register.colorShowActive">
+              <button type="button" class='icon-button hidd' ng-click="rowform.$show()" title="Редагування запису"><span class='glyphicon glyphicon-edit'></span></button>
+              <button type="button" class='icon-button hidd' ng-click="delete(register.id)" title="Видалення запису"><span class='glyphicon glyphicon-trash'></span></button>
             </div>
-            <span editable-text="register.background" e-type='color' e-class="color_record" e-name="background" e-form="rowform_color">
-            </span>
-            <form editable-form name="rowform_color" onbeforesave="update(register.id, $data)" ng-show="rowform_color.$visible" class="form-buttons form-inline">
-              <button type="submit" class='icon-button' ng-disabled="rowform_color.$waiting"><span class='glyphicon glyphicon-check'></span></button>
-              <button type="button" class='icon-button' ng-disabled="rowform_color.$waiting" ng-click="rowform_color.$cancel()"><span class='glyphicon glyphicon-remove'></span></button>
+            <form ng-submit="update(register.id, {background: colorRecord}); register.background = colorRecord" ng-show="register.colorShowActive">
+            <select ng-model="colorRecord" class="color-record">
+              <option ng-repeat="color in colectionColors" value={{color.value}}>
+                {{color.text}}
+              </option>
+            </select>
+              <button type="submit" class='icon-button' ng-click="register.colorShowActive = false" title="Зберегти зміни"><span class='glyphicon glyphicon-check'></span></button>
+              <button type="button" class='icon-button' ng-click="register.colorShowActive = false" title="Відміна"><span class='glyphicon glyphicon-remove'></span></button>
             </form>
-            <div class="buttons_record" ng-show="!rowform.$visible && !rowform_color.$visible">
-              <button type="button" class='icon-button hidd' ng-click="rowform_color.$show()"><span class='glyphicon glyphicon-adjust'></span></button>
+            <div class="buttons_record" ng-show="!register.colorShowActive && !rowform.$visible">
+              <button type="button" class='icon-button hidd' ng-click="register.colorShowActive = true" ng-focus='register.colorShowActive = false' title="Змінити фон"><span class='glyphicon glyphicon-adjust'></span></button>
             </div>
           </td>
         </tr>

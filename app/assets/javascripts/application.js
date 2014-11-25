@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require jquery-ui
+//= require jquery.simplecolorpicker
 //= require turbolinks
 //= require angular.min
 //= require angular-resource.min
