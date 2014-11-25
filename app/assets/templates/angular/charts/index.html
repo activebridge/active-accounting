@@ -1,5 +1,15 @@
-<div class="counterparties">
-  <div id="chartcontainer" class="ctrl" ng-controller="ChartsCtrl">
+<div class="list">
+  <div class="picker-wrapper">
+    <div class='multiple-picker'>
+      <label class="picker-label" type="checkbox" ng-repeat='year in years' ng-click='clicked=!clicked; CheckYears(year, clicked)' ng-class='{checked_label: clicked}' ng-init='clicked = currYear == year'>{{year}}
+      </lable>
+    </div>
+  </div>
+  <div class="counterparties">
+    <div id="chartcontainer" class="ctrl">
+      <div id="chartcontainer{{year}}" ng-repeat='year in years'>
+      </div>   
+    </div>
   </div>
 </div>
 

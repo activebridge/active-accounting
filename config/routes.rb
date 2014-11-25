@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   resources :articles
   resources :registers
   resources :reports, only: :index
-  resources :charts
+  resources :charts do
+    collection do
+      get :years
+    end
+  end
 
   root 'home#index'
 
