@@ -2,7 +2,6 @@
 
   $scope.currYear = new Date().getFullYear()
   $scope.myYear = [$scope.currYear] 
-  setTimeout($scope.load, 900)
   $scope.load = (year, container) ->
 
     $scope.data = Chart.query
@@ -33,7 +32,7 @@
         generalChart.setLegendForBar(4, 'Трансляція')
 
         generalChart.setSize(800, 400)
-        generalChart.setTitle(String(year))
+        generalChart.setTitle(year.toString())
         generalChart.setAxisPaddingLeft(65)
 
         generalChart.draw()
@@ -51,10 +50,12 @@
         $scope.myYear.push(value)
         container = 'chartcontainer' + value
         $scope.load(value, container)
-
     else
       $('#chartcontainer' + value).hide()
     return
 
-  $scope.load($scope.currYear, 'chartcontainer' + $scope.currYear)
+  setTimeout (->
+    $scope.load($scope.currYear, 'chartcontainer' + $scope.currYear)  
+    return
+    ), 50
 ]
