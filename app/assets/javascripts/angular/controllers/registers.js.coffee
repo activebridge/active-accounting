@@ -91,10 +91,11 @@
     d = $q.defer()
     Register.update( id: register_id, {register: data}
       (response) ->
-        if $('#month-picker').val()
-          $scope.load()
-        else
-          $scope.filter.fetchRegisters()
+        if data.background is undefined
+          if $('#month-picker').val()
+            $scope.load()
+          else
+            $scope.filter.fetchRegisters()
         d.resolve()
       (response) ->
         d.resolve('')

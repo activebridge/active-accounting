@@ -6,14 +6,36 @@
     td input, td select {
       width: 150px;
     }
-
   }
-.list {
+
+  .list {
   .dateup { width: 87px; }
 
   input, td, th, select {
     width: 150px;
     text-align: left;
+  }
+
+  .color_record {
+    width: 20px;
+    height: 20px;
+    border: 0px;
+    padding: 0px;
+    border-radius: 10px;
+  }
+
+  .buttons_record {
+    float: left;
+    margin-right: 5px;
+  }
+
+  .simplecolorpicker {
+    border: 3px solid #867373;
+    border-radius: 5px;
+    width: 22px;
+    margin-left: 5px;
+
+    &:hover { border-color: #070707; }
   }
 }
 
@@ -80,3 +102,5 @@ tr {
 .filter { color: #3d5c3e; }
 
 .form-filter { padding: 10px 0; }
+
+
