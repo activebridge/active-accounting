@@ -12,8 +12,12 @@
     $scope.filter.clear()
 
   $scope.filter.fetchRegisters = ->
-    $scope.registers = Register.query($scope.filter.data)
+    r = $scope.filter.data.date
+    s = $.datepicker.parseDate('dd/mm/yy', $scope.filter.data.date.replace(/\-/g,'/'));
+    $scope.filter.data.date = $.datepicker.formatDate('yy-mm-dd',s)
+    $scope.registers = Register.query($scope.filter.data )
     $('#month-picker').val('')
+    $scope.filter.data.date = r
     return
 
   $scope.valueOnlyNumeric = ->
@@ -45,7 +49,7 @@
     onSelect: (date, obj) ->
       $scope.newRegister.date = date
 
-  $('#dateFilter').datepicker(dateFormat: 'yy-mm-dd')
+  $('#dateFilter').datepicker(dateFormat: 'dd-mm-yy')
 
   $scope.openDatepicker = ->
     $('input.dateup').datepicker({ dateFormat: "dd-mm-yy" }).focus()
