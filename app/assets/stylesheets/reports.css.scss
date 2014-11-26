@@ -53,4 +53,16 @@
   div.counterparty {
     padding-left: 10px;
   }
+
+  .glyphicon-collapse {
+    color: #867373;
+    font-size: 15px;
+    cursor: pointer;
+
+    &:hover { color: #070707; }
+
+    &:before { content: ""; }
+
+    &.active_label_show:before { content: ""; }
+  }
 }
