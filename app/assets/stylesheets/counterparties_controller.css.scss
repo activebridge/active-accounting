@@ -36,7 +36,7 @@ form.editable-wrap {
   font-size: 16px;
   display: inline-block;
   color: #ff8412;
-  top: 3px;
+  top: 1px;
 }
 
 .counterparties {
@@ -44,18 +44,18 @@ form.editable-wrap {
   
   td, th { width: 182px; }
 
-  .activ { width: 50px; }
+  td.activ { width: 50px; }
 
   form {
     .glyphicon { font-size: 20px; }
   }
 
-  .editable-controls input { width: 100%; }
-
   .editable-checkbox {
     font-size: 17px;
     color: gray;
-
+    top: -5px;
+    position: relative;
+    
     input {
       top: 8px;
       width: 20px;

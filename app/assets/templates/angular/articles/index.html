@@ -38,8 +38,9 @@
         <tr>
           <th>Ім’я</th>
           <th>Тип</th>
-          <th></th>
         </tr>
+      </table>
+      <table>
         <tr class="list-count-article" ng-repeat="article in articles">
           <td>
             <span class="name" editable-text="article.name" e-ng-focus="showSelects()"onbeforesave="checkName($data)" e-name="name" e-form="rowform" e-required>
@@ -50,9 +51,12 @@
             <span class="{{ article.type }} article_type" e-class="search-select" editable-select="article.type" e-name="type" e-form="rowform" e-ng-options="s.value as s.text for s in type_msgs">
               ({{ article.type_msg }})
             </span>
+          </td>
+          <td ng-show="!rowform.$visible">
             <div class="butn" ng-show="!rowform.$visible">
-              <span type="button" class="glyphicon glyphicon-info-sign mess-info" ng-show="article.assigned" title="Видалення не можливе. Контрагент має зв’язки."></span>
               <button class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
+              <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="article.assigned && !rowform.$visible" title="Видалення не можливе. Контрагент має зв’язки.">
+              </span>
               <button type="button" class='icon-button hidde' ng-show="!article.assigned" ng-click="delete(article.id)"><span class='glyphicon glyphicon-trash'></span></button>
             </div>
           </td>
