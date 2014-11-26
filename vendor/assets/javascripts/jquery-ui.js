@@ -36,3 +36,4 @@
 //= require jquery-ui/tooltip
 //= require jquery-ui/widget
 //= require jquery-ui/numeric
+//= require jquery-ui/simplecolorpicker

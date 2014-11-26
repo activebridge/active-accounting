@@ -30,12 +30,12 @@
   }
 
   .simplecolorpicker {
-    border-color: #000000;
+    border: 3px solid #867373;
     border-radius: 5px;
-    top: -4px;
-    position: relative;
-    width: 20px;
-    margin-right: 5px;
+    width: 22px;
+    margin-left: 5px;
+
+    &:hover { border-color: #070707; }
   }
 }
 

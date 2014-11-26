@@ -1,1 +1,6 @@
 app = angular.module('ActiveAccounting', ['accounting.services'])
+
+app.directive "repeatComplete", ->
+  (scope, element, attrs) ->
+    if (scope.$last)
+      $('select.color-record').simplecolorpicker({picker: true, pickerDelay: 600})

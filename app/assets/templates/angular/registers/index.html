@@ -115,7 +115,7 @@
             Примітки
           </th>
         </tr>
-        <tr ng-repeat="register in registers | orderBy:predicate:reverse" style="background: {{ register.background }}">
+        <tr ng-repeat="register in registers | orderBy:predicate:reverse" style="background: {{ register.background }}" repeat-complete>
           <td>
             <span e-class="dateup" e-ng-click="openDatepicker()" e-ng-focus="showSelect()" editable-text="register.date" e-name="date" e-form="rowform">
               <div class="buttons" ng-show="!rowform.$visible">
@@ -161,22 +161,35 @@
               <button type="submit" class='icon-button' ng-disabled="rowform.$waiting" title="Зберегти зміни"><span class='glyphicon glyphicon-check'></span></button>
               <button type="button" class='icon-button' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); clearError()" title="Відміна"><span class='glyphicon glyphicon-remove'></span></button>
             </form>
-            <div class="buttons_record" ng-show="!rowform.$visible && !register.colorShowActive">
+            <div class="buttons_record" ng-show="!rowform.$visible">
               <button type="button" class='icon-button hidd' ng-click="rowform.$show()" title="Редагування запису"><span class='glyphicon glyphicon-edit'></span></button>
               <button type="button" class='icon-button hidd' ng-click="delete(register.id)" title="Видалення запису"><span class='glyphicon glyphicon-trash'></span></button>
             </div>
-            <form ng-submit="update(register.id, {background: colorRecord}); register.background = colorRecord" ng-show="register.colorShowActive">
-            <select ng-model="colorRecord" class="color-record">
-              <option ng-repeat="color in colectionColors" value={{color.value}}>
-                {{color.text}}
-              </option>
-            </select>
-              <button type="submit" class='icon-button' ng-click="register.colorShowActive = false" title="Зберегти зміни"><span class='glyphicon glyphicon-check'></span></button>
-              <button type="button" class='icon-button' ng-click="register.colorShowActive = false" title="Відміна"><span class='glyphicon glyphicon-remove'></span></button>
-            </form>
-            <div class="buttons_record" ng-show="!register.colorShowActive && !rowform.$visible">
-              <button type="button" class='icon-button hidd' ng-click="register.colorShowActive = true" ng-focus='register.colorShowActive = false' title="Змінити фон"><span class='glyphicon glyphicon-adjust'></span></button>
-            </div>
+            <span class="hidd" ng-show="!rowform.$visible" >
+              <select ng-model="colorRecord" ng-change="update(register.id, {background: colorRecord}); register.background = colorRecord" class="color-record">
+                <option value=""></option>
+                <option value="#7bd148">Green</option>
+                <option value="#5484ed">Bold blue</option>
+                <option value="#a4bdfc">Blue</option>
+                <option value="#46d6db">Turquoise</option>
+                <option value="#fbd75b">Yellow</option>
+                <option value="#ffb878">Orange</option>
+                <option value="#ff887c">Red</option>
+                <option value="#dbadff">Purple</option>
+                <option value="#6A5ACD">SlateBlue</option>
+                <option value="#00FFFF">Cyan</option>
+                <option value="#7CFC00">LawnGreen</option>
+                <option value="#FFD700">Gold</option>
+                <option value="#CD5C5C">IndianRed</option>
+                <option value="#D2691E">Chocolate</option>
+                <option value="#FF1493">DeepPink</option>
+                <option value="#9932CC">DarkOrchid</option>
+                <option value="#009ACD">DeepSkyBlue</option>
+                <option value="#B3EE3A">OliveDrab</option>
+                <option value="#CD7054">Salmon</option>
+                <option value="#D15FEE">MediumOrchid</option>
+              </select>
+            </span>
           </td>
         </tr>
       </table>
