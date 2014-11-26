@@ -138,7 +138,7 @@
       var pos = this.$icon.offset();
       this.$picker.css({
         // Remove some pixels to align the picker icon with the icons inside the dropdown
-        left: pos.left - 6,
+        left: pos.left - 70,
         top: pos.top + this.$icon.outerHeight()
       });
 

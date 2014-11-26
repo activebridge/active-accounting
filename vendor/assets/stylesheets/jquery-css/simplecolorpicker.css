@@ -16,13 +16,13 @@
 .simplecolorpicker.picker {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: 0px;
   z-index: 1051; /* Above Bootstrap modal (@zindex-modal = 1050) */
   display: none;
   float: left;
 
-  min-width: 160px;
-  max-width: 283px; /* @popover-max-width = 276px + 7 */
+  min-width: 140px;
+  max-width: 185px;; /* @popover-max-width = 276px + 7 */
 
   padding: 5px 0 0 5px;
   margin: 2px 0 0;
