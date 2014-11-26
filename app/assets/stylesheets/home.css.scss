@@ -8,6 +8,10 @@
   margin-bottom: 30px;
 }
 
+td.editIcon { width: 59px; }
+
+td.editDate { width: 109px; }
+
 input, textarea { outline: none; }
 
 input:focus{
@@ -60,4 +64,16 @@ input {
 
 td { padding: 0 3px; }
 
-label { margin: 0;}
+label { margin: 0; }
+
+.hidde { display: none; }
+
+.list-count-article {
+  .icon-button { font-size: 10px; }
+
+  &:hover {
+    .hidde {
+      display: inline-table;
+    }
+  }
+}

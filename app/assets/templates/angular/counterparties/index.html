@@ -31,21 +31,26 @@
         <tr>
           <th>Ім’я</th>
           <th>Дата</th>
+          <th></th>
         </tr>
-        <tr class="list-count list_{{ counterparty.active }}" ng-repeat="counterparty in activeCounterparties">
+      </table>
+      <table>
+        <tr class="list-count-article list_{{ counterparty.active }}" ng-repeat="counterparty in activeCounterparties">
           <td>
             <span class="name" editable-text="counterparty.name" e-name="name" e-form="rowform" e-required>
               {{ counterparty.name }}
             </span>
           </td>
-          <td>
+          <td class="editDate">
             <span e-class="start_date" e-ng-click="openDatepicker()" class="date" editable-text="counterparty.start_date" e-name="start_date" e-form="rowform" ng-click='datepicker()'>
               [{{ counterparty.start_date }}]
             </span>
-            <span class="glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="Видалення не можливе. Контрагент має зв’язки.">
-            </span>
+          </td>
+          <td class ="editIcon" ng-show="!rowform.$visible">
             <div class="butn" ng-show="!rowform.$visible">
               <button type="button" class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
+              <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="Видалення не можливе. Контрагент має зв’язки.">
+              </span>
               <button type="button" class='icon-button hidde' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)"><span class='glyphicon glyphicon-trash'></span></button>
             </div>
           </td>
@@ -71,20 +76,24 @@
           <th>Ім’я</th>
           <th>Дата</th>
         </tr>
-        <tr class="list-count list_{{ counterparty.active }}" ng-repeat="counterparty in inactiveCounterparties">
+      </table>
+      <table>
+        <tr class="list-count-article list_{{ counterparty.active }}" ng-repeat="counterparty in inactiveCounterparties">
           <td>
             <span class="name" editable-text="counterparty.name" e-name="name" e-form="rowform" e-required>
               {{ counterparty.name }}
             </span>
           </td>
-          <td>
+          <td class="editDate">
             <span e-class="start_date" e-ng-click="openDatepicker()" class="date" editable-text="counterparty.start_date" e-name="start_date" e-form="rowform" ng-click='datepicker()'>
               [{{ counterparty.start_date }}]
             </span>
-            <span class="glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="Видалення не можливе. Контрагент має зв’язки.">
-            </span>
+          </td>
+          <td class ="editIcon" ng-show="!rowform.$visible">
             <div class="butn" ng-show="!rowform.$visible">
               <button type="button" class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
+              <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="Видалення не можливе. Контрагент має зв’язки.">
+              </span>
               <button type="button" class='icon-button hidde' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)"><span class='glyphicon glyphicon-trash'></span></button>
             </div>
           </td>

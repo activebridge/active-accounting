@@ -38,7 +38,13 @@ span.article_type {
 
 .articles {
   .list { margin-top: 25px; }
+
   .glyphicon { font-size: 15px; }
+  
+  td.articleType { width: 100px; }
+
+  td, th { width: 188px; }
+
   span.error { position: absolute; }
 
   form {

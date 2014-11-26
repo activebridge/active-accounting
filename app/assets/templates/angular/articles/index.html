@@ -3,41 +3,71 @@
   <div class="ctrl">
     <div class="form">
       <form ng-submit="add()">
-        <div class="name-add-article">
-          <input ng-model="newArticle.name" type="text" onbeforesave="checkName($data)"></input>
-          <br> <span class='error'>{{newArticle.errors.name[0]}}</span>
-        </div>
-        <div class="select-types">
-          <select id="select" ng-model="newArticle.type">
-            <option value="Revenue">Надходження</option>
-            <option value="Cost">Витрати</option>
-            <option value="Translation">Трансляція</option>
-          </select>
-          <br> <span class='error'>{{newArticle.errors.type[0]}}</span>
-        </div>
-        <button class="btn" type="submit">Додати</button>
+        <table>
+          <tr>
+            <th>Ім’я</th>
+            <th>Тип</th>
+            <th></th>
+          </tr>
+          <tr>
+            <td>
+              <div class="name-add-article">
+                <input ng-model="newArticle.name" type="text" onbeforesave="checkName($data)"></input>
+                <br> <span class='error'>{{newArticle.errors.name[0]}}</span>
+              </div>
+            </td>
+            <td>
+              <div class="select-types">
+                <select id="select" ng-model="newArticle.type">
+                  <option value="Revenue">Надходження</option>
+                  <option value="Cost">Витрати</option>
+                  <option value="Translation">Трансляція</option>
+                </select>
+                <br> <span class='error'>{{newArticle.errors.type[0]}}</span>
+              </div>
+            </td>
+            <td>
+              <button class="btn" type="submit">Додати</button>
+            </td>
+          </tr>
+        </table>
       </form>
     </div>
     <div class="list">
-      <ul>
-        <li ng-repeat="article in articles">
-          <span class="name" editable-text="article.name" e-ng-focus="showSelects()"onbeforesave="checkName($data)" e-name="name" e-form="rowform" e-required>
-            {{ article.name }}
-          </span>
-          <span class="{{ article.type }} article_type" e-class="search-select" editable-select="article.type" e-name="type" e-form="rowform" e-ng-options="s.value as s.text for s in type_msgs">
-            ({{ article.type_msg }})
-          </span>
-          <form editable-form name="rowform" onbeforesave="update(article.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == article">
-            <button type="submit" class='icon-button submit-article' ng-disabled="rowform.$waiting" ><span class='glyphicon glyphicon-check'></span></button>
-            <button type="button" class='icon-button submit-article' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class='glyphicon glyphicon-remove'></span></button>
-          </form>
-          <div class="butn" ng-show="!rowform.$visible">
-            <button class='icon-button' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
-            <button type="button" class='icon-button' ng-show="!article.assigned" ng-click="delete(article.id)"><span class='glyphicon glyphicon-trash'></span></button>
-            <span type="button" class="glyphicon glyphicon-info-sign mess-info" ng-show="article.assigned" title="Видалення не можливе. Контрагент має зв’язки."></span>
-          </div>
-        </li>
-      </ul>
+      <table>
+        <tr>
+          <th>Ім’я</th>
+          <th>Тип</th>
+        </tr>
+      </table>
+      <table>
+        <tr class="list-count-article" ng-repeat="article in articles">
+          <td>
+            <span class="name" editable-text="article.name" e-ng-focus="showSelects()"onbeforesave="checkName($data)" e-name="name" e-form="rowform" e-required>
+              {{ article.name }}
+            </span>
+          </td>
+          <td class="articleType">
+            <span class="{{ article.type }} article_type" e-class="search-select" editable-select="article.type" e-name="type" e-form="rowform" e-ng-options="s.value as s.text for s in type_msgs">
+              ({{ article.type_msg }})
+            </span>
+          </td>
+          <td ng-show="!rowform.$visible">
+            <div class="butn" ng-show="!rowform.$visible">
+              <button class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
+              <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="article.assigned && !rowform.$visible" title="Видалення не можливе. Контрагент має зв’язки.">
+              </span>
+              <button type="button" class='icon-button hidde' ng-show="!article.assigned" ng-click="delete(article.id)"><span class='glyphicon glyphicon-trash'></span></button>
+            </div>
+          </td>
+          <td>
+            <form editable-form name="rowform" onbeforesave="update(article.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == article">
+              <button type="submit" class='icon-button submit-article' ng-disabled="rowform.$waiting" ><span class='glyphicon glyphicon-check'></span></button>
+              <button type="button" class='icon-button submit-article' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class='glyphicon glyphicon-remove'></span></button>
+            </form>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>
