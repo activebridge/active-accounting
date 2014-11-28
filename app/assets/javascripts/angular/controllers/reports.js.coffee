@@ -63,9 +63,8 @@
           template.data('month', month)
           template.data('article_id', article_id)
           $.each registers, (k, v)->
-            dateParse = $.datepicker.parseDate('yy-mm-dd', v.date)
             tr = $('<tr>').append(
-                    $('<td>').text($.datepicker.formatDate('dd-mm-yy', dateParse)),
+                    $('<td>').text(v.date),
                     $('<td>').text(v.article.name),
                     $('<td>').text(if v.counterparty then v.counterparty.name else ''),
                     $('<td>').text(v.value),
