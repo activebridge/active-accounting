@@ -12,11 +12,8 @@
     $scope.filter.clear()
 
   $scope.filter.fetchRegisters = ->
-    date = $scope.filter.data.date
-    dateParse = $.datepicker.parseDate('dd-mm-yy', date)
     $scope.registers = Register.query($scope.filter.data )
     $('#month-picker').val('')
-    $scope.filter.data.date = date
     return
 
   $scope.valueOnlyNumeric = ->
