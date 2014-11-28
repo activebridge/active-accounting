@@ -117,7 +117,7 @@
         </tr>
         <tr ng-repeat="register in registers | orderBy:predicate:reverse" style="background: {{ register.background }}" repeat-complete>
           <td>
-            <span e-class="dateup" e-ng-click="openDatepicker()" e-ng-focus="showSelect()" editable-text="register.date | date:'dd-MM-yyyy'" e-name="date" e-form="rowform">
+            <span e-class="dateup" e-ng-click="openDatepicker()" e-ng-focus="showSelect()" editable-text="register.date" e-name="date" e-form="rowform">
               <div class="buttons" ng-show="!rowform.$visible">
                 {{ register.date }}
               </div>
