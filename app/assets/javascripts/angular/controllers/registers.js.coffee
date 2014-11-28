@@ -14,7 +14,6 @@
   $scope.filter.fetchRegisters = ->
     date = $scope.filter.data.date
     dateParse = $.datepicker.parseDate('dd-mm-yy', date)
-    $scope.filter.data.date = $.datepicker.formatDate('yy-mm-dd',dateParse)
     $scope.registers = Register.query($scope.filter.data )
     $('#month-picker').val('')
     $scope.filter.data.date = date
@@ -59,7 +58,7 @@
     $('.search-select').select2({width: '100%'})
     $scope.valueOnlyNumeric()
     return
-  
+
   curr_date = new Date()
 
   $scope.newRegister.date = $.datepicker.formatDate('dd-mm-yy', curr_date)
@@ -82,7 +81,7 @@
       , (response) ->
         $scope.newRegister.errors = response.data.errors
       )
-  
+
   $scope.delete = (register_id) ->
     if confirm('Впевнений?')
       Register.delete
@@ -90,7 +89,7 @@
       , (success) ->
         $scope.load()
         return
-  
+
    $scope.update = (register_id, data) ->
     d = $q.defer()
     Register.update( id: register_id, {register: data}
@@ -104,7 +103,7 @@
       (response) ->
         d.resolve('')
         $scope.response_id = response.data.id
-        $scope.errors = response.data.error   
+        $scope.errors = response.data.error
     )
     return d.promise
   $scope.load()
