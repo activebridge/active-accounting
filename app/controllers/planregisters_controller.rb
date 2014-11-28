@@ -1,0 +1,3 @@
+class PlanregistersController < RegistersController
+  
+end

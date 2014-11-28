@@ -1,0 +1,2 @@
+class Plan < Register
+end
