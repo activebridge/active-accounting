@@ -45,7 +45,7 @@
     onSelect: (date, obj) ->
       $scope.newRegister.date = date
 
-  $('#dateFilter').datepicker(dateFormat: 'yy-mm-dd')
+  $('#dateFilter').datepicker(dateFormat: 'dd-mm-yy')
 
   $scope.openDatepicker = ->
     $('input.dateup').datepicker({ dateFormat: "dd-mm-yy" }).focus()
@@ -55,7 +55,7 @@
     $('.search-select').select2({width: '100%'})
     $scope.valueOnlyNumeric()
     return
-  
+
   curr_date = new Date()
 
   $scope.newRegister.date = $.datepicker.formatDate('dd-mm-yy', curr_date)
@@ -78,7 +78,7 @@
       , (response) ->
         $scope.newRegister.errors = response.data.errors
       )
-  
+
   $scope.delete = (register_id) ->
     if confirm('Впевнений?')
       Register.delete
@@ -86,7 +86,7 @@
       , (success) ->
         $scope.load()
         return
-  
+
    $scope.update = (register_id, data) ->
     d = $q.defer()
     Register.update( id: register_id, {register: data}
@@ -100,7 +100,7 @@
       (response) ->
         d.resolve('')
         $scope.response_id = response.data.id
-        $scope.errors = response.data.error   
+        $scope.errors = response.data.error
     )
     return d.promise
   $scope.load()
