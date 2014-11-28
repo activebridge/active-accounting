@@ -12,7 +12,7 @@
     $scope.filter.clear()
 
   $scope.filter.fetchRegisters = ->
-    $scope.registers = Register.query($scope.filter.data )
+    $scope.registers = Register.query($scope.filter.data)
     $('#month-picker').val('')
     return
 
