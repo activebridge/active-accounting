@@ -24,7 +24,10 @@
       <div class='values report-item'>
         <div class='left'>
           {{revenue.article}}
-          <label class="glyphicon glyphicon-collapse" ng-click='showCount=!showCount' ng-class='{active_label_show: showCount}'></label>
+          <label class="collapse-count" ng-click='showCount=!showCount'>
+            <span ng-show='!showCount'>&#9650;</span>
+            <span ng-show='showCount'>&#9660;</span>
+          </label>
         </div>
         <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='getRegisters(month, $event, "revenues", revenue.article_id)'>
           {{revenue.values[month]}}
@@ -52,7 +55,10 @@
       <div class='values report-item'>
         <div class='left'>
           {{cost.article}}
-          <label class="glyphicon glyphicon-collapse" ng-click='showCount=!showCount' ng-class='{active_label_show: showCount}'></label>
+          <label class="collapse-count" ng-click='showCount=!showCount'>
+            <span ng-show='!showCount'>&#9650;</span>
+            <span ng-show='showCount'>&#9660;</span>
+          </label>
         </div>
         <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='getRegisters(month, $event, "costs", cost.article_id)'>
           {{cost.values[month]}}
@@ -89,7 +95,10 @@
       <div class='values report-item'>
         <div class='left'>
           {{translation.article}}
-          <label class="glyphicon glyphicon-collapse" ng-click='showCount=!showCount' ng-class='{active_label_show: showCount}'></label>
+          <label class="collapse-count" ng-click='showCount=!showCount'>
+            <span ng-show='!showCount'>&#9650;</span>
+            <span ng-show='showCount'>&#9660;</span>
+          </label>
         </div>
         <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='getRegisters(month, $event, "translations", translation.article_id)'>
           {{translation.values[month]}}
