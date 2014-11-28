@@ -119,7 +119,7 @@
           <td>
             <span e-class="dateup" e-ng-click="openDatepicker()" e-ng-focus="showSelect()" editable-text="register.date | date:'dd-MM-yyyy'" e-name="date" e-form="rowform">
               <div class="buttons" ng-show="!rowform.$visible">
-                {{ register.date | date:'dd-MM-yyyy' }}
+                {{ register.date }}
               </div>
             </span>
             <span class='errors' ng-show='response_id == register.id'>{{errors.date}}</span>

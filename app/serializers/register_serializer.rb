@@ -8,4 +8,8 @@ class RegisterSerializer < ActiveModel::Serializer
   def article
     ArticleSerializer.new(object.article)
   end
+
+  def date
+    object.date.strftime('%d-%m-%Y')
+  end
 end
