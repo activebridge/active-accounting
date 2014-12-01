@@ -1,13 +1,12 @@
 <div class="articles">
-  Статті
+  {{ 'articles' | translate }}
   <div class="ctrl">
     <div class="form">
       <form ng-submit="add()">
         <table>
           <tr>
-            <th>Ім’я</th>
-            <th>Тип</th>
-            <th></th>
+            <th translate='name'></th>
+            <th translate='type'></th>
           </tr>
           <tr>
             <td>
@@ -19,15 +18,15 @@
             <td>
               <div class="select-types">
                 <select id="select" ng-model="newArticle.type">
-                  <option value="Revenue">Надходження</option>
-                  <option value="Cost">Витрати</option>
-                  <option value="Translation">Трансляція</option>
+                  <option value="Revenue" translate='Revenue'></option>
+                  <option value="Cost" translate='Cost'></option>
+                  <option value="Translation" translate='Translation'></option>
                 </select>
                 <br> <span class='error'>{{newArticle.errors.type[0]}}</span>
               </div>
             </td>
             <td>
-              <button class="btn" type="submit">Додати</button>
+              <button class="btn" type="submit" translate='NewArticle'></button>
             </td>
           </tr>
         </table>
@@ -36,8 +35,8 @@
     <div class="list">
       <table>
         <tr>
-          <th>Ім’я</th>
-          <th>Тип</th>
+          <th translate='name'></th>
+          <th translate='type'></th>
         </tr>
       </table>
       <table>

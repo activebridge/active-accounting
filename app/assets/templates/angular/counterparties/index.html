@@ -1,12 +1,12 @@
 <div class="counterparties">
-  Контрагенти
+  {{ 'counterparties' | translate }}
   <div class="ctrl">
     <div class="form">
       <form ng-submit="add()">
         <table>
           <tr>
-            <th>Ім’я</th>
-            <th>Дата</th>
+            <th translate='name'></th>
+            <th translate='date'></th>
             <th></th>
           </tr>
           <tr>
@@ -16,7 +16,7 @@
             <td>
               <input ng-model='newCounterparty.start_date' type='text' id='start_date'></input>
             </td>
-            <td><button class="btn" type="submit">Додати</button></td>
+            <td><button class="btn" type="submit" translate='NewArticle'></button></td>
           </tr>
         </table>
       </form>
@@ -25,12 +25,12 @@
       <table>
         <tr>
           <td class="name-block">
-            Aктивні контрагенти ({{ activeCounterparties.length }}):
+            {{ 'activ_cont' | translate }} ({{ activeCounterparties.length }}):
           </td>
         </tr>
         <tr>
-          <th>Ім’я</th>
-          <th>Дата</th>
+          <th translate='name'></th>
+          <th translate='date'></th>
           <th></th>
         </tr>
       </table>
@@ -49,7 +49,7 @@
           <td class ="editIcon" ng-show="!rowform.$visible">
             <div class="butn" ng-show="!rowform.$visible">
               <button type="button" class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
-              <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="Видалення не можливе. Контрагент має зв’язки.">
+              <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}">
               </span>
               <button type="button" class='icon-button hidde' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)"><span class='glyphicon glyphicon-trash'></span></button>
             </div>
@@ -69,12 +69,12 @@
       <table>
         <tr>
           <td class="name-block">
-            Не активні контрагенти ({{ inactiveCounterparties.length }}):
+            {{ 'inacti_cont' | translate }} ({{ inactiveCounterparties.length }}):
           </td>
         </tr>
         <tr>
-          <th>Ім’я</th>
-          <th>Дата</th>
+          <th translate='name'></th>
+          <th translate='date'></th>
         </tr>
       </table>
       <table>
@@ -92,7 +92,7 @@
           <td class ="editIcon" ng-show="!rowform.$visible">
             <div class="butn" ng-show="!rowform.$visible">
               <button type="button" class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
-              <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="Видалення не можливе. Контрагент має зв’язки.">
+              <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}">
               </span>
               <button type="button" class='icon-button hidde' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)"><span class='glyphicon glyphicon-trash'></span></button>
             </div>

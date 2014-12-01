@@ -14,7 +14,7 @@
     </div>
 
     <div class='values bold report-item'>
-      <div class='left'>Надходження</div>
+      <div class='left'>{{ 'Revenue' | translate }}</div>
       <div class='pointer value pointer' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='getRegisters(month, $event, "revenues", null)'>
         {{totalRevenue[month] || 0}}
       </div>
@@ -45,7 +45,7 @@
     <div class='clearboth'></div>
 
     <div class='values bold report-item'>
-      <div class='left'>Витрати</div>
+      <div class='left'>{{ 'Cost' | translate }}</div>
       <div class='pointer value' ng-repeat='month in range(1,12)' ng-show='isShow(month)' ng-click='getRegisters(month, $event, "costs", null)'>
         {{totalCost[month] || 0}}
       </div>
@@ -76,7 +76,7 @@
     <div class='clearboth'></div>
 
     <div class='values bold'>
-      <div class='left'>Прибуток</div>
+      <div class='left'>{{ 'profit' | translate }}</div>
       <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
         {{(totalRevenue[month] - totalCost[month]).toFixed(2)}}
       </div>
@@ -85,7 +85,7 @@
     <div class='clearboth'></div>
 
     <div class='values bold report-item'>
-      <div class='left'>Трансляція</div>
+      <div class='left'>{{ 'Translation' | translate }}</div>
       <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='getRegisters(month, $event, "translations", null)'>
         {{totalTranslation[month] || 0}}
       </div>
@@ -119,10 +119,10 @@
 <div id='registers-table-template' ng-hide='true'>
   <table class="ng-scope registers-table">
     <tr class='header'>
-      <th>Дата</th>
-      <th>Стаття</th>
-      <th>Контрагент</th>
-      <th>Сума</th>
+      <th translate='date'></th>
+      <th translate='article'></th>
+      <th translate='counterparty'></th>
+      <th translate='totall'></th>
       <th></th>
     </tr>
   </table>

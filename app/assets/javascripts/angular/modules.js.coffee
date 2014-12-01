@@ -1,5 +1,6 @@
 angular.module('accounting.services', [
-  'ngRoute',
-  'ngResource',
+  'ngRoute'
+  'ngResource'
   'xeditable'
+  'pascalprecht.translate'
 ])
