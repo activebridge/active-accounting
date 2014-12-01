@@ -22,13 +22,19 @@
 
     <div ng-repeat="revenue in revenues">
       <div class='values report-item'>
-        <div class='left'>{{revenue.article}}</div>
+        <div class='left'>
+          {{revenue.article}}
+          <label class="collapse-count" ng-click='showCount=!showCount'>
+            <span ng-show='!showCount'>&#9650;</span>
+            <span ng-show='showCount'>&#9660;</span>
+          </label>
+        </div>
         <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='getRegisters(month, $event, "revenues", revenue.article_id)'>
           {{revenue.values[month]}}
         </div>
       </div>
 
-      <div ng-repeat="c in revenue.counterparties" class='values {{revenue.article_type}}'>
+      <div ng-repeat="c in revenue.counterparties" class='values {{revenue.article_type}}' ng-show="showCount">
         <div class='left counterparty'>{{c.counterparty}}</div>
         <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
           {{c.values[month]}}
@@ -47,13 +53,19 @@
 
     <div ng-repeat='cost in costs'>
       <div class='values report-item'>
-        <div class='left'>{{cost.article}}</div>
+        <div class='left'>
+          {{cost.article}}
+          <label class="collapse-count" ng-click='showCount=!showCount'>
+            <span ng-show='!showCount'>&#9650;</span>
+            <span ng-show='showCount'>&#9660;</span>
+          </label>
+        </div>
         <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='getRegisters(month, $event, "costs", cost.article_id)'>
           {{cost.values[month]}}
         </div>
       </div>
 
-      <div ng-repeat="c in cost.counterparties" class='values {{cost.article_type}}'>
+      <div ng-repeat="c in cost.counterparties" class='values {{cost.article_type}}' ng-show="showCount">
         <div class='left counterparty'>{{c.counterparty}}</div>
         <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
           {{c.values[month]}}
@@ -81,13 +93,19 @@
 
     <div ng-repeat="translation in translations">
       <div class='values report-item'>
-        <div class='left'>{{translation.article}}</div>
+        <div class='left'>
+          {{translation.article}}
+          <label class="collapse-count" ng-click='showCount=!showCount'>
+            <span ng-show='!showCount'>&#9650;</span>
+            <span ng-show='showCount'>&#9660;</span>
+          </label>
+        </div>
         <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='getRegisters(month, $event, "translations", translation.article_id)'>
           {{translation.values[month]}}
         </div>
       </div>
 
-      <div ng-repeat="c in translation.counterparties" class='values {{translation.article_type}}'>
+      <div ng-repeat="c in translation.counterparties" class='values {{translation.article_type}}' ng-show="showCount">
         <div class='left counterparty'>{{c.counterparty}}</div>
         <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
           {{c.values[month]}}

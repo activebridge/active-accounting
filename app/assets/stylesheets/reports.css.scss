@@ -53,4 +53,13 @@
   div.counterparty {
     padding-left: 10px;
   }
+
+  .collapse-count {
+    color: #867373;
+    font-size: 17px;
+    cursor: pointer;
+    margin: -3px 0 0 -2px;
+
+    &:hover { color: #070707; }
+  }
 }
