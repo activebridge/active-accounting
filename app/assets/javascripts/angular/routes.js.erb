@@ -4,8 +4,7 @@ angular.module('ActiveAccounting').config([
   '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider
       .when('/home', {
-        templateUrl: '<%= asset_path('angular/registers/index.html') %>',
-        controller: 'RegistersCtrl'
+        templateUrl: '<%= asset_path('angular/registers/index.html') %>'
       })
       .when('/articles', {
         templateUrl: '<%= asset_path('angular/articles/index.html') %>',
@@ -24,8 +23,7 @@ angular.module('ActiveAccounting').config([
         controller: 'ChartsCtrl'
       })
       .when('/registersPlan', {
-        templateUrl: '<%= asset_path('angular/planregisters/index.html') %>',
-        controller: 'PlanregistersCtrl'
+        templateUrl: '<%= asset_path('angular/planregisters/index.html') %>'
       })
       .otherwise({ redirectTo: '/home' });
   }

@@ -1,6 +1,11 @@
-@RegistersCtrl = ['$scope', '$q', 'Register', 'Article', 'Counterparty', '$translate', ($scope, $q, Register, Article, Counterparty, $translate) ->
+@RegistersCtrl = ['$scope', '$q', 'Planregister', 'Register', 'Article', 'Counterparty', '$translate', ($scope, $q, Planregister, Register, Article, Counterparty, $translate) ->
+
   $scope.load = ->
-    $scope.registers = Register.query(month: $('#month-picker').val())
+    console.log $scope.newRegister
+    if $scope.sandbox
+      $scope.registers = Planregister.query(month: $('#month-picker').val())
+    else
+      $scope.registers = Register.query(month: $('#month-picker').val())
     $('.select2-container').select2('val', '')
 
   $scope.newRegister = {}
@@ -12,7 +17,10 @@
     $scope.filter.clear()
 
   $scope.filter.fetchRegisters = ->
-    $scope.registers = Register.query($scope.filter.data)
+    if $scope.sandbox
+      $scope.registers = Planregister.query($scope.filter.data)
+    else
+      $scope.registers = Register.query($scope.filter.data)
     $('#month-picker').val('')
     return
 
@@ -72,15 +80,26 @@
     i18n: {year: $translate.instant('year'), jumpYears: $translate.instant('jumpYears'), prevYear: $translate.instant('prevYear'), nextYear: $translate.instant('nextYear'), months: $translate.instant('months').split(".") }
 
   $scope.add = ->
-    register = Register.save($scope.newRegister,
-      () ->
-        $scope.registers.unshift(register)
-        $scope.newRegister = {date: $scope.newRegister.date}
-        $scope.load()
-      , (response) ->
-        $scope.newRegister.errors = response.data.errors
-      )
-  
+    console.log $scope.newRegister.errors, $scope.sandbox
+    if $scope.sandbox
+      register = Planregister.save($scope.newRegister,
+        () ->
+          $scope.registers.unshift(register)
+          $scope.newRegister = {date: $scope.newRegister.date}
+          $scope.load()
+        , (response) ->
+          $scope.newRegister.errors = response.data.errors
+        )
+    else
+      register = Register.save($scope.newRegister,
+        () ->
+          $scope.registers.unshift(register)
+          $scope.newRegister = {date: $scope.newRegister.date}
+          $scope.load()
+        , (response) ->
+          $scope.newRegister.errors = response.data.errors
+        )
+
   $scope.delete = (register_id) ->
     if confirm('Впевнений?')
       Register.delete
@@ -88,8 +107,8 @@
       , (success) ->
         $scope.load()
         return
-  
-   $scope.update = (register_id, data) ->
+
+  $scope.update = (register_id, data) ->
     d = $q.defer()
     Register.update( id: register_id, {register: data}
       (response) ->
@@ -102,9 +121,10 @@
       (response) ->
         d.resolve('')
         $scope.response_id = response.data.id
-        $scope.errors = response.data.error   
+        $scope.errors = response.data.error
     )
     return d.promise
+
   $scope.load()
   $scope.valueOnlyNumeric()
 
