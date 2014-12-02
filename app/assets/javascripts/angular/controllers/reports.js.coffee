@@ -14,6 +14,8 @@
       , (response) ->
         $scope.revenues = response[0].articles
         $scope.totalRevenue = response[0].total_values
+        $scope.revenuesPlan = response[0].articles_plan
+        $scope.totalRevenuePlan = response[0].total_values_plan
 
     Report.query
       report_type: 'costs'
@@ -21,6 +23,8 @@
       , (response) ->
         $scope.costs = response[0].articles
         $scope.totalCost = response[0].total_values
+        $scope.costsPlan = response[0].articles_plan
+        $scope.totalCostPlan = response[0].total_values_plan
 
     Report.query
       report_type: 'translations'
@@ -28,6 +32,8 @@
       , (response) ->
         $scope.translations = response[0].articles
         $scope.totalTranslation = response[0].total_values
+        $scope.translationsPlans = response[0].articles_plan
+        $scope.totalTranslationPlan = response[0].total_values_plan
 
   $scope.monthsChange = (month, clicked) ->
     m = $scope.months.indexOf(month)+1

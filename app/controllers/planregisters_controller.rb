@@ -1,6 +1,6 @@
-class PlanregistersController < RegistersController
+class PlanregistersController < ApplicationController
 
- before_action :parse_month, only: :destroy
+  before_action :parse_month, only: :destroy
   before_action :find_register, only: [:destroy, :update]
 
   def index
@@ -49,7 +49,7 @@ class PlanregistersController < RegistersController
   end
 
   def find_register
-    @register = Plan.find params[:id]
+    @register = Register.find params[:id]
   end
 
   def parse_month

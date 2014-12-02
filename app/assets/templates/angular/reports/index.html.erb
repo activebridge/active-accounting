@@ -6,18 +6,33 @@
     </div>
   </div>
 
+  <label class="multiple-picker" ng-click='showPlan=!showPlan'>
+    <span ng-show='!showPlan'>Відобразити план</span>
+    <span ng-show='showPlan'>Скрити дані плану</span>
+  </label>
+
   <div>
+    <div class='values' ng-show='showPlan'>
+      <div class='clearboth_report top_bottom'></div>
+      <div class='value border_top' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-class='{plan_show: showPlan}'></div>
+    </div>
+
     <div class='values'>
       <div class='left'>&nbsp</div>
-      <div class='value bold' ng-repeat="month in months" ng-show="isShow(parseMonthName(month))">
-        {{month}}
+      <div class='value bold' ng-repeat="month in months" ng-show="isShow(parseMonthName(month))" ng-class='{plan_show: showPlan}'>
+        <div>{{month}}</div>
+        <div ng-show='showPlan'>
+          <span class="plan">по плану</span>
+          <span class="plan">по факту</span>
+        </div>
       </div>
     </div>
 
     <div class='values bold report-item'>
       <div class='left'>{{ 'Revenue' | translate }}</div>
-      <div class='pointer value pointer' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='getRegisters(month, $event, "revenues", null)'>
-        {{totalRevenue[month] || 0}}
+      <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-class='{plan_show: showPlan}'>
+        <span ng-show='showPlan' class='plan'>{{totalRevenuePlan[month] || 0}}</span>
+        <span class='pointer fact' ng-click='getRegisters(month, $event, "revenues", null)'>{{totalRevenue[month] || 0}}</span>
       </div>
     </div>
 
@@ -30,25 +45,32 @@
             <span ng-show='showCount'>&#9650;</span>
           </label>
         </div>
-        <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='getRegisters(month, $event, "revenues", revenue.article_id)'>
-          {{revenue.values[month]}}
+        <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-class='{plan_show: showPlan}'>
+          <span ng-show='showPlan' class='plan'>{{revenuePlan.values[month]}}</span>
+          <span class='pointer fact' ng-click='getRegisters(month, $event, "revenues", revenue.article_id)'>{{revenue.values[month]}}</span>
         </div>
       </div>
 
       <div ng-repeat="c in revenue.counterparties" class='values {{revenue.article_type}}' ng-show="showCount">
         <div class='left counterparty'>{{c.counterparty}}</div>
-        <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
-          {{c.values[month]}}
+        <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-class='{plan_show: showPlan}'>
+          <span ng-show='showPlan' class='plan'>11{{c.values[month]}}</span>
+          <span class='fact'>{{c.values[month]}}</span>
         </div>
       </div>
     </div>
 
-    <div class='clearboth'></div>
+    <div class='values report-item'>
+      <div class='clearboth_report'></div>
+      <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-class='{plan_show: showPlan}'>
+      </div>
+    </div>
 
     <div class='values bold report-item'>
       <div class='left'>{{ 'Cost' | translate }}</div>
-      <div class='pointer value' ng-repeat='month in range(1,12)' ng-show='isShow(month)' ng-click='getRegisters(month, $event, "costs", null)'>
-        {{totalCost[month] || 0}}
+      <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-class='{plan_show: showPlan}'>
+        <span ng-show='showPlan' class='plan'>{{totalCostPlan[month] || 0}}</span>
+        <span class='pointer fact' ng-click='getRegisters(month, $event, "costs", null)'>{{totalCost[month] || 0}}</span>
       </div>
     </div>
 
@@ -61,34 +83,46 @@
             <span ng-show='showCount'>&#9650;</span>
           </label>
         </div>
-        <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='getRegisters(month, $event, "costs", cost.article_id)'>
-          {{cost.values[month]}}
+        <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-class='{plan_show: showPlan}'>
+          <span ng-show='showPlan' class='plan'>{{costPlan.values[month]}}</span>
+          <span class='pointer fact' ng-click='getRegisters(month, $event, "costs", cost.article_id)'>{{cost.values[month]}}</span>
         </div>
       </div>
 
       <div ng-repeat="c in cost.counterparties" class='values {{cost.article_type}}' ng-show="showCount">
         <div class='left counterparty'>{{c.counterparty}}</div>
-        <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
-          {{c.values[month]}}
+        <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-class='{plan_show: showPlan}'>
+          <span ng-show='showPlan' class='plan'>11{{c.values[month]}}</span>
+          <span class='fact'>{{c.values[month]}}</span>
         </div>
       </div>
     </div>
 
-    <div class='clearboth'></div>
-
-    <div class='values bold'>
-      <div class='left'>{{ 'profit' | translate }}</div>
-      <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
-        {{(totalRevenue[month] - totalCost[month]).toFixed(2)}}
+     <div class='values report-item'>
+      <div class='clearboth_report'></div>
+      <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-class='{plan_show: showPlan}'>
       </div>
     </div>
 
-    <div class='clearboth'></div>
+    <div class='values bold'>
+      <div class='left'>{{ 'profit' | translate }}</div>
+      <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-class='{plan_show: showPlan}'>
+          <span ng-show='showPlan' class='plan'>{{(totalRevenuePlan[month] - totalCostPlan[month]).toFixed(2)}}</span>
+          <span class='fact'>{{(totalRevenue[month] - totalCost[month]).toFixed(2)}}</span>
+        </div>
+    </div>
+
+    <div class='values report-item'>
+      <div class='clearboth_report'></div>
+      <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-class='{plan_show: showPlan}'>
+      </div>
+    </div>
 
     <div class='values bold report-item'>
       <div class='left'>{{ 'Translation' | translate }}</div>
-      <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='getRegisters(month, $event, "translations", null)'>
-        {{totalTranslation[month] || 0}}
+      <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-class='{plan_show: showPlan}'>
+        <span ng-show='showPlan' class='plan'>{{totalTranslationPlan[month] || 0}}</span>
+        <span class='pointer fact' ng-click='getRegisters(month, $event, "translations", null)'>{{totalTranslation[month] || 0}}</span>
       </div>
     </div>
 
@@ -101,19 +135,25 @@
             <span ng-show='showCount'>&#9650;</span>
           </label>
         </div>
-        <div class='pointer value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-click='getRegisters(month, $event, "translations", translation.article_id)'>
-          {{translation.values[month]}}
+        <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-class='{plan_show: showPlan}'>
+          <span ng-show='showPlan' class='plan'>{{translationPlan.values[month]}}</span>
+          <span class='pointer fact' ng-click='getRegisters(month, $event, "translations", translation.article_id)'>{{translation.values[month]}}</span>
         </div>
       </div>
 
       <div ng-repeat="c in translation.counterparties" class='values {{translation.article_type}}' ng-show="showCount">
         <div class='left counterparty'>{{c.counterparty}}</div>
-        <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)">
-          {{c.values[month]}}
+        <div class='value' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-class='{plan_show: showPlan}'>
+          <span ng-show='showPlan' class='plan'>11{{c.values[month]}}</span>
+          <span class='fact'>{{c.values[month]}}</span>
         </div>
       </div>
     </div>
 
+    <div class='values' ng-show='showPlan'>
+      <div class='clearboth_report top_bottom'></div>
+      <div class='value border_bottom' ng-repeat="month in range(1,12)" ng-show="isShow(month)" ng-class='{plan_show: showPlan}'></div>
+    </div>
   </div>
 </div>
 

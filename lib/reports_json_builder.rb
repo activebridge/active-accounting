@@ -15,12 +15,14 @@ class ReportsJsonBuilder
   def hash
      [{
        "articles" => build_articles,
-       "total_values" => build_totals
+       "total_values" => build_totals,
+       "articles_plan" => build_articles_plan,
+       "total_values_plan" => build_totals_plan
      }]
   end
 
   def build_articles
-    registers = Register.send(type)
+    registers = Fact.send(type)
                         .by_months(parsed_months)
                         .group(['article_id', 'month(date)'])
                         .select('name, month(date) as month, sum(value) as sum, article_id')
@@ -37,8 +39,34 @@ class ReportsJsonBuilder
     result.uniq
   end
 
+  def build_articles_plan
+    registers = Plan.send(type)
+                        .by_months(parsed_months)
+                        .group(['article_id', 'month(date)'])
+                        .select('name, month(date) as month, sum(value) as sum, article_id')
+    result = []
+    registers.each do |register|
+      item = {}
+      item['article'] = register.name
+      item['values'] = build_values(registers, register.article_id, 'article_id')
+      item['counterparties'] = build_counterparties_plan(register.article_id, parsed_months)
+      item['article_type'] = type.capitalize.singularize
+      item['article_id'] = register.article_id
+      result << item
+    end
+    result.uniq
+  end
+
   def build_totals
-    totals = Register.send(type)
+    totals = Fact.send(type)
+                     .by_months(parsed_months)
+                     .group('month(date)')
+                     .sum('value')
+    totals.each { |k, v| totals[k] = v.round(2) }
+  end
+
+  def build_totals_plan
+    totals = Plan.send(type)
                      .by_months(parsed_months)
                      .group('month(date)')
                      .sum('value')
@@ -56,7 +84,26 @@ class ReportsJsonBuilder
   end
 
   def build_counterparties(article_id, months)
-    registers = Register.send(type)
+    registers = Fact.send(type)
+                        .where(article_id: article_id)
+                        .by_months(parsed_months)
+                        .joins(:counterparty)
+                        .group(['counterparty_id', 'month(date)'])
+                        .select('counterparties.name as name, month(date) as month, sum(value) as sum, counterparty_id')
+
+
+    result = []
+    registers.each do |register|
+      item = {}
+      item['counterparty'] = register.name
+      item['values'] = build_values(registers, register.counterparty_id, 'counterparty_id')
+      result << item
+    end
+    result.uniq
+  end
+
+  def build_counterparties_plan(article_id, months)
+    registers = Plan.send(type)
                         .where(article_id: article_id)
                         .by_months(parsed_months)
                         .joins(:counterparty)

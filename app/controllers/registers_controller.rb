@@ -4,12 +4,12 @@ class RegistersController < ApplicationController
 
   def index
     if params[:month]
-      registers = Register.order('created_at desc')
+      registers = Fact.order('created_at desc')
                           .by_month(parse_month)
                           .by_type(params[:type])
                           .by_article(params[:article_id])
     else
-      registers = Register.by_article(params[:article_id])
+      registers = Fact.by_article(params[:article_id])
                           .by_counterparty(params[:counterparty_id])
                           .by_date(params[:date])
                           .by_value(params[:value])
@@ -21,7 +21,7 @@ class RegistersController < ApplicationController
   end
 
   def create
-    register = Register.new(register_params)
+    register = Fact.new(register_params)
     if register.save
       render json: RegisterSerializer.new(register), status: 200
     else
