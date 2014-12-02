@@ -45,7 +45,7 @@
     onSelect: (date, obj) ->
       $scope.newRegister.date = date
 
-  $('#dateFilter').datepicker(dateFormat: 'yy-mm-dd')
+  $('#dateFilter').datepicker(dateFormat: 'dd-mm-yy')
 
   $scope.openDatepicker = ->
     $('input.dateup').datepicker({ dateFormat: "dd-mm-yy" }).focus()

@@ -1,11 +1,13 @@
 .ctrl.ng-scope{"ng-controller" => "RegistersCtrl"}
-  %a{:href => "/#/counterparties", :translate =>"counterparties"}
-  %a{:href => "/#/articles", :translate =>"articles"}
-  %a{:href => "/", :translate =>"register"}
-  %a{:href => "/#/reports", :translate =>"reports"}
-  %a{:href => "/#/charts", :translate =>"charts"}  
-  = link_to "#", "ng-click" => "changeLanguage('uk')"  do
-    = image_tag "ua.png"
-  = link_to "#", "ng-click" => "changeLanguage('en')"  do
-    = image_tag "gb.png"
+  .links
+    %a{:href => "/#/counterparties", :translate =>"counterparties"}
+    %a{:href => "/#/articles", :translate =>"articles"}
+    %a{:href => "/", :translate =>"register"}
+    %a{:href => "/#/reports", :translate =>"reports"}
+    %a{:href => "/#/charts", :translate =>"charts"}  
+  .locale
+    = link_to "#", "ng-click" => "changeLanguage('uk')"  do
+      = image_tag "ua.png"
+    = link_to "#", "ng-click" => "changeLanguage('en')"  do
+      = image_tag "gb.png"
 .clearboth

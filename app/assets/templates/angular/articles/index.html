@@ -54,7 +54,7 @@
           <td ng-show="!rowform.$visible">
             <div class="butn" ng-show="!rowform.$visible">
               <button class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
-              <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="article.assigned && !rowform.$visible" title="Видалення не можливе. Контрагент має зв’язки.">
+              <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="article.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}">
               </span>
               <button type="button" class='icon-button hidde' ng-show="!article.assigned" ng-click="delete(article.id)"><span class='glyphicon glyphicon-trash'></span></button>
             </div>
