@@ -1,9 +1,8 @@
 @RegistersCtrl = ['$scope', '$q', 'Planregister', 'Register', 'Article', 'Counterparty', '$translate', ($scope, $q, Planregister, Register, Article, Counterparty, $translate) ->
 
   $scope.load = ->
-    console.log $scope.newRegister
     if $scope.sandbox
-      $scope.registers = Planregister.query(month: $('#month-picker').val())
+      $scope.registers = PlanRegister.query(month: $('#month-picker').val())
     else
       $scope.registers = Register.query(month: $('#month-picker').val())
     $('.select2-container').select2('val', '')
@@ -18,7 +17,7 @@
 
   $scope.filter.fetchRegisters = ->
     if $scope.sandbox
-      $scope.registers = Planregister.query($scope.filter.data)
+      $scope.registers = PlanRegister.query($scope.filter.data)
     else
       $scope.registers = Register.query($scope.filter.data)
     $('#month-picker').val('')
@@ -79,23 +78,23 @@
     ShowIcon: false,
     i18n: {year: $translate.instant('year'), jumpYears: $translate.instant('jumpYears'), prevYear: $translate.instant('prevYear'), nextYear: $translate.instant('nextYear'), months: $translate.instant('months').split(".") }
 
+  afterAdd = (register)->
+    $scope.registers.unshift(register)
+    $scope.newRegister = {date: $scope.newRegister.date}
+    $scope.load()
+
   $scope.add = ->
-    console.log $scope.newRegister.errors, $scope.sandbox
     if $scope.sandbox
-      register = Planregister.save($scope.newRegister,
+      register = PlanRegister.save($scope.newRegister,
         () ->
-          $scope.registers.unshift(register)
-          $scope.newRegister = {date: $scope.newRegister.date}
-          $scope.load()
+          afterAdd(register)
         , (response) ->
           $scope.newRegister.errors = response.data.errors
         )
     else
       register = Register.save($scope.newRegister,
         () ->
-          $scope.registers.unshift(register)
-          $scope.newRegister = {date: $scope.newRegister.date}
-          $scope.load()
+          afterAdd(register)
         , (response) ->
           $scope.newRegister.errors = response.data.errors
         )

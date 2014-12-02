@@ -22,8 +22,8 @@ angular.module('ActiveAccounting').config([
         templateUrl: '<%= asset_path('angular/charts/index.html') %>',
         controller: 'ChartsCtrl'
       })
-      .when('/registersPlan', {
-        templateUrl: '<%= asset_path('angular/planregisters/index.html') %>'
+      .when('/plan_registers', {
+        templateUrl: '<%= asset_path('angular/plan_registers/index.html') %>'
       })
       .otherwise({ redirectTo: '/home' });
   }

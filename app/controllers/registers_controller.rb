@@ -41,6 +41,7 @@ class RegistersController < ApplicationController
       render json: {status: :error, error: @register.errors.messages, id: @register.id}, status: 422
     end
   end
+
   private
 
   def register_params

@@ -1,8 +1,4 @@
-class PlanregistersController < ApplicationController
-
-  before_action :parse_month, only: :destroy
-  before_action :find_register, only: [:destroy, :update]
-
+class PlanRegistersController < RegistersController
   def index
     if params[:month]
       registers = Plan.order('created_at desc')
@@ -30,29 +26,11 @@ class PlanregistersController < ApplicationController
     end
   end
 
-  def destroy
-    @register.destroy
-    head(200)
-  end
-
-  def update
-    if @register.update_attributes(register_params)
-      render json: RegisterSerializer.new(@register), status: 201
-    else
-      render json: {status: :error, error: @register.errors.messages, id: @register.id}, status: 422
-    end
-  end
   private
 
   def register_params
+    params[:planregister].delete(:errors)
     params.require(:planregister).permit!
   end
 
-  def find_register
-    @register = Register.find params[:id]
-  end
-
-  def parse_month
-    @month = params[:month].blank? ? Date.today : Date.parse(params[:month])
-  end
 end
