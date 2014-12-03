@@ -5,7 +5,7 @@ app.directive "repeatComplete", ->
     if (scope.$last)
       $('select.color-record').simplecolorpicker({picker: true, pickerDelay: 600})
       
-app.config ($translateProvider) ->
+app.config ['$translateProvider', ($translateProvider) ->
   $translateProvider.translations "en",
     counterparties: "Counterparties"
     counterparty: "Counterparty"
@@ -93,3 +93,4 @@ app.config ($translateProvider) ->
     months:"Січ. Лют. Бер. Кві. Тра. Чер. Лип. Сер. Вер. Жов. Лис. Груд."
   $translateProvider.preferredLanguage "uk"
   return
+]
