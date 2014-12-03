@@ -30,7 +30,7 @@ class ReportsJsonBuilder
                         .group(['article_id', 'month(date)'])
                         .select('name, month(date) as month, sum(value) as summa, article_id')
     result = []
-    registers = (fact + plan).uniq
+    registers = (fact + plan)
     registers.each do |register|
       item = {}
       item['article'] = register.name
@@ -85,7 +85,7 @@ class ReportsJsonBuilder
                         .group(['counterparty_id', 'month(date)'])
                         .select('counterparties.name as name, month(date) as month, sum(value) as summa, counterparty_id')
     result = []
-    registers = (fact + plan).uniq
+    registers = (fact + plan)
     registers.each do |register|
       item = {}
       item['counterparty'] = register.name

@@ -51,15 +51,27 @@
     date = month + '/' + y
     return $scope.clickedMonths.indexOf(date) >= 0
 
-  $scope.valueNull = (values) ->
-    k = undefined
-    k = 1
-    while k <= 12
-      return true if parseInt(values[k]) != 0 && values[k] != undefined
-      k++
-
   $scope.parseMonthName = (month) ->
     return $scope.months.indexOf(month)+1
+
+  $scope.funcPlan = {}
+  $scope.funcPlan.show = {}
+
+  $scope.funcPlan.showAll = (param) ->
+    $.each $scope.clickedMonths, (k, v)->
+      $scope.funcPlan.show[parseInt(v.slice(0, -5))-1] = param
+
+  $scope.funcPlan.checkValues = (values) ->
+    show = false
+    $.each values, (k, v)->
+      show = true if parseFloat(v) != 0
+    return show
+
+  $scope.funcPlan.checkShow = (values) ->
+    show = false
+    $.each $scope.funcPlan.show, (k, v)->
+      show = true if v && parseFloat(values[parseInt(k)+1]) != 0
+    return show
 
   $scope.getRegisters = (month, event, type, article_id) ->
     showRegistersTable = (month, article_id, type, reportItem)->
@@ -95,7 +107,6 @@
         showRegistersTable(month, article_id, type, reportItem)
     else
       showRegistersTable(month, article_id, type, reportItem)
-
 
   $scope.load()
 
