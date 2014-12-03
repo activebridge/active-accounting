@@ -29,8 +29,8 @@ class PlanRegistersController < RegistersController
   private
 
   def register_params
-    params[:planregister].delete(:errors)
-    params.require(:planregister).permit!
+    params[:plan_register].delete(:errors)
+    params.require(:plan_register).permit!
   end
 
 end
