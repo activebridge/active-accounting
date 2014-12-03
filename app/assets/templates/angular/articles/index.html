@@ -47,8 +47,7 @@
             </span>
           </td>
           <td class="articleType">
-            <span class="{{ article.type }} article_type" e-class="search-select" editable-select="article.type" e-name="type" e-form="rowform" e-ng-options="s.value as s.text for s in type_msgs">
-              ({{ article.type_msg }})
+            <span class="{{ article.type }} article_type" e-class="search-select" editable-select="article.type" e-name="type" e-form="rowform" e-ng-options="s.value as s.text for s in type_msgs">({{article.type | translate}})
             </span>
           </td>
           <td ng-show="!rowform.$visible">

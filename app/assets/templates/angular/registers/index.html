@@ -16,8 +16,8 @@
             </td>
             <td>
               <select ng-model="newRegister.article_id" class='article'>
-                <option ng-repeat="article in articles" value={{article.id}}>
-                {{article.name}} ({{article.type_msg}})
+                <option ng-repeat="article in articles" value={{article.id}} >
+                {{article.name}} ({{article.type | translate}})
                 </option>
               </select>
             </td>
@@ -73,7 +73,7 @@
           {{type.text}}
           </option>
           <option ng-repeat="article in articles" value={{article.id}}>
-          {{article.name}} ({{article.type_msg}})
+          {{article.name}} ({{article.type | translate}})
           </option>
         </select>
         {{ 'counterparty' | translate }}:
@@ -84,7 +84,7 @@
         </select>
         {{ 'totall_min' | translate }}:
         <input type="text" class="value search" ng-model="filter.data.value">
-        <button type="submit" class='icon-button' title="{{ 'SearchFilter' | translate }}"><span class='glyphicon glyphicon-search'></span></button>
+        <button type="submit" class='icon-button' title="{{ 'searchFilter' | translate }}"><span class='glyphicon glyphicon-search'></span></button>
         <button type="button" class='icon-button' ng-click="filter.clear()" title="{{ 'clearForm' | translate }}"><span class='glyphicon glyphicon-repeat'></span></button>
       </form>
       <table class="ng-scope register">
@@ -114,11 +114,10 @@
             <span class='errors' ng-show='response_id == register.id'>{{errors.date}}</span>
           </td>
           <td>
-            <span editable-select="register.article.id" e-class="search-select" e-name="article_id" e-form="rowform"  e-ng-options="s.id as (s.name + ' (' + s.type_msg + ')') for s in articles">
+            <span editable-select="register.article.id" e-class="search-select" e-name="article_id" e-form="rowform"  e-ng-options="s.id as (s.name + ' (' + (s.type|translate) + ')') for s in articles">
               <div class="buttons" ng-show="!rowform.$visible">
                 {{register.article.name}}
-                <span class="{{ register.article.type }} article_type">
-                  ({{ register.article.type_msg }})
+                <span class="{{ register.article.type }} article_type" >({{register.article.type | translate}})
                 </span>
               </div>
             </span>

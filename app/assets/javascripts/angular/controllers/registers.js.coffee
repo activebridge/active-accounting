@@ -30,16 +30,17 @@
     $('select.article').select2({width: '200px'})
 
   $scope.articleTypes = [
-    {value: "revenues", text: "(НАДХОДЖЕННЯ)"},
-    {value: "costs", text: "(ВИТРАТИ)"},
-    {value: "translations", text: "(ТРАНСЛЯЦІЯ)"}
+    {value: "revenues", text: $translate.instant('Revenue')},
+    {value: "costs", text: $translate.instant('Cost')},
+    {value: "translations", text: $translate.instant('Translation')}
   ]
 
   $scope.counterparties = Counterparty.query
     scope: 'active'
     () ->
       $('select.counterparty').select2({width: '200px'})
-
+  
+  $.datepicker.setDefaults( $.datepicker.regional[ $translate.instant('datePickerLocal') ] )
   $('#date').datepicker
     dateFormat: 'dd-mm-yy',
     onSelect: (date, obj) ->
@@ -67,7 +68,8 @@
     $scope.load()
 
   $('#month-picker').MonthPicker
-    ShowIcon: false
+    ShowIcon: false,
+    i18n: {year: $translate.instant('year'), jumpYears: $translate.instant('jumpYears'), prevYear: $translate.instant('prevYear'), nextYear: $translate.instant('nextYear'), months: $translate.instant('months').split(".") }
 
   $scope.add = ->
     register = Register.save($scope.newRegister,

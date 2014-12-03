@@ -10,13 +10,6 @@ class Article < ActiveRecord::Base
 
   validates :type, :name, presence: true
 
-  def type_msg
-    {
-      'Revenue' => 'надходження',
-      'Translation' => 'трансляція',
-      'Cost' => 'витрати'
-    }[type]
-  end
 
   def name_with_type
     "#{ name } (#{ type_msg })"
