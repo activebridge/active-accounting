@@ -1,5 +1,5 @@
 <div class='report'>
-  <ng-include src="'<%= asset_path('angular/shared/header.html') %>'"></ng-include>
+  <ng-include src="'<%= asset_path('angular/shared/header.html.erb') %>'"></ng-include>
   <div class='picker-wrapper'>
     <div class='multiple-picker'>
       <label for="{{month}}" ng-init='clicked = currentMonth == month' class="picker-label" ng-click='clicked=!clicked; monthsChange(month, clicked)' ng-repeat='month in months' ng-class='{checked_label: clicked}'>{{month}}</label>

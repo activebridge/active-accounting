@@ -1,4 +1,4 @@
-@CounterpartiesCtrl = ['$scope', '$q', '$timeout', 'Counterparty', ($scope, $q, $timeout, Counterparty) ->
+@CounterpartiesCtrl = ['$scope', '$q', '$timeout', 'Counterparty', '$translate', ($scope, $q, $timeout, Counterparty, $translate) ->
   $scope.load = ->
     $scope.activeCounterparties = Counterparty.query(scope: 'active')
     $scope.inactiveCounterparties = Counterparty.query(scope: 'inactive')
