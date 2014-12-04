@@ -1,4 +1,4 @@
-@RegistersCtrl = ['$scope', '$q', 'Planregister', 'Register', 'Article', 'Counterparty', '$translate', ($scope, $q, Planregister, Register, Article, Counterparty, $translate) ->
+@RegistersCtrl = ['$scope', '$q', 'PlanRegister', 'Register', 'Article', 'Counterparty', '$translate', ($scope, $q, PlanRegister, Register, Article, Counterparty, $translate) ->
 
   if $scope.sandbox
     $scope.model = PlanRegister
@@ -118,6 +118,4 @@
   $scope.clearError = () ->
     $scope.errors = []
 
-  $scope.changeLanguage = (key) ->
-    $translate.use(key)
 ]

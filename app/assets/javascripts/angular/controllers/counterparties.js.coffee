@@ -38,6 +38,4 @@
 
   $scope.load()
 
-  $scope.changeLanguage = (key) ->
-    $translate.use(key)
 ]

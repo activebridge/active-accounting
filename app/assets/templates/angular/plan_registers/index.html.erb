@@ -1,4 +1,5 @@
 <div class="registers">
-  <h2 ng-init="sandbox=true" >Сандбокс</h2>
-  <ng-include src="'<%= asset_path('angular/shared/registers.html') %>'"></ng-include>
+  <ng-include src="'<%= asset_path('angular/shared/header.html.erb') %>'"></ng-include>
+  <div class='name-sandbox' ng-init="sandbox=true">{{ 'sandbox' | translate }}</div>
+  <ng-include src="'<%= asset_path('angular/shared/registers.html.erb') %>'"></ng-include>
 </div>
