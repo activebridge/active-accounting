@@ -1,4 +1,4 @@
-@ChartsCtrl = ['$scope', 'Chart', ($scope, Chart) ->
+@ChartsCtrl = ['$scope', 'Chart', '$translate', ($scope, Chart, $translate) ->
 
   $scope.currYear = new Date().getFullYear()
   $scope.myYear = [$scope.currYear]
@@ -22,13 +22,13 @@
         generalChart.setBarColor('#FDD017', 4)
 
         generalChart.setLegendShow(true)
-        generalChart.setAxisNameX('Місяць')
-        generalChart.setAxisNameY('Сума')
+        generalChart.setAxisNameX($translate.instant('month'))
+        generalChart.setAxisNameY($translate.instant('totall'))
 
-        generalChart.setLegendForBar(1, 'Надходження')
-        generalChart.setLegendForBar(2, 'Витрати')
-        generalChart.setLegendForBar(3, 'Прибуток')
-        generalChart.setLegendForBar(4, 'Трансляція')
+        generalChart.setLegendForBar(1, $translate.instant('Revenue'))
+        generalChart.setLegendForBar(2, $translate.instant('Cost'))
+        generalChart.setLegendForBar(3, $translate.instant('profit'))
+        generalChart.setLegendForBar(4, $translate.instant('Translation'))
 
         generalChart.setSize(800, 400)
         generalChart.setTitle(year.toString())
@@ -53,4 +53,7 @@
     else
       $('#chartcontainer' + value).hide()
     return
+
+  $scope.changeLanguage = (key) ->
+    $translate.use(key)
 ]

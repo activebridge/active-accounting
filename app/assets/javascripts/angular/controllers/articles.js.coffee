@@ -1,4 +1,4 @@
-@ArticlesCtrl = ['$scope', '$q', 'Article', ($scope, $q , Article) ->
+@ArticlesCtrl = ['$scope', '$q', 'Article', '$translate', ($scope, $q , Article, $translate) ->
   $scope.newArticle = {}
   $scope.newArticle.errors = {}
 
@@ -27,15 +27,15 @@
   $scope.type_msgs = [
     {
       value: "Revenue"
-      text: "Надходження"
+      text: $translate.instant('Revenue')
     }
     {
       value: "Cost"
-      text: "Витрати"
+      text: $translate.instant('Cost')
     }
     {
       value: "Translation"
-      text: "Трансляція"
+      text: $translate.instant('Translation')
     }
   ]
 
@@ -57,4 +57,7 @@
         d.resolve response.data.errors['name'][0]
     )
     return d.promise
+    
+  $scope.changeLanguage = (key) ->
+    $translate.use(key)
 ]

@@ -37,3 +37,5 @@
 //= require jquery-ui/widget
 //= require jquery-ui/numeric
 //= require jquery-ui/simplecolorpicker
+//= require jquery-ui/datepicker-en-GB
+//= require jquery-ui/datepicker-uk

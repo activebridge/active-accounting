@@ -1,13 +1,13 @@
+<ng-include src="'<%= asset_path('angular/shared/header.html.erb') %>'"></ng-include>
 <div class="articles">
-  Статті
+  {{ 'articles' | translate }}
   <div class="ctrl">
     <div class="form">
       <form ng-submit="add()">
         <table>
           <tr>
-            <th>Ім’я</th>
-            <th>Тип</th>
-            <th></th>
+            <th translate='name'></th>
+            <th translate='type'></th>
           </tr>
           <tr>
             <td>
@@ -19,15 +19,15 @@
             <td>
               <div class="select-types">
                 <select id="select" ng-model="newArticle.type">
-                  <option value="Revenue">Надходження</option>
-                  <option value="Cost">Витрати</option>
-                  <option value="Translation">Трансляція</option>
+                  <option value="Revenue" translate='Revenue'></option>
+                  <option value="Cost" translate='Cost'></option>
+                  <option value="Translation" translate='Translation'></option>
                 </select>
                 <br> <span class='error'>{{newArticle.errors.type[0]}}</span>
               </div>
             </td>
             <td>
-              <button class="btn" type="submit">Додати</button>
+              <button class="btn" type="submit" translate='NewArticle'></button>
             </td>
           </tr>
         </table>
@@ -36,8 +36,8 @@
     <div class="list">
       <table>
         <tr>
-          <th>Ім’я</th>
-          <th>Тип</th>
+          <th translate='name'></th>
+          <th translate='type'></th>
         </tr>
       </table>
       <table>
@@ -48,14 +48,13 @@
             </span>
           </td>
           <td class="articleType">
-            <span class="{{ article.type }} article_type" e-class="search-select" editable-select="article.type" e-name="type" e-form="rowform" e-ng-options="s.value as s.text for s in type_msgs">
-              ({{ article.type_msg }})
+            <span class="{{ article.type }} article_type" e-class="search-select" editable-select="article.type" e-name="type" e-form="rowform" e-ng-options="s.value as s.text for s in type_msgs">({{article.type | translate}})
             </span>
           </td>
           <td ng-show="!rowform.$visible">
             <div class="butn" ng-show="!rowform.$visible">
               <button class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
-              <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="article.assigned && !rowform.$visible" title="Видалення не можливе. Контрагент має зв’язки.">
+              <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="article.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}">
               </span>
               <button type="button" class='icon-button hidde' ng-show="!article.assigned" ng-click="delete(article.id)"><span class='glyphicon glyphicon-trash'></span></button>
             </div>

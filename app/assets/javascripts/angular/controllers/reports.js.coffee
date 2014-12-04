@@ -1,7 +1,7 @@
-@ReportsCtrl = ['$scope', 'Report', 'Register', ($scope, Report, Register) ->
+@ReportsCtrl = ['$scope', 'Report', 'Register', '$translate', ($scope, Report, Register, $translate) ->
 
   $scope.load = ->
-    $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    $scope.months = $translate.instant('month_all').split(',')
     curr_date = new Date()
     $scope.clickedMonths = [(curr_date.getMonth()+1) + '/' + curr_date.getFullYear()]
     $scope.currentMonth = $scope.months[curr_date.getMonth()]
@@ -89,4 +89,6 @@
 
   $scope.load()
 
+  $scope.changeLanguage = (key) ->
+    $translate.use(key)
 ]

@@ -1,4 +1,4 @@
-@RegistersCtrl = ['$scope', '$q', 'Register', 'Article', 'Counterparty', ($scope, $q, Register, Article, Counterparty) ->
+@RegistersCtrl = ['$scope', '$q', 'Register', 'Article', 'Counterparty', '$translate', ($scope, $q, Register, Article, Counterparty, $translate) ->
   $scope.load = ->
     $scope.registers = Register.query(month: $('#month-picker').val())
     $('.select2-container').select2('val', '')
@@ -30,16 +30,17 @@
     $('select.article').select2({width: '200px'})
 
   $scope.articleTypes = [
-    {value: "revenues", text: "(НАДХОДЖЕННЯ)"},
-    {value: "costs", text: "(ВИТРАТИ)"},
-    {value: "translations", text: "(ТРАНСЛЯЦІЯ)"}
+    {value: "revenues", text: $translate.instant('Revenue')},
+    {value: "costs", text: $translate.instant('Cost')},
+    {value: "translations", text: $translate.instant('Translation')}
   ]
 
   $scope.counterparties = Counterparty.query
     scope: 'active'
     () ->
       $('select.counterparty').select2({width: '200px'})
-
+  
+  $.datepicker.setDefaults( $.datepicker.regional[ $translate.instant('datePickerLocal') ] )
   $('#date').datepicker
     dateFormat: 'dd-mm-yy',
     onSelect: (date, obj) ->
@@ -55,7 +56,7 @@
     $('.search-select').select2({width: '100%'})
     $scope.valueOnlyNumeric()
     return
-
+  
   curr_date = new Date()
 
   $scope.newRegister.date = $.datepicker.formatDate('dd-mm-yy', curr_date)
@@ -67,7 +68,8 @@
     $scope.load()
 
   $('#month-picker').MonthPicker
-    ShowIcon: false
+    ShowIcon: false,
+    i18n: {year: $translate.instant('year'), jumpYears: $translate.instant('jumpYears'), prevYear: $translate.instant('prevYear'), nextYear: $translate.instant('nextYear'), months: $translate.instant('months').split(".") }
 
   $scope.add = ->
     register = Register.save($scope.newRegister,
@@ -78,7 +80,7 @@
       , (response) ->
         $scope.newRegister.errors = response.data.errors
       )
-
+  
   $scope.delete = (register_id) ->
     if confirm('Впевнений?')
       Register.delete
@@ -86,7 +88,7 @@
       , (success) ->
         $scope.load()
         return
-
+  
    $scope.update = (register_id, data) ->
     d = $q.defer()
     Register.update( id: register_id, {register: data}
@@ -100,7 +102,7 @@
       (response) ->
         d.resolve('')
         $scope.response_id = response.data.id
-        $scope.errors = response.data.error
+        $scope.errors = response.data.error   
     )
     return d.promise
   $scope.load()
@@ -108,4 +110,7 @@
 
   $scope.clearError = () ->
     $scope.errors = []
+
+  $scope.changeLanguage = (key) ->
+    $translate.use(key)
 ]

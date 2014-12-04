@@ -1,25 +1,15 @@
 <div class="registers">
   <div class="ctrl ng-scope">
+    <ng-include src="'<%= asset_path('angular/shared/header.html.erb') %>'"></ng-include>
     <div class="form">
       <form ng-submit="add()" class="ng-pristine ng-valid">
         <table cellspacing="0">
           <tr>
-            <th>
-              Дата
-            </th>
-            <th>
-              Стаття
-            </th>
-            <th>
-              Контрагент
-            </th>
-            <th>
-              Сума
-            </th>
-            <th>
-              Примітка
-            </th>
-            <th></th>
+            <th translate='date'></th>
+            <th translate='article'></th>
+            <th translate='counterparty'></th>
+            <th translate='totall'></th>
+            <th translate='note'></th>
           </tr>
           <tr>
             <td>
@@ -27,8 +17,8 @@
             </td>
             <td>
               <select ng-model="newRegister.article_id" class='article'>
-                <option ng-repeat="article in articles" value={{article.id}}>
-                {{article.name}} ({{article.type_msg}})
+                <option ng-repeat="article in articles" value={{article.id}} >
+                {{article.name}} ({{article.type | translate}})
                 </option>
               </select>
             </td>
@@ -46,7 +36,7 @@
               <input type="text" ng-model="newRegister.notes">
             </td>
             <td>
-              <button class="btn" type="submit">Додати</button>
+              <button class="btn" type="submit" translate='NewArticle'></button>
             </td>
           </tr>
           <tr>
@@ -71,48 +61,52 @@
     </div>
     <div class="list">
       <div class='month-picker-wrapper'>
-        Місяць: <input type='text' id='month-picker'/>
-        <a ng-click="filter.show()" href="javascript: void(false);" class="filter">Фільтр</a>
+        {{ 'month' | translate }}:
+        <input type='text' id='month-picker'/>
+        <a ng-click="filter.show()" href="javascript: void(false);" class="filter">
+          {{ 'filter' | translate }}
+          <span ng-show='!filter.active'>&#9650;</span>
+          <span ng-show='filter.active'>&#9660;</span>
+        </a>
       </div>
       <form ng-submit="filter.fetchRegisters()" ng-show ="filter.active" class="form-filter ng-pristine ng-valid">
-        Дата:
+        {{ 'date' | translate }}:
         <input type="text" id='dateFilter' ng-model="filter.data.date" class="ng-pristine ng-valid">
-        Статті:
+        {{ 'articles' | translate }}:
         <select class='article search' ng-model="filter.data.article_id">
           <option ng-repeat="type in articleTypes" value={{type.value}}>
           {{type.text}}
           </option>
           <option ng-repeat="article in articles" value={{article.id}}>
-          {{article.name}} ({{article.type_msg}})
+          {{article.name}} ({{article.type | translate}})
           </option>
         </select>
-        Контрагент:
+        {{ 'counterparty' | translate }}:
         <select class='counterparty search' ng-model="filter.data.counterparty_id">
           <option ng-repeat="counterparty in counterparties" value={{counterparty.id}}>
             {{counterparty.name}}
           </option>
         </select>
-        Сума(min):
+        {{ 'totall_min' | translate }}:
         <input type="text" class="value search" ng-model="filter.data.value">
-        <button type="submit" class='icon-button' title="Пошук за фільтром"><span class='glyphicon glyphicon-search'></span></button>
-        <button type="button" class='icon-button' ng-click="filter.clear()" title="Очистити форму"><span class='glyphicon glyphicon-repeat'></span></button>
+        <button type="submit" class='icon-button' title="{{ 'searchFilter' | translate }}"><span class='glyphicon glyphicon-search'></span></button>
+        <button type="button" class='icon-button' ng-click="filter.clear()" title="{{ 'clearForm' | translate }}"><span class='glyphicon glyphicon-repeat'></span></button>
       </form>
       <table class="ng-scope register">
         <tr>
           <th class='date'>
-            <a href='' ng-class="{'up_arrow' : predicate=='date' && reverse, 'down_arrow' : predicate=='date' && !reverse}" ng-click="predicate='date'; reverse=!reverse">Дата</a>
+            <a href='' ng-class="{'up_arrow' : predicate=='date' && reverse, 'down_arrow' : predicate=='date' && !reverse}" ng-click="predicate='date'; reverse=!reverse" translate='date'></a>
           </th>
           <th class='article'>
-            <a href='' ng-class="{'up_arrow' : predicate=='article' && reverse, 'down_arrow' : predicate=='article' && !reverse}" ng-click="predicate='article'; reverse=!reverse">Стаття</a>
+            <a href='' ng-class="{'up_arrow' : predicate=='article' && reverse, 'down_arrow' : predicate=='article' && !reverse}" ng-click="predicate='article'; reverse=!reverse" translate='article'></a>
           </th>
           <th>
-            <a href='' ng-class="{'up_arrow' : predicate=='counterparty' && reverse, 'down_arrow' : predicate=='counterparty' && !reverse}" ng-click="predicate='counterparty'; reverse=!reverse">Контрагент</a>
+            <a href='' ng-class="{'up_arrow' : predicate=='counterparty' && reverse, 'down_arrow' : predicate=='counterparty' && !reverse}" ng-click="predicate='counterparty'; reverse=!reverse" translate='counterparty'></a>
           </th>
           <th>
-            <a href='' ng-class="{'up_arrow' : predicate=='value' && reverse, 'down_arrow' : predicate=='value' && !reverse}" ng-click="predicate='value'; reverse=!reverse">Сума</a>
+            <a href='' ng-class="{'up_arrow' : predicate=='value' && reverse, 'down_arrow' : predicate=='value' && !reverse}" ng-click="predicate='value'; reverse=!reverse" translate='totall'></a>
           </th>
-          <th>
-            Примітки
+          <th translate='notes'>
           </th>
         </tr>
         <tr ng-repeat="register in registers | orderBy:predicate:reverse" style="background: {{ register.background }}" repeat-complete>
@@ -125,11 +119,10 @@
             <span class='errors' ng-show='response_id == register.id'>{{errors.date}}</span>
           </td>
           <td>
-            <span editable-select="register.article.id" e-class="search-select" e-name="article_id" e-form="rowform"  e-ng-options="s.id as (s.name + ' (' + s.type_msg + ')') for s in articles">
+            <span editable-select="register.article.id" e-class="search-select" e-name="article_id" e-form="rowform"  e-ng-options="s.id as (s.name + ' (' + (s.type|translate) + ')') for s in articles">
               <div class="buttons" ng-show="!rowform.$visible">
                 {{register.article.name}}
-                <span class="{{ register.article.type }} article_type">
-                  ({{ register.article.type_msg }})
+                <span class="{{ register.article.type }} article_type" >({{register.article.type | translate}})
                 </span>
               </div>
             </span>
@@ -158,12 +151,12 @@
           </td>
           <td>
             <form editable-form name="rowform" onbeforesave="update(register.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline">
-              <button type="submit" class='icon-button' ng-disabled="rowform.$waiting" title="Зберегти зміни"><span class='glyphicon glyphicon-check'></span></button>
-              <button type="button" class='icon-button' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); clearError()" title="Відміна"><span class='glyphicon glyphicon-remove'></span></button>
+              <button type="submit" class='icon-button' ng-disabled="rowform.$waiting" title="{{ 'save_changes' | translate }}"><span class='glyphicon glyphicon-check'></span></button>
+              <button type="button" class='icon-button' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); clearError()" title="{{ 'cancel' | translate }}"><span class='glyphicon glyphicon-remove'></span></button>
             </form>
             <div class="buttons_record" ng-show="!rowform.$visible">
-              <button type="button" class='icon-button hidd' ng-click="rowform.$show()" title="Редагування запису"><span class='glyphicon glyphicon-edit'></span></button>
-              <button type="button" class='icon-button hidd' ng-click="delete(register.id)" title="Видалення запису"><span class='glyphicon glyphicon-trash'></span></button>
+              <button type="button" class='icon-button hidd' ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}"><span class='glyphicon glyphicon-edit'></span></button>
+              <button type="button" class='icon-button hidd' ng-click="delete(register.id)" title="{{ 'delete_reg' | translate }}"><span class='glyphicon glyphicon-trash'></span></button>
             </div>
             <span class="hidd" ng-show="!rowform.$visible" >
               <select ng-model="colorRecord" ng-change="update(register.id, {background: colorRecord}); register.background = colorRecord" class="color-record">
