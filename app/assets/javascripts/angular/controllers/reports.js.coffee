@@ -57,21 +57,24 @@
   $scope.funcPlan = {}
   $scope.funcPlan.show = {}
 
-  $scope.funcPlan.showAll = (param) ->
+  $scope.funcPlan.showAll = (value) ->
     $.each $scope.clickedMonths, (k, v)->
-      $scope.funcPlan.show[parseInt(v.slice(0, -5))-1] = param
+      $scope.funcPlan.show[parseInt(v.slice(0, -5))-1] = value
 
-  $scope.funcPlan.checkValues = (values) ->
-    show = false
-    $.each values, (k, v)->
-      show = true if parseFloat(v) != 0
-    return show
+  $scope.funcPlan.showRecord = (record) ->
+    valueNotNull = false
+    valuePlanNotNull = false
+    $.each record.values, (k, v)->
+      valueNotNull = true if parseFloat(v) != 0
+    $.each record.valuesPlan, (k, v)->
+      valuePlanNotNull = true if parseFloat(v) != 0 && $scope.funcPlan.show[parseInt(k)-1]
+    return true if valueNotNull || valuePlanNotNull
 
-  $scope.funcPlan.checkShow = (values) ->
-    show = false
-    $.each $scope.funcPlan.show, (k, v)->
-      show = true if v && parseFloat(values[parseInt(k)+1]) != 0
-    return show
+  $scope.funcPlan.showCarrot = (counterparties) ->
+    show = []
+    $.each counterparties, (k, v)->
+      show.unshift($scope.funcPlan.showRecord(v)) if $scope.funcPlan.showRecord(v)
+    return true if show.length > 0
 
   $scope.getRegisters = (month, event, type, article_id) ->
     showRegistersTable = (month, article_id, type, reportItem)->

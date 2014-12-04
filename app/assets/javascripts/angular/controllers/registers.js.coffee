@@ -1,10 +1,12 @@
 @RegistersCtrl = ['$scope', '$q', 'Planregister', 'Register', 'Article', 'Counterparty', '$translate', ($scope, $q, Planregister, Register, Article, Counterparty, $translate) ->
 
+  if $scope.sandbox
+    $scope.model = PlanRegister
+  else
+    $scope.model = Register
+
   $scope.load = ->
-    if $scope.sandbox
-      $scope.registers = PlanRegister.query(month: $('#month-picker').val())
-    else
-      $scope.registers = Register.query(month: $('#month-picker').val())
+    $scope.registers = $scope.model.query(month: $('#month-picker').val())
     $('.select2-container').select2('val', '')
 
   $scope.newRegister = {}
@@ -16,10 +18,7 @@
     $scope.filter.clear()
 
   $scope.filter.fetchRegisters = ->
-    if $scope.sandbox
-      $scope.registers = PlanRegister.query($scope.filter.data)
-    else
-      $scope.registers = Register.query($scope.filter.data)
+    $scope.registers = $scope.model.query($scope.filter.data)
     $('#month-picker').val('')
     return
 
@@ -78,26 +77,15 @@
     ShowIcon: false,
     i18n: {year: $translate.instant('year'), jumpYears: $translate.instant('jumpYears'), prevYear: $translate.instant('prevYear'), nextYear: $translate.instant('nextYear'), months: $translate.instant('months').split(".") }
 
-  afterAdd = (register)->
-    $scope.registers.unshift(register)
-    $scope.newRegister = {date: $scope.newRegister.date}
-    $scope.load()
-
   $scope.add = ->
-    if $scope.sandbox
-      register = PlanRegister.save($scope.newRegister,
-        () ->
-          afterAdd(register)
-        , (response) ->
-          $scope.newRegister.errors = response.data.errors
-        )
-    else
-      register = Register.save($scope.newRegister,
-        () ->
-          afterAdd(register)
-        , (response) ->
-          $scope.newRegister.errors = response.data.errors
-        )
+    register = $scope.model.save($scope.newRegister,
+      () ->
+        $scope.registers.unshift(register)
+        $scope.newRegister = {date: $scope.newRegister.date}
+        $scope.load()
+      , (response) ->
+        $scope.newRegister.errors = response.data.errors
+      )
 
   $scope.delete = (register_id) ->
     if confirm('Впевнений?')
