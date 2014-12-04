@@ -6,11 +6,10 @@
     </div>
   </div>
 
-  <label class="multiple-picker link" ng-click='showPlan=!showPlan'>
-    <span ng-show='!showPlan'>Відобразити план</span>
-    <span ng-show='showPlan'>Скрити дані плану</span>
-  </label>
-  <a class="multiple-picker link" href="/#/plan_registers">Додати планові дані</a>
+  <span> Всі плани:</span>
+  <a class='pointer' ng-click='funcPlan.showAll(true)' ng-show="funcPlan.showComand('show')">Показати</a>
+  <span ng-show="funcPlan.showComand('show') && funcPlan.showComand('hide')"> | </span>
+  <a class='pointer' ng-click='funcPlan.showAll()' ng-show="funcPlan.showComand('hide')">Сховати</a>
 
   <div>
     <div class='values'>

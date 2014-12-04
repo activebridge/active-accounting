@@ -3,6 +3,7 @@
   $scope.load = ->
     $scope.months = $translate.instant('month_all').split(',')
     curr_date = new Date()
+    $scope.funcPlan.show[curr_date.getMonth()] = false
     $scope.clickedMonths = [(curr_date.getMonth()+1) + '/' + curr_date.getFullYear()]
     $scope.currentMonth = $scope.months[curr_date.getMonth()]
     $scope.loadDates()
@@ -37,10 +38,12 @@
     y = new Date().getFullYear()
     date = m + '/' + y
     if clicked
+      $scope.funcPlan.show[m-1] = false
       $scope.clickedMonths.push date
     else
       trashMonth = $scope.clickedMonths.indexOf(date)
       $scope.clickedMonths.splice(trashMonth, 1)
+      delete $scope.funcPlan.show[m-1]
     $scope.loadDates()
 
   $scope.range = (start, end) ->
@@ -61,6 +64,13 @@
     $.each $scope.clickedMonths, (k, v)->
       $scope.funcPlan.show[parseInt(v.slice(0, -5))-1] = value
 
+  $scope.funcPlan.showComand = (value) ->
+    show = []
+    $.each $scope.funcPlan.show, (k, v)->
+      show.unshift(v) if v && value == "show"
+      show.unshift(v) if !v && value == "hide"
+    return show.length < $scope.clickedMonths.length
+
   $scope.funcPlan.showRecord = (record) ->
     valueNotNull = false
     valuePlanNotNull = false
@@ -68,13 +78,13 @@
       valueNotNull = true if parseFloat(v) != 0
     $.each record.valuesPlan, (k, v)->
       valuePlanNotNull = true if parseFloat(v) != 0 && $scope.funcPlan.show[parseInt(k)-1]
-    return true if valueNotNull || valuePlanNotNull
+    return valueNotNull || valuePlanNotNull
 
   $scope.funcPlan.showCarrot = (counterparties) ->
     show = []
     $.each counterparties, (k, v)->
       show.unshift($scope.funcPlan.showRecord(v)) if $scope.funcPlan.showRecord(v)
-    return true if show.length > 0
+    return show.length > 0
 
   $scope.getRegisters = (month, event, type, article_id) ->
     showRegistersTable = (month, article_id, type, reportItem)->
