@@ -63,7 +63,11 @@
       <div class='month-picker-wrapper'>
         {{ 'month' | translate }}:
         <input type='text' id='month-picker'/>
-        <a ng-click="filter.show()" href="javascript: void(false);" class="filter" translate='filter'></a>
+        <a ng-click="filter.show()" href="javascript: void(false);" class="filter">
+          {{ 'filter' | translate }}
+          <span ng-show='!filter.active'>&#9650;</span>
+          <span ng-show='filter.active'>&#9660;</span>
+        </a>
       </div>
       <form ng-submit="filter.fetchRegisters()" ng-show ="filter.active" class="form-filter ng-pristine ng-valid">
         {{ 'date' | translate }}:
