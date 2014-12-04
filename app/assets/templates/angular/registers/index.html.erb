@@ -65,8 +65,8 @@
         <input type='text' id='month-picker'/>
         <a ng-click="filter.show()" href="javascript: void(false);" class="filter">
           {{ 'filter' | translate }}
-          <span ng-show='!filter.active'>&#9650;</span>
-          <span ng-show='filter.active'>&#9660;</span>
+          <span ng-show='!filter.active'>&#9660;</span>
+          <span ng-show='filter.active'>&#9650;</span>
         </a>
       </div>
       <form ng-submit="filter.fetchRegisters()" ng-show ="filter.active" class="form-filter ng-pristine ng-valid">
