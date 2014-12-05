@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :counterparties
   resources :articles
   resources :registers
+  resources :plan_registers
   resources :reports, only: :index
   resources :charts do
     collection do

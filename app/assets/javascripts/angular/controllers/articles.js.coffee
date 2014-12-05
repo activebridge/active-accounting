@@ -57,7 +57,4 @@
         d.resolve response.data.errors['name'][0]
     )
     return d.promise
-    
-  $scope.changeLanguage = (key) ->
-    $translate.use(key)
 ]

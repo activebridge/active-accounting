@@ -1,6 +1,12 @@
-@RegistersCtrl = ['$scope', '$q', 'Register', 'Article', 'Counterparty', '$translate', ($scope, $q, Register, Article, Counterparty, $translate) ->
+@RegistersCtrl = ['$scope', '$q', 'PlanRegister', 'Register', 'Article', 'Counterparty', '$translate', ($scope, $q, PlanRegister, Register, Article, Counterparty, $translate) ->
+
+  if $scope.sandbox
+    $scope.model = PlanRegister
+  else
+    $scope.model = Register
+
   $scope.load = ->
-    $scope.registers = Register.query(month: $('#month-picker').val())
+    $scope.registers = $scope.model.query(month: $('#month-picker').val())
     $('.select2-container').select2('val', '')
 
   $scope.newRegister = {}
@@ -12,7 +18,7 @@
     $scope.filter.clear()
 
   $scope.filter.fetchRegisters = ->
-    $scope.registers = Register.query($scope.filter.data)
+    $scope.registers = $scope.model.query($scope.filter.data)
     $('#month-picker').val('')
     return
 
@@ -72,7 +78,7 @@
     i18n: {year: $translate.instant('year'), jumpYears: $translate.instant('jumpYears'), prevYear: $translate.instant('prevYear'), nextYear: $translate.instant('nextYear'), months: $translate.instant('months').split(".") }
 
   $scope.add = ->
-    register = Register.save($scope.newRegister,
+    register = $scope.model.save($scope.newRegister,
       () ->
         $scope.registers.unshift(register)
         $scope.newRegister = {date: $scope.newRegister.date}
@@ -80,7 +86,7 @@
       , (response) ->
         $scope.newRegister.errors = response.data.errors
       )
-  
+
   $scope.delete = (register_id) ->
     if confirm('Впевнений?')
       Register.delete
@@ -88,8 +94,8 @@
       , (success) ->
         $scope.load()
         return
-  
-   $scope.update = (register_id, data) ->
+
+  $scope.update = (register_id, data) ->
     d = $q.defer()
     Register.update( id: register_id, {register: data}
       (response) ->
@@ -102,15 +108,14 @@
       (response) ->
         d.resolve('')
         $scope.response_id = response.data.id
-        $scope.errors = response.data.error   
+        $scope.errors = response.data.error
     )
     return d.promise
+
   $scope.load()
   $scope.valueOnlyNumeric()
 
   $scope.clearError = () ->
     $scope.errors = []
 
-  $scope.changeLanguage = (key) ->
-    $translate.use(key)
 ]

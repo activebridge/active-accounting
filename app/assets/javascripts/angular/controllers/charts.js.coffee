@@ -54,6 +54,4 @@
       $('#chartcontainer' + value).hide()
     return
 
-  $scope.changeLanguage = (key) ->
-    $translate.use(key)
 ]

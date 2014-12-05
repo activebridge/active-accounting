@@ -1,0 +1,2 @@
+class Fact < Register
+end
