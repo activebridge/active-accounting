@@ -2,6 +2,19 @@ class Register < ActiveRecord::Base
   belongs_to :counterparty
   belongs_to :article
 
+  module TYPES
+    FACT = 'Fact'
+    PLAN = 'Plan'
+  end
+
+  def fact?
+    type == TYPES::FACT
+  end
+
+  def plan?
+    type == TYPES::PLAN
+  end
+
   validates :date, :article, :value, presence: true
 
   scope :revenues, -> {
