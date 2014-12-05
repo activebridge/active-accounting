@@ -129,16 +129,16 @@
 
   loadYears = ->
     Chart.years (response) ->
-      console.log response
       $scope.years = response['charts']
   loadYears()
 
   $scope.load($scope.currYear)
   $scope.CheckYears = (value) ->
-    console.log value
     $scope.clickedMonths=[]
     curr_date = new Date()
     $('.picker-label').removeClass('checked_label')
     $($('.picker-label')[curr_date.getMonth()]).addClass('checked_label')
+    $scope.funcPlan.show = {}
+    $scope.funcPlan.show[curr_date.getMonth()] = false
     $scope.load(value)
 ]
