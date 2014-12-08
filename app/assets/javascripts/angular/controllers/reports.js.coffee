@@ -1,5 +1,5 @@
 @ReportsCtrl = ['$scope', 'Report', 'Register' , 'Chart', '$translate', ($scope, Report, Register, Chart, $translate) ->
-
+  
   $scope.load = (value) ->
     $scope.months = $translate.instant('month_all').split(',')
     curr_date = new Date()
@@ -122,9 +122,6 @@
     else
       showRegistersTable(month, article_id, type, reportItem)
 
-  $scope.changeLanguage = (key) ->
-    $translate.use(key)
-
   $scope.currYear = new Date().getFullYear()
 
   loadYears = ->
@@ -132,13 +129,18 @@
       $scope.years = response['charts']
   loadYears()
 
-  $scope.load($scope.currYear)
+  $scope.load($scope.currYear)    
+
   $scope.CheckYears = (value) ->
-    $scope.clickedMonths=[]
     curr_date = new Date()
-    $('.picker-label').removeClass('checked_label')
-    $($('.picker-label')[curr_date.getMonth()]).addClass('checked_label')
+    $.each $(".multiple-picker label"), (index, value) ->
+      if (curr_date.getMonth()) == index
+        $(value).scope().clicked = true
+        return
+      $(value).scope().clicked = undefined
+      return
     $scope.funcPlan.show = {}
     $scope.funcPlan.show[curr_date.getMonth()] = false
+    
     $scope.load(value)
 ]
