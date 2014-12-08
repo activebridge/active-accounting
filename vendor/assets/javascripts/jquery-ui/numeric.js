@@ -55,6 +55,10 @@ $.fn.numeric.keypress = function(e)
     var decimalPlaces = $.data(this, "numeric.decimalPlaces");
   // get the key that was pressed
   var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+  if(key == 44)
+  {
+    key = 46
+  }
   // allow enter/return key (only when in an input box)
   if(key == 13 && this.nodeName.toLowerCase() == "input")
   {
@@ -161,9 +165,15 @@ $.fn.numeric.keyup = function(e)
     // get decimal character and determine if negatives are allowed
     var decimal = $.data(this, "numeric.decimal");
     var negative = $.data(this, "numeric.negative");
-        var decimalPlaces = $.data(this, "numeric.decimalPlaces");
+    var decimalPlaces = $.data(this, "numeric.decimalPlaces");
 
     // prepend a 0 if necessary
+    if(val.indexOf(',') != -1)
+    {
+      val = val.replace(',','.'),
+      this.value = val
+    }
+
     if(decimal !== "" && decimal !== null)
     {
       // find decimal point
