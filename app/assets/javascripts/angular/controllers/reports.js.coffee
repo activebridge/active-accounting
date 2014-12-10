@@ -1,10 +1,11 @@
-@ReportsCtrl = ['$scope', 'Report', 'Register', '$translate', ($scope, Report, Register, $translate) ->
-
-  $scope.load = ->
+@ReportsCtrl = ['$scope', 'Report', 'Register' , 'Chart', '$translate', ($scope, Report, Register, Chart, $translate) ->
+  
+  $scope.load = (value) ->
     $scope.months = $translate.instant('month_all').split(',')
     curr_date = new Date()
     $scope.funcPlan.show[curr_date.getMonth()] = false
-    $scope.clickedMonths = [(curr_date.getMonth()+1) + '/' + curr_date.getFullYear()]
+    $scope.CheckedYear = value
+    $scope.clickedMonths = [(curr_date.getMonth()+1) + '/' + $scope.CheckedYear]
     $scope.currentMonth = $scope.months[curr_date.getMonth()]
     $scope.loadDates()
 
@@ -35,7 +36,7 @@
 
   $scope.monthsChange = (month, clicked) ->
     m = $scope.months.indexOf(month)+1
-    y = new Date().getFullYear()
+    y = $scope.CheckedYear
     date = m + '/' + y
     if clicked
       $scope.funcPlan.show[m-1] = false
@@ -50,7 +51,7 @@
     return [start..end]
 
   $scope.isShow = (month) ->
-    y = new Date().getFullYear()
+    y = $scope.CheckedYear
     date = month + '/' + y
     return $scope.clickedMonths.indexOf(date) >= 0
 
@@ -88,7 +89,7 @@
 
   $scope.getRegisters = (month, event, type, article_id) ->
     showRegistersTable = (month, article_id, type, reportItem)->
-      date = month + '/' + (new Date().getFullYear())
+      date = month + '/' + $scope.CheckedYear
       registers = Register.query
         month: date,
         type: type,
@@ -121,6 +122,25 @@
     else
       showRegistersTable(month, article_id, type, reportItem)
 
-  $scope.load()
+  $scope.currYear = new Date().getFullYear()
 
+  loadYears = ->
+    Chart.years (response) ->
+      $scope.years = response['charts']
+  loadYears()
+
+  $scope.load($scope.currYear)    
+
+  $scope.CheckYears = (value) ->
+    curr_date = new Date()
+    $.each $(".multiple-picker label"), (index, value) ->
+      if (curr_date.getMonth()) == index
+        $(value).scope().clicked = true
+        return
+      $(value).scope().clicked = undefined
+      return
+    $scope.funcPlan.show = {}
+    $scope.funcPlan.show[curr_date.getMonth()] = false
+    
+    $scope.load(value)
 ]
