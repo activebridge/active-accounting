@@ -9,35 +9,35 @@
   }
 
   .list {
-  .dateup { width: 87px; }
+    .dateup { width: 87px; }
 
-  input, td, th, select {
-    width: 150px;
-    text-align: left;
+    input, td, th, select {
+      width: 150px;
+      text-align: left;
+    }
+
+    .color_record {
+      width: 20px;
+      height: 20px;
+      border: 0px;
+      padding: 0px;
+      border-radius: 10px;
+    }
+
+    .buttons_record {
+      float: left;
+      margin-right: 5px;
+    }
+
+    .simplecolorpicker {
+      border: 3px solid #867373;
+      border-radius: 5px;
+      width: 22px;
+      margin-left: 5px;
+
+      &:hover { border-color: #070707; }
+    }
   }
-
-  .color_record {
-    width: 20px;
-    height: 20px;
-    border: 0px;
-    padding: 0px;
-    border-radius: 10px;
-  }
-
-  .buttons_record {
-    float: left;
-    margin-right: 5px;
-  }
-
-  .simplecolorpicker {
-    border: 3px solid #867373;
-    border-radius: 5px;
-    width: 22px;
-    margin-left: 5px;
-
-    &:hover { border-color: #070707; }
-  }
-}
 
   table.register tr td {
     padding: 5px;
@@ -50,6 +50,27 @@
   .register {
     th a {
       padding-right: 15px;
+    }
+  }
+
+  .value_plan {
+    width: 130px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    float: left;
+  }
+
+  .currency {
+    margin-left: 0;
+    width: 60px;
+    height: 26px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+
+    .select2-choice {
+      border-left: none;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
     }
   }
 }

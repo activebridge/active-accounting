@@ -14,22 +14,22 @@
             <input type="text" id='date' ng-model="newRegister.date" class="ng-pristine ng-valid">
           </td>
           <td>
-            <select ng-model="newRegister.article_id" class='article'>
+            <select ng-model="newRegister.article_id" class='article clear_after_add'>
               <option ng-repeat="article in articles" value={{article.id}} >
               {{article.name}} ({{article.type | translate}})
               </option>
             </select>
           </td>
           <td>
-            <select ng-model="newRegister.counterparty_id" class='counterparty'>
+            <select ng-model="newRegister.counterparty_id" class='counterparty clear_after_add'>
               <option ng-repeat="counterparty in counterparties" value={{counterparty.id}}>
               {{counterparty.name}}
               </option>
             </select>
           </td>
           <td>
-            <input type="text" ng-model="newRegister.value" class='value'>
-          </td>
+            <input type="text" ng-model="newRegister.value" class='value' ng-class="{value_plan: sandbox}">
+            <select ng-model="newRegister.currency" ng-options="q.value as q.text for q in currencies" class='currency' ng-show="sandbox"></select>
           <td>
             <input type="text" ng-model="newRegister.notes">
           </td>
