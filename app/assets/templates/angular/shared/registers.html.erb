@@ -93,16 +93,16 @@
     <table class="ng-scope register">
       <tr>
         <th class='date'>
-          <a href='' ng-class="{'up_arrow' : predicate=='date' && reverse, 'down_arrow' : predicate=='date' && !reverse}" ng-click="predicate='date'; reverse=!reverse" translate='date'></a>
+          <a href='' ng-class="{'up_arrow' : predicate=='date' && reverse, 'down_arrow' : predicate=='date' && !reverse}" ng-click="predicate='date'; reverse=!reverse">{{ 'date' | translate }}</a>
         </th>
         <th class='article'>
-          <a href='' ng-class="{'up_arrow' : predicate=='article' && reverse, 'down_arrow' : predicate=='article' && !reverse}" ng-click="predicate='article'; reverse=!reverse" translate='article'></a>
+          <a href='' ng-class="{'up_arrow' : predicate=='article' && reverse, 'down_arrow' : predicate=='article' && !reverse}" ng-click="predicate='article'; reverse=!reverse">{{ 'article' | translate }}</a>
         </th>
         <th>
-          <a href='' ng-class="{'up_arrow' : predicate=='counterparty' && reverse, 'down_arrow' : predicate=='counterparty' && !reverse}" ng-click="predicate='counterparty'; reverse=!reverse" translate='counterparty'></a>
+          <a href='' ng-class="{'up_arrow' : predicate=='counterparty' && reverse, 'down_arrow' : predicate=='counterparty' && !reverse}" ng-click="predicate='counterparty'; reverse=!reverse">{{ 'counterparty' | translate }}</a>
         </th>
         <th>
-          <a href='' ng-class="{'up_arrow' : predicate=='value' && reverse, 'down_arrow' : predicate=='value' && !reverse}" ng-click="predicate='value'; reverse=!reverse" translate='totall'></a>
+          <a href='' ng-class="{'up_arrow' : predicate=='value_currency' && reverse, 'down_arrow' : predicate=='value_currency' && !reverse}" ng-click="predicate='value_currency'; reverse=!reverse">{{ 'totall' | translate }}</a>
         </th>
         <th translate='notes'>
         </th>
@@ -133,10 +133,13 @@
           </span>
         </td>
         <td>
-          <span editable-text="register.value" e-class="value" e-name="value" e-form="rowform">
+          <span editable-text="register.value" e-class="value" e-name="value" e-form="rowform" e-ng-class="{value_plan: sandbox}">
             <div class="buttons" ng-show="!rowform.$visible">
-              {{ register.value }}
+              <span>{{ register.value_currency }}</span>
+              <span ng-show='register.currency == "USD"'>({{ register.value }} $)</span>
             </div>
+          </span>
+          <span editable-select="register.currency" e-name="currency" e-form="rowform" e-class="currency" e-ng-options="q.value as q.text for q in currencies" e-ng-show="sandbox">
           </span>
           <span class='errors' ng-show='response_id == register.id'>{{errors.value}}</span>
         </td>
