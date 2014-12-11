@@ -49,6 +49,12 @@
     margin-left: 60px;
     margin-top: 15px;
     width: 1024px;
+
+    th { background: #f1fafc; }
+
+    &.table_plan {
+      th { background: #e5e0e0; }
+    }
   }
 
   .pointer {

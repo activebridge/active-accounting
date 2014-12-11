@@ -55,7 +55,7 @@
   }
 
   .value_plan {
-    width: 130px;
+    width: 125px;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     float: left;
@@ -78,16 +78,10 @@
   .td_correction {
     white-space: nowrap;
     min-width: 200px;
+    padding: 0;
 
     .editable-wrap { float: left; }
     .editable-select { width: inherit; }
-  }
-
-  .rate_currency {
-    float: right;
-    margin-right: 10px;
-
-  input.value { width: 45px; }
   }
 }
 

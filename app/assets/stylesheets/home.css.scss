@@ -86,3 +86,10 @@ label { margin: 0; }
 
   a { text-decoration: none; }
 }
+
+.rate_currency {
+  float: right;
+  margin-right: 10px;
+
+input.value { width: 45px; }
+}
