@@ -21,7 +21,7 @@
   $scope.changeValue = ->
     $.each $scope.registers, (k, v)->
       if v.currency == 'USD'
-        v.value_currency = v.value * $scope.rateDollar
+        v.value_currency = (v.value * $scope.rateDollar).toFixed(2)
       else
         v.value_currency = v.value
 

@@ -113,7 +113,7 @@
                     $('<td>').text(v.date),
                     $('<td>').text(v.article.name),
                     $('<td>').text(if v.counterparty then v.counterparty.name else ''),
-                    $('<td>').text(v.value),
+                    $('<td>').text(if v.currency == 'USD' then (v.value*$scope.rateDollar).toFixed(2)+' ('+v.value+' $)' else v.value),
                     $('<td>').text(v.notes || ''))
             template.append(tr)
           reportItem.after(template)
@@ -137,6 +137,7 @@
   loadYears = ->
     Chart.years (response) ->
       $scope.years = response['charts']
+
   loadYears()
 
   $scope.load($scope.currYear)    
@@ -153,4 +154,7 @@
     $scope.funcPlan.show[curr_date.getMonth()] = false
     
     $scope.load(value)
+
+  $("input.value").numeric({ decimalPlaces: 2 })
+
 ]
