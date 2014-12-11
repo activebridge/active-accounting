@@ -5,23 +5,23 @@
   else
     $scope.model = Register
 
-  $scope.kursDollar = 15.00
+  $scope.rateDollar = 15.95
 
   $scope.load = ->
     $scope.registers = $scope.model.query
       month: $('#month-picker').val()
       , () ->
-        changeValue()
+        $scope.changeValue()
     $('.select2-container.clear_after_add').select2('val', '')
 
   $scope.newRegister = {}
   $scope.newRegister.errors = {}
   $scope.filter = {}
 
-  changeValue = ->
+  $scope.changeValue = ->
     $.each $scope.registers, (k, v)->
       if v.currency == 'USD'
-        v.value_currency = v.value * $scope.kursDollar
+        v.value_currency = v.value * $scope.rateDollar
       else
         v.value_currency = v.value
 
@@ -32,7 +32,7 @@
   $scope.filter.fetchRegisters = ->
     $scope.registers = $scope.model.query($scope.filter.data,
       () ->
-        changeValue()
+        $scope.changeValue()
       )
     $('#month-picker').val('')
     return
@@ -83,6 +83,7 @@
 
   $scope.showSelect = ->
     $('.search-select').select2({width: '100%'})
+    $('select.currency').select2({width: '65px', minimumResultsForSearch: '5' })
     $scope.valueOnlyNumeric()
     return
   

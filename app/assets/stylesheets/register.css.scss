@@ -5,13 +5,14 @@
     }
     td input, td select {
       width: 150px;
+      text-align: left;
     }
   }
 
   .list {
     .dateup { width: 87px; }
 
-    input, td, th, select {
+    .td_icon {
       width: 150px;
       text-align: left;
     }
@@ -72,6 +73,21 @@
       border-bottom-left-radius: 0;
       border-top-left-radius: 0;
     }
+  }
+
+  .td_correction {
+    white-space: nowrap;
+    min-width: 200px;
+
+    .editable-wrap { float: left; }
+    .editable-select { width: inherit; }
+  }
+
+  .rate_currency {
+    float: right;
+    margin-right: 10px;
+
+  input.value { width: 45px; }
   }
 }
 
