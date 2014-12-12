@@ -1,6 +1,6 @@
-@ReportsCtrl = ['$scope', 'Report', 'Register' , 'PlanRegister', 'Chart', '$translate', ($scope, Report, Register, PlanRegister, Chart, $translate) ->
+@ReportsCtrl = ['$scope', 'Report', 'Register' , 'PlanRegister', 'Chart', '$translate', '$cookies', ($scope, Report, Register, PlanRegister, Chart, $translate, $cookies) ->
 
-  $scope.rateDollar = 15.95
+  $scope.rateDollar = $cookies.rateDollar
 
   $scope.load = (value) ->
     $scope.months = $translate.instant('month_all').split(',')
@@ -93,6 +93,7 @@
     return show.length > 0
 
   $scope.getRegisters = (month, event, type, article_id, sandbox) ->
+    $cookies.rateDollar = $scope.rateDollar
     showRegistersTable = (month, article_id, type, reportItem, sandbox)->
       date = month + '/' + $scope.CheckedYear
       $scope.sandbox = sandbox

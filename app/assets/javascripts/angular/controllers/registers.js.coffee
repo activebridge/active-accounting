@@ -1,11 +1,11 @@
-@RegistersCtrl = ['$scope', '$q', 'PlanRegister', 'Register', 'Article', 'Counterparty', '$translate', ($scope, $q, PlanRegister, Register, Article, Counterparty, $translate) ->
+@RegistersCtrl = ['$scope', '$q', 'PlanRegister', 'Register', 'Article', 'Counterparty', '$translate', '$cookies', ($scope, $q, PlanRegister, Register, Article, Counterparty, $translate, $cookies) ->
 
   if $scope.sandbox
     $scope.model = PlanRegister
   else
     $scope.model = Register
 
-  $scope.rateDollar = 15.95
+  $scope.rateDollar = $cookies.rateDollar
 
   $scope.load = ->
     $scope.registers = $scope.model.query
@@ -19,6 +19,7 @@
   $scope.filter = {}
 
   $scope.changeValue = ->
+    $cookies.rateDollar = $scope.rateDollar
     $.each $scope.registers, (k, v)->
       if v.currency == 'USD'
         v.value_currency = (v.value * $scope.rateDollar).toFixed(2)
@@ -30,6 +31,7 @@
     $scope.filter.clear()
 
   $scope.filter.fetchRegisters = ->
+
     $scope.registers = $scope.model.query($scope.filter.data,
       () ->
         $scope.changeValue()

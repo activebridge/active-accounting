@@ -3,4 +3,5 @@ angular.module('accounting.services', [
   'ngResource'
   'xeditable'
   'pascalprecht.translate'
+  'ngCookies'
 ])
