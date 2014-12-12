@@ -17,8 +17,6 @@
 //= require turbolinks
 //= require angular.min
 //= require angular-resource.min
-//= require angular-route.min
-//= require angular-translate.min
-//= require angular-cookies.min
+//= require angular-js
 //= require_tree ./angular/
 //= require_tree .
