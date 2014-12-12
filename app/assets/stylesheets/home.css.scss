@@ -91,5 +91,8 @@ label { margin: 0; }
   float: right;
   margin-right: 10px;
 
-input.value { width: 45px; }
+  input.value {
+    width: 45px;
+    height: 25px;
+  }
 }

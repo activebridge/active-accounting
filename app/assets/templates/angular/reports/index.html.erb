@@ -9,16 +9,18 @@
     </div>
   </div>
 
-  <span>{{ 'all_plans' | translate }}:</span>
-  <a class='pointer' ng-click='funcPlan.showAll(true)' ng-show="funcPlan.showComand('show')">{{ 'show' | translate }}</a>
-  <span ng-show="funcPlan.showComand('show') && funcPlan.showComand('hide')"> | </span>
-  <a class='pointer' ng-click='funcPlan.showAll()' ng-show="funcPlan.showComand('hide')">{{ 'hide' | translate }}</a>
+  <div class="margin_vertical">
+    <span>{{ 'all_plans' | translate }}:</span>
+    <a class='pointer' ng-click='funcPlan.showAll(true)' ng-show="funcPlan.showComand('show')">{{ 'show' | translate }}</a>
+    <span ng-show="funcPlan.showComand('show') && funcPlan.showComand('hide')"> | </span>
+    <a class='pointer' ng-click='funcPlan.showAll()' ng-show="funcPlan.showComand('hide')">{{ 'hide' | translate }}</a>
 
-  <span class="rate_currency" ng-show="funcPlan.showComand('hide')">
-    {{ 'rate_currency' | translate }}
-    <input type="text" ng-model="rateDollar" class="value">
-    <button ng-click='loadDates()'>{{ 'update' | translate }}</button>
-  </span>
+    <span class="rate_currency" ng-show="funcPlan.showComand('hide')">
+      {{ 'rate_currency' | translate }}
+      <input type="text" ng-model="rateDollar" class="value">
+      <div><button ng-show='buttonShow()' class="btn ng-scope btn_rate" ng-click='loadDates()'>{{ 'update' | translate }}</button></div>
+    </span>
+  </div>
 
   <div>
     <div class='values'>

@@ -12,6 +12,8 @@
     $scope.loadDates()
 
   $scope.loadDates = ->
+    $cookies.rateDollar = $scope.rateDollar
+
     Report.query
       report_type: 'revenues'
       , 'months[]': $scope.clickedMonths
@@ -63,6 +65,9 @@
   $scope.parseMonthName = (month) ->
     return $scope.months.indexOf(month)+1
 
+  $scope.buttonShow = ->
+    return $scope.rateDollar != $cookies.rateDollar
+
   $scope.funcPlan = {}
   $scope.funcPlan.show = {}
 
@@ -93,7 +98,6 @@
     return show.length > 0
 
   $scope.getRegisters = (month, event, type, article_id, sandbox) ->
-    $cookies.rateDollar = $scope.rateDollar
     showRegistersTable = (month, article_id, type, reportItem, sandbox)->
       date = month + '/' + $scope.CheckedYear
       $scope.sandbox = sandbox
