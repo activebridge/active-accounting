@@ -1,5 +1,5 @@
 class RegisterSerializer < ActiveModel::Serializer
-  attributes :id, :date, :counterparty, :article, :value, :notes, :background
+  attributes :id, :date, :counterparty, :article, :value, :notes, :background, :currency
 
   def counterparty
     CounterpartyRegisterSerializer.new(object.counterparty)

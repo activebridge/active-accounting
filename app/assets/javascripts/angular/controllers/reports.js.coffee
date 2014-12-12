@@ -1,5 +1,7 @@
-@ReportsCtrl = ['$scope', 'Report', 'Register' , 'Chart', '$translate', ($scope, Report, Register, Chart, $translate) ->
-  
+@ReportsCtrl = ['$scope', 'Report', 'Register' , 'PlanRegister', 'Chart', '$translate', '$cookies', ($scope, Report, Register, PlanRegister, Chart, $translate, $cookies) ->
+
+  $scope.rateDollar = $cookies.rateDollar
+
   $scope.load = (value) ->
     $scope.months = $translate.instant('month_all').split(',')
     curr_date = new Date()
@@ -10,9 +12,12 @@
     $scope.loadDates()
 
   $scope.loadDates = ->
+    $cookies.rateDollar = $scope.rateDollar
+
     Report.query
       report_type: 'revenues'
       , 'months[]': $scope.clickedMonths
+      , rate_currency: $scope.rateDollar
       , (response) ->
         $scope.revenues = response[0].articles
         $scope.totalRevenue = response[0].total_values
@@ -21,6 +26,7 @@
     Report.query
       report_type: 'costs'
       , 'months[]': $scope.clickedMonths
+      , rate_currency: $scope.rateDollar
       , (response) ->
         $scope.costs = response[0].articles
         $scope.totalCost = response[0].total_values
@@ -29,6 +35,7 @@
     Report.query
       report_type: 'translations'
       , 'months[]': $scope.clickedMonths
+      , rate_currency: $scope.rateDollar
       , (response) ->
         $scope.translations = response[0].articles
         $scope.totalTranslation = response[0].total_values
@@ -57,6 +64,9 @@
 
   $scope.parseMonthName = (month) ->
     return $scope.months.indexOf(month)+1
+
+  $scope.buttonShow = ->
+    return $scope.rateDollar != $cookies.rateDollar
 
   $scope.funcPlan = {}
   $scope.funcPlan.show = {}
@@ -87,10 +97,15 @@
       show.unshift($scope.funcPlan.showRecord(v)) if $scope.funcPlan.showRecord(v)
     return show.length > 0
 
-  $scope.getRegisters = (month, event, type, article_id) ->
-    showRegistersTable = (month, article_id, type, reportItem)->
+  $scope.getRegisters = (month, event, type, article_id, sandbox) ->
+    showRegistersTable = (month, article_id, type, reportItem, sandbox)->
       date = month + '/' + $scope.CheckedYear
-      registers = Register.query
+      $scope.sandbox = sandbox
+      if sandbox
+        model = PlanRegister
+      else
+        model = Register
+      registers = model.query
         month: date,
         type: type,
         article_id: article_id,
@@ -103,7 +118,7 @@
                     $('<td>').text(v.date),
                     $('<td>').text(v.article.name),
                     $('<td>').text(if v.counterparty then v.counterparty.name else ''),
-                    $('<td>').text(v.value),
+                    $('<td>').text(if v.currency == 'USD' then (v.value*$scope.rateDollar).toFixed(2)+' ('+v.value+' $)' else v.value),
                     $('<td>').text(v.notes || ''))
             template.append(tr)
           reportItem.after(template)
@@ -118,15 +133,16 @@
         table.remove()
       else
         table.remove()
-        showRegistersTable(month, article_id, type, reportItem)
+        showRegistersTable(month, article_id, type, reportItem, sandbox)
     else
-      showRegistersTable(month, article_id, type, reportItem)
+      showRegistersTable(month, article_id, type, reportItem, sandbox)
 
   $scope.currYear = new Date().getFullYear()
 
   loadYears = ->
     Chart.years (response) ->
       $scope.years = response['charts']
+
   loadYears()
 
   $scope.load($scope.currYear)    
@@ -143,4 +159,7 @@
     $scope.funcPlan.show[curr_date.getMonth()] = false
     
     $scope.load(value)
+
+  $("input.value").numeric({ decimalPlaces: 2 })
+
 ]

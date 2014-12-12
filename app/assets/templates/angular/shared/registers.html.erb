@@ -14,22 +14,22 @@
             <input type="text" id='date' ng-model="newRegister.date" class="ng-pristine ng-valid">
           </td>
           <td>
-            <select ng-model="newRegister.article_id" class='article'>
+            <select ng-model="newRegister.article_id" class='article clear_after_add'>
               <option ng-repeat="article in articles" value={{article.id}} >
               {{article.name}} ({{article.type | translate}})
               </option>
             </select>
           </td>
           <td>
-            <select ng-model="newRegister.counterparty_id" class='counterparty'>
+            <select ng-model="newRegister.counterparty_id" class='counterparty clear_after_add'>
               <option ng-repeat="counterparty in counterparties" value={{counterparty.id}}>
               {{counterparty.name}}
               </option>
             </select>
           </td>
-          <td>
-            <input type="text" ng-model="newRegister.value" class='value'>
-          </td>
+          <td ng-class="{td_correction: sandbox}">
+            <input type="text" ng-model="newRegister.value" class='value' ng-class="{value_plan: sandbox}">
+            <select ng-model="newRegister.currency" ng-options="q.value as q.text for q in currencies" class='currency' ng-show="sandbox"></select>
           <td>
             <input type="text" ng-model="newRegister.notes">
           </td>
@@ -66,6 +66,10 @@
         <span ng-show='!filter.active'>&#9650;</span>
         <span ng-show='filter.active'>&#9660;</span>
       </a>
+      <span class="rate_currency" ng-show="sandbox">
+        {{ 'rate_currency' | translate }}
+        <input type="text" ng-model="rateDollar" ng-change="changeValue()" class="value">
+      </span>
     </div>
     <form ng-submit="filter.fetchRegisters()" ng-show ="filter.active" class="form-filter ng-pristine ng-valid">
       {{ 'date' | translate }}:
@@ -93,16 +97,16 @@
     <table class="ng-scope register">
       <tr>
         <th class='date'>
-          <a href='' ng-class="{'up_arrow' : predicate=='date' && reverse, 'down_arrow' : predicate=='date' && !reverse}" ng-click="predicate='date'; reverse=!reverse" translate='date'></a>
+          <a href='' ng-class="{'up_arrow' : predicate=='date' && reverse, 'down_arrow' : predicate=='date' && !reverse}" ng-click="predicate='date'; reverse=!reverse">{{ 'date' | translate }}</a>
         </th>
         <th class='article'>
-          <a href='' ng-class="{'up_arrow' : predicate=='article' && reverse, 'down_arrow' : predicate=='article' && !reverse}" ng-click="predicate='article'; reverse=!reverse" translate='article'></a>
+          <a href='' ng-class="{'up_arrow' : predicate=='article' && reverse, 'down_arrow' : predicate=='article' && !reverse}" ng-click="predicate='article'; reverse=!reverse">{{ 'article' | translate }}</a>
         </th>
         <th>
-          <a href='' ng-class="{'up_arrow' : predicate=='counterparty' && reverse, 'down_arrow' : predicate=='counterparty' && !reverse}" ng-click="predicate='counterparty'; reverse=!reverse" translate='counterparty'></a>
+          <a href='' ng-class="{'up_arrow' : predicate=='counterparty' && reverse, 'down_arrow' : predicate=='counterparty' && !reverse}" ng-click="predicate='counterparty'; reverse=!reverse">{{ 'counterparty' | translate }}</a>
         </th>
         <th>
-          <a href='' ng-class="{'up_arrow' : predicate=='value' && reverse, 'down_arrow' : predicate=='value' && !reverse}" ng-click="predicate='value'; reverse=!reverse" translate='totall'></a>
+          <a href='' ng-class="{'up_arrow' : predicate=='value_currency' && reverse, 'down_arrow' : predicate=='value_currency' && !reverse}" ng-click="predicate='value_currency'; reverse=!reverse">{{ 'totall' | translate }}</a>
         </th>
         <th translate='notes'>
         </th>
@@ -132,12 +136,14 @@
             </div>
           </span>
         </td>
-        <td>
-          <span editable-text="register.value" e-class="value" e-name="value" e-form="rowform">
-            <div class="buttons" ng-show="!rowform.$visible">
-              {{ register.value }}
-            </div>
+        <td class="td_correction">
+          <span editable-text="register.value" e-class="value" e-name="value" e-form="rowform" e-ng-class="{value_plan: sandbox}">
+            <span class="buttons" ng-show="!rowform.$visible">
+              <span>{{ register.value_currency }}</span>
+              <span ng-show='register.currency == "USD"'>({{ register.value }} $)</span>
+            </span>
           </span>
+          <span editable-select="register.currency" e-name="currency" e-form="rowform" e-class="currency" e-ng-options="q.value as q.text for q in currencies" e-ng-show="sandbox"></span>
           <span class='errors' ng-show='response_id == register.id'>{{errors.value}}</span>
         </td>
         <td>
@@ -147,7 +153,7 @@
             </div>
           </span>
         </td>
-        <td>
+        <td class="td_icon">
           <form editable-form name="rowform" onbeforesave="update(register.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline">
             <button type="submit" class='icon-button' ng-disabled="rowform.$waiting" title="{{ 'save_changes' | translate }}"><span class='glyphicon glyphicon-check'></span></button>
             <button type="button" class='icon-button' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); clearError()" title="{{ 'cancel' | translate }}"><span class='glyphicon glyphicon-remove'></span></button>

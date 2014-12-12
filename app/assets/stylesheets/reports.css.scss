@@ -26,7 +26,6 @@
   .value {
     width: 100px;
     text-align: right;
-    height: 20px;
 
     &.plan_show {
       width: 200px;
@@ -49,6 +48,12 @@
     margin-left: 60px;
     margin-top: 15px;
     width: 1024px;
+
+    th { background: #f1fafc; }
+
+    &.table_plan {
+      th { background: #e5e0e0; }
+    }
   }
 
   .pointer {
@@ -74,17 +79,16 @@
     background: #e5e0e0;
     width: 100px;
     text-align: right;
-    display: inline-block;
+    display: table-cell;
     font-style: italic;
     height: 20px;
     padding: 0 3px;
-    float: left;
   }
 
   .fact {
     width: 100px;
     text-align: right;
-    display: inline-block;
+    display: table-cell;
     height: 20px;
     padding: 0 3px;
 
@@ -97,6 +101,15 @@
   }
 
   .clearboth_height { height: 30px; }
-
   .month_height { height: 39px; }
+  .margin_vertical { margin: 10px 0; }
+
+  .btn_rate {
+    margin-top: 5px;
+    padding: 0 2px;
+    width: inherit;
+    position: absolute;
+    z-index: 999;
+    margin-left: 70px;
+  }
 }

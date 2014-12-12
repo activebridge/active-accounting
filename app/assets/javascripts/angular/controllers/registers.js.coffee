@@ -1,24 +1,41 @@
-@RegistersCtrl = ['$scope', '$q', 'PlanRegister', 'Register', 'Article', 'Counterparty', '$translate', ($scope, $q, PlanRegister, Register, Article, Counterparty, $translate) ->
+@RegistersCtrl = ['$scope', '$q', 'PlanRegister', 'Register', 'Article', 'Counterparty', '$translate', '$cookies', ($scope, $q, PlanRegister, Register, Article, Counterparty, $translate, $cookies) ->
 
   if $scope.sandbox
     $scope.model = PlanRegister
   else
     $scope.model = Register
 
+  $scope.rateDollar = $cookies.rateDollar
+
   $scope.load = ->
-    $scope.registers = $scope.model.query(month: $('#month-picker').val())
-    $('.select2-container').select2('val', '')
+    $scope.registers = $scope.model.query
+      month: $('#month-picker').val()
+      , () ->
+        $scope.changeValue()
+    $('.select2-container.clear_after_add').select2('val', '')
 
   $scope.newRegister = {}
   $scope.newRegister.errors = {}
-  $scope.filter= {}
+  $scope.filter = {}
+
+  $scope.changeValue = ->
+    $cookies.rateDollar = $scope.rateDollar
+    $.each $scope.registers, (k, v)->
+      if v.currency == 'USD'
+        v.value_currency = (v.value * $scope.rateDollar).toFixed(2)
+      else
+        v.value_currency = v.value
 
   $scope.filter.show = ->
     $scope.filter.active = !($scope.filter.active)
     $scope.filter.clear()
 
   $scope.filter.fetchRegisters = ->
-    $scope.registers = $scope.model.query($scope.filter.data)
+
+    $scope.registers = $scope.model.query($scope.filter.data,
+      () ->
+        $scope.changeValue()
+      )
     $('#month-picker').val('')
     return
 
@@ -41,10 +58,18 @@
     {value: "translations", text: $translate.instant('Translation')}
   ]
 
+  $scope.currencies = [
+    {value: "UAH", text: $translate.instant('currency_UA')},
+    {value: "USD", text: 'USD'}
+  ]
+
+  $scope.newRegister.currency = $scope.currencies[0].value
+
   $scope.counterparties = Counterparty.query
     scope: 'active'
     () ->
       $('select.counterparty').select2({width: '200px'})
+      $('select.currency').select2({width: '65px', minimumResultsForSearch: '5' })
   
   $.datepicker.setDefaults( $.datepicker.regional[ $translate.instant('datePickerLocal') ] )
   $('#date').datepicker
@@ -60,6 +85,7 @@
 
   $scope.showSelect = ->
     $('.search-select').select2({width: '100%'})
+    $('select.currency').select2({width: '65px', minimumResultsForSearch: '5' })
     $scope.valueOnlyNumeric()
     return
   
@@ -78,10 +104,11 @@
     i18n: {year: $translate.instant('year'), jumpYears: $translate.instant('jumpYears'), prevYear: $translate.instant('prevYear'), nextYear: $translate.instant('nextYear'), months: $translate.instant('months').split(".") }
 
   $scope.add = ->
+    $scope.newRegister.currency = $scope.currencies[0].value if !$scope.sandbox
     register = $scope.model.save($scope.newRegister,
       () ->
         $scope.registers.unshift(register)
-        $scope.newRegister = {date: $scope.newRegister.date}
+        $scope.newRegister = {date: $scope.newRegister.date, currency: $scope.newRegister.currency}
         $scope.load()
       , (response) ->
         $scope.newRegister.errors = response.data.errors
