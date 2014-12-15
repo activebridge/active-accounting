@@ -1,6 +1,6 @@
 @ReportsCtrl = ['$scope', 'Report', 'Register' , 'PlanRegister', 'Chart', '$translate', '$cookies', ($scope, Report, Register, PlanRegister, Chart, $translate, $cookies) ->
 
-  $scope.rateDollar = $cookies.rateDollar
+  $scope.rateDollar = $cookies.rateDollar || 0
 
   $scope.load = (value) ->
     $scope.months = $translate.instant('month_all').split(',')
