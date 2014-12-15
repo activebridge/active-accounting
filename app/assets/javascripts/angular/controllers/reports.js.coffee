@@ -1,4 +1,4 @@
-@ReportsCtrl = ['$scope', 'Report', 'Register' , 'PlanRegister', 'Chart', '$translate', '$cookies', ($scope, Report, Register, PlanRegister, Chart, $translate, $cookies) ->
+@ReportsCtrl = ['$scope', 'Report', 'Register', 'PlanRegister', '$translate', '$cookies', ($scope, Report, Register, PlanRegister, $translate, $cookies) ->
 
   $scope.rateDollar = $cookies.rateDollar || 0
 
@@ -140,8 +140,8 @@
   $scope.currYear = new Date().getFullYear()
 
   loadYears = ->
-    Chart.years (response) ->
-      $scope.years = response['charts']
+    Report.years (response) ->
+      $scope.years = response['reports']
 
   loadYears()
 
