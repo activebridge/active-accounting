@@ -15,7 +15,13 @@ angular.module('accounting.services').factory 'PlanRegister', ['$resource', ($re
 ]
 
 angular.module('accounting.services').factory 'Report', ['$resource', ($resource) ->
-  $resource('/reports')
+  $resource '/reports/:id/:action',
+    id: '@id'
+  , years:
+    method: 'GET',
+    params:
+      action: 'years'
+    isArray: false
 ]
 
 angular.module('accounting.services').factory 'Chart', ['$resource', ($resource) ->
