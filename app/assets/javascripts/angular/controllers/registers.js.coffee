@@ -5,7 +5,7 @@
   else
     $scope.model = Register
 
-  $scope.rateDollar = $cookies.rateDollar
+  $scope.rateDollar = $cookies.rateDollar || 0
 
   $scope.load = ->
     $scope.registers = $scope.model.query
