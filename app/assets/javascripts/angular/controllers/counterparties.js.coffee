@@ -17,12 +17,15 @@
         $scope.newCounterparty = {}
     )
 
-  $scope.delete = (counterparty_id) ->
+  $scope.delete = (counterparty_id, index, active) ->
     if confirm('Впевнений?')
       Counterparty.delete
         id: counterparty_id
       , (success) ->
-        $scope.load()
+        if active
+          $scope.activeCounterparties.splice(index,1)
+        else
+          $scope.inactiveCounterparties.splice(index,1)
         return
 
   $scope.update = (counterparty_id, data) ->

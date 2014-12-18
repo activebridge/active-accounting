@@ -160,7 +160,7 @@
           </form>
           <div class="buttons_record" ng-show="!rowform.$visible">
             <button type="button" class='icon-button hidd' ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}"><span class='glyphicon glyphicon-edit'></span></button>
-            <button type="button" class='icon-button hidd' ng-click="delete(register.id)" title="{{ 'delete_reg' | translate }}"><span class='glyphicon glyphicon-trash'></span></button>
+            <button type="button" class='icon-button hidd' ng-click="delete(register.id, $index)" title="{{ 'delete_reg' | translate }}"><span class='glyphicon glyphicon-trash'></span></button>
           </div>
           <span class="hidd" ng-show="!rowform.$visible" >
             <select ng-model="colorRecord" ng-change="update(register.id, {background: colorRecord}); register.background = colorRecord" class="color-record">

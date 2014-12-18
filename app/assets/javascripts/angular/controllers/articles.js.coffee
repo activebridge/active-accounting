@@ -39,12 +39,12 @@
     }
   ]
 
-  $scope.delete = (article_id) ->
+  $scope.delete = (article_id, index) ->
     if confirm('Впевнений?')
       Article.delete
         id: article_id
       , (success) ->
-        $scope.articles = Article.query()
+        $scope.articles.splice(index,1)
         return
 
   $scope.update = (article_id, data) ->

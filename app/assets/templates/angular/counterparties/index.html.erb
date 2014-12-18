@@ -52,7 +52,7 @@
               <button type="button" class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
               <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}">
               </span>
-              <button type="button" class='icon-button hidde' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)"><span class='glyphicon glyphicon-trash'></span></button>
+              <button type="button" class='icon-button hidde' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id, $index, true)"><span class='glyphicon glyphicon-trash'></span></button>
             </div>
           </td>
           <td  class="activ">
@@ -95,7 +95,7 @@
               <button type="button" class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
               <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}">
               </span>
-              <button type="button" class='icon-button hidde' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)"><span class='glyphicon glyphicon-trash'></span></button>
+              <button type="button" class='icon-button hidde' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id, $index, false)"><span class='glyphicon glyphicon-trash'></span></button>
             </div>
           </td>
           <td class="activ">

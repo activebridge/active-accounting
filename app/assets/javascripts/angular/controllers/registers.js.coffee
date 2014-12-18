@@ -114,12 +114,12 @@
         $scope.newRegister.errors = response.data.errors
       )
 
-  $scope.delete = (register_id) ->
+  $scope.delete = (register_id, index) ->
     if confirm('Впевнений?')
       Register.delete
         id: register_id
       , (success) ->
-        $scope.load()
+        $scope.registers.splice(index,1)
         return
 
   $scope.update = (register_id, data) ->
