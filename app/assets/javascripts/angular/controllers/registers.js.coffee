@@ -146,7 +146,7 @@
           $scope.registers[index].article = v if v.id == data.article_id
         $.each $scope.counterparties, (k, v)->
           $scope.registers[index].counterparty = v if v.id == data.counterparty_id
-        $scope.registers[index].value_currency = changeValueCurrency($scope.registers[index].currency, data.value)
+        $scope.registers[index].value_currency = changeValueCurrency(data.currency, data.value)
         if !checkMappingRegister($scope.registers[index].article.type, data)
           $scope.registers.splice(index,1)
         d.resolve()
