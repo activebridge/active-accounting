@@ -2,7 +2,7 @@ app = angular.module('ActiveAccounting', ['accounting.services'])
 
 app.directive "repeatComplete", ->
   (scope, element, attrs) ->
-    if (scope.$last)
+    if (scope.$last || scope.$index == 0)
       $('select.color-record').simplecolorpicker({picker: true, pickerDelay: 600})
       
 app.config ['$translateProvider', ($translateProvider) ->
