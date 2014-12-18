@@ -18,13 +18,17 @@
   $scope.newRegister.errors = {}
   $scope.filter = {}
 
+  changeValueCurrency = (currency, value) ->
+    if currency == 'USD'
+      valueCurrency = (value * $scope.rateDollar).toFixed(2)
+    else
+      valueCurrency = value
+    return valueCurrency
+
   $scope.changeValue = ->
     $cookies.rateDollar = $scope.rateDollar
     $.each $scope.registers, (k, v)->
-      if v.currency == 'USD'
-        v.value_currency = (v.value * $scope.rateDollar).toFixed(2)
-      else
-        v.value_currency = v.value
+      v.value_currency = changeValueCurrency(v.currency, v.value)
 
   $scope.filter.show = ->
     $scope.filter.active = !($scope.filter.active)
@@ -103,25 +107,22 @@
     ShowIcon: false,
     i18n: {year: $translate.instant('year'), jumpYears: $translate.instant('jumpYears'), prevYear: $translate.instant('prevYear'), nextYear: $translate.instant('nextYear'), months: $translate.instant('months').split(".") }
 
-  unshiftRegister = (type) ->
+  checkMappingRegister = (type, register) ->
     check = 0
     length = 0
     if $scope.filter.dataFilter
       $.each $scope.filter.dataFilter, (k, v)->
-        if ($scope.newRegister[k]==v) || (k=='article_id' && v==(type+'s').toLowerCase()) || (k=='value' && parseFloat($scope.newRegister[k])>=parseFloat(v))
+        if (register[k]==v) || (k=='article_id' && v==(type+'s').toLowerCase()) || (k=='value' && parseFloat(register[k])>=parseFloat(v))
           check += 1
         length += 1
-    return (check == length && $('#month-picker').val() == '') || $('#month-picker').val().replace('/','-') == $scope.newRegister.date.slice(3)
+    return (check == length && $('#month-picker').val() == '') || $('#month-picker').val().replace('/','-') == register.date.slice(3)
 
   $scope.add = ->
     $scope.newRegister.currency = $scope.currencies[0].value if !$scope.sandbox
     register = $scope.model.save($scope.newRegister,
       () ->
-        if unshiftRegister(register.article.type)
-          if register.currency == 'USD'
-            register.value_currency = (register.value * $scope.rateDollar).toFixed(2)
-          else
-            register.value_currency = register.value
+        if checkMappingRegister(register.article.type, $scope.newRegister)
+          register.value_currency = changeValueCurrency(register.currency, register.value)
           $scope.registers.unshift(register)
         $('.select2-container.clear_after_add').select2('val', '')
         $scope.newRegister = {date: $scope.newRegister.date, currency: $scope.newRegister.currency}
@@ -137,15 +138,17 @@
         $scope.registers.splice(index,1)
         return
 
-  $scope.update = (register_id, data) ->
+  $scope.update = (register_id, data, index) ->
     d = $q.defer()
     Register.update( id: register_id, {register: data}
       (response) ->
-        if data.background is undefined
-          if $('#month-picker').val()
-            $scope.load()
-          else
-            $scope.filter.fetchRegisters()
+        $.each $scope.articles, (k, v)->
+          $scope.registers[index].article = v if v.id == data.article_id
+        $.each $scope.counterparties, (k, v)->
+          $scope.registers[index].counterparty = v if v.id == data.counterparty_id
+        $scope.registers[index].value_currency = changeValueCurrency($scope.registers[index].currency, data.value)
+        if !checkMappingRegister($scope.registers[index].article.type, data)
+          $scope.registers.splice(index,1)
         d.resolve()
       (response) ->
         d.resolve('')

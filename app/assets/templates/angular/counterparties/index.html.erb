@@ -60,7 +60,7 @@
             </span>
           </td>
           <td>
-            <form editable-form name="rowform" onbeforesave="update(counterparty.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == counterparty">
+            <form editable-form name="rowform" onbeforesave="update(counterparty.id, $data, $index, true)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == counterparty">
               <button type="submit" class='icon-button' ng-disabled="rowform.$waiting" ><span class='glyphicon glyphicon-check'></span></button>
               <button type="button" class='icon-button' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class='glyphicon glyphicon-remove'></span></button>
             </form>
@@ -103,7 +103,7 @@
             </span>
           </td>
           <td>
-            <form editable-form name="rowform" onbeforesave="update(counterparty.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == counterparty">
+            <form editable-form name="rowform" onbeforesave="update(counterparty.id, $data, $index, false)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == counterparty">
               <button type="submit" class='icon-button' ng-disabled="rowform.$waiting" ><span class='glyphicon glyphicon-check'></span></button>
               <button type="button" class='icon-button' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class='glyphicon glyphicon-remove'></span></button>
             </form>

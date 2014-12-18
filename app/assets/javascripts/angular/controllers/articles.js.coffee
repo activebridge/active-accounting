@@ -25,18 +25,9 @@
     "can't be blank"  unless data?
 
   $scope.type_msgs = [
-    {
-      value: "Revenue"
-      text: $translate.instant('Revenue')
-    }
-    {
-      value: "Cost"
-      text: $translate.instant('Cost')
-    }
-    {
-      value: "Translation"
-      text: $translate.instant('Translation')
-    }
+    { value: "Revenue", text: $translate.instant('Revenue') },
+    { value: "Cost", text: $translate.instant('Cost') },
+    { value: "Translation", text: $translate.instant('Translation') }
   ]
 
   $scope.delete = (article_id, index) ->
@@ -51,7 +42,6 @@
     d = $q.defer()
     article = Article.update( id: article_id, {article: data}
       (response) ->
-        $scope.articles = Article.query()
         d.resolve()
       (response) ->
         d.resolve response.data.errors['name'][0]

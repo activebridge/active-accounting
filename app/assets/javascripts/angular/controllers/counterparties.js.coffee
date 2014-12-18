@@ -28,12 +28,18 @@
           $scope.inactiveCounterparties.splice(index,1)
         return
 
-  $scope.update = (counterparty_id, data) ->
+  $scope.update = (counterparty_id, data, index, active) ->
     d = $q.defer()
     Counterparty.update( id: counterparty_id, {counterparty: data}
       () ->
         d.resolve()
-        $scope.load()
+        if data.active != active
+          if active
+            $scope.inactiveCounterparties.push($scope.activeCounterparties[index])
+            $scope.activeCounterparties.splice(index,1)
+          else
+            $scope.activeCounterparties.push($scope.inactiveCounterparties[index])
+            $scope.inactiveCounterparties.splice(index,1)
       (response) ->
         d.resolve response.data.errors['data'][0]
     )
