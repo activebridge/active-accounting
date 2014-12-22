@@ -15,10 +15,7 @@
       $scope.registers.push(v)
       lengthResponse += 1
     $scope.changeValue()
-    if lengthResponse < 10
-      $scope.showLoadRecords = false
-    else
-      $scope.showLoadRecords = true
+    $scope.showLoadRecords = !(lengthResponse < 10)
 
   $scope.load = ->
     $scope.model.query
