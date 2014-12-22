@@ -71,7 +71,7 @@
         <input type="text" ng-model="rateDollar" ng-change="changeValue()" class="value">
       </span>
     </div>
-    <form ng-submit="filter.fetchRegisters()" ng-show ="filter.active" class="form-filter ng-pristine ng-valid">
+    <form ng-submit="filter.fetchRegisters(true)" ng-show ="filter.active" class="form-filter ng-pristine ng-valid">
       {{ 'date' | translate }}:
       <input type="text" id='dateFilter' ng-model="filter.data.date" class="ng-pristine ng-valid">
       {{ 'articles' | translate }}:
@@ -190,5 +190,8 @@
         </td>
       </tr>
     </table>
+    <div class="load_records">
+      <a ng-click='loadRecords()' ng-show='showLoadRecords' href=''>{{ 'more_records' | translate }}</a>
+    </div>
   </div>
 </div>

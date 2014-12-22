@@ -83,6 +83,12 @@
     .editable-wrap { float: left; }
     .editable-select { width: inherit; }
   }
+
+  .load_records {
+    margin: 5px auto;
+    display: table;
+    font-size: 18px;
+  }
 }
 
 .select2-result-label {
