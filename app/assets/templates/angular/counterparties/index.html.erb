@@ -52,7 +52,7 @@
               <button type="button" class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
               <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}">
               </span>
-              <button type="button" class='icon-button hidde' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)"><span class='glyphicon glyphicon-trash'></span></button>
+              <button type="button" class='icon-button hidde' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id, $index, true)"><span class='glyphicon glyphicon-trash'></span></button>
             </div>
           </td>
           <td  class="activ">
@@ -60,7 +60,7 @@
             </span>
           </td>
           <td>
-            <form editable-form name="rowform" onbeforesave="update(counterparty.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == counterparty">
+            <form editable-form name="rowform" onbeforesave="update(counterparty.id, $data, $index, true)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == counterparty">
               <button type="submit" class='icon-button' ng-disabled="rowform.$waiting" ><span class='glyphicon glyphicon-check'></span></button>
               <button type="button" class='icon-button' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class='glyphicon glyphicon-remove'></span></button>
             </form>
@@ -95,7 +95,7 @@
               <button type="button" class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
               <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}">
               </span>
-              <button type="button" class='icon-button hidde' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id)"><span class='glyphicon glyphicon-trash'></span></button>
+              <button type="button" class='icon-button hidde' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id, $index, false)"><span class='glyphicon glyphicon-trash'></span></button>
             </div>
           </td>
           <td class="activ">
@@ -103,7 +103,7 @@
             </span>
           </td>
           <td>
-            <form editable-form name="rowform" onbeforesave="update(counterparty.id, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == counterparty">
+            <form editable-form name="rowform" onbeforesave="update(counterparty.id, $data, $index, false)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == counterparty">
               <button type="submit" class='icon-button' ng-disabled="rowform.$waiting" ><span class='glyphicon glyphicon-check'></span></button>
               <button type="button" class='icon-button' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class='glyphicon glyphicon-remove'></span></button>
             </form>
