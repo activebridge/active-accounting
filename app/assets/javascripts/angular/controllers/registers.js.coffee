@@ -30,7 +30,7 @@
     if $('#month-picker').val()
       $scope.load()
     else
-      $scope.filter.fetchRegisters()
+      $scope.filter.fetchRegisters({})
 
   $scope.newRegister = {}
   $scope.newRegister.errors = {}
@@ -52,8 +52,8 @@
     $scope.filter.active = !($scope.filter.active)
     $scope.filter.clear()
 
-  $scope.filter.fetchRegisters = (lengthNull)->
-    $scope.registers = [] if lengthNull
+  $scope.filter.fetchRegisters = (params) ->
+    $scope.registers = [] if params.initLoad
     $scope.filter.data.offset = $scope.registers.length
     $scope.model.query($scope.filter.data
       , (response) ->
