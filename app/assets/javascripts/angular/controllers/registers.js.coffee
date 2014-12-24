@@ -15,7 +15,7 @@
       v.value_currency = changeValueCurrency(v.currency, v.value)
       $scope.registers.push(v)
       lengthResponse += 1
-    $scope.showLoadRecords = !(lengthResponse < 10)
+    $scope.showLoadRecords = lengthResponse >= 10
 
   $scope.load = ->
     $scope.model.query
