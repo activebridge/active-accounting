@@ -2,14 +2,16 @@ class PlanRegistersController < RegistersController
   def index
     if params[:month]
       registers = Plan.order('created_at desc')
-                          .by_month(parse_month)
-                          .by_type(params[:type])
-                          .by_article(params[:article_id])
+                      .by_month(parse_month)
+                      .by_type(params[:type])
+                      .by_article(params[:article_id])
+                      .limit(10).offset(params[:offset].to_i)
     else
       registers = Plan.by_article(params[:article_id])
-                          .by_counterparty(params[:counterparty_id])
-                          .by_date(params[:date])
-                          .by_value(params[:value])
+                      .by_counterparty(params[:counterparty_id])
+                      .by_date(params[:date])
+                      .by_value(params[:value])
+                      .limit(10).offset(params[:offset].to_i)
     end
     json = ActiveModel::ArraySerializer.new(registers,
                                            each_serializer: RegisterSerializer,

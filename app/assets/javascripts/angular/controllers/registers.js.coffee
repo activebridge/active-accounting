@@ -7,12 +7,30 @@
 
   $scope.rateDollar = $cookies.rateDollar || 0
 
+  $scope.registers = []
+
+  responseQuery = (response) ->
+    lengthResponse = 0
+    $(response).each (k, v) ->
+      v.value_currency = changeValueCurrency(v.currency, v.value)
+      $scope.registers.push(v)
+      lengthResponse += 1
+    $scope.showLoadRecords = lengthResponse >= 10
+
   $scope.load = ->
-    $scope.registers = $scope.model.query
+    $scope.model.query
       month: $('#month-picker').val()
-      , () ->
-        $scope.changeValue()
+      , offset: $scope.registers.length
+      , (response) ->
+        responseQuery(response)
     $('.select2-container.clear_after_add').select2('val', '')
+    return
+
+  $scope.loadRecords = ->
+    if $('#month-picker').val()
+      $scope.load()
+    else
+      $scope.filter.fetchRegisters({})
 
   $scope.newRegister = {}
   $scope.newRegister.errors = {}
@@ -34,11 +52,12 @@
     $scope.filter.active = !($scope.filter.active)
     $scope.filter.clear()
 
-  $scope.filter.fetchRegisters = ->
-    $scope.registers = $scope.model.query($scope.filter.data,
-      () ->
-        $scope.changeValue()
-        $scope.filter.dataFilter = $scope.filter.data
+  $scope.filter.fetchRegisters = (params) ->
+    $scope.registers = [] if params.initLoad
+    $scope.filter.data.offset = $scope.registers.length
+    $scope.model.query($scope.filter.data
+      , (response) ->
+        responseQuery(response)
       )
     $('#month-picker').val('')
     return
@@ -101,6 +120,7 @@
   $('#month-picker').val(month_picker_date)
 
   $('#month-picker').change ->
+    $scope.registers = []
     $scope.load()
 
   $('#month-picker').MonthPicker
