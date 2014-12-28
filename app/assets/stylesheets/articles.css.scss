@@ -37,13 +37,22 @@ span.article_type {
 }
 
 .articles {
+
+  tr.list-count-article {
+    td.name {
+      span.editable-wrap {
+        width: 100%;
+        span, input {
+          width: 100%;
+        }
+      }
+    }
+  }
   .list { margin-top: 25px; }
 
   .glyphicon { font-size: 15px; }
-  
-  td.articleType { width: 100px; }
 
-  td, th { width: 188px; }
+  td.articleType { width: 100px; }
 
   span.error { position: absolute; }
 

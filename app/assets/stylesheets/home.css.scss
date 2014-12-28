@@ -10,7 +10,12 @@
 
 td.editIcon { width: 59px; }
 
-td.editDate { width: 109px; }
+td.editDate {
+  width: 109px;
+  input {
+    width: 100px;
+  }
+}
 
 input, textarea { outline: none; }
 

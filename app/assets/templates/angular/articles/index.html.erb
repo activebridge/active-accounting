@@ -42,7 +42,7 @@
       </table>
       <table>
         <tr class="list-count-article" ng-repeat="article in articles">
-          <td>
+          <td class='name'>
             <span class="name" editable-text="article.name" e-ng-focus="showSelects()"onbeforesave="checkName($data)" e-name="name" e-form="rowform" e-required>
               {{ article.name }}
             </span>
