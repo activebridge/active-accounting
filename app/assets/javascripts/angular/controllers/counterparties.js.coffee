@@ -29,6 +29,10 @@
         return
 
   $scope.update = (counterparty_id, data, index, active) ->
+    if data.active != active && active
+      data.monthly_payment = false
+      $scope.activeCounterparties[index].monthly_payment = false
+    return if data.monthly_payment && !data.value_payment
     d = $q.defer()
     Counterparty.update( id: counterparty_id, {counterparty: data}
       () ->

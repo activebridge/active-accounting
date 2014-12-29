@@ -64,4 +64,38 @@ form.editable-wrap {
       width: 20px;
     }
   }
+
+  .checkbox_payment {
+    width: 17px;
+    height: 16px;
+    top: 2px;
+  }
+
+  .edit_icon {
+    width: inherit;
+    text-align: left;
+    min-width: 80px;
+  }
+
+  .monthly_payment {
+    width: inherit;
+    padding-right: 20px;
+  }
+
+  .show_monthly_payment {
+    top: 25px;
+    position: relative;
+    display: table;
+  }
+
+  .alert {
+    padding: 3px 35px;
+    margin: 0;
+  }
+
+  .start_date { width: 85px; }
+
+  .change_value_payment {
+    .glyphicon { font-size: 20px; }
+  }
 }

@@ -4,6 +4,7 @@ app.directive "repeatComplete", ->
   (scope, element, attrs) ->
     if (scope.$last || scope.$index == 0)
       $('select.color-record').simplecolorpicker({picker: true, pickerDelay: 600})
+      $("input.value").numeric({ decimalPlaces: 2 })
       
 app.config ['$translateProvider', ($translateProvider) ->
   $translateProvider.translations "en",
@@ -60,6 +61,10 @@ app.config ['$translateProvider', ($translateProvider) ->
     rate_currency: "Rate dollar:"
     update: "Update"
     more_records: "More records..."
+    payment: "Payment"
+    monthly_payment: "Monthly payment"
+    warning: "Warning!"
+    info_monthly_payment: "Monthly payment has not been paid for counterparty."
 
   $translateProvider.translations "uk",
     counterparties: "Контрагенти"
@@ -113,6 +118,10 @@ app.config ['$translateProvider', ($translateProvider) ->
     rate_currency: "Курс долару:"
     update: "Оновити"
     more_records: "Ще записи..."
+    payment: "Платіж"
+    monthly_payment: "Щомісячний платіж"
+    warning: "Увага!"
+    info_monthly_payment: "Щомісячний платіж не був проплачений контрагенту."
 
   $translateProvider.preferredLanguage "uk"
   return

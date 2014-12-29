@@ -22,6 +22,11 @@
         </table>
       </form>
     </div>
+    <a ng-click="showMonthlyPayment = !showMonthlyPayment" href="" class="show_monthly_payment">
+      {{ 'monthly_payment' | translate }}
+      <span ng-show='!showMonthlyPayment'>({{ 'show' | translate }})</span>
+      <span ng-show=' showMonthlyPayment'>({{ 'hide' | translate }})</span>
+    </a>
     <div class="list">
       <table>
         <tr>
@@ -31,12 +36,13 @@
         </tr>
         <tr>
           <th translate='name'></th>
-          <th translate='date'></th>
+          <th translate='date' class="editDate"></th>
+          <th translate='payment' ng-show='showMonthlyPayment'></th>
           <th></th>
         </tr>
       </table>
       <table>
-        <tr class="list-count-article list_{{ counterparty.active }}" ng-repeat="counterparty in activeCounterparties">
+        <tr class="list-count-article list_{{ counterparty.active }}" ng-repeat="counterparty in activeCounterparties" ng-class="{stand_out: counterparty.monthly_payment && showMonthlyPayment}" repeat-complete>
           <td>
             <span class="name" editable-text="counterparty.name" e-name="name" e-form="rowform" e-required>
               {{ counterparty.name }}
@@ -47,23 +53,40 @@
               {{ counterparty.start_date }}
             </span>
           </td>
-          <td class ="editIcon" ng-show="!rowform.$visible">
-            <div class="butn" ng-show="!rowform.$visible">
-              <button type="button" class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
-              <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}">
-              </span>
-              <button type="button" class='icon-button hidde' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id, $index, true)"><span class='glyphicon glyphicon-trash'></span></button>
-            </div>
-          </td>
-          <td  class="activ">
-            <span class="active" editable-checkbox="counterparty.active" e-name="active" e-form="rowform" e-title="Active?">
+          <td class="monthly_payment" ng-show='showMonthlyPayment'>
+            <span ng-show='counterparty.monthly_payment && !rowform.$visible'>
+              {{ counterparty.value_payment }}
             </span>
           </td>
-          <td>
+          <td class ="edit_icon">
+            <span ng-show="!rowform.$visible">
+              <input type="checkbox" class='checkbox_payment hidde' title="{{ 'monthly_payment' | translate }}" ng-model='counterparty.monthly_payment' ng-change='update(counterparty.id, {monthly_payment: counterparty.monthly_payment}); inputValue=true' ng-show='!inputValue || !counterparty.monthly_payment'>
+              <span ng-show='counterparty.monthly_payment && inputValue' class='change_value_payment'>
+                <input type='text' ng-model="counterparty.value_payment" class='value'>
+                <button type="button" class='icon-button' ng-click="update(counterparty.id, {monthly_payment: counterparty.monthly_payment, value_payment:counterparty.value_payment}); inputValue=!inputValue" ng-show='counterparty.value_payment' title="{{ 'save_changes' | translate }}"><span class='glyphicon glyphicon-check'></span></button>
+                <button type="button" class='icon-button' ng-click="counterparty.monthly_payment=!counterparty.monthly_payment; inputValue=!inputValue" title="{{ 'cancel' | translate }}"><span class='glyphicon glyphicon-remove'></span></button>
+              </span>
+            </span>
+            <div class="butn" ng-show="!rowform.$visible && !monthlyPayment && (!inputValue || !counterparty.monthly_payment)">
+              <button type="button" class='icon-button hidde' ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}"><span class='glyphicon glyphicon-edit'></span></button>
+              <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}">
+              </span>
+              <button type="button" class='icon-button hidde' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id, $index, true)" title="{{ 'delete_reg' | translate }}"><span class='glyphicon glyphicon-trash'></span></button>
+            </div>
+            <span class="activ">
+              <span class="active" editable-checkbox="counterparty.active" e-name="active" e-form="rowform" e-title="Active?">
+              </span>
+            </span>
             <form editable-form name="rowform" onbeforesave="update(counterparty.id, $data, $index, true)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == counterparty">
-              <button type="submit" class='icon-button' ng-disabled="rowform.$waiting" ><span class='glyphicon glyphicon-check'></span></button>
-              <button type="button" class='icon-button' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class='glyphicon glyphicon-remove'></span></button>
+              <button type="submit" class='icon-button' ng-disabled="rowform.$waiting" title="{{ 'save_changes' | translate }}"><span class='glyphicon glyphicon-check'></span></button>
+              <button type="button" class='icon-button' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" title="{{ 'cancel' | translate }}"><span class='glyphicon glyphicon-remove'></span></button>
             </form>
+          </td>
+          <td class="monthly_payment">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <strong>{{ 'warning' | translate }}</strong> {{ 'info_monthly_payment' | translate }}
+            </div>
           </td>
         </tr>
       </table>
@@ -90,19 +113,17 @@
               {{ counterparty.start_date }}
             </span>
           </td>
-          <td class ="editIcon" ng-show="!rowform.$visible">
+          <td class ="edit_icon">
             <div class="butn" ng-show="!rowform.$visible">
               <button type="button" class='icon-button hidde' ng-click="rowform.$show()"><span class='glyphicon glyphicon-edit'></span></button>
               <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}">
               </span>
               <button type="button" class='icon-button hidde' ng-show="!counterparty.assigned" ng-click="delete(counterparty.id, $index, false)"><span class='glyphicon glyphicon-trash'></span></button>
             </div>
-          </td>
-          <td class="activ">
-            <span class="active" editable-checkbox="counterparty.active" e-name="active" e-form="rowform" e-title="Active?">
+            <span class="activ">
+              <span class="active" editable-checkbox="counterparty.active" e-name="active" e-form="rowform" e-title="Active?">
+              </span>
             </span>
-          </td>
-          <td>
             <form editable-form name="rowform" onbeforesave="update(counterparty.id, $data, $index, false)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == counterparty">
               <button type="submit" class='icon-button' ng-disabled="rowform.$waiting" ><span class='glyphicon glyphicon-check'></span></button>
               <button type="button" class='icon-button' ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class='glyphicon glyphicon-remove'></span></button>
