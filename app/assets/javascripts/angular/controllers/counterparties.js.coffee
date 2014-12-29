@@ -10,6 +10,10 @@
     $('.start_date').datepicker({ dateFormat: "dd-mm-yy" }).focus()
     return
 
+  $scope.endOfMonth = ->
+    curr_day = new Date().getDate()
+    return curr_day >= 25
+
   $scope.add = ->
     counterparty = Counterparty.save($scope.newCounterparty,
       () ->

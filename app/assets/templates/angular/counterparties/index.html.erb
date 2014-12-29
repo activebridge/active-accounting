@@ -65,7 +65,7 @@
                 <button type="button" class='icon-button' ng-click="counterparty.monthly_payment=!counterparty.monthly_payment; inputValue=!inputValue" title="{{ 'cancel' | translate }}"><span class='glyphicon glyphicon-remove'></span></button>
               </span>
             </span>
-            <div class="butn" ng-show="!rowform.$visible && !monthlyPayment && (!inputValue || !counterparty.monthly_payment)">
+            <div class="butn" ng-show="!rowform.$visible && (!inputValue || !counterparty.monthly_payment)">
               <button type="button" class='icon-button hidde' ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}"><span class='glyphicon glyphicon-edit'></span></button>
               <span class="hidde glyphicon glyphicon-info-sign mess-info" ng-show="counterparty.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}">
               </span>
@@ -81,7 +81,7 @@
             </form>
           </td>
           <td class="monthly_payment">
-            <div class="alert alert-warning alert-dismissable">
+            <div class="alert alert-warning alert-dismissable" ng-show='!counterparty.successful_payment && counterparty.monthly_payment && endOfMonth()'>
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
               <strong>{{ 'warning' | translate }}</strong> {{ 'info_monthly_payment' | translate }}
             </div>
