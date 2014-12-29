@@ -40,8 +40,6 @@
           <th translate='payment' ng-show='showMonthlyPayment'></th>
           <th></th>
         </tr>
-      </table>
-      <table>
         <tr class="list-count-article list_{{ counterparty.active }}" ng-repeat="counterparty in activeCounterparties" ng-class="{stand_out: counterparty.monthly_payment && showMonthlyPayment}" repeat-complete>
           <td>
             <span class="name" editable-text="counterparty.name" e-name="name" e-form="rowform" e-required>
@@ -90,6 +88,9 @@
           </td>
         </tr>
       </table>
+
+      <div class='clearboth'></div>
+
       <table>
         <tr>
           <td class="name-block">
@@ -100,8 +101,6 @@
           <th translate='name'></th>
           <th translate='date'></th>
         </tr>
-      </table>
-      <table>
         <tr class="list-count-article list_{{ counterparty.active }}" ng-repeat="counterparty in inactiveCounterparties">
           <td>
             <span class="name" editable-text="counterparty.name" e-name="name" e-form="rowform" e-required>
