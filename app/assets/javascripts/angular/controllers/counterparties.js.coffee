@@ -10,6 +10,10 @@
     $('.start_date').datepicker({ dateFormat: "dd-mm-yy" }).focus()
     return
 
+  $scope.endOfMonth = ->
+    curr_day = new Date().getDate()
+    return curr_day >= 25
+
   $scope.add = ->
     counterparty = Counterparty.save($scope.newCounterparty,
       () ->
@@ -29,6 +33,10 @@
         return
 
   $scope.update = (counterparty_id, data, index, active) ->
+    if data.active != active && active
+      data.monthly_payment = false
+      $scope.activeCounterparties[index].monthly_payment = false
+    return if data.monthly_payment && !data.value_payment
     d = $q.defer()
     Counterparty.update( id: counterparty_id, {counterparty: data}
       () ->

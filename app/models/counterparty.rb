@@ -15,5 +15,10 @@ class Counterparty < ActiveRecord::Base
     registers.any?
   end
 
+  def successful_payment?
+    registers.by_month(DateTime.now).where(type: Register::TYPES::FACT).any?
+  end
+
   alias_method :assigned, :assigned?
+  alias_method :successful_payment, :successful_payment?
 end
