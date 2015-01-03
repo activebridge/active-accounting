@@ -40,6 +40,7 @@
 
   $scope.filter.fetchRegisters = (params) ->
     $scope.registers = [] if params.initLoad
+    $scope.counterpartiesWithoutPay = []
     $scope.filter.data.offset = $scope.registers.length
     $scope.model.query($scope.filter.data
       , (response) ->
@@ -78,7 +79,7 @@
     () ->
       $('select.counterparty').select2({width: '200px'})
       $('select.currency').select2({width: '65px', minimumResultsForSearch: '5' })
-  
+
   $.datepicker.setDefaults( $.datepicker.regional[ $translate.instant('datePickerLocal') ] )
   $('#date').datepicker
     dateFormat: 'dd-mm-yy',
@@ -135,6 +136,10 @@
           register.value_currency = changeValueCurrency(register.currency, register.value)
           $scope.registers.unshift(register)
         $('.select2-container.clear_after_add').select2('val', '')
+        $.each $scope.counterpartiesWithoutPay, (k, v)->
+          if v.id == parseInt($scope.newRegister.counterparty_id)
+            $scope.counterpartiesWithoutPay.splice(k,1)
+            return
         $scope.newRegister = {date: $scope.newRegister.date, currency: $scope.newRegister.currency}
       , (response) ->
         $scope.newRegister.errors = response.data.errors

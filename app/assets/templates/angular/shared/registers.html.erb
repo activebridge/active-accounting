@@ -57,6 +57,7 @@
       </table>
     </form>
   </div>
+
   <div class="list">
     <span class="rate_currency" ng-show="sandbox">
       {{ 'rate_currency' | translate }}
@@ -126,6 +127,17 @@
         </tr>
       </table>
     </form>
+
+    <table class='table table-striped list_count' ng-show='showlistCount && counterpartiesWithoutPay.length>0'>
+      <tr>
+        <th>{{ 'counterparties' | translate }}</th>
+        <th class='width_35'>{{ 'monthly_payment' | translate }}</th>
+      </tr>
+      <tr ng-repeat="counterparties in counterpartiesWithoutPay">
+        <td>{{counterparties.name}}</td>
+        <td class='text_right width_35'>{{counterparties.value_payment}}</td>
+      </tr>
+    </table>
 
     <table class="ng-scope register">
       <tr>

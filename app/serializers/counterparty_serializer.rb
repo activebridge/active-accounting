@@ -4,4 +4,8 @@ class CounterpartySerializer < ActiveModel::Serializer
   def start_date
     object.start_date.strftime('%d-%m-%Y') if object.start_date
   end
+
+  def successful_payment
+    object.successful_payment?(DateTime.now, nil)
+  end
 end

@@ -101,6 +101,19 @@
     font-size: 20px;
     color: black;
   }
+    
+  .show_list_count {
+    float: right;
+    margin: 2px 20px;
+  }
+
+  .list_count {
+    max-width: 500px;
+    margin: 20px auto;
+
+    .text_right { text-align: right; }
+    .width_35 { width: 35%; }
+  }
 }
 
 .select2-result-label {
