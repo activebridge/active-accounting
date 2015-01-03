@@ -42,6 +42,7 @@
     $scope.registers = [] if params.initLoad
     $scope.counterpartiesWithoutPay = []
     $scope.filter.data.offset = $scope.registers.length
+    $scope.filter.dataFilter = $scope.filter.data
     $scope.model.query($scope.filter.data
       , (response) ->
         responseQuery(response)
