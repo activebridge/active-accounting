@@ -128,16 +128,24 @@
       </table>
     </form>
 
-    <table class='table table-striped list_count' ng-show='showlistCount && counterpartiesWithoutPay.length>0'>
-      <tr>
-        <th>{{ 'counterparties' | translate }}</th>
-        <th class='width_35'>{{ 'monthly_payment' | translate }}</th>
-      </tr>
-      <tr ng-repeat="counterparties in counterpartiesWithoutPay">
-        <td>{{counterparties.name}}</td>
-        <td class='text_right width_35'>{{counterparties.value_payment}}</td>
-      </tr>
-    </table>
+    <div class='list_count_block' ng-show='showlistCount && counterpartiesWithoutPay.length>0'>
+      <h4 class='name_block'>{{ 'count_without_pay' | translate }}</h4>
+      <span class='list_count'>
+        <table class='table table-striped'>
+          <tr>
+            <th>{{ 'counterparties' | translate }}</th>
+            <th class='width_35'>{{ 'monthly_payment' | translate }}</th>
+          </tr>
+          <tr ng-repeat="counterparties in counterpartiesWithoutPay">
+            <td>{{counterparties.name}}</td>
+            <td class='text_right width_35'>{{counterparties.value_payment}}</td>
+          </tr>
+        </table>
+        <button type="button" class='icon-button' ng-click="showlistCount = !showlistCount" title="{{ 'edit_reg' | translate }}">
+          <span class='glyphicon glyphicon-remove'></span>
+        </button>
+      </span>
+    </div>
 
     <table class="ng-scope register">
       <tr>

@@ -107,12 +107,29 @@
     margin: 2px 20px;
   }
 
-  .list_count {
-    max-width: 500px;
-    margin: 20px auto;
+  .list_count_block {
+    display: flex;
+    background: #ececec;
+    margin: 25px;
+    border: 3px groove #f1f2f4;
+    border-radius: 10px;
 
     .text_right { text-align: right; }
     .width_35 { width: 35%; }
+
+    table {
+      width: 500px;
+      background: white;
+      float: left;
+    }
+
+    .list_count {
+      display: table;
+      margin: 10px auto;
+      white-space: nowrap;
+    }
+
+    .name_block { position: absolute; }
   }
 }
 
