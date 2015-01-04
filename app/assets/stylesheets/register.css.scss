@@ -89,6 +89,18 @@
     display: table;
     font-size: 18px;
   }
+
+  .input_data { width: 90px; }
+  .table_month { float: left; }
+  .info_or { margin-left: 10px;}
+  .position_right { float: right; }
+
+  .head_filter {
+    width: 100%;
+    display: table;
+    font-size: 20px;
+    color: black;
+  }
 }
 
 .select2-result-label {
@@ -136,8 +148,23 @@ tr {
   }
 }
 
-.filter { color: #3d5c3e; }
-.form-filter { padding: 10px 0; }
+.filter { margin-left: 10px; }
+
+.form-filter {
+  padding: 10px 0;
+
+  tr { height: 25px; }
+
+  &.open_form_filter {
+    color: rgb(128, 125, 125);
+    display: inline-table;
+    background: #ececec;
+    margin: 25px;
+    border: 3px groove #f1f2f4;
+    border-radius: 10px;
+    padding-top: 0;
+  }
+}
 
 .name-sandbox {
   font-size: 30px;

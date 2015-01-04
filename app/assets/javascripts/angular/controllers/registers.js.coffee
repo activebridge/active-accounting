@@ -17,24 +17,10 @@
       lengthResponse += 1
     $scope.showLoadRecords = lengthResponse >= 10
 
-  $scope.load = ->
-    $scope.model.query
-      month: $('#month-picker').val()
-      , offset: $scope.registers.length
-      , (response) ->
-        responseQuery(response)
-    $('.select2-container.clear_after_add').select2('val', '')
-    return
-
-  $scope.loadRecords = ->
-    if $('#month-picker').val()
-      $scope.load()
-    else
-      $scope.filter.fetchRegisters({})
-
   $scope.newRegister = {}
   $scope.newRegister.errors = {}
   $scope.filter = {}
+  $scope.filter.data = {}
 
   changeValueCurrency = (currency, value) ->
     if currency == 'USD'
@@ -59,7 +45,6 @@
       , (response) ->
         responseQuery(response)
       )
-    $('#month-picker').val('')
     return
 
   $scope.valueOnlyNumeric = ->
@@ -69,7 +54,7 @@
     $('select.search').select2('val', '')
     $('input.search').val('')
     $('#dateFilter').val('')
-    $scope.filter.data = {}
+    $scope.filter.data = { month: $scope.filter.data.month }
     return
 
   $scope.articles = Article.query ->
@@ -117,11 +102,16 @@
   $scope.newRegister.date = $.datepicker.formatDate('dd-mm-yy', curr_date)
 
   month_picker_date = $.datepicker.formatDate('mm/yy', curr_date)
-  $('#month-picker').val(month_picker_date)
 
-  $('#month-picker').change ->
+  $scope.filter.data.month = month_picker_date
+
+  $scope.filter.changeMonth = ->
+    if $scope.filter.active
+      $scope.filter.data.date = undefined
+      return
     $scope.registers = []
-    $scope.load()
+    $scope.filter.fetchRegisters(false)
+  $scope.filter.changeMonth()
 
   $('#month-picker').MonthPicker
     ShowIcon: false,
@@ -162,6 +152,7 @@
     d = $q.defer()
     Register.update( id: register_id, {register: data}
       (response) ->
+        return if data.background
         $.each $scope.articles, (k, v)->
           $scope.registers[index].article = v if v.id == data.article_id
         $.each $scope.counterparties, (k, v)->
@@ -177,7 +168,6 @@
     )
     return d.promise
 
-  $scope.load()
   $scope.valueOnlyNumeric()
 
   $scope.clearError = () ->

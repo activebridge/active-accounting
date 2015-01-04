@@ -11,7 +11,7 @@
         </tr>
         <tr>
           <td>
-            <input type="text" id='date' ng-model="newRegister.date" class="ng-pristine ng-valid">
+            <input type="text" id='date' ng-model="newRegister.date" class="input_data ng-pristine ng-valid">
           </td>
           <td>
             <select ng-model="newRegister.article_id" class='article clear_after_add'>
@@ -58,42 +58,75 @@
     </form>
   </div>
   <div class="list">
-    <div class='month-picker-wrapper'>
-      {{ 'month' | translate }}:
-      <input type='text' id='month-picker'/>
-      <a ng-click="filter.show()" href="javascript: void(false);" class="filter">
-        {{ 'filter' | translate }}
-        <span ng-show='!filter.active'>&#9650;</span>
-        <span ng-show='filter.active'>&#9660;</span>
-      </a>
-      <span class="rate_currency" ng-show="sandbox">
-        {{ 'rate_currency' | translate }}
-        <input type="text" ng-model="rateDollar" ng-change="changeValue()" class="value">
-      </span>
-    </div>
-    <form ng-submit="filter.fetchRegisters({initLoad: true})" ng-show ="filter.active" class="form-filter ng-pristine ng-valid">
-      {{ 'date' | translate }}:
-      <input type="text" id='dateFilter' ng-model="filter.data.date" class="ng-pristine ng-valid">
-      {{ 'articles' | translate }}:
-      <select class='article search' ng-model="filter.data.article_id">
-        <option ng-repeat="type in articleTypes" value={{type.value}}>
-        {{type.text}}
-        </option>
-        <option ng-repeat="article in articles" value={{article.id}}>
-        {{article.name}} ({{article.type | translate}})
-        </option>
-      </select>
-      {{ 'counterparty' | translate }}:
-      <select class='counterparty search' ng-model="filter.data.counterparty_id">
-        <option ng-repeat="counterparty in counterparties" value={{counterparty.id}}>
-          {{counterparty.name}}
-        </option>
-      </select>
-      {{ 'totall_min' | translate }}:
-      <input type="text" class="value search" ng-model="filter.data.value">
-      <button type="submit" class='icon-button' title="{{ 'searchFilter' | translate }}"><span class='glyphicon glyphicon-search'></span></button>
-      <button type="button" class='icon-button' ng-click="filter.clear()" title="{{ 'clearForm' | translate }}"><span class='glyphicon glyphicon-repeat'></span></button>
+    <span class="rate_currency" ng-show="sandbox">
+      {{ 'rate_currency' | translate }}
+      <input type="text" ng-model="rateDollar" ng-change="changeValue()" class="value">
+    </span>
+
+    <form ng-submit="filter.fetchRegisters({initLoad: true})" class="form-filter ng-pristine ng-valid" ng-class="{open_form_filter: filter.active}">
+      <div class="head_filter" ng-show="filter.active">
+        <span>{{ 'filter' | translate }}</span>
+        <span class='position_right'>
+          <button type="button" class='icon-button' ng-click="filter.active = !filter.active" title="{{ 'close' | translate }} {{ 'filter' | translate }}"><span class='glyphicon glyphicon-remove'></span></button>
+        </span>
+      </div>
+      <table class="table_month">
+        <tr>
+          <th>
+            {{ 'month' | translate }}
+            <i class='info_or' ng-show="filter.active">{{ 'or' | translate }}</i>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <input type='text' ng-model="filter.data.month" id='month-picker' class='input_data' ng-change='filter.changeMonth()'>
+          </td>
+           <td ng-show="!filter.active">
+            <a ng-click="filter.show()" href="javascript: void(false);" class="filter">
+              {{ 'show' | translate }}: {{ 'filter' | translate }}
+            </a>
+          </td>
+        </tr>
+      </table>
+      <table ng-show="filter.active" class="table_month">
+        <tr>
+          <th>{{ 'date' | translate }}</th>
+          <th>{{ 'articles' | translate }}</th>
+          <th>{{ 'counterparty' | translate }}</th>
+          <th>{{ 'totall_min' | translate }}</th>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" id='dateFilter' ng-model="filter.data.date" class="input_data ng-pristine ng-valid" ng-change='filter.data.month = undefined'>  
+          </td>
+          <td>
+            <select class='article search' ng-model="filter.data.article_id">
+              <option ng-repeat="type in articleTypes" value={{type.value}}>
+              {{type.text}}
+              </option>
+              <option ng-repeat="article in articles" value={{article.id}}>
+              {{article.name}} ({{article.type | translate}})
+              </option>
+            </select>
+          </td>
+          <td>
+            <select class='counterparty search' ng-model="filter.data.counterparty_id">
+              <option ng-repeat="counterparty in counterparties" value={{counterparty.id}}>
+                {{counterparty.name}}
+              </option>
+            </select>
+          </td>
+          <td>
+            <input type="text" class="value search" ng-model="filter.data.value">
+          </td>
+          <td>
+            <button type="submit" class='icon-button' title="{{ 'searchFilter' | translate }}"><span class='glyphicon glyphicon-search'></span></button>
+            <button type="button" class='icon-button' ng-click="filter.clear(); filter.data.month=undenfined" title="{{ 'clearForm' | translate }}"><span class='glyphicon glyphicon-repeat'></span></button>
+          </td>
+        </tr>
+      </table>
     </form>
+
     <table class="ng-scope register">
       <tr>
         <th class='date'>
@@ -191,7 +224,7 @@
       </tr>
     </table>
     <div class="load_records">
-      <a ng-click='loadRecords()' ng-show='showLoadRecords' href=''>{{ 'more_records' | translate }}</a>
+      <a ng-click='filter.fetchRegisters({})' ng-show='showLoadRecords' href=''>{{ 'more_records' | translate }}</a>
     </div>
   </div>
 </div>
