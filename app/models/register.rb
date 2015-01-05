@@ -29,6 +29,13 @@ class Register < ActiveRecord::Base
     joins(:article).where(articles: {type: Article::TYPES::TRANSLATION})
   }
 
+  scope :by_type_register, -> (scope) {
+    self.send(scope) if scope
+  }
+
+  scope :Fact, -> { where(type: Register::TYPES::FACT) }
+  scope :Plan, -> { where(type: Register::TYPES::PLAN) }
+
   scope :by_month, -> (date) {
     if date
       date = Date.parse(date)

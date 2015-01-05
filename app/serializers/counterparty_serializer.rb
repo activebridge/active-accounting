@@ -6,6 +6,6 @@ class CounterpartySerializer < ActiveModel::Serializer
   end
 
   def successful_payment
-    object.successful_payment?(DateTime.now, nil)
+    object.successful_payment?(Date.today)
   end
 end
