@@ -3,24 +3,20 @@ class RegistersController < ApplicationController
   before_action :find_register, only: [:destroy, :update]
 
   def index
-    if params[:month]
-      registers = Fact.order('created_at desc')
-                      .by_month(parse_month)
-                      .by_type(params[:type])
-                      .by_article(params[:article_id])
-                      .limit(10).offset(params[:offset].to_i)
-    else
-      registers = Fact.by_article(params[:article_id])
-                      .by_counterparty(params[:counterparty_id])
-                      .by_date(params[:date])
-                      .by_value(params[:value])
-                      .limit(10).offset(params[:offset].to_i)
+    registers = Fact.order('created_at desc')
+                    .by_month(params[:month])
+                    .by_type(params[:type])
+                    .by_article(params[:article_id])
+                    .by_counterparty(params[:counterparty_id])
+                    .by_date(params[:date])
+                    .by_value(params[:value])
+    if params[:offset]
+      registers = registers.limit(10).offset(params[:offset].to_i)
     end
     json = ActiveModel::ArraySerializer.new(registers,
                                            each_serializer: RegisterSerializer,
                                            root: nil)
     render json: json, status: 200
-
   end
 
   def create

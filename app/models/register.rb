@@ -30,7 +30,10 @@ class Register < ActiveRecord::Base
   }
 
   scope :by_month, -> (date) {
-    where("extract(month from date) = ? AND extract(year from date) = ?", date.month, date.year)
+    if date
+      date = Date.parse(date)
+      where("extract(month from date) = ? AND extract(year from date) = ?", date.month, date.year)
+    end
   }
 
   scope :by_months, -> (dates) {
