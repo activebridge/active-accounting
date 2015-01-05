@@ -32,9 +32,9 @@ class CounterpartiesController < ApplicationController
 
   def payments
     counterparties = []
-    Counterparty.where(monthly_payment: true, active: true).each { |count|
+    Counterparty.where(monthly_payment: true, active: true).each do |count|
       counterparties.unshift count unless count.successful_payment?(Date.parse(params[:month]), params[:sandbox])
-    }
+    end
     json = ActiveModel::ArraySerializer.new(counterparties,
                                            each_serializer: CounterpartyRegisterSerializer,
                                            root: nil)

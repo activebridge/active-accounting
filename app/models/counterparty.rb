@@ -16,11 +16,7 @@ class Counterparty < ActiveRecord::Base
   end
 
   def successful_payment?(date, type)
-    if type
-      type = Register::TYPES::PLAN
-    else
-      type = Register::TYPES::FACT
-    end
+    type = type ? Register::TYPES::PLAN : Register::TYPES::FACT
     registers.by_month(date).where(type: type).any?
   end
 
