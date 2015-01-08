@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
   get 'home' => 'home#index'
-  resources :counterparties
+  resources :counterparties do
+    collection do
+      get :payments
+    end
+  end
   resources :articles
   resources :registers
   resources :plan_registers

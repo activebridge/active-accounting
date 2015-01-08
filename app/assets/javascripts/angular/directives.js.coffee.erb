@@ -67,6 +67,10 @@ app.config ['$translateProvider', ($translateProvider) ->
     info_monthly_payment: "Monthly payment has not been paid for counterparty."
     close: "Close"
     or: "or"
+    count_without_pay: "Counterparties without pay"
+    closed: "Closed"
+    alas: "Alas!"
+    info_not_found: "Information not found by the search."
 
   $translateProvider.translations "uk",
     counterparties: "Контрагенти"
@@ -126,6 +130,10 @@ app.config ['$translateProvider', ($translateProvider) ->
     info_monthly_payment: "Щомісячний платіж не був проплачений контрагенту."
     close: "Закрити"
     or: "або"
+    count_without_pay: "Контрагенти без проплати"
+    closed: "Закрити"
+    alas: "На жаль!"
+    info_not_found: "Інформацію не знайдено за пошуком."
 
   $translateProvider.preferredLanguage "uk"
   return

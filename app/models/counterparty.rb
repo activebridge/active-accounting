@@ -10,6 +10,20 @@ class Counterparty < ActiveRecord::Base
 
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
+  scope :monthly_payment, -> { where(monthly_payment: true) }
+
+  scope :paid_for, -> (date) {
+     joins(:registers).where("extract(month from date) = ? AND extract(year from date) = ?", date.month, date.year)
+  }
+
+  scope :unpaid_for, -> (date, type) {
+    paid_ids = monthly_payment.for_registers(type).paid_for(date).select('id').uniq
+    monthly_payment.where("id not in (?)", paid_ids)
+  }
+
+  scope :for_registers, -> (type) {
+    joins(:registers).where(registers: {type: type})
+  }
 
   def assigned?
     registers.any?

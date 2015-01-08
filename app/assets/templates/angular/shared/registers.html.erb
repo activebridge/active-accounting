@@ -57,11 +57,16 @@
       </table>
     </form>
   </div>
+
   <div class="list">
     <span class="rate_currency" ng-show="sandbox">
       {{ 'rate_currency' | translate }}
       <input type="text" ng-model="rateDollar" ng-change="changeValue()" class="value">
     </span>
+
+    <a ng-click="showlistCount = !showlistCount" href="" class="show_list_count" ng-show='counterpartiesWithoutPay.length>0 && !showlistCount'>
+      {{ 'show' | translate }}: {{ 'count_without_pay' | translate }}
+    </a>
 
     <form ng-submit="filter.fetchRegisters({initLoad: true})" class="form-filter ng-pristine ng-valid" ng-class="{open_form_filter: filter.active}">
       <div class="head_filter" ng-show="filter.active">
@@ -70,7 +75,7 @@
           <button type="button" class='icon-button' ng-click="filter.active = !filter.active" title="{{ 'close' | translate }} {{ 'filter' | translate }}"><span class='glyphicon glyphicon-remove'></span></button>
         </span>
       </div>
-      <table class="table_month">
+      <table ng-class="{position_left: filter.active}">
         <tr>
           <th>
             {{ 'month' | translate }}
@@ -88,7 +93,7 @@
           </td>
         </tr>
       </table>
-      <table ng-show="filter.active" class="table_month">
+      <table ng-show="filter.active" ng-class="{position_left: filter.active}">
         <tr>
           <th>{{ 'date' | translate }}</th>
           <th>{{ 'articles' | translate }}</th>
@@ -127,7 +132,26 @@
       </table>
     </form>
 
-    <table class="ng-scope register">
+    <div class='list_count_block' ng-show='showlistCount && counterpartiesWithoutPay.length>0'>
+      <h4 class='name_block'>{{ 'count_without_pay' | translate }}</h4>
+      <span class='list_count'>
+        <table class='table table-striped'>
+          <tr>
+            <th>{{ 'counterparties' | translate }}</th>
+            <th class='width_35'>{{ 'monthly_payment' | translate }}</th>
+          </tr>
+          <tr ng-repeat="counterparties in counterpartiesWithoutPay">
+            <td>{{counterparties.name}}</td>
+            <td class='text_right width_35'>{{counterparties.value_payment}}</td>
+          </tr>
+        </table>
+        <button type="button" class='icon-button' ng-click="showlistCount = !showlistCount" title="{{ 'closed' | translate }}">
+          <span class='glyphicon glyphicon-remove'></span>
+        </button>
+      </span>
+    </div>
+
+    <table class="ng-scope register" ng-show='registers.length>0'>
       <tr>
         <th class='date'>
           <a href='' ng-class="{'up_arrow' : predicate=='date' && reverse, 'down_arrow' : predicate=='date' && !reverse}" ng-click="predicate='date'; reverse=!reverse">{{ 'date' | translate }}</a>
@@ -225,6 +249,11 @@
     </table>
     <div class="load_records">
       <a ng-click='filter.fetchRegisters({})' ng-show='showLoadRecords' href=''>{{ 'more_records' | translate }}</a>
+    </div>
+    <div class='info-alas' ng-hide='registers.length>0'>
+      <div class="alert alert-info alert-dismissable">
+        <strong>{{ 'alas' | translate }}</strong>{{ 'info_not_found' | translate }}
+      </div>
     </div>
   </div>
 </div>
