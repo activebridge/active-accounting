@@ -15,6 +15,7 @@
     lengthResponse = 0
     $(response).each (k, v) ->
       v.value_currency = changeValueCurrency(v.currency, v.value)
+      v.date_reverse = v.date.split("-").reverse().join("-")
       $scope.registers.push(v)
       lengthResponse += 1
     $scope.showLoadRecords = lengthResponse >= 10
@@ -26,7 +27,7 @@
 
   changeValueCurrency = (currency, value) ->
     if currency == 'USD'
-      valueCurrency = (value * $scope.rateDollar).toFixed(2)
+      valueCurrency = parseFloat((value * $scope.rateDollar).toFixed(2))
     else
       valueCurrency = value
     return valueCurrency
