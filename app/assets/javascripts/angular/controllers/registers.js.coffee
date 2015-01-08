@@ -47,6 +47,10 @@
       , (response) ->
         responseQuery(response)
       )
+    if $scope.filter.data.month
+      $scope.counterpartiesWithoutPay = Counterparty.payments
+        month: $scope.filter.data.month
+        , sandbox: $scope.sandbox
     return
 
   $scope.valueOnlyNumeric = ->

@@ -32,9 +32,7 @@ class CounterpartiesController < ApplicationController
 
   def payments
     type = params[:sandbox] ? Register::TYPES::PLAN : Register::TYPES::FACT
-    counterparties = Counterparty.by_active('active')
-                                 .active_payment
-                                 .unpaid_for(Date.parse(params[:month]), type)
+    counterparties = Counterparty.unpaid_for(Date.parse(params[:month]), type)
     json = ActiveModel::ArraySerializer.new(counterparties,
                                            each_serializer: CounterpartyRegisterSerializer,
                                            root: nil)

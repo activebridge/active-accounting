@@ -91,8 +91,8 @@
   }
 
   .input_data { width: 90px; }
-  .table_month { float: left; }
   .info_or { margin-left: 10px;}
+  .position_left { float: left; }
   .position_right { float: right; }
 
   .head_filter {
@@ -110,7 +110,7 @@
   .list_count_block {
     display: flex;
     background: #ececec;
-    margin: 25px;
+    margin: 10px 25px;
     border: 3px groove #f1f2f4;
     border-radius: 10px;
 
@@ -189,7 +189,7 @@ tr {
     color: rgb(128, 125, 125);
     display: inline-table;
     background: #ececec;
-    margin: 25px;
+    margin: 0 25px;
     border: 3px groove #f1f2f4;
     border-radius: 10px;
     padding-top: 0;
@@ -200,4 +200,10 @@ tr {
   font-size: 30px;
   position: relative;
   top: -14px;
+}
+
+.info-alas {
+  margin: 0 auto;
+  display: table;
+  font-size: 16px;
 }
