@@ -30,7 +30,7 @@ class Register < ActiveRecord::Base
   }
 
   scope :by_month, -> (date) {
-    if date
+    unless date.blank?
       date = Date.parse(date)
       where("extract(month from date) = ? AND extract(year from date) = ?", date.month, date.year)
     end
@@ -47,7 +47,7 @@ class Register < ActiveRecord::Base
     where("extract(month from date) in (#{months}) and extract(year from date) in (#{years})")
   }
 
-  scope :by_date, -> (date) { where(date: Date.parse(date)) if date }
+  scope :by_date, -> (date) { where(date: Date.parse(date)) unless date.blank? }
   scope :by_counterparty, -> (data) { where(counterparty_id: data) if data }
   scope :by_value, -> (data) { where('value >= ?', data) if data }
   scope :by_type, -> (type) { send(type) if type }

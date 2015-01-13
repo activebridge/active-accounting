@@ -1,9 +1,10 @@
 class RegistersController < ApplicationController
   before_action :parse_month, only: :destroy
+  before_action :set_model
   before_action :find_register, only: [:destroy, :update]
 
   def index
-    registers = Fact.order('created_at desc')
+    registers = @model.order('created_at desc')
                     .by_month(params[:month])
                     .by_type(params[:type])
                     .by_article(params[:article_id])
@@ -20,7 +21,7 @@ class RegistersController < ApplicationController
   end
 
   def create
-    register = Fact.new(register_params)
+    register = @model.new(register_params)
     if register.save
       render json: RegisterSerializer.new(register), status: 200
     else
@@ -43,12 +44,16 @@ class RegistersController < ApplicationController
 
   private
 
+  def set_model
+    @model = Fact
+  end
+
   def register_params
     params.require(:register).permit!
   end
 
   def find_register
-    @register = Register.find params[:id]
+    @register = @model.find params[:id]
   end
 
   def parse_month
