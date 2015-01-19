@@ -30,7 +30,7 @@
         generalChart.setLegendForBar(3, $translate.instant('profit'))
         generalChart.setLegendForBar(4, $translate.instant('Translation'))
 
-        generalChart.setSize(800, 400)
+        generalChart.setSize(1200, 500)
         generalChart.setTitle(year.toString())
         generalChart.setAxisPaddingLeft(65)
 
