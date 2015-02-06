@@ -2,8 +2,10 @@
 
   if $scope.sandbox
     $scope.model = PlanRegister
+    $scope.model.key = 'plan_register'
   else
     $scope.model = Register
+    $scope.model.key = 'register'
 
   $scope.rateDollar = $cookies.rateDollar || 0
 
@@ -102,7 +104,7 @@
     $('select.currency').select2({width: '65px', minimumResultsForSearch: '5' })
     $scope.valueOnlyNumeric()
     return
-  
+
   curr_date = new Date()
 
   $scope.newRegister.date = $.datepicker.formatDate('dd-mm-yy', curr_date)
@@ -152,7 +154,7 @@
 
   $scope.delete = (register_id, index) ->
     if confirm('Впевнений?')
-      Register.delete
+      $scope.model.delete
         id: register_id
       , (success) ->
         $scope.registers.splice(index,1)
@@ -160,7 +162,9 @@
 
   $scope.update = (register_id, data, index) ->
     d = $q.defer()
-    Register.update( id: register_id, {register: data}
+    params = {}
+    params[$scope.model.key] = data
+    $scope.model.update( id: register_id, params
       (response) ->
         return if data.background
         $.each $scope.articles, (k, v)->

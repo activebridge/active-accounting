@@ -1,7 +1,7 @@
 class RegistersController < ApplicationController
   before_action :parse_month, only: :destroy
-  before_action :set_model
   before_action :find_register, only: [:destroy, :update]
+  before_action :set_model
 
   def index
     registers = @model.order('created_at desc')
@@ -53,6 +53,7 @@ class RegistersController < ApplicationController
   end
 
   def find_register
+    set_model
     @register = @model.find params[:id]
   end
 
