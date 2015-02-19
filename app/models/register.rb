@@ -29,6 +29,10 @@ class Register < ActiveRecord::Base
     joins(:article).where(articles: {type: Article::TYPES::TRANSLATION})
   }
 
+  scope :loans, -> {
+    joins(:article).where(articles: {type: Article::TYPES::LOAN})
+  }
+
   scope :by_month, -> (date) {
     unless date.blank?
       date = Date.parse(date)
@@ -73,7 +77,8 @@ class Register < ActiveRecord::Base
                              sum(case when articles.type = '#{Article::TYPES::COST}' then value else 0 end) as cost,
                              sum(case when articles.type = '#{Article::TYPES::TRANSLATION}' then value else 0 end) as translation,
 
-                             (sum(case when articles.type = '#{Article::TYPES::REVENUE}' then value else 0 end) - sum(case when articles.type = '#{Article::TYPES::COST}' then value else 0 end)) as profit
+                             (sum(case when articles.type = '#{Article::TYPES::REVENUE}' then value else 0 end) - sum(case when articles.type = '#{Article::TYPES::COST}' then value else 0 end)) as profit,
+                             sum(case when articles.type = '#{Article::TYPES::LOAN}' then value else 0 end) as loan
                            ").group("month(date)")
   }
 end

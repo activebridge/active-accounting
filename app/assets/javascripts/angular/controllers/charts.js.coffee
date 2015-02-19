@@ -10,9 +10,10 @@
         costData = []
         translationData = []
         profitData = []
+        loanData = []
 
         $(response).each (k, v) ->
-          revenueData.push([v.month.toString(), v.revenue, v.cost, v.profit, v.translation])
+          revenueData.push([v.month.toString(), v.revenue, v.cost, v.profit, v.translation, v.loan])
         generalChart = new JSChart(container, 'bar')
         generalChart.setDataArray(revenueData, 'revenue')
 
@@ -20,6 +21,7 @@
         generalChart.setBarColor('#F62817', 2)
         generalChart.setBarColor('#008080', 3)
         generalChart.setBarColor('#FDD017', 4)
+        generalChart.setBarColor('#F5F5DC', 5)
 
         generalChart.setLegendShow(true)
         generalChart.setAxisNameX($translate.instant('month'))
@@ -29,6 +31,7 @@
         generalChart.setLegendForBar(2, $translate.instant('Cost'))
         generalChart.setLegendForBar(3, $translate.instant('profit'))
         generalChart.setLegendForBar(4, $translate.instant('Translation'))
+        generalChart.setLegendForBar(5, $translate.instant('Loan'))
 
         generalChart.setSize(1200, 500)
         generalChart.setTitle(year.toString())

@@ -5,10 +5,10 @@
   $scope.articles = Article.query ->
     $('#select').select2({width: '200px'})
     return
-    
+
   $scope.showSelects = ->
     $('.search-select').select2({width: '200px'})
-    return 
+    return
 
   $scope.add = ->
     article = Article.save($scope.newArticle,
@@ -28,6 +28,7 @@
     { value: "Revenue", text: $translate.instant('Revenue') },
     { value: "Cost", text: $translate.instant('Cost') },
     { value: "Translation", text: $translate.instant('Translation') }
+    { value: "Loan", text: $translate.instant('Loan') }
   ]
 
   $scope.delete = (article_id, index) ->

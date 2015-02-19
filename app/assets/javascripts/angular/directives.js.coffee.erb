@@ -5,7 +5,7 @@ app.directive "repeatComplete", ->
     if (scope.$last || scope.$index == 0)
       $('select.color-record').simplecolorpicker({picker: true, pickerDelay: 600})
       $("input.value").numeric({ decimalPlaces: 2 })
-      
+
 app.config ['$translateProvider', ($translateProvider) ->
   $translateProvider.translations "en",
     counterparties: "Counterparties"
@@ -25,6 +25,7 @@ app.config ['$translateProvider', ($translateProvider) ->
     Revenue: "revenue"
     Cost: "cost"
     Translation: "translation"
+    Loan: "loan"
     profit: "profit"
     month: "Month"
     totall: "Total"
@@ -90,6 +91,7 @@ app.config ['$translateProvider', ($translateProvider) ->
     Revenue: "надходження"
     Cost: "витрати"
     Translation: "трансляція"
+    Loan: "позика"
     profit: "прибуток"
     month: "Місяць"
     totall: "Сумма"

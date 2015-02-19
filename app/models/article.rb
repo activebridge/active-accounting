@@ -6,6 +6,7 @@ class Article < ActiveRecord::Base
     REVENUE = 'Revenue'
     COST = 'Cost'
     TRANSLATION = 'Translation'
+    LOAN = 'Loan'
   end
 
   validates :type, :name, presence: true
@@ -25,6 +26,10 @@ class Article < ActiveRecord::Base
 
   def cost?
     type == TYPES::COST
+  end
+
+  def loan?
+    type == TYPES::LOAN
   end
 
   def assigned?

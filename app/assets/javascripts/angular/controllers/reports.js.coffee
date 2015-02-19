@@ -41,6 +41,15 @@
         $scope.totalTranslation = response[0].total_values
         $scope.totalTranslationPlan = response[0].total_values_plan
 
+    Report.query
+      report_type: 'loans'
+      , 'months[]': $scope.clickedMonths
+      , rate_currency: $scope.rateDollar
+      , (response) ->
+        $scope.loans = response[0].articles
+        $scope.totalLoan = response[0].total_values
+        $scope.totalLoanPlan = response[0].total_values_plan
+
   $scope.monthsChange = (month, clicked) ->
     m = $scope.months.indexOf(month)+1
     y = $scope.CheckedYear
@@ -145,7 +154,7 @@
 
   loadYears()
 
-  $scope.load($scope.currYear)    
+  $scope.load($scope.currYear)
 
   $scope.CheckYears = (value) ->
     curr_date = new Date()
@@ -157,7 +166,7 @@
       return
     $scope.funcPlan.show = {}
     $scope.funcPlan.show[curr_date.getMonth()] = false
-    
+
     $scope.load(value)
 
   $("input.value").numeric({ decimalPlaces: 2 })
