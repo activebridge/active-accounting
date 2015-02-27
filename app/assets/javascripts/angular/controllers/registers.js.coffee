@@ -153,27 +153,37 @@
         $scope.newRegister.errors = response.data.errors
       )
 
-  $scope.delete = (register_id, index) ->
+  getIndex = (register) ->
+    $scope.registers.indexOf(register)
+
+  $scope.delete = (register) ->
     if confirm('Впевнений?')
       $scope.model.delete
-        id: register_id
+        id: register.id
       , (success) ->
+        index = getIndex(register)
         $scope.registers.splice(index,1)
         return
 
-  $scope.update = (register_id, data, index) ->
+  $scope.update = (register, data) ->
     d = $q.defer()
     params = {}
     params[$scope.model.key] = data
-    $scope.model.update( id: register_id, params
+    $scope.model.update( id: register.id, params
       (response) ->
         return if data.background
-        $.each $scope.articles, (k, v)->
-          $scope.registers[index].article = v if v.id == data.article_id
-        $.each $scope.counterparties, (k, v)->
-          $scope.registers[index].counterparty = v if v.id == data.counterparty_id
-        $scope.registers[index].value_currency = changeValueCurrency(data.currency, data.value)
-        if !checkMappingRegister($scope.registers[index].article.type, data)
+        index = getIndex(register.id)
+        if register.article.id != data.article_id
+          findArticle = _.find $scope.articles, (article) ->
+            article.id == data.article_id
+          register.article = findArticle if findArticle
+        if register.counterparty.id != data.counterparty_id
+          findСounterparty = _.find $scope.counterparties, (counterparty) ->
+            counterparty.id == data.counterparty_id
+          register.counterparty = findСounterparty if findСounterparty
+        if register.currency != data.currency || register.value != data.value
+          register.value_currency = changeValueCurrency(data.currency, data.value)
+        if !checkMappingRegister(register.article.type, data)
           $scope.registers.splice(index,1)
         d.resolve()
       (response) ->
