@@ -154,13 +154,13 @@
     <table class="ng-scope register" ng-show='registers.length>0'>
       <tr>
         <th class='date'>
-          <a href='' ng-class="{'up_arrow' : predicate=='date' && reverse, 'down_arrow' : predicate=='date' && !reverse}" ng-click="predicate='date'; reverse=!reverse">{{ 'date' | translate }}</a>
+          <a href='' ng-class="{'up_arrow' : predicate=='date_reverse' && reverse, 'down_arrow' : predicate=='date_reverse' && !reverse}" ng-click="predicate='date_reverse'; reverse=!reverse">{{ 'date' | translate }}</a>
         </th>
         <th class='article'>
-          <a href='' ng-class="{'up_arrow' : predicate=='article' && reverse, 'down_arrow' : predicate=='article' && !reverse}" ng-click="predicate='article'; reverse=!reverse">{{ 'article' | translate }}</a>
+          <a href='' ng-class="{'up_arrow' : predicate=='article.name' && reverse, 'down_arrow' : predicate=='article.name' && !reverse}" ng-click="predicate='article.name'; reverse=!reverse">{{ 'article' | translate }}</a>
         </th>
         <th>
-          <a href='' ng-class="{'up_arrow' : predicate=='counterparty' && reverse, 'down_arrow' : predicate=='counterparty' && !reverse}" ng-click="predicate='counterparty'; reverse=!reverse">{{ 'counterparty' | translate }}</a>
+          <a href='' ng-class="{'up_arrow' : predicate=='counterparty.name' && reverse, 'down_arrow' : predicate=='counterparty.name' && !reverse}" ng-click="predicate='counterparty.name'; reverse=!reverse">{{ 'counterparty' | translate }}</a>
         </th>
         <th>
           <a href='' ng-class="{'up_arrow' : predicate=='value_currency' && reverse, 'down_arrow' : predicate=='value_currency' && !reverse}" ng-click="predicate='value_currency'; reverse=!reverse">{{ 'totall' | translate }}</a>
