@@ -85,7 +85,7 @@ form.editable-wrap {
   }
 
   .show_monthly_payment {
-    top: 25px;
+    margin: 20px;
     position: relative;
     display: table;
   }
@@ -99,5 +99,12 @@ form.editable-wrap {
 
   .change_value_payment {
     .glyphicon { font-size: 20px; }
+  }
+
+  .tab-content {
+    border: 1px solid #dddddd;
+    border-top-color: transparent;
+    border-radius: 0 0 4px 4px;
+    padding: 10px 15px;
   }
 }
