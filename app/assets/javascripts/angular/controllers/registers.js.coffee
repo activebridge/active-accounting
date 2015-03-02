@@ -169,22 +169,15 @@
     d = $q.defer()
     params = {}
     params[$scope.model.key] = data
+    index = getIndex(register)
     $scope.model.update( id: register.id, params
       (response) ->
-        return if data.background
-        index = getIndex(register.id)
-        if register.article.id != data.article_id
-          findArticle = _.find $scope.articles, (article) ->
-            article.id == data.article_id
-          register.article = findArticle if findArticle
-        if register.counterparty.id != data.counterparty_id
-          findСounterparty = _.find $scope.counterparties, (counterparty) ->
-            counterparty.id == data.counterparty_id
-          register.counterparty = findСounterparty if findСounterparty
-        if register.currency != data.currency || register.value != data.value
-          register.value_currency = changeValueCurrency(data.currency, data.value)
-        if !checkMappingRegister(register.article.type, data)
-          $scope.registers.splice(index,1)
+        if checkMappingRegister(response.article.type, data)
+          response.value_currency = changeValueCurrency(response.currency, response.value)
+          response.date_reverse = response.date.split("-").reverse().join("-")
+          $scope.registers.splice(index, 1, response) if index > -1
+        else
+          $scope.registers.splice(index, 1) if index > -1
         d.resolve()
       (response) ->
         d.resolve('')
