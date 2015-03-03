@@ -53,12 +53,12 @@
     Counterparty.update( id: counterparty_id, {counterparty: data}
       () ->
         d.resolve()
-        if data.active != active
+        if data.type != $scope.showGroup || data.active != active
           if active
-            $scope.inactiveCounterparties.push($scope.activeCounterparties[index])
+            $scope.inactiveCounterparties.push($scope.activeCounterparties[index]) if data.type == $scope.showGroup
             $scope.activeCounterparties.splice(index,1)
           else
-            $scope.activeCounterparties.push($scope.inactiveCounterparties[index])
+            $scope.activeCounterparties.push($scope.inactiveCounterparties[index]) if data.type == $scope.showGroup
             $scope.inactiveCounterparties.splice(index,1)
       (response) ->
         d.resolve response.data.errors['data'][0]
@@ -67,8 +67,8 @@
 
   $scope.load()
 
-  $scope.conversionSelect = (last) ->
-    if last
+  $scope.conversionSelect = (conversion) ->
+    if conversion
       $('select.сounterparty-types').select2({width: '180px', minimumResultsForSearch: '5'} )
       return
 
