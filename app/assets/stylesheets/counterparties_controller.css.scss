@@ -82,10 +82,11 @@ form.editable-wrap {
   .monthly_payment {
     width: inherit;
     padding-right: 20px;
+    white-space: nowrap;
   }
 
   .show_monthly_payment {
-    top: 25px;
+    margin: 20px;
     position: relative;
     display: table;
   }
@@ -100,4 +101,30 @@ form.editable-wrap {
   .change_value_payment {
     .glyphicon { font-size: 20px; }
   }
+
+  .tab-content {
+    border: 1px solid #dddddd;
+    border-top-color: transparent;
+    border-radius: 0 0 4px 4px;
+    padding: 10px 15px;
+  }
+
+  .nav-tabs {
+    a { outline: none; }
+  }
+
+  .editable-checkbox {
+    label span {
+      position: absolute;
+      font-size: 10px;
+      left: 0;
+    }
+  }
+
+  .input_payment {
+    vertical-align: text-bottom;
+    width: 90px;
+  }
+
+  span.error { position: absolute;}
 }

@@ -2,12 +2,31 @@ class Counterparty < ActiveRecord::Base
 
   has_many :registers
 
-  validates :name, presence: true
+  module TYPES
+    CUSTOMER = 'Customer'
+    VENDOR = 'Vendor'
+    OTHER = 'Other'
+  end
+
+  def customer?
+    type == TYPES::CUSTOMER
+  end
+
+  def vendor?
+    type == TYPES::VENDOR
+  end
+
+  def other?
+    type == TYPES::OTHER
+  end
+
+  validates :name, :type, presence: true
 
   scope :by_active, -> (scope) {
     self.send(scope) if scope
   }
 
+  scope :by_group, -> (group) { where(type: group) if group}
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
   scope :monthly_payment, -> { where(monthly_payment: true) }
