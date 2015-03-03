@@ -31,6 +31,8 @@
         $scope.activeCounterparties.push(counterparty) if $scope.newCounterparty.type == $scope.showGroup
         $scope.newCounterparty = {}
         $('select.сounterparty-types').select2('val', '')
+      (response) ->
+        $scope.newCounterparty.errors = response.data.error
     )
 
   $scope.delete = (counterparty_id, index, active) ->

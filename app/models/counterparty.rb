@@ -20,7 +20,7 @@ class Counterparty < ActiveRecord::Base
     type == TYPES::OTHER
   end
 
-  validates :name, presence: true
+  validates :name, :type, presence: true
 
   scope :by_active, -> (scope) {
     self.send(scope) if scope
