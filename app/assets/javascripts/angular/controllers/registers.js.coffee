@@ -153,28 +153,31 @@
         $scope.newRegister.errors = response.data.errors
       )
 
-  $scope.delete = (register_id, index) ->
+  getIndex = (register) ->
+    $scope.registers.indexOf(register)
+
+  $scope.delete = (register) ->
     if confirm('Впевнений?')
       $scope.model.delete
-        id: register_id
+        id: register.id
       , (success) ->
+        index = getIndex(register)
         $scope.registers.splice(index,1)
         return
 
-  $scope.update = (register_id, data, index) ->
+  $scope.update = (register, data) ->
     d = $q.defer()
     params = {}
     params[$scope.model.key] = data
-    $scope.model.update( id: register_id, params
+    index = getIndex(register)
+    $scope.model.update( id: register.id, params
       (response) ->
-        return if data.background
-        $.each $scope.articles, (k, v)->
-          $scope.registers[index].article = v if v.id == data.article_id
-        $.each $scope.counterparties, (k, v)->
-          $scope.registers[index].counterparty = v if v.id == data.counterparty_id
-        $scope.registers[index].value_currency = changeValueCurrency(data.currency, data.value)
-        if !checkMappingRegister($scope.registers[index].article.type, data)
-          $scope.registers.splice(index,1)
+        if checkMappingRegister(response.article.type, data)
+          response.value_currency = changeValueCurrency(response.currency, response.value)
+          response.date_reverse = response.date.split("-").reverse().join("-")
+          $scope.registers.splice(index, 1, response) if index > -1
+        else
+          $scope.registers.splice(index, 1) if index > -1
         d.resolve()
       (response) ->
         d.resolve('')
