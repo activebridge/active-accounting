@@ -1,5 +1,5 @@
 .report
-  ng-include src='"#{asset_path('angular/shared/header.html.slim')}"'
+  ng-include src='"#{asset_path('angular/shared/header.html')}"'
   .picker-wrapper
     select.selectpicker ng-change="CheckYears(year)" ng-model="year"
       option ng-repeat="year in years" ng-selected="{{year==currYear}}"
@@ -62,7 +62,7 @@
             | {{c.valuesPlan[month]}}
           span.fact ng-class="{add_background: funcPlan.show[$index]}"
             | {{c.values[month]}}
-    ng-include src='"#{asset_path('angular/shared/clearbord_reports.html.slim')}"'
+    ng-include src='"#{asset_path('angular/shared/clearbord_reports.html')}"'
     .values.bold.report-item
       .left
         | {{ 'Cost' | translate }}
@@ -91,7 +91,7 @@
             | {{c.valuesPlan[month]}}
           span.fact ng-class="{add_background: funcPlan.show[$index]}"
             | {{c.values[month]}}
-    ng-include src='"#{asset_path('angular/shared/clearbord_reports.html.slim')}"'
+    ng-include src='"#{asset_path('angular/shared/clearbord_reports.html')}"'
     .values.bold
       .left
         | {{ 'profit' | translate }}
@@ -100,7 +100,7 @@
           | {{(totalRevenuePlan[month] - totalCostPlan[month]).toFixed(2)}}
         span.fact ng-class="{add_background: funcPlan.show[$index]}"
           | {{(totalRevenue[month] - totalCost[month]).toFixed(2)}}
-    ng-include src='"#{asset_path('angular/shared/clearbord_reports.html.slim')}"'
+    ng-include src='"#{asset_path('angular/shared/clearbord_reports.html')}"'
     .values.bold.report-item
       .left
         | {{ 'Translation' | translate }}
