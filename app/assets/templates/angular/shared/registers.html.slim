@@ -1,0 +1,201 @@
+.ctrl.ng-scope ng-controller="RegistersCtrl"
+  .form
+    form.ng-pristine.ng-valid ng-submit="add()"
+      table cellspacing="0"
+        tr
+          th translate="date"
+          th translate="article"
+          th translate="counterparty"
+          th translate="totall"
+          th translate="note"
+        tr
+          td
+            input#date.input_data.ng-pristine.ng-valid ng-model="newRegister.date" type="text"
+          td
+            select.article.clear_after_add ng-model="newRegister.article_id"
+              option ng-repeat="article in articles" value="{{article.id}}"
+                | {{article.name}} ({{article.type | translate}})
+          td
+            select.counterparty.clear_after_add ng-model="newRegister.counterparty_id"
+              option ng-repeat="counterparty in counterparties" value="{{counterparty.id}}"
+                | {{counterparty.name}}
+          td ng-class=("{td_correction: sandbox}")
+            input.value ng-class="{value_plan: sandbox}" ng-model="newRegister.value" type="text"
+            select.currency ng-model="newRegister.currency" ng-options="q.value as q.text for q in currencies" ng-show="sandbox"
+          td
+            input ng-model="newRegister.notes" type="text"
+          td
+            button.btn translate="NewArticle" type="submit"
+        tr
+          td
+            span.error
+              | {{newRegister.errors.date[0]}}
+          td
+            span.error
+              | {{newRegister.errors.article[0]}}
+          td
+          td
+            span.error
+              | {{newRegister.errors.value[0]}}
+          td
+          td
+  .list
+    span.rate_currency ng-show="sandbox"
+      | {{ 'rate_currency' | translate }}
+      input.value ng-change="changeValue()" ng-model="rateDollar" type="text"
+    a.show_list_count href="" ng-click="showlistCount = !showlistCount" ng-show="counterpartiesWithoutPay.length>0 && !showlistCount"
+      | {{ 'show' | translate }}: {{ 'count_without_pay' | translate }}
+    form.form-filter.ng-pristine.ng-valid ng-class="{open_form_filter: filter.active}" ng-submit="filter.fetchRegisters({initLoad: true})"
+      .head_filter ng-show="filter.active"
+        span
+          | {{ 'filter' | translate }}
+        span.position_right
+          button.icon-button ng-click="filter.active = !filter.active" title="{{ 'close' | translate }} {{ 'filter' | translate }}" type="button"
+            span.glyphicon.glyphicon-remove
+      table ng-class="{position_left: filter.active}"
+        tr
+          th
+            | {{ 'month' | translate }}
+            i.info_or ng-show="filter.active"
+              | {{ 'or' | translate }}
+        tr
+          td
+            input#month-picker.input_data ng-change="filter.changeMonth()" ng-model="filter.data.month" type="text"
+          td ng-show="!filter.active"
+            a.filter href="javascript: void(false);" ng-click="filter.show()"
+              | {{ 'show' | translate }}: {{ 'filter' | translate }}
+      table ng-class="{position_left: filter.active}" ng-show="filter.active"
+        tr
+          th
+            | {{ 'date' | translate }}
+          th
+            | {{ 'articles' | translate }}
+          th
+            | {{ 'counterparty' | translate }}
+          th
+            | {{ 'totall_min' | translate }}
+        tr
+          td
+            input#dateFilter.input_data.ng-pristine.ng-valid ng-change="filter.data.month = undefined" ng-model="filter.data.date" type="text"
+          td
+            select.article.search ng-model="filter.data.article_id"
+              option ng-repeat="type in articleTypes" value="{{type.value}}"
+                | {{type.text}}
+              option ng-repeat="article in articles" value="{{article.id}}"
+                | {{article.name}} ({{article.type | translate}})
+          td
+            select.counterparty.search ng-model="filter.data.counterparty_id"
+              option ng-repeat="counterparty in counterparties" value="{{counterparty.id}}"
+                | {{counterparty.name}}
+          td
+            input.value.search ng-model="filter.data.value" type="text"
+          td
+            button.icon-button title="{{ 'searchFilter' | translate }}" type="submit"
+              span.glyphicon.glyphicon-search
+            button.icon-button ng-click="filter.clear(); filter.data.month=undenfined" title="{{ 'clearForm' | translate }}" type="button"
+              span.glyphicon.glyphicon-repeat
+    .list_count_block ng-show="showlistCount && counterpartiesWithoutPay.length>0"
+      h4.name_block
+        | {{ 'count_without_pay' | translate }}
+      span.list_count
+      table.table.table-striped
+        tr
+          th
+            | {{ 'counterparties' | translate }}
+          th.width_35
+            | {{ 'monthly_payment' | translate }}
+        tr ng-repeat="counterparties in counterpartiesWithoutPay"
+          td
+            | {{counterparties.name}}
+          td.text_right.width_35
+            | {{counterparties.value_payment}}
+      button.icon-button ng-click="showlistCount = !showlistCount" title="{{ 'closed' | translate }}" type="button"
+        span.glyphicon.glyphicon-remove
+    table.ng-scope.register ng-show="registers.length>0"
+      tr
+        th.date
+          a href="" ng-class="{'up_arrow' : predicate=='date_reverse' && reverse, 'down_arrow' : predicate=='date_reverse' && !reverse}" ng-click="predicate='date_reverse'; reverse=!reverse"
+            | {{ 'date' | translate }}
+        th.article
+          a href="" ng-class="{'up_arrow' : predicate=='article.name' && reverse, 'down_arrow' : predicate=='article.name' && !reverse}" ng-click="predicate='article.name'; reverse=!reverse"
+            | {{ 'article' | translate }}
+        th
+          a href="" ng-class="{'up_arrow' : predicate=='counterparty.name' && reverse, 'down_arrow' : predicate=='counterparty.name' && !reverse}" ng-click="predicate='counterparty.name'; reverse=!reverse"
+            | {{ 'counterparty' | translate }}
+        th
+          a href="" ng-class="{'up_arrow' : predicate=='value_currency' && reverse, 'down_arrow' : predicate=='value_currency' && !reverse}" ng-click="predicate='value_currency'; reverse=!reverse"
+            | {{ 'totall' | translate }}
+        th translate="notes"
+      tr ng-repeat="register in registers | orderBy:predicate:reverse" repeat-complete="" style="background: {{ register.background }}"
+        td
+          span e-class="dateup" e-form="rowform" e-name="date" e-ng-click="openDatepicker()" e-ng-focus="showSelect()" editable-text="register.date"
+          .buttons ng-show="!rowform.$visible"
+            | {{ register.date }}
+          span.errors ng-show="response_id == register.id"
+            | {{errors.date}}
+        td
+          span e-class="search-select" e-form="rowform" e-name="article_id" e-ng-options="s.id as (s.name + ' (' + (s.type|translate) + ')') for s in articles" editable-select="register.article.id"
+          .buttons ng-show="!rowform.$visible"
+            | {{register.article.name}}
+            span.article_type class="{{ register.article.type }}"
+              | {{register.article.type | translate}}
+        td
+          span e-class="search-select" e-form="rowform" e-name="counterparty_id" e-ng-options="s.id as s.name for s in counterparties" editable-select="register.counterparty.id"
+          .buttons ng-show="!rowform.$visible"
+            | {{ register.counterparty.name }}
+        td.td_correction
+          span e-class="value" e-form="rowform" e-name="value" e-ng-class="{value_plan: sandbox}" editable-text="register.value"
+            span.buttons ng-show="!rowform.$visible"
+              span
+                | {{ register.value_currency }}
+              span ng-show="register.currency == 'USD'"
+                | ({{ register.value }}$)
+          span e-class="currency" e-form="rowform" e-name="currency" e-ng-options="q.value as q.text for q in currencies" e-ng-show="sandbox" editable-select="register.currency"
+          span.errors ng-show="response_id == register.id"
+            | {{errors.value}}
+        td
+          span e-form="rowform" e-name="notes" editable-text="register.notes"
+          .buttons ng-show="!rowform.$visible"
+            | {{ register.notes }}
+        td.td_icon
+          form.form-buttons.form-inline editable-form="" name="rowform" ng-show="rowform.$visible" onbeforesave="update(register.id, $data, $index)"
+            button.icon-button ng-disabled="rowform.$waiting" title="{{ 'save_changes' | translate }}" type="submit"
+              span.glyphicon.glyphicon-check
+            button.icon-button ng-click="rowform.$cancel(); clearError()" ng-disabled="rowform.$waiting" title="{{ 'cancel' | translate }}" type="button"
+              span.glyphicon.glyphicon-remove
+          .buttons_record ng-show="!rowform.$visible"
+            button.icon-button.hidd ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}" type="button"
+              span.glyphicon.glyphicon-edit
+            button.icon-button.hidd ng-click="delete(register.id, $index)" title="{{ 'delete_reg' | translate }}" type="button"
+              span.glyphicon.glyphicon-trash
+          span.hidd ng-show="!rowform.$visible"
+            select.color-record ng-change="update(register.id, {background: colorRecord}); register.background = colorRecord" ng-model="colorRecord"
+              option value=""
+              option value="#7bd148"  Green
+              option value="#5484ed"  Bold blue
+              option value="#a4bdfc"  Blue
+              option value="#46d6db"  Turquoise
+              option value="#fbd75b"  Yellow
+              option value="#ffb878"  Orange
+              option value="#ff887c"  Red
+              option value="#dbadff"  Purple
+              option value="#6A5ACD"  SlateBlue
+              option value="#00FFFF"  Cyan
+              option value="#7CFC00"  LawnGreen
+              option value="#FFD700"  Gold
+              option value="#CD5C5C"  IndianRed
+              option value="#D2691E"  Chocolate
+              option value="#FF1493"  DeepPink
+              option value="#9932CC"  DarkOrchid
+              option value="#009ACD"  DeepSkyBlue
+              option value="#B3EE3A"  OliveDrab
+              option value="#CD7054"  Salmon
+              option value="#D15FEE"  MediumOrchid
+    .load_records
+      a href="" ng-click="filter.fetchRegisters({})" ng-show="showLoadRecords"
+        | {{ 'more_records' | translate }}
+    .info-alas ng-hide="registers.length>0"
+      .alert.alert-info.alert-dismissable
+        strong
+          | {{ 'alas' | translate }}
+        | {{ 'info_not_found' | translate }}

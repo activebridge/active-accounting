@@ -1,0 +1,14 @@
+div ng-controller="TranslateCtrl"
+  .links
+    a href="/#/counterparties" translate="counterparties"
+    a href="/#/articles" translate="articles"
+    a href="/" translate="register"
+    a href="/#/plan_registers" translate="sandbox"
+    a href="/#/reports" translate="reports"
+    a href="/#/charts" translate="charts"
+  .locale
+    a href="#" ng-click="changeLanguage('uk')"
+      = image_tag "ua.png"
+    a href="#" ng-click="changeLanguage('en')"
+      = image_tag "gb.png"
+  .clearboth

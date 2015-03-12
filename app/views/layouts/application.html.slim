@@ -1,10 +1,10 @@
-!!!
-%html{'ng-app' => 'ActiveAccounting'}
-  %head
-    %title ActiveAccounting
+doctype html
+html ng-app="ActiveAccounting"
+  head
+    title ActiveAccounting
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = csrf_meta_tags
-  %body
+  body
     = yield
-    %div{'ng-view' => ''}
+    div ng-view=""

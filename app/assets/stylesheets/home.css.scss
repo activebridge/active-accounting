@@ -83,7 +83,11 @@ label { margin: 0; }
   }
 }
 
-.links { float: left; }
+.links {
+  float: left;
+
+  a { margin-left: 10px; }
+}
 
 .locale {
   float: right;

@@ -4,26 +4,26 @@ angular.module('ActiveAccounting').config([
   '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider
       .when('/home', {
-        templateUrl: '<%= asset_path('angular/registers/index.html') %>'
+        templateUrl: '<%= asset_path('angular/registers/index.html.slim') %>'
       })
       .when('/articles', {
-        templateUrl: '<%= asset_path('angular/articles/index.html') %>',
+        templateUrl: '<%= asset_path('angular/articles/index.html.slim') %>',
         controller: 'ArticlesCtrl'
       })
       .when('/counterparties', {
-        templateUrl: '<%= asset_path('angular/counterparties/index.html') %>',
+        templateUrl: '<%= asset_path('angular/counterparties/index.html.slim') %>',
         controller: 'CounterpartiesCtrl'
       })
       .when('/reports', {
-        templateUrl: '<%= asset_path('angular/reports/index.html') %>',
+        templateUrl: '<%= asset_path('angular/reports/index.html.slim') %>',
         controller: 'ReportsCtrl'
       })
       .when('/charts', {
-        templateUrl: '<%= asset_path('angular/charts/index.html') %>',
+        templateUrl: '<%= asset_path('angular/charts/index.html.slim') %>',
         controller: 'ChartsCtrl'
       })
       .when('/plan_registers', {
-        templateUrl: '<%= asset_path('angular/plan_registers/index.html') %>'
+        templateUrl: '<%= asset_path('angular/plan_registers/index.html.slim') %>'
       })
       .otherwise({ redirectTo: '/home' });
   }
