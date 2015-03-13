@@ -137,7 +137,7 @@
         span.pointer.plan ng-click="getRegisters(month, $event, 'loans', null, true)" ng-show="funcPlan.show[$index]"
           | {{totalLoanPlan[month] || 0}}
         span.pointer.fact ng-class="{add_background: funcPlan.show[$index]}" ng-click="getRegisters(month, $event, 'loans', null, null)"
-          | {{totalLoanPlan[month] || 0}}
+          | {{totalLoan[month] || 0}}
     div ng-repeat="loan in loans" ng-show="funcPlan.showRecord(loan)"
       .values.report-item
         .left
