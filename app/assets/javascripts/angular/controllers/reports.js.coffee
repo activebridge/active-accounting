@@ -173,6 +173,36 @@
     $scope.funcPlan.show[curr_date.getMonth()] = false
 
     $scope.load(value)
+    loadWorkDay(value)
 
   $("input.value").numeric({ decimalPlaces: 2 })
+
+  # return the number of days in a month
+  daysInMonth = (iMonth, iYear) ->
+    32 - new Date(iYear, iMonth, 32).getDate()
+
+  isWeekday = (year, month, day) ->
+    day = new Date(year, month, day).getDay()
+    day != 0 && day != 6
+
+  #loop over all of the days in the month:
+  getWeekdaysInMonth = (month, year) ->
+    days = daysInMonth(month, year)
+    weekdays = 0
+    i = 0
+    while i < days
+      if isWeekday(year, month, i + 1)
+        weekdays++
+      i++
+    weekdays
+
+  loadWorkDay = (year) ->
+    workDays = []
+    i = 0
+    while i < $scope.months.length
+      weekdays = getWeekdaysInMonth([i], year)
+      workDays.push weekdays
+      i++
+    $scope.workDays = workDays
+  loadWorkDay($scope.CheckedYear)
 ]
