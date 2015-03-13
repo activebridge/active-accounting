@@ -1,0 +1,5 @@
+.registers
+  ng-include src='"#{asset_path('angular/shared/header.html')}"'
+  .name-sandbox ng-init="sandbox=true"
+    | {{ 'sandbox' | translate }}
+  ng-include src='"#{asset_path('angular/shared/registers.html')}"'

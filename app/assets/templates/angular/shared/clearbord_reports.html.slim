@@ -1,0 +1,5 @@
+.values
+  .clearboth_report
+  .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
+    span.plan.clearboth_height ng-show="funcPlan.show[$index]"
+    span.fact.clearboth_height ng-class="{add_background: funcPlan.show[$index]}"

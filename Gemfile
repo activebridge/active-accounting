@@ -49,7 +49,7 @@ group :development do
   gem 'passenger'
 end
 
-gem 'haml-rails'
+gem 'slim-rails'
 gem 'active_model_serializers'
 gem 'bootstrap-sass'
 gem 'whenever', :require => false

@@ -1,0 +1,139 @@
+.report
+  ng-include src='"#{asset_path('angular/shared/header.html')}"'
+  .picker-wrapper
+    select.selectpicker ng-change="CheckYears(year)" ng-model="year"
+      option ng-repeat="year in years" ng-selected="{{year==currYear}}"
+        | {{year}}
+    .multiple-picker
+      label.picker-label for="{{month}}" ng-class="{checked_label: clicked}" ng-click="clicked=!clicked; monthsChange(month, clicked)" ng-init="clicked = currentMonth == month" ng-repeat="month in months"
+        | {{month}}
+  .margin_vertical
+    span
+      | {{ 'all_plans' | translate }} :
+    a.pointer ng-click="funcPlan.showAll(true)" ng-show="funcPlan.showComand('show')"
+      | {{ 'show' | translate }}
+    span ng-show="funcPlan.showComand('show') && funcPlan.showComand('hide')"
+    a.pointer ng-click="funcPlan.showAll()" ng-show="funcPlan.showComand('hide')"
+      | {{ 'hide' | translate }}
+    span.rate_currency ng-show="funcPlan.showComand('hide')"
+      | {{ 'rate_currency' | translate }}
+      input.value ng-model="rateDollar" type="text"
+    div
+      button.btn.ng-scope.btn_rate ng-click="loadDates()" ng-show="buttonShow()"
+        | {{ 'update' | translate }}
+  div
+    .values
+      .left &nbsp
+      .value.bold ng-class="{plan_show: funcPlan.show[$index], month_height: funcPlan.show[$index]}" ng-repeat="month in months" ng-show="isShow(parseMonthName(month))"
+        div
+          | {{month}}
+          label ng-click="funcPlan.show[$index]=!funcPlan.show[$index]"
+            span.glyphicon.glyphicon-cog.pointer title="{{'plan_month' | translate}}"
+        div ng-show="funcPlan.show[$index]"
+          span.plan
+            | {{ 'on_plan' | translate }}
+          span.fact ng-class="{add_background: funcPlan.show[$index]}"
+            | {{ 'in_fact' | translate }}
+    .values.bold.report-item
+      .left
+        | {{ 'Revenue' | translate }}
+      .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
+        span.pointer.plan ng-click="getRegisters(month, $event, 'revenues', null, true)" ng-show="funcPlan.show[$index]"
+          | {{totalRevenuePlan[month] || 0}}
+        span.pointer.fact ng-class="{add_background: funcPlan.show[$index]}" ng-click="getRegisters(month, $event, 'revenues', null, null)"
+          | {{totalRevenue[month] || 0}}
+    div ng-repeat="revenue in revenues" ng-show="funcPlan.showRecord(revenue)"
+      .values.report-item
+        .left
+          | {{revenue.article}}
+          label.collapse-count ng-click="showCount=!showCount" ng-show="funcPlan.showCarrot(revenue.counterparties)"
+            span ng-show="!showCount"  ▼
+            span ng-show="showCount"  ▲
+        .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
+          span.pointer.plan ng-click="getRegisters(month, $event, 'revenues', revenue.article_id, true)" ng-show="funcPlan.show[$index]"
+            | {{revenue.valuesPlan[month]}}
+          span.pointer.fact ng-class="{add_background: funcPlan.show[$index]}" ng-click="getRegisters(month, $event, 'revenues', revenue.article_id, null)"
+            | {{revenue.values[month]}}
+      .values class="{{revenue.article_type}}" ng-repeat="c in revenue.counterparties" ng-show="showCount && funcPlan.showRecord(c)"
+        .left.counterparty
+          | {{c.counterparty}}
+        .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
+          span.plan ng-show="funcPlan.show[$index]"
+            | {{c.valuesPlan[month]}}
+          span.fact ng-class="{add_background: funcPlan.show[$index]}"
+            | {{c.values[month]}}
+    ng-include src='"#{asset_path('angular/shared/clearbord_reports.html')}"'
+    .values.bold.report-item
+      .left
+        | {{ 'Cost' | translate }}
+      .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
+        span.pointer.plan ng-click="getRegisters(month, $event, 'costs', null, true)" ng-show="funcPlan.show[$index]"
+          | {{totalCostPlan[month] || 0}}
+        span.pointer.fact ng-class="{add_background: funcPlan.show[$index]}" ng-click="getRegisters(month, $event, 'costs', null, null)"
+          | {{totalCost[month] || 0}}
+    div ng-repeat="cost in costs" ng-show="funcPlan.showRecord(cost)"
+      .values.report-item
+        .left
+          | {{cost.article}}
+          label.collapse-count ng-click="showCount=!showCount" ng-show="funcPlan.showCarrot(cost.counterparties)"
+            span ng-show="!showCount"  ▼
+            span ng-show="showCount"  ▲
+        .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
+          span.pointer.plan ng-click="getRegisters(month, $event, 'costs', cost.article_id, true)" ng-show="funcPlan.show[$index]"
+            | {{cost.valuesPlan[month]}}
+          span.pointer.fact ng-class="{add_background: funcPlan.show[$index]}" ng-click="getRegisters(month, $event, 'costs', cost.article_id, null)"
+            | {{cost.values[month]}}
+      .values class="{{cost.article_type}}" ng-repeat="c in cost.counterparties" ng-show="showCount && funcPlan.showRecord(c)"
+        .left.counterparty
+          | {{c.counterparty}}
+        .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
+          span.plan ng-show="funcPlan.show[$index]"
+            | {{c.valuesPlan[month]}}
+          span.fact ng-class="{add_background: funcPlan.show[$index]}"
+            | {{c.values[month]}}
+    ng-include src='"#{asset_path('angular/shared/clearbord_reports.html')}"'
+    .values.bold
+      .left
+        | {{ 'profit' | translate }}
+      .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
+        span.plan ng-show="funcPlan.show[$index]"
+          | {{(totalRevenuePlan[month] - totalCostPlan[month]).toFixed(2)}}
+        span.fact ng-class="{add_background: funcPlan.show[$index]}"
+          | {{(totalRevenue[month] - totalCost[month]).toFixed(2)}}
+    ng-include src='"#{asset_path('angular/shared/clearbord_reports.html')}"'
+    .values.bold.report-item
+      .left
+        | {{ 'Translation' | translate }}
+      .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
+        span.pointer.plan ng-click="getRegisters(month, $event, 'translations', null, true)" ng-show="funcPlan.show[$index]"
+          | {{totalTranslationPlan[month] || 0}}
+        span.pointer.fact ng-class="{add_background: funcPlan.show[$index]}" ng-click="getRegisters(month, $event, 'translations', null, null)"
+          | {{totalTranslation[month] || 0}}
+    div ng-repeat="translation in translations" ng-show="funcPlan.showRecord(translation)"
+      .values.report-item
+        .left
+          | {{translation.article}}
+          label.collapse-count ng-click="showCount=!showCount" ng-show="funcPlan.showCarrot(translation.counterparties)"
+            span ng-show="!showCount"  ▼
+            span ng-show="showCount"  ▲
+        .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
+          span.pointer.plan ng-click="getRegisters(month, $event, 'translations', translation.article_id, true)" ng-show="funcPlan.show[$index]"
+            | {{translation.valuesPlan[month]}}
+          span.pointer.fact ng-class="{add_background: funcPlan.show[$index]}" ng-click="getRegisters(month, $event, 'translations', translation.article_id, null)"
+            | {{translation.values[month]}}
+      .values class="{{translation.article_type}}" ng-repeat="c in translation.counterparties" ng-show="showCount && funcPlan.showRecord(c)"
+        .left.counterparty
+          | {{c.counterparty}}
+        .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
+          span.plan ng-show="funcPlan.show[$index]"
+            | {{c.valuesPlan[month]}}
+          span.fact ng-class="{add_background: funcPlan.show[$index]}"
+            | {{c.values[month]}}
+  #registers-table-template ng-hide="true"
+    table.ng-scope.registers-table ng-class="{table_plan: sandbox}"
+      tr.header
+        th translate="date"
+        th translate="article"
+        th translate="counterparty"
+        th translate="totall"
+        th

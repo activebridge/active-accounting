@@ -1,0 +1,54 @@
+ng-include src='"#{asset_path('angular/shared/header.html')}"'
+.articles
+  | {{ 'articles' | translate }}
+  .ctrl
+    .form
+      form ng-submit="add()"
+        table
+          tr
+            th translate="name"
+            th translate="type"
+          tr
+            td
+              .name-add-article
+                input ng-model="newArticle.name" onbeforesave="checkName($data)" type="text"
+                br
+                span.error
+                  | {{newArticle.errors.name[0]}}
+            td
+              .select-types
+                select#select ng-model="newArticle.type"
+                  option translate="Revenue" value="Revenue"
+                  option translate="Cost" value="Cost"
+                  option translate="Translation" value="Translation"
+                  option translate="Loan" value="Loan"
+                br
+                span.error
+                  | {{newArticle.errors.type[0]}}
+            td
+              button.btn translate="NewArticle" type="submit"
+    .list
+      table
+        tr
+          th translate="name"
+          th translate="type"
+        tr.list-count-article ng-repeat="article in articles"
+          td.name
+            span.name e-form="rowform" e-name="name" e-ng-focus="showSelects()" e-required="" editable-text="article.name" onbeforesave="checkName($data)"
+              | {{ article.name }}
+          td.articleType
+            span.article_type class="{{ article.type }}" e-class="search-select" e-form="rowform" e-name="type" e-ng-options="s.value as s.text for s in type_msgs" editable-select="article.type"
+              | ({{article.type | translate}})
+          td ng-show="!rowform.$visible"
+            .butn ng-show="!rowform.$visible"
+              button.icon-button.hidde ng-click="rowform.$show()"
+                span.glyphicon.glyphicon-edit
+              span.hidde.glyphicon.glyphicon-info-sign.mess-info ng-show="article.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}"
+              button.icon-button.hidde ng-click="delete(article.id, $index)" ng-show="!article.assigned" type="button"
+                span.glyphicon.glyphicon-trash
+          td
+            form.form-buttons.form-inline editable-form="" name="rowform" ng-show="rowform.$visible" onbeforesave="update(article.id, $data)" shown="inserted == article"
+              button.icon-button.submit-article ng-disabled="rowform.$waiting" type="submit"
+                span.glyphicon.glyphicon-check
+              button.icon-button.submit-article ng-click="rowform.$cancel()" ng-disabled="rowform.$waiting" type="button"
+                span.glyphicon.glyphicon-remove
