@@ -1,6 +1,10 @@
 .report
   ng-include src='"#{asset_path('angular/shared/header.html')}"'
   .picker-wrapper
+    .workDays
+      lable.badge.margin-left-13 ng-repeat="workDay in workDays track by $index"
+        | {{workDay}}
+  .picker-wrapper
     select.margin-right-5.selectpicker ng-change="CheckYears(year)" ng-model="year"
       option ng-repeat="year in years" ng-selected="{{year==currYear}}"
         | {{year}}
