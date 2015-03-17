@@ -6,6 +6,17 @@ app.directive "repeatComplete", ->
       $('select.color-record').simplecolorpicker({picker: true, pickerDelay: 600})
       $("input.value").numeric({ decimalPlaces: 2 })
 
+app.directive "editRegister", ->
+  restrict: 'E'
+  scope: { ngModel: '=', articles:'=', counterparties: '=', sandbox: '='}
+  require: '^ngModel'
+  templateUrl: '<%= asset_path("angular/reports/edit_register.html") %>'
+  replace: true
+  controller: ["$scope", '$q', "Article", "Counterparty", "Register", "PlanRegister", '$cookies', 'registerDecorator',
+  ($scope, $q, Article, Counterparty, Register, PlanRegister, $cookies, registerDecorator) ->
+    registerDecorator($scope)
+  ]
+
 app.config ['$translateProvider', ($translateProvider) ->
   $translateProvider.translations "en",
     counterparties: "Counterparties"

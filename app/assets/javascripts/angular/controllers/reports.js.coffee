@@ -1,4 +1,7 @@
-@ReportsCtrl = ['$scope', 'Report', 'Register', 'PlanRegister', '$translate', '$cookies', ($scope, Report, Register, PlanRegister, $translate, $cookies) ->
+@ReportsCtrl = ['$rootScope', '$scope', '$compile', 'Report', 'Register', 'PlanRegister', '$translate', '$cookies', 'Article', 'Counterparty', 'registerDecorator',
+ ($rootScope, $scope, $compile, Report, Register, PlanRegister, $translate, $cookies, Article, Counterparty, registerDecorator) ->
+  $rootScope.reportsController = $scope
+  registerDecorator($scope)
 
   $scope.rateDollar = $cookies.rateDollar || 0
 
@@ -106,31 +109,33 @@
       show.unshift($scope.funcPlan.showRecord(v)) if $scope.funcPlan.showRecord(v)
     return show.length > 0
 
+  $scope.articles = Article.query ->
+
+  $scope.counterparties = Counterparty.query
+    scope: 'active'
+    () ->
+
   $scope.getRegisters = (month, event, type, article_id, sandbox) ->
     showRegistersTable = (month, article_id, type, reportItem, sandbox)->
       date = month + '/' + $scope.CheckedYear
-      $scope.sandbox = sandbox
       if sandbox
         model = PlanRegister
       else
         model = Register
-      registers = model.query
+      model.query
         month: date,
         type: type,
-        article_id: article_id,
-        () ->
-          template = $('#registers-table-template').children('table').clone()
-          template.data('month', month)
-          template.data('article_id', article_id)
-          $.each registers, (k, v)->
-            tr = $('<tr>').append(
-                    $('<td>').text(v.date),
-                    $('<td>').text(v.article.name),
-                    $('<td>').text(if v.counterparty then v.counterparty.name else ''),
-                    $('<td>').text(if v.currency == 'USD' then (v.value*$scope.rateDollar).toFixed(2)+' ('+v.value+' $)' else v.value),
-                    $('<td>').text(v.notes || ''))
-            template.append(tr)
-          reportItem.after(template)
+        article_id: article_id
+        (response)->
+          if article_id == null
+            name = type + sandbox
+          else
+            name = 'article' +  article_id + sandbox
+
+          $scope.responseQuery(response, name)
+
+          reportItem.after("<edit-register ng-model=" + name + " sandbox=" + sandbox + " articles='articles' counterparties='counterparties'><edit-register>")
+          $compile($(reportItem).next())($scope);
 
     reportItem = $(event.target).parents('.report-item')
     nextEl = reportItem.next()
@@ -140,9 +145,9 @@
       justHideTable = (table.data('month') == month) && (table.data('article_id') == article_id)
       if justHideTable
         table.remove()
+        showRegistersTable(month, article_id, type, reportItem, sandbox)
       else
         table.remove()
-        showRegistersTable(month, article_id, type, reportItem, sandbox)
     else
       showRegistersTable(month, article_id, type, reportItem, sandbox)
 
