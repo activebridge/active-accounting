@@ -170,5 +170,4 @@
     $scope.load(value)
 
   $("input.value").numeric({ decimalPlaces: 2 })
-
 ]
