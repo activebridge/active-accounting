@@ -52,9 +52,13 @@
       $scope.activeCounterparties[index].monthly_payment = false
     return if data.monthly_payment && !data.value_payment
     d = $q.defer()
+    if data.type =='Customer' && data.customer_id != ''
+      data.customer_id = ''
     Counterparty.update( id: counterparty_id, {counterparty: data}
-      () ->
+      (response) ->
         d.resolve()
+        if data.customer_id != undefined
+          $scope.activeCounterparties[index].customer.name = response.customer.name
         if data.type != $scope.showGroup || data.active != active
           if active
             $scope.inactiveCounterparties.push($scope.activeCounterparties[index]) if data.type == $scope.showGroup
@@ -79,4 +83,6 @@
     $scope.showGroup = group
     $scope.load()
 
+  $scope.loadCustumers = () ->
+    $scope.activeCustumers = Counterparty.query(scope: 'active', group: 'Customer')
 ]
