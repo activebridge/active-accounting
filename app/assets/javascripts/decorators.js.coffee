@@ -1,4 +1,4 @@
-angular.module('accounting.services').factory 'registerDecorator',($rootScope, $q, $translate, $cookies, Register, PlanRegister) ->
+angular.module('accounting.services').factory 'registerDecorator', ["$rootScope", "$q", "$translate", "$cookies", "Register", "PlanRegister", ($rootScope, $q, $translate, $cookies, Register, PlanRegister) ->
   ($scope) ->
     if $scope.sandbox
       $scope.model = PlanRegister
@@ -48,7 +48,7 @@ angular.module('accounting.services').factory 'registerDecorator',($rootScope, $
         return
 
     $scope.responseQuery = (response, name) ->
-      $scope[name] =[]
+      $scope[name] = []
       lengthResponse = 0
       $(response).each (k, v) ->
         v.value_currency = $scope.changeValueCurrency(v.currency, v.value)
@@ -83,3 +83,4 @@ angular.module('accounting.services').factory 'registerDecorator',($rootScope, $
       if type
         $rootScope.reportsController.loadDates()
       return d.promise
+]
