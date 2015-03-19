@@ -1,7 +1,7 @@
 .report
   ng-include src='"#{asset_path('angular/shared/header.html')}"'
   .picker-wrapper
-    select.selectpicker ng-change="CheckYears(year)" ng-model="year"
+    select.margin-right-5.selectpicker ng-change="CheckYears(year)" ng-model="year"
       option ng-repeat="year in years" ng-selected="{{year==currYear}}"
         | {{year}}
     .multiple-picker
@@ -9,7 +9,7 @@
         | {{month}}
   .margin_vertical
     span
-      | {{ 'all_plans' | translate }} :
+      | {{ 'all_plans' | translate }}: 
     a.pointer ng-click="funcPlan.showAll(true)" ng-show="funcPlan.showComand('show')"
       | {{ 'show' | translate }}
     span ng-show="funcPlan.showComand('show') && funcPlan.showComand('hide')"
@@ -26,7 +26,7 @@
       .left &nbsp
       .value.bold ng-class="{plan_show: funcPlan.show[$index], month_height: funcPlan.show[$index]}" ng-repeat="month in months" ng-show="isShow(parseMonthName(month))"
         div
-          | {{month}}
+          | {{month}} 
           label ng-click="funcPlan.show[$index]=!funcPlan.show[$index]"
             span.glyphicon.glyphicon-cog.pointer title="{{'plan_month' | translate}}"
         div ng-show="funcPlan.show[$index]"

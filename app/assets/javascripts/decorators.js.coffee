@@ -62,6 +62,7 @@ angular.module('accounting.services').factory 'registerDecorator', ["$rootScope"
         $scope.registers = $scope.ngModel
       d = $q.defer()
       params = {}
+      articleId = $scope.registers[index].article.id
       params[$scope.model.key] = data
       $scope.model.update( id: register_id, params
         (response) ->
@@ -74,6 +75,11 @@ angular.module('accounting.services').factory 'registerDecorator', ["$rootScope"
           if $scope.ngModel == undefined
             if !$scope.checkMappingRegister($scope.registers[index].article.type, data)
               $scope.registers.splice(index,1)
+          else
+            # remove report table if article change
+            $('.registers-table').remove() if $('.registers-table').length > 1
+            #remove register in group article if article change
+            $scope.registers.splice(index,1) if articleId != data.article_id
           d.resolve()
         (response) ->
           d.resolve('')

@@ -108,4 +108,6 @@ label { margin: 0; }
 
 @for $i from 1 through 300 {
   .width-#{$i} { width: $i*1px; }
+  .margin-left-#{$i} { margin-left: $i*1px; }
+  .margin-right-#{$i} { margin-right: $i*1px; }
 }
