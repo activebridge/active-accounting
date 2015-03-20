@@ -6,6 +6,7 @@
     tr
       th translate="name"
       th.editDate translate="date"
+      th translate="Customer" ng-show="showGroup == 'Vendor'"
       th ng-show="showMonthlyPayment" translate="payment"
       th
     tr.list-count-article class="list_{{ counterparty.active }}" ng-class="{stand_out: counterparty.monthly_payment && showMonthlyPayment}" ng-repeat="counterparty in activeCounterparties" repeat-complete=""
@@ -15,6 +16,9 @@
       td.editDate
         span.date e-class="start_date" e-form="rowform" e-name="start_date" e-ng-click="openDatepicker()" editable-text="counterparty.start_date" ng-click="datepicker()"
           | {{ counterparty.start_date }}
+      td ng-show="showGroup == 'Vendor'"
+        span e-class="сounterparty-types" e-form="rowform" e-name="customer_id" e-ng-options="s.id as s.name for s in activeCustumers" editable-select="counterparty.customer.id"
+          | {{ counterparty.customer.name }}
       td.monthly_payment ng-show="showMonthlyPayment || rowform.$visible"
         span e-form="rowform" e-name="monthly_payment" e-title="{{ 'monthly_payment' | translate }}" editable-checkbox="counterparty.monthly_payment"
         span e-class="input_payment" e-form="rowform" e-name="value_payment" editable-text="counterparty.value_payment" ng-show="counterparty.monthly_payment"

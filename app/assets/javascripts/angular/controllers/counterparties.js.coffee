@@ -46,22 +46,26 @@
           $scope.inactiveCounterparties.splice(index,1)
         return
 
+  changeActiveCounterparty = (index, active, inactive, data) ->
+    inactive.push(active[index])  if data.type == $scope.showGroup
+    active.splice(index,1)
+
   $scope.update = (counterparty_id, data, index, active) ->
-    if data.active != active && active
-      data.monthly_payment = false
-      $scope.activeCounterparties[index].monthly_payment = false
-    return if data.monthly_payment && !data.value_payment
+    data.customer_id = ''        if data.type == 'Customer' && data.customer_id != ''
+    data.monthly_payment = false if data.active != active && active
+    return                       if data.monthly_payment && !data.value_payment
     d = $q.defer()
     Counterparty.update( id: counterparty_id, {counterparty: data}
-      () ->
+      (response) ->
         d.resolve()
         if data.type != $scope.showGroup || data.active != active
           if active
-            $scope.inactiveCounterparties.push($scope.activeCounterparties[index]) if data.type == $scope.showGroup
-            $scope.activeCounterparties.splice(index,1)
+            $scope.activeCounterparties[index].monthly_payment = false
+            changeActiveCounterparty(index, $scope.activeCounterparties, $scope.inactiveCounterparties, data)
           else
-            $scope.activeCounterparties.push($scope.inactiveCounterparties[index]) if data.type == $scope.showGroup
-            $scope.inactiveCounterparties.splice(index,1)
+            changeActiveCounterparty(index, $scope.inactiveCounterparties, $scope.activeCounterparties, data)
+        if !!data.customer_id
+          $scope.activeCounterparties[index].customer.name = response.customer.name
       (response) ->
         d.resolve response.data.errors['data'][0]
     )
@@ -79,4 +83,6 @@
     $scope.showGroup = group
     $scope.load()
 
+  $scope.loadCustumers = () ->
+    $scope.activeCustumers = Counterparty.query(scope: 'active', group: 'Customer')
 ]

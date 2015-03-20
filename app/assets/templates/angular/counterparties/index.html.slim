@@ -37,7 +37,7 @@ ng-include src='"#{asset_path('angular/shared/header.html')}"'
       li ng-class="{'active': showGroup == 'Customer'}"
         a href="" ng-click="changeGroup('Customer')" translate="Customers"
       li ng-class="{'active': showGroup == 'Vendor'}"
-        a href="" ng-click="changeGroup('Vendor')" translate="Vendors"
+        a href="" ng-click="changeGroup('Vendor'); loadCustumers()" translate="Vendors"
       li ng-class="{'active': showGroup == 'Other'}"
         a href="" ng-click="changeGroup('Other')" translate="Others"
     .tab-content

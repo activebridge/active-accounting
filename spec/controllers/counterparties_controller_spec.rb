@@ -10,9 +10,9 @@ RSpec.describe CounterpartiesController, :type => :controller do
       before do
         get :index, scope: 'active', format: :json
       end
-
       it { expect(json).to have(1).items }
       it { expect(json.first["active"]).to be_truthy }
+      it { expect(json[0]).to have_key('customer') }
     end
 
     context 'returns inactive сounterparties' do
@@ -84,7 +84,5 @@ RSpec.describe CounterpartiesController, :type => :controller do
           )
         }
     end
-
-    
   end
 end

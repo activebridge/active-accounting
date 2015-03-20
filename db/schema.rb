@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227134557) do
+ActiveRecord::Schema.define(version: 20150318081613) do
 
   create_table "articles", force: true do |t|
     t.string   "name"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150227134557) do
     t.float    "value_payment"
     t.boolean  "monthly_payment"
     t.string   "type"
+    t.integer  "customer_id"
   end
 
   create_table "registers", force: true do |t|
