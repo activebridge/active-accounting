@@ -1,0 +1,48 @@
+table.registers-table.ng-scope ng-class="{table_plan: sandbox}"
+  tr.header
+    th translate="date"
+    th translate="article"
+    th translate="counterparty"
+    th translate="totall"
+    th translate="note"
+    th
+  tr ng-repeat="register in ngModel"
+    td
+      span e-class="dateup" e-form="rowform" e-name="date" e-ng-click="openDatepicker()" e-ng-focus="showSelect()" editable-text="register.date"
+      .buttons ng-show="!rowform.$visible"
+        | {{ register.date }}
+      span.errors ng-show="response_id == register.id"
+        | {{errors.date}}
+    td
+      span e-class="search-select" e-form="rowform" e-name="article_id" e-ng-options="s.id as (s.name + ' (' + (s.type|translate) + ')') for s in articles" editable-select="register.article.id"
+      .buttons ng-show="!rowform.$visible"
+        | {{register.article.name}}
+        span.article_type class="{{ register.article.type }}"
+          | ({{register.article.type | translate}})
+    td
+      span e-class="search-select" e-form="rowform" e-name="counterparty_id" e-ng-options="s.id as s.name for s in counterparties" editable-select="register.counterparty.id"
+      .buttons ng-show="!rowform.$visible"
+        | {{ register.counterparty.name }}
+    td.td_correction
+      span e-class="value" e-form="rowform" e-name="value" e-ng-class="{value_plan: sandbox}" editable-text="register.value"
+        span.buttons ng-show="!rowform.$visible"
+          span
+            | {{ register.value_currency }}
+          span ng-show="register.currency == 'USD'"
+            | ({{ register.value }}$)
+      span e-class="currency" e-form="rowform" e-name="currency" e-ng-options="q.value as q.text for q in currencies" e-ng-show="sandbox" editable-select="register.currency"
+      span.errors ng-show="response_id == register.id"
+        | {{errors.value}}
+    td
+      span e-form="rowform" e-name="notes" editable-text="register.notes"
+      .buttons ng-show="!rowform.$visible"
+        | {{ register.notes }}
+    td.width-100
+      form.form-buttons.form-inline editable-form="" name="rowform" ng-show="rowform.$visible" onbeforesave="update(register.id, $data, $index, type='type')"
+        button.icon-button ng-disabled="rowform.$waiting" title="{{ 'save_changes' | translate }}" type="submit"
+          span.glyphicon.glyphicon-check
+        button.icon-button ng-click="rowform.$cancel(); clearError()" ng-disabled="rowform.$waiting" title="{{ 'cancel' | translate }}" type="button"
+          span.glyphicon.glyphicon-remove
+      .buttons_record ng-show="!rowform.$visible"
+        button.icon-button.hidd ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}" type="button"
+          span.glyphicon.glyphicon-edit

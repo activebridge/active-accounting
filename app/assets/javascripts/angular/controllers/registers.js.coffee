@@ -1,20 +1,13 @@
-@RegistersCtrl = ['$scope', '$q', 'PlanRegister', 'Register', 'Article', 'Counterparty', '$translate', '$cookies', ($scope, $q, PlanRegister, Register, Article, Counterparty, $translate, $cookies) ->
-
-  if $scope.sandbox
-    $scope.model = PlanRegister
-    $scope.model.key = 'plan_register'
-  else
-    $scope.model = Register
-    $scope.model.key = 'register'
-
-  $scope.rateDollar = $cookies.rateDollar || 0
+@RegistersCtrl = ['$scope', '$q', 'PlanRegister', 'Register', 'Article', 'Counterparty', '$translate', '$cookies', 'registerDecorator',
+ ($scope, $q, PlanRegister, Register, Article, Counterparty, $translate, $cookies, registerDecorator) ->
+  registerDecorator($scope)
 
   $scope.registers = []
 
   responseQuery = (response) ->
     lengthResponse = 0
     $(response).each (k, v) ->
-      v.value_currency = changeValueCurrency(v.currency, v.value)
+      v.value_currency = $scope.changeValueCurrency(v.currency, v.value)
       v.date_reverse = v.date.split("-").reverse().join("-")
       $scope.registers.push(v)
       lengthResponse += 1
@@ -25,17 +18,10 @@
   $scope.filter = {}
   $scope.filter.data = {}
 
-  changeValueCurrency = (currency, value) ->
-    if currency == 'USD'
-      valueCurrency = parseFloat((value * $scope.rateDollar).toFixed(2))
-    else
-      valueCurrency = value
-    return valueCurrency
-
   $scope.changeValue = ->
     $cookies.rateDollar = $scope.rateDollar
     $.each $scope.registers, (k, v)->
-      v.value_currency = changeValueCurrency(v.currency, v.value)
+      v.value_currency = $scope.changeValueCurrency(v.currency, v.value)
 
   $scope.filter.show = ->
     $scope.filter.active = !($scope.filter.active)
@@ -75,11 +61,6 @@
     {value: "translations", text: $translate.instant('Translation')}
   ]
 
-  $scope.currencies = [
-    {value: "UAH", text: $translate.instant('currency_UA')},
-    {value: "USD", text: 'USD'}
-  ]
-
   $scope.newRegister.currency = $scope.currencies[0].value
 
   $scope.counterparties = Counterparty.query
@@ -95,16 +76,6 @@
       $scope.newRegister.date = date
 
   $('#dateFilter').datepicker(dateFormat: 'dd-mm-yy')
-
-  $scope.openDatepicker = ->
-    $('input.dateup').datepicker({ dateFormat: "dd-mm-yy" }).focus()
-    return
-
-  $scope.showSelect = ->
-    $('.search-select').select2({width: '100%'})
-    $('select.currency').select2({width: '65px', minimumResultsForSearch: '5' })
-    $scope.valueOnlyNumeric()
-    return
 
   curr_date = new Date()
 
@@ -126,22 +97,12 @@
     ShowIcon: false,
     i18n: {year: $translate.instant('year'), jumpYears: $translate.instant('jumpYears'), prevYear: $translate.instant('prevYear'), nextYear: $translate.instant('nextYear'), months: $translate.instant('months').split(".") }
 
-  checkMappingRegister = (type, register) ->
-    check = 0
-    length = 0
-    if $scope.filter.dataFilter
-      $.each $scope.filter.dataFilter, (k, v)->
-        if (register[k]==v) || (k=='article_id' && v==(type+'s').toLowerCase()) || (k=='value' && parseFloat(register[k])>=parseFloat(v))
-          check += 1
-        length += 1
-    return (check == length && $('#month-picker').val() == '') || $('#month-picker').val().replace('/','-') == register.date.slice(3)
-
   $scope.add = ->
     $scope.newRegister.currency = $scope.currencies[0].value if !$scope.sandbox
     register = $scope.model.save($scope.newRegister,
       () ->
-        if checkMappingRegister(register.article.type, $scope.newRegister)
-          register.value_currency = changeValueCurrency(register.currency, register.value)
+        if $scope.checkMappingRegister(register.article.type, $scope.newRegister)
+          register.value_currency = $scope.changeValueCurrency(register.currency, register.value)
           $scope.registers.unshift(register)
         $('.select2-container.clear_after_add').select2('val', '')
         $.each $scope.counterpartiesWithoutPay, (k, v)->
@@ -161,31 +122,8 @@
         $scope.registers.splice(index,1)
         return
 
-  $scope.update = (register_id, data, index) ->
-    d = $q.defer()
-    params = {}
-    params[$scope.model.key] = data
-    $scope.model.update( id: register_id, params
-      (response) ->
-        return if data.background
-        $.each $scope.articles, (k, v)->
-          $scope.registers[index].article = v if v.id == data.article_id
-        $.each $scope.counterparties, (k, v)->
-          $scope.registers[index].counterparty = v if v.id == data.counterparty_id
-        $scope.registers[index].value_currency = changeValueCurrency(data.currency, data.value)
-        if !checkMappingRegister($scope.registers[index].article.type, data)
-          $scope.registers.splice(index,1)
-        d.resolve()
-      (response) ->
-        d.resolve('')
-        $scope.response_id = response.data.id
-        $scope.errors = response.data.error
-    )
-    return d.promise
-
   $scope.valueOnlyNumeric()
 
   $scope.clearError = () ->
     $scope.errors = []
-
 ]
