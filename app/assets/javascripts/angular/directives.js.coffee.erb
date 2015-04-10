@@ -19,6 +19,7 @@ app.directive "editRegister", ->
 
 app.config ['$translateProvider', ($translateProvider) ->
   $translateProvider.translations "en",
+    email: 'Email'
     counterparties: "Counterparties"
     counterparty: "Counterparty"
     articles: "Articles"
@@ -92,6 +93,7 @@ app.config ['$translateProvider', ($translateProvider) ->
     activity: 'Activity'
 
   $translateProvider.translations "uk",
+    email: 'Email'
     counterparties: "Контрагенти"
     counterparty: "Контрагент"
     articles: "Статті"

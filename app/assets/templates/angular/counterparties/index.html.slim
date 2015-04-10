@@ -9,6 +9,7 @@ ng-include src='"#{asset_path('angular/shared/header.html')}"'
             th translate="name"
             th translate="date"
             th translate="type"
+            th translate='email' ng-show='newCounterparty.type=="Vendor"'
             th
           tr
             td
@@ -25,6 +26,8 @@ ng-include src='"#{asset_path('angular/shared/header.html')}"'
                 br
                 span.error
                   | {{newCounterparty.errors.type[0]}}
+            td ng-show='newCounterparty.type=="Vendor"'
+              input class='email' ng-model="newCounterparty.email" type='email' placeholder='user@example.com'
             td
               button.btn translate="NewArticle" type="submit"
     a.show_monthly_payment href="" ng-click="showMonthlyPayment = !showMonthlyPayment"
