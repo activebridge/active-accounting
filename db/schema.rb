@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318081613) do
+ActiveRecord::Schema.define(version: 20150410085707) do
 
   create_table "articles", force: true do |t|
     t.string   "name"
@@ -30,7 +30,19 @@ ActiveRecord::Schema.define(version: 20150318081613) do
     t.boolean  "monthly_payment"
     t.string   "type"
     t.integer  "customer_id"
+    t.string   "email"
   end
+
+  create_table "estimates", force: true do |t|
+    t.integer  "vendor_id"
+    t.integer  "customer_id"
+    t.integer  "hours"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "estimates", ["customer_id"], name: "index_estimates_on_customer_id", using: :btree
+  add_index "estimates", ["vendor_id"], name: "index_estimates_on_vendor_id", using: :btree
 
   create_table "registers", force: true do |t|
     t.date     "date"
