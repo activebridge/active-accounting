@@ -111,3 +111,5 @@ label { margin: 0; }
   .margin-left-#{$i} { margin-left: $i*1px; }
   .margin-right-#{$i} { margin-right: $i*1px; }
 }
+
+.editable-empty { color: #D14 !important; }
