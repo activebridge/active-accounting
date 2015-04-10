@@ -19,10 +19,10 @@
           | {{ counterparty.start_date }}
       td.width-162 ng-show="showGroup == 'Vendor'"
         span e-class="сounterparty-types" e-form="rowform" e-name="customer_id" e-ng-options="s.id as s.name for s in activeCustumers" editable-select="counterparty.customer.id"
-          | {{ counterparty.customer.name || 'empty' | translate}}
+          | {{ counterparty.customer.name }}
       td ng-show="showGroup == 'Vendor'"
         span.name e-form="rowform" e-name="email" e-type='email' editable-email="counterparty.email"
-          | {{ counterparty.email || 'empty' | translate }}
+          | {{ counterparty.email }}
       td.monthly_payment ng-show="showMonthlyPayment || rowform.$visible"
         span e-form="rowform" e-name="monthly_payment" e-title="{{ 'monthly_payment' | translate }}" editable-checkbox="counterparty.monthly_payment"
         span e-class="input_payment" e-form="rowform" e-name="value_payment" editable-text="counterparty.value_payment" ng-show="counterparty.monthly_payment"
