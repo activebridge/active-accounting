@@ -1,29 +1,42 @@
 'use strict';
 
+var Authentication = { auth: ['Auth', function(Auth) {
+                       Auth.currentUser().then((function(user) {}), function(error) { window.location.replace('vendor_profile#/estimates'); }); }]}
+
 angular.module('ActiveAccounting').config([
   '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider
       .when('/home', {
+        resolve: Authentication,
         templateUrl: '<%= asset_path('angular/registers/index.html') %>'
       })
       .when('/articles', {
+        resolve: Authentication,
         templateUrl: '<%= asset_path('angular/articles/index.html') %>',
         controller: 'ArticlesCtrl'
       })
       .when('/counterparties', {
+        resolve: Authentication,
         templateUrl: '<%= asset_path('angular/counterparties/index.html') %>',
         controller: 'CounterpartiesCtrl'
       })
       .when('/reports', {
+        resolve: Authentication,
         templateUrl: '<%= asset_path('angular/reports/index.html') %>',
         controller: 'ReportsCtrl'
       })
       .when('/charts', {
+        resolve: Authentication,
         templateUrl: '<%= asset_path('angular/charts/index.html') %>',
         controller: 'ChartsCtrl'
       })
       .when('/plan_registers', {
+        resolve: Authentication,
         templateUrl: '<%= asset_path('angular/plan_registers/index.html') %>'
+      })
+      .when('/estimates', {
+        templateUrl: '<%= asset_path('angular/estimates/index.html') %>',
+        controller: 'EstimatesCtrl'
       })
       .otherwise({ redirectTo: '/home' });
   }

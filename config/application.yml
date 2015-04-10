@@ -1,2 +1,2 @@
-:http_auth_name: developer
-:http_auth_pass: password
+email: admin@example.com
+pass: password

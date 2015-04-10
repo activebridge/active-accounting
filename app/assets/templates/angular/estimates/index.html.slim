@@ -1,0 +1,41 @@
+.locale
+  a href='vendor_logout' data-method='delete'
+    i.fa.fa-sign-out translate="sing_out"
+.estimates
+  .row
+    .col-lg-offset-3.col-lg-6.col-lg-offset-3
+      h1
+        | Управління власними естімейтами
+      .form
+        form#estimates_form ng-submit="add()"
+          table
+            tr
+              th translate='Customer'
+              th translate="hours"
+              th translate="month"
+              th
+            tr
+              td
+                span.error
+                  | {{newEstimate.errors.customer_id[0]}}
+                select.estimate.clear_after_add ng-model="newEstimate.customer_id"
+                  option ng-repeat="customer in customers" value="{{customer.id}}"
+                    | {{customer.name}}
+              td
+                input.number ng-model="newEstimate.hours" type="text" name='hours' maxlength='3'
+              td
+                input#month-picker ng-model="newEstimate.month" name='month' type="text"
+              td
+                button.btn translate="NewArticle" type="submit"
+
+            tr ng-repeat="estimate in estimates"
+              td
+                | {{ estimate.customer.name }}
+              td
+                | {{ estimate.hours }}
+              td
+                | {{ estimate.month }}
+              td.edit_icon
+                .butn
+                  button.icon-button.hidde ng-click="delete(estimate.id, $index)" title="{{ 'delete_reg' | translate }}" type="button"
+                    span.glyphicon.glyphicon-trash

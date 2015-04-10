@@ -1,0 +1,11 @@
+.estimates {
+  margin-left: 20px;
+
+  tr {
+    &:hover {
+      .hidde {
+        display: inline-table;
+      }
+    }
+  }
+}

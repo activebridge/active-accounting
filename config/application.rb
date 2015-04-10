@@ -24,3 +24,6 @@ module ActiveAccounting
                                  "#{config.root}/lib/**/"]
   end
 end
+
+SECRETS = Rails.application.secrets
+SETTINGS = YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))

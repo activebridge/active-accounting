@@ -7,6 +7,8 @@ div ng-controller="TranslateCtrl"
     a href="/#/reports" translate="reports"
     a href="/#/charts" translate="charts"
   .locale
+    a href='/users/sign_out' data-method='delete'
+      i.fa.fa-sign-out translate="sing_out"
     a href="#" ng-click="changeLanguage('uk')"
       = image_tag "ua.png"
     a href="#" ng-click="changeLanguage('en')"
