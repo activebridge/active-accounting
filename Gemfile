@@ -28,6 +28,10 @@ gem 'spring',        group: :development
 
 gem 'roo'
 gem 'rails_12factor'
+gem 'font-awesome-rails'
+gem 'jquery-validation-rails'
+gem 'devise'
+gem 'angular_rails_csrf'
 
 group :development, :test do
   gem 'pry'
@@ -53,3 +57,5 @@ gem 'slim-rails'
 gem 'active_model_serializers'
 gem 'bootstrap-sass'
 gem 'whenever', :require => false
+gem 'mandrill_mailer'
+gem 'letter_opener'

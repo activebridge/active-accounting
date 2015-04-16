@@ -1,4 +1,4 @@
-@CounterpartiesCtrl = ['$scope', '$q', '$timeout', 'Counterparty', '$translate', ($scope, $q, $timeout, Counterparty, $translate) ->
+@CounterpartiesCtrl = ['$scope', '$q', '$timeout', 'Counterparty', 'Invitation', '$translate', ($scope, $q, $timeout, Counterparty, Invitation, $translate) ->
   $scope.newCounterparty = {}
   $scope.newCounterparty.errors = {}
 
@@ -85,4 +85,16 @@
 
   $scope.loadCustumers = () ->
     $scope.activeCustumers = Counterparty.query(scope: 'active', group: 'Customer')
+
+  $scope.sendInvitation = (id) ->
+    Invitation.save
+      id: id
+    , (response) ->
+      $scope.message = response.success
+      setTimeout (->
+        $scope.$apply ->
+          $scope.message = undefined
+          return
+        return
+      ), 5000
 ]

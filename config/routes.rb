@@ -1,26 +1,51 @@
 Rails.application.routes.draw do
+  devise_for :users
+  devise_scope :user do
+    authenticated :user do
+      root to: 'home#index'
+    end
 
-  get 'home' => 'home#index'
-  resources :counterparties do
-    collection do
-      get :payments
+    unauthenticated :user do
+      root to: 'devise/sessions#new', as: :unauthenticated_root
     end
-  end
-  resources :articles
-  resources :registers
-  resources :plan_registers
-  resources :reports do
-    collection do
-      get :years
+
+    get 'home' => 'home#index'
+
+    resources :counterparties do
+      collection do
+        get :payments
+      end
     end
-  end
-  resources :charts do
-    collection do
-      get :years
+
+    resources :articles
+    resources :registers
+    resources :plan_registers
+    resources :invitations
+
+    resources :reports do
+      collection do
+        get :years
+      end
+    end
+
+    resources :charts do
+      collection do
+        get :years
+      end
     end
   end
 
-  root 'home#index'
+    get '/vendor_login' => 'vendor_sessions#new'
+    post 'vendor_login' => 'vendor_sessions#create'
+    delete '/vendor_logout' => 'vendor_sessions#destroy'
+
+    get '/vendor_profile' => 'vendor_home#index'
+
+    resources :estimates do
+      collection do
+        get :customers
+      end
+    end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

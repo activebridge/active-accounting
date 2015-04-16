@@ -1,5 +1,4 @@
 class Counterparty < ActiveRecord::Base
-
   has_many :registers
 
   module TYPES

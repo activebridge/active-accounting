@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
-  http_basic_authenticate_with name: HTTP_AUTH_NAME, password: HTTP_AUTH_PASS
+  before_action :authenticate_user!
+  respond_to :html, :json
 
   protect_from_forgery with: :exception
   skip_before_filter :verify_authenticity_token
+
+  def after_sign_in_path_for(resource)
+    return '#home'
+  end
 end

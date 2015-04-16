@@ -34,6 +34,20 @@ set :linked_files, %w{config/database.yml config/application.yml}
 # Default value for :scm is :git
 set :scm, :git
 
+desc "Run rake task on server"
+
+task :sake do
+  on roles(:app), in: :sequence, wait: 5 do
+    within release_path do
+      as user do
+        with rails_env: :production do
+          execute :rake, ENV['task'], "RAILS_ENV=production"
+        end
+      end
+    end
+  end
+end
+
 namespace :deploy do
   desc 'Restart application'
   task :restart do

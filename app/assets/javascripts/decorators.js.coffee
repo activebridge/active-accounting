@@ -89,4 +89,11 @@ angular.module('accounting.services').factory 'registerDecorator', ["$rootScope"
       if type
         $rootScope.reportsController.loadDates()
       return d.promise
+
+    $scope.setMonthPicker = ->
+      $('#month-picker').MonthPicker
+        ShowIcon: false,
+        i18n: {year: $translate.instant('year'), jumpYears: $translate.instant('jumpYears'), prevYear: $translate.instant('prevYear'), nextYear: $translate.instant('nextYear'), months: $translate.instant('months').split(".") }
+
+    $scope.setMonthPicker()
 ]

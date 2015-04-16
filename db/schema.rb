@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410085707) do
+ActiveRecord::Schema.define(version: 20150415142821) do
 
   create_table "articles", force: true do |t|
     t.string   "name"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20150410085707) do
     t.string   "type"
     t.integer  "customer_id"
     t.string   "email"
+    t.string   "password"
   end
 
   create_table "estimates", force: true do |t|
@@ -39,6 +40,7 @@ ActiveRecord::Schema.define(version: 20150410085707) do
     t.integer  "hours"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "month"
   end
 
   add_index "estimates", ["customer_id"], name: "index_estimates_on_customer_id", using: :btree
@@ -56,5 +58,18 @@ ActiveRecord::Schema.define(version: 20150410085707) do
     t.string   "type"
     t.string   "currency",        default: "UAH"
   end
+
+  create_table "users", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

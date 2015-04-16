@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.describe RegistersController, :type => :controller do
 
+  before do
+    controller.stub(:authenticate_user!) { true }
+  end
+
+
   describe "#index" do
     let(:article_type_revenue) { FactoryGirl.create(:article, type: Article::TYPES::REVENUE) }
     let!(:register_article_cost) { FactoryGirl.create(:register, value: 200) }
@@ -12,13 +17,13 @@ RSpec.describe RegistersController, :type => :controller do
       before do
         get :index, article_id: "costs"
       end
-      
+
       it { expect(json).to have(2).items }
     end
 
     context 'returns registers with article type "revenue"' do
       before do
-        get :index, article_id: 'revenues' 
+        get :index, article_id: 'revenues'
       end
 
       it { expect(json).to have(1).items }

@@ -41,3 +41,17 @@ angular.module('accounting.services').factory 'Chart', ['$resource', ($resource)
       action: 'years'
     isArray: false
 ]
+
+angular.module('accounting.services').factory 'Invitation', ['$resource', ($resource) ->
+  $resource '/invitations/:id'
+]
+
+angular.module('accounting.services').factory 'Estimate', ['$resource', ($resource) ->
+  $resource '/estimates/:id/:action',
+    id: '@id'
+  , customers:
+    method: 'GET',
+    params:
+      action: 'customers'
+    isArray: true
+]

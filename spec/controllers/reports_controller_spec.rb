@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe ReportsController, :type => :controller do
 
+  before do
+    controller.stub(:authenticate_user!) { true }
+  end
+
   describe "#index" do
 
     let(:article) { FactoryGirl.create(:revenue_article) }

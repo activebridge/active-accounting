@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe CounterpartiesController, :type => :controller do
 
+  before do
+    controller.stub(:authenticate_user!) { true }
+  end
+
   describe "#index" do
     let!(:active_counterparty) { FactoryGirl.create(:counterparty) }
     let!(:inactive_counterparty) { FactoryGirl.create(:counterparty, active: false) }

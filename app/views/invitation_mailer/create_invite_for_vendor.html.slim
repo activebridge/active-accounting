@@ -1,0 +1,23 @@
+h2
+  | Welcome to Active Accounting
+| ===============================================
+
+p
+  b
+    | login:
+p
+  = @user.email
+
+p
+  b
+    | Password:
+p
+  = @password
+
+p
+  b
+    | To login to the site, just follow this link:
+p
+  = link_to vendor_login_url, vendor_login_url
+p
+  | Thanks for joining and have a great day!

@@ -1,0 +1,16 @@
+.panel.panel-default
+  .panel-heading.text-center
+    h4 Active accounting for vendors
+  .row
+    .col-lg-offset-4.col-lg-4.col-lg-offset-4
+      span.errors.center
+      .panel-body
+        = form_tag vendor_login_path, remote: true, id: 'new_session_form' do
+          .form-group
+            = label_tag 'Email'
+            = text_field_tag :email, '', type: :email, class: 'form-control'
+          .form-group
+            = label_tag 'Password'
+            = text_field_tag :password, '', type: :password, class: 'form-control'
+
+          = submit_tag 'Sing in'

@@ -93,10 +93,6 @@
     $scope.filter.fetchRegisters(false)
   $scope.filter.changeMonth()
 
-  $('#month-picker').MonthPicker
-    ShowIcon: false,
-    i18n: {year: $translate.instant('year'), jumpYears: $translate.instant('jumpYears'), prevYear: $translate.instant('prevYear'), nextYear: $translate.instant('nextYear'), months: $translate.instant('months').split(".") }
-
   $scope.add = ->
     $scope.newRegister.currency = $scope.currencies[0].value if !$scope.sandbox
     register = $scope.model.save($scope.newRegister,
