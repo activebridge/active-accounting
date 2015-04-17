@@ -34,6 +34,11 @@ angular.module('ActiveAccounting').config([
         resolve: Authentication,
         templateUrl: '<%= asset_path('angular/plan_registers/index.html') %>'
       })
+      .when('/report_estimates', {
+        resolve: Authentication,
+        templateUrl: '<%= asset_path('angular/report_estimates/index.html') %>',
+        controller: 'ReportEstimatesCtrl'
+      })
       .when('/estimates', {
         templateUrl: '<%= asset_path('angular/estimates/index.html') %>',
         controller: 'EstimatesCtrl'

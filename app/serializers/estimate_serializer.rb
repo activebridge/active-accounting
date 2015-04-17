@@ -1,5 +1,5 @@
 class EstimateSerializer < ActiveModel::Serializer
-  attributes :id, :customer, :hours, :month
+  attributes :id, :customer, :hours, :month, :vendor
 
   def customers
     CustomerSerializer.new(object)

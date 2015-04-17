@@ -110,6 +110,7 @@ label { margin: 0; }
   .width-#{$i} { width: $i*1px; }
   .margin-left-#{$i} { margin-left: $i*1px; }
   .margin-right-#{$i} { margin-right: $i*1px; }
+  .padding-left-#{$i} { padding-left: $i*1px; }
 }
 
 .editable-empty { color: #D14 !important; }
@@ -117,3 +118,5 @@ label { margin: 0; }
 .center { margin: 0 auto; }
 
 .error { color: #F00; }
+
+.bg-grey { background-color: #F2F1F0; }

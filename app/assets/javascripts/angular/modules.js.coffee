@@ -5,4 +5,5 @@ angular.module('accounting.services', [
   'xeditable'
   'pascalprecht.translate'
   'ngCookies'
+  'angular.filter'
 ])
