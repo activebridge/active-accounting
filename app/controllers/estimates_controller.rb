@@ -2,9 +2,7 @@ class EstimatesController < VendorApplicationController
   before_action :find_estimate, only: [:destroy, :update]
 
   def index
-    json = ActiveModel::ArraySerializer.new(all_estimates,
-                                            each_serializer: EstimateSerializer)
-    render json: json, status: 200
+    render json: all_estimates, status: 200
   end
 
   def create
@@ -36,6 +34,16 @@ class EstimatesController < VendorApplicationController
   end
 
   def all_estimates
-    current_vendor.estimates.order('estimates.month DESC')
+    params[:month] ? month_etimates : current_vendor_estimates
+  end
+
+  def current_vendor_estimates
+    ActiveModel::ArraySerializer.new(current_vendor.estimates.order('estimates.month DESC'),
+                                     each_serializer: EstimateSerializer)
+  end
+
+  def month_etimates
+    ActiveModel::ArraySerializer.new(Estimate.by_month(params[:month]),
+                                     each_serializer: ReportEstimateSerializer)
   end
 end

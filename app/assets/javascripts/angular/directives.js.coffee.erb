@@ -19,6 +19,10 @@ app.directive "editRegister", ->
 
 app.config ['$translateProvider', ($translateProvider) ->
   $translateProvider.translations "en",
+    totalHours: 'Total hours'
+    totalHoursByCustomers: 'Total hours by customers'
+    vendorsAndCustumersEstimate: 'Estimates vendors with customers'
+    report_estimates: 'Reports by estimate'
     success_send: 'Vendor is updated end message is sent!'
     hours: 'Hours'
     sing_out: 'Sign Out'
@@ -97,6 +101,10 @@ app.config ['$translateProvider', ($translateProvider) ->
     activity: 'Activity'
 
   $translateProvider.translations "uk",
+    totalHours: 'Всього годин'
+    totalHoursByCustomers: 'Всього годин по клієнтах'
+    vendorsAndCustumersEstimate: 'Естімейти постачальників з клієнтами'
+    report_estimates: 'Звіти по естімейтах'
     success_send: 'Постачальник успішно оновився і лист йому відправленно!'
     hours: 'Години'
     sing_out: 'Вийти'
