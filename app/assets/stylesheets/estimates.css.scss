@@ -1,7 +1,8 @@
 .estimates {
   margin-left: 20px;
 
-  tr {
+  .show_button {
+    height: 40px;
     &:hover {
       .hidde {
         display: inline-table;

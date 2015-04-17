@@ -28,10 +28,12 @@
       , (success) ->
         $scope.estimates.splice(index,1)
         return
-
-  $('.number').numeric
-    negative: false
-    decimal: false
+  $scope.setNumeric = ->
+    $('.number').numeric
+      negative: false
+      decimal: false
+    $('.number').attr('maxlength', '3')
+  $scope.setNumeric()
 
   $('#estimates_form').validate
     errorElement: 'div'
@@ -44,4 +46,14 @@
     messages:
       'hours': 'Cant be blank'
       'month': 'Cant be blank'
+
+  $scope.update = (estimate_id, data) ->
+    d = $q.defer()
+    estimate = Estimate.update( id: estimate_id, {estimate: { hours: data.hours } }
+      (response) ->
+        d.resolve()
+      (response) ->
+        d.resolve response.data.errors['hours'][0]
+    )
+    return d.promise
 ]
