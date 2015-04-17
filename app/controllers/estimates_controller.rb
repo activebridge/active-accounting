@@ -19,6 +19,14 @@ class EstimatesController < VendorApplicationController
     head(200)
   end
 
+  def update
+    if @estimate.update(update_params)
+      render json: EstimateSerializer.new(@estimate), status: 201
+    else
+      render json: {status: :error, error: @estimate.errors.messages}, status: 422
+    end
+  end
+
   def customers
     render json: Customer.all.by_active(params[:scope])
   end
@@ -27,6 +35,10 @@ class EstimatesController < VendorApplicationController
 
   def estimate_params
     params.require(:estimate).permit!.merge(vendor_id: current_vendor.id, month: params[:estimate][:month].to_date)
+  end
+
+  def update_params
+    params.require(:estimate).permit!
   end
 
   def find_estimate

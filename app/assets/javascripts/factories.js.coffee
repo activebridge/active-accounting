@@ -54,4 +54,6 @@ angular.module('accounting.services').factory 'Estimate', ['$resource', ($resour
     params:
       action: 'customers'
     isArray: true
+  , update:
+    method: 'PUT'
 ]
