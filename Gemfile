@@ -32,6 +32,7 @@ gem 'font-awesome-rails'
 gem 'jquery-validation-rails'
 gem 'devise'
 gem 'angular_rails_csrf'
+gem 'highcharts-rails'
 
 group :development, :test do
   gem 'pry'

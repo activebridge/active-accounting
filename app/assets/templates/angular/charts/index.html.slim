@@ -5,5 +5,5 @@
       label.picker-label ng-class="{checked_label: clicked}" ng-click="clicked=!clicked; CheckYears(year, clicked)" ng-init="clicked = currYear == year" ng-repeat="year in years" type="checkbox"
         | {{year}}
   .counterparties
-    #chartcontainer.ctrl
-      div id="chartcontainer{{year}}" ng-repeat="year in years"
+      div class="chartcontainer{{year}}" ng-repeat="year in years"
+        div id="chartcontainer{{year}}"

@@ -16,6 +16,8 @@
 //= require jquery.validate.additional-methods
 //= require bootstrap-sprockets
 //= require jquery-ui
+//= require highcharts
+//= require highcharts/modules/exporting
 //= require turbolinks
 //= require angular.min
 //= require angular-resource.min
