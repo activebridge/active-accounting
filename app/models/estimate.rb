@@ -11,4 +11,9 @@ class Estimate < ActiveRecord::Base
     date = date.to_date
     where("extract(month from month) = ? AND extract(year from month) = ?", date.month, date.year)
   }
+
+  scope :hours_by_month, -> {
+    where("extract(year from month) = ?", Date.current.year)
+    select("month(month) as month, sum(hours) as total_hours").group(:month)
+  }
 end

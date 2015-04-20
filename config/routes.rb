@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     resources :estimates do
       collection do
         get :customers
+        get :total_hours
       end
     end
 
