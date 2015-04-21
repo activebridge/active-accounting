@@ -1,7 +1,7 @@
 .locale
   a href='vendor_logout' data-method='delete'
     i.fa.fa-sign-out translate="sing_out"
-.estimates
+.hours
   .row
     .col-lg-3.text-center.calendar
       b
@@ -17,7 +17,7 @@
       h1
         | Управління власними естімейтами
       .form
-        form#estimates_form ng-submit="add()"
+        form#hours_form ng-submit="add()"
           .row
             .col-lg-4
               b
@@ -32,28 +32,28 @@
           .row.margin-bottom-20
             .col-lg-4
               span.error
-                | {{newEstimate.errors.customer_id[0]}}
-              select.estimate.clear_after_add ng-model="newEstimate.customer_id"
+                | {{newHours.errors.customer_id[0]}}
+              select.hours.clear_after_add ng-model="newHour.customer_id"
                 option ng-repeat="customer in customers" value="{{customer.id}}"
                   | {{customer.name}}
             .col-lg-4
-              input.number ng-model="newEstimate.hours" type="text" name='hours' maxlength='3'
+              input.number ng-model="newHour.hours" type="text" name='hours' maxlength='3'
             .col-lg-2
-              input#month-picker ng-model="newEstimate.month" name='month' type="text"
+              input#month-picker ng-model="newHour.month" name='month' type="text"
             .col-lg-2
               button.btn translate="NewArticle" type="submit"
 
-        .row.show_button ng-repeat="estimate in estimates"
+        .row.show_button ng-repeat="hour in hours"
           .col-lg-4
-            | {{ estimate.customer }}
+            | {{ hour.customer }}
           .col-lg-4
-            span href='#' editable-text='estimate.hours' e-class='number' e-ng-focus="setNumeric();" e-name="hours" e-form='rowform'
-              | {{ estimate.hours }}
+            span href='#' editable-text='hour.hours' e-class='number' e-ng-focus="setNumeric();" e-name="hours" e-form='rowform'
+              | {{ hour.hours }}
           .col-lg-2
-            .month value='{{estimate.month}}'
-              | {{estimate.month}}
+            .month value='{{hour.month}}'
+              | {{hour.month}}
           .col-lg-2.edit_icon
-            form.form-buttons.form-inline editable-form="" name="rowform" ng-show="rowform.$visible" onbeforesave="update(estimate.id, $data)"
+            form.form-buttons.form-inline editable-form="" name="rowform" ng-show="rowform.$visible" onbeforesave="update(hour.id, $data)"
               button.icon-button ng-disabled="rowform.$waiting" title="{{ 'save_changes' | translate }}" type="submit"
                 span.glyphicon.glyphicon-check
               button.icon-button ng-click="rowform.$cancel(); clearError()" ng-disabled="rowform.$waiting" title="{{ 'cancel' | translate }}" type="button"
@@ -61,9 +61,9 @@
             .buttons_record ng-show="!rowform.$visible"
               button.icon-button.hidde ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}" type="button"
                 span.glyphicon.glyphicon-edit
-              button.icon-button.hidde ng-click="delete(estimate.id, $index)" title="{{ 'delete_reg' | translate }}" type="button"
+              button.icon-button.hidde ng-click="delete(hour.id, $index)" title="{{ 'delete_reg' | translate }}" type="button"
                 span.glyphicon.glyphicon-trash
-        .info-alas ng-hide='estimates.length>0'
+        .info-alas ng-hide='hours.length>0'
           br
           .alert.alert-info.alert-dismissable
             strong

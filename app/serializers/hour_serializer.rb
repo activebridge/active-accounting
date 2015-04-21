@@ -1,4 +1,4 @@
-class EstimateSerializer < ActiveModel::Serializer
+class HourSerializer < ActiveModel::Serializer
   attributes :id, :customer, :hours, :month, :vendor
 
   def customer

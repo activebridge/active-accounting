@@ -41,7 +41,7 @@ Rails.application.routes.draw do
 
     get '/vendor_profile' => 'vendor_home#index'
 
-    resources :estimates do
+    resources :hours do
       collection do
         get :customers
         get :total_hours

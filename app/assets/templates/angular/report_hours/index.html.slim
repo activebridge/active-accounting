@@ -1,5 +1,5 @@
 ng-include src='"#{asset_path('angular/shared/header.html')}"'
-.report_estimates.margin-left-30
+.report_hours.margin-left-30
   .row
     .col-lg-1
       | {{ 'month' | translate }}
@@ -15,29 +15,29 @@ ng-include src='"#{asset_path('angular/shared/header.html')}"'
             th translate='hours'
             th translate='month'
 
-      .info-alas ng-hide='estimates.length>0'
+      .info-alas ng-hide='hours.length>0'
         br
         .alert.alert-info.alert-dismissable
           strong
             | {{ 'alas' | translate }}
           | {{ 'info_not_found' | translate }}
 
-      div ng-repeat='(key, value) in estimates | groupBy:"customer"'
+      div ng-repeat='(key, value) in hours | groupBy:"customer"'
         b.customer_group.text-center ng-init='groupSuma = sumByGroup(value);'
           | {{ key }}
           br
           i
             | ({{ 'totalHours' | translate }}: {{ groupSuma }})
         table
-          tr ng-repeat='estimate in value' ng-init='estimates.total.hours =  estimates.total.hours + estimate.hours'
+          tr ng-repeat='hour in value' ng-init='hours.total.hours =  hours.total.hours + hour.hours'
             td
             td
-              | {{ estimate.vendor }}
+              | {{ hour.vendor }}
             td
-              | {{ estimate.hours }}
+              | {{ hour.hours }}
             td
-              | {{ estimate.month }}
+              | {{ hour.month }}
 
-      b ng-show='estimates.length>0'
-        | {{ 'totalHoursByCustomers' | translate}}: {{ estimates.total.hours }}
+      b ng-show='hours.length>0'
+        | {{ 'totalHoursByCustomers' | translate}}: {{ hours.total.hours }}
 

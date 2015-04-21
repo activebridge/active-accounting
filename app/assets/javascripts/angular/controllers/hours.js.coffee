@@ -1,8 +1,8 @@
-@EstimatesCtrl = ['$scope', '$q', '$translate', 'Estimate', 'Counterparty', 'registerDecorator', ($scope, $q , $translate, Estimate, Counterparty, registerDecorator) ->
+@HoursCtrl = ['$scope', '$q', '$translate', 'Hours', 'Counterparty', 'registerDecorator', ($scope, $q , $translate, Hours, Counterparty, registerDecorator) ->
   registerDecorator($scope)
 
-  $scope.newEstimate = {}
-  $scope.newEstimate.errors = {}
+  $scope.newHour = {}
+  $scope.newHour.errors = {}
 
   curr_date = new Date()
   $scope.currentYear = curr_date.getFullYear()
@@ -33,41 +33,41 @@
     return array
 
   $scope.LoadHours = ->
-    Estimate.total_hours (response) ->
+    Hours.total_hours (response) ->
       $scope.hoursByMonths = $scope.addBlankValues(response)
 
   $scope.changeMonth = (value) ->
     if value != $scope.selectedMonth
       $scope.selectedMonth = value
-      $scope.estimates = Estimate.query(month: value + '/' + $scope.currentYear, type: 'vendor')
+      $scope.hours = Hours.query(month: value + '/' + $scope.currentYear, type: 'vendor')
   $scope.changeMonth($scope.currentMonth)
   $scope.LoadHours()
 
   $scope.months = $translate.instant('fullMonthsName').split(',')
 
   $scope.add = ->
-    estimate = Estimate.save($scope.newEstimate,
+    hour = Hours.save($scope.newHour,
       () ->
-        if parseInt(estimate.month.slice(0,2)) == $scope.selectedMonth
-          $scope.estimates.unshift(estimate)
-        $scope.newEstimate = {}
-        $('select.estimate').select2('val', '')
+        if parseInt(hour.month.slice(0,2)) == $scope.selectedMonth
+          $scope.hours.unshift(hour)
+        $scope.newHour = {}
+        $('select.hours').select2('val', '')
         $scope.LoadHours()
       (response) ->
-        $scope.newEstimate.errors = response.data.error
+        $scope.newHour.errors = response.data.error
     )
 
-  $scope.customers = Estimate.customers
+  $scope.customers = Hours.customers
     scope: 'active'
     () ->
-      $('select.estimate').select2({width: '200px'})
+      $('select.hours').select2({width: '200px'})
 
-  $scope.delete = (estimate_id, index) ->
+  $scope.delete = (hours_id, index) ->
     if confirm('Впевнений?')
-      Estimate.delete
-        id: estimate_id
+      Hours.delete
+        id: hours_id
       , (success) ->
-        $scope.estimates.splice(index,1)
+        $scope.hours.splice(index,1)
         $scope.LoadHours()
         return
   $scope.setNumeric = ->
@@ -77,7 +77,7 @@
     $('.number').attr('maxlength', '3')
   $scope.setNumeric()
 
-  $('#estimates_form').validate
+  $('#hours_form').validate
     errorElement: 'div'
     errorPlacement: (error, element) ->
       error.insertBefore element
@@ -89,9 +89,9 @@
       'hours': 'Cant be blank'
       'month': 'Cant be blank'
 
-  $scope.update = (estimate_id, data) ->
+  $scope.update = (hour_id, data) ->
     d = $q.defer()
-    estimate = Estimate.update( id: estimate_id, {estimate: { hours: data.hours } }
+    Hours.update( id: hour_id, {hour: { hours: data.hours } }
       (response) ->
         d.resolve()
         $scope.LoadHours()

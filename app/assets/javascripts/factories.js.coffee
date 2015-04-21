@@ -46,8 +46,8 @@ angular.module('accounting.services').factory 'Invitation', ['$resource', ($reso
   $resource '/invitations/:id'
 ]
 
-angular.module('accounting.services').factory 'Estimate', ['$resource', ($resource) ->
-  $resource '/estimates/:id/:action',
+angular.module('accounting.services').factory 'Hours', ['$resource', ($resource) ->
+  $resource '/hours/:id/:action',
     id: '@id'
   , customers:
     method: 'GET',
