@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
     get '/vendor_profile' => 'vendor_home#index'
 
+    resources :vendor_password_resets
     resources :hours do
       collection do
         get :customers

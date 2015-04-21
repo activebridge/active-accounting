@@ -1,0 +1,23 @@
+.panel.panel-default
+  .panel-heading.text-center
+    h4
+      | Forgot your password?
+  .row
+    .col-lg-offset-4.col-lg-4.col-lg-offset-4
+      .panel-body
+        = form_for @vendor, url: vendor_password_reset_path(params[:id]) do |f|
+          - if @vendor.errors.any?
+            .error_messages
+              h2 Form is invalid
+              ul
+                - for message in @vendor.errors.full_messages
+                  li
+                    = message
+
+          .form-group
+            = f.label :password
+            = f.password_field :password, class: 'form-control'
+            = f.label :password_confirmation
+            = f.password_field :password_confirmation, class: 'form-control'
+            br
+            = f.submit 'Update Password', class: "btn btn-primary"
