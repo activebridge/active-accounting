@@ -3,7 +3,7 @@ default: &default
   pool: 5
   timeout: 5000
   username: root
-  password: 
+  password:
 
 development:
   <<: *default
@@ -13,5 +13,9 @@ test:
   database: active-accounting-test
 
 production:
+  <<: *default
+  database: active_accounting_production2
+
+staging:
   <<: *default
   database: active_accounting_production2
