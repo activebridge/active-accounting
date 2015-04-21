@@ -49,6 +49,20 @@ ActiveRecord::Schema.define(version: 20150421112618) do
   add_index "hours", ["customer_id"], name: "index_hours_on_customer_id", using: :btree
   add_index "hours", ["vendor_id"], name: "index_hours_on_vendor_id", using: :btree
 
+  create_table "infos", force: true do |t|
+    t.integer  "customer_id"
+    t.string   "name"
+    t.string   "agreement"
+    t.integer  "invoice_id"
+    t.string   "address"
+    t.string   "repr_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "infos", ["customer_id"], name: "index_infos_on_customer_id", using: :btree
+  add_index "infos", ["invoice_id"], name: "index_infos_on_invoice_id", using: :btree
+
   create_table "registers", force: true do |t|
     t.date     "date"
     t.integer  "article_id"
