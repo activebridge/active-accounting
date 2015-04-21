@@ -2,7 +2,9 @@ class EstimatesController < VendorApplicationController
   before_action :find_estimate, only: [:destroy, :update]
 
   def index
-    render json: all_estimates, status: 200
+    json = ActiveModel::ArraySerializer.new(all_estimates.by_month(params[:month]),
+                                            each_serializer: EstimateSerializer)
+    render json: json, status: 200
   end
 
   def create
@@ -21,14 +23,18 @@ class EstimatesController < VendorApplicationController
 
   def update
     if @estimate.update(update_params)
-      render json: EstimateSerializer.new(@estimate), status: 201
+      render json: @estimate, status: 201
     else
       render json: {status: :error, error: @estimate.errors.messages}, status: 422
     end
   end
 
   def customers
-    render json: Customer.all.by_active(params[:scope])
+    render json: Customer.by_active(params[:scope])
+  end
+
+  def total_hours
+    render json: current_vendor.estimates.hours_by_month.to_json, status: 200
   end
 
   private
@@ -46,16 +52,6 @@ class EstimatesController < VendorApplicationController
   end
 
   def all_estimates
-    params[:month] ? month_etimates : current_vendor_estimates
-  end
-
-  def current_vendor_estimates
-    ActiveModel::ArraySerializer.new(current_vendor.estimates.order('estimates.month DESC'),
-                                     each_serializer: EstimateSerializer)
-  end
-
-  def month_etimates
-    ActiveModel::ArraySerializer.new(Estimate.by_month(params[:month]),
-                                     each_serializer: ReportEstimateSerializer)
+    params[:type] ? current_vendor.estimates : Estimate
   end
 end

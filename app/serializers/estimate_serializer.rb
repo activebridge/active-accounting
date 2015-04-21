@@ -1,11 +1,15 @@
 class EstimateSerializer < ActiveModel::Serializer
   attributes :id, :customer, :hours, :month, :vendor
 
-  def customers
-    CustomerSerializer.new(object)
+  def customer
+    object.customer_name
   end
 
   def month
     object.month.strftime("%m-%Y") if object.month
+  end
+
+  def vendor
+    object.vendor_name
   end
 end
