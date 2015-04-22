@@ -1,6 +1,6 @@
-class CreateInfo < ActiveRecord::Migration
+class CreateClientInfo < ActiveRecord::Migration
   def change
-    create_table :infos do |t|
+    create_table :client_infos do |t|
       t.references :customer, index: true
       t.string     :name
       t.string     :agreement

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421112618) do
+ActiveRecord::Schema.define(version: 20150421143226) do
 
   create_table "articles", force: true do |t|
     t.string   "name"
@@ -20,10 +20,24 @@ ActiveRecord::Schema.define(version: 20150421112618) do
     t.datetime "updated_at"
   end
 
+  create_table "client_infos", force: true do |t|
+    t.integer  "customer_id"
+    t.string   "name"
+    t.string   "agreement"
+    t.integer  "invoice_id"
+    t.string   "address"
+    t.string   "repr_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "client_infos", ["customer_id"], name: "index_client_infos_on_customer_id", using: :btree
+  add_index "client_infos", ["invoice_id"], name: "index_client_infos_on_invoice_id", using: :btree
+
   create_table "counterparties", force: true do |t|
     t.string   "name"
     t.date     "start_date"
-    t.boolean  "active",                 default: true
+    t.boolean  "active",          default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "value_payment"
@@ -32,9 +46,6 @@ ActiveRecord::Schema.define(version: 20150421112618) do
     t.integer  "customer_id"
     t.string   "email"
     t.string   "password"
-    t.string   "auth_token"
-    t.string   "password_reset_token"
-    t.datetime "password_reset_sent_at"
   end
 
   create_table "hours", force: true do |t|
@@ -48,20 +59,6 @@ ActiveRecord::Schema.define(version: 20150421112618) do
 
   add_index "hours", ["customer_id"], name: "index_hours_on_customer_id", using: :btree
   add_index "hours", ["vendor_id"], name: "index_hours_on_vendor_id", using: :btree
-
-  create_table "infos", force: true do |t|
-    t.integer  "customer_id"
-    t.string   "name"
-    t.string   "agreement"
-    t.integer  "invoice_id"
-    t.string   "address"
-    t.string   "repr_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "infos", ["customer_id"], name: "index_infos_on_customer_id", using: :btree
-  add_index "infos", ["invoice_id"], name: "index_infos_on_invoice_id", using: :btree
 
   create_table "registers", force: true do |t|
     t.date     "date"

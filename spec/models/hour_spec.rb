@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Estimate, type: :model do
+RSpec.describe Hour, type: :model do
   context "associations" do
     it { should belong_to(:customer) }
     it { should belong_to(:vendor) }
