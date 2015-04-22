@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150415142821) do
+ActiveRecord::Schema.define(version: 20150421112618) do
 
   create_table "articles", force: true do |t|
     t.string   "name"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20150415142821) do
   create_table "counterparties", force: true do |t|
     t.string   "name"
     t.date     "start_date"
-    t.boolean  "active",          default: true
+    t.boolean  "active",                 default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "value_payment"
@@ -32,9 +32,12 @@ ActiveRecord::Schema.define(version: 20150415142821) do
     t.integer  "customer_id"
     t.string   "email"
     t.string   "password"
+    t.string   "auth_token"
+    t.string   "password_reset_token"
+    t.datetime "password_reset_sent_at"
   end
 
-  create_table "estimates", force: true do |t|
+  create_table "hours", force: true do |t|
     t.integer  "vendor_id"
     t.integer  "customer_id"
     t.integer  "hours"
@@ -43,8 +46,8 @@ ActiveRecord::Schema.define(version: 20150415142821) do
     t.date     "month"
   end
 
-  add_index "estimates", ["customer_id"], name: "index_estimates_on_customer_id", using: :btree
-  add_index "estimates", ["vendor_id"], name: "index_estimates_on_vendor_id", using: :btree
+  add_index "hours", ["customer_id"], name: "index_hours_on_customer_id", using: :btree
+  add_index "hours", ["vendor_id"], name: "index_hours_on_vendor_id", using: :btree
 
   create_table "registers", force: true do |t|
     t.date     "date"

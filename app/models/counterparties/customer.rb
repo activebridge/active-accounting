@@ -1,4 +1,4 @@
 class Customer < Counterparty
   has_many :vendors
-  has_many :estimates
+  has_many :hours
 end

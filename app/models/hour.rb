@@ -1,4 +1,4 @@
-class Estimate < ActiveRecord::Base
+class Hour < ActiveRecord::Base
   belongs_to :customer
   belongs_to :vendor
 

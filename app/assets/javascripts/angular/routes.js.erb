@@ -34,14 +34,14 @@ angular.module('ActiveAccounting').config([
         resolve: Authentication,
         templateUrl: '<%= asset_path('angular/plan_registers/index.html') %>'
       })
-      .when('/report_estimates', {
+      .when('/report_hours', {
         resolve: Authentication,
-        templateUrl: '<%= asset_path('angular/report_estimates/index.html') %>',
-        controller: 'ReportEstimatesCtrl'
+        templateUrl: '<%= asset_path('angular/report_hours/index.html') %>',
+        controller: 'ReportHoursCtrl'
       })
-      .when('/estimates', {
-        templateUrl: '<%= asset_path('angular/estimates/index.html') %>',
-        controller: 'EstimatesCtrl'
+      .when('/hours', {
+        templateUrl: '<%= asset_path('angular/hours/index.html') %>',
+        controller: 'HoursCtrl'
       })
       .otherwise({ redirectTo: '/home' });
   }
