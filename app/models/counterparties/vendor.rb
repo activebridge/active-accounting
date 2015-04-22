@@ -12,8 +12,7 @@ class Vendor < Counterparty
   end
 
   def generate_token(column)
-    begin
-      self[column] = SecureRandom.urlsafe_base64
-    end while Vendor.exists?(column => self[column])
+    self[column] = SecureRandom.urlsafe_base64
+    generate_token if Vendor.exists?(column => self[column])
   end
 end
