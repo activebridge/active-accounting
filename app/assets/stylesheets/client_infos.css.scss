@@ -1,0 +1,18 @@
+.client-info-modal {
+  input {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  form { width: 100% !important; }
+
+  .btn {
+    color: black;
+    min-width: 115px;
+
+    &:hover {
+      background-color: #aaa;
+      border-color: #aaa;
+    }
+  }
+}
