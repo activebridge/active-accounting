@@ -1,4 +1,6 @@
 .panel.panel-default
+  - flash.each do |name, msg|
+    = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
   .panel-heading.text-center
     h4 Active accounting for vendors
   .row
@@ -13,4 +15,6 @@
             = label_tag 'Password'
             = text_field_tag :password, '', type: :password, class: 'form-control'
 
+          = link_to "Forgot your password?", new_vendor_password_reset_path
+          br
           = submit_tag 'Sing in'

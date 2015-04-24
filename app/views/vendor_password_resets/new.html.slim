@@ -1,0 +1,12 @@
+.panel.panel-default
+  .panel-heading.text-center
+    h4
+      | Forgot your password?
+  .row
+    .col-lg-offset-4.col-lg-4.col-lg-offset-4
+      .panel-body.edit_vendor
+        = form_tag vendor_password_resets_path, method: :post, id: :password_resets do
+          = label_tag :email
+          = text_field_tag :email, params[:email], type: :email, class: "form-control"
+          br
+          = submit_tag 'Reset Password', class: "btn btn-primary"
