@@ -1,0 +1,27 @@
+.modal.client-info-modal role="dialog" tabindex="-1" ng-controller='ClientInfosCtrl'
+  .modal-dialog
+    .modal-content
+      .modal-header ng-show="title"
+        button.close ng-click="$hide()" type="button"  &times;
+        h4.modal-title ng-bind-html="title"
+        .alert.alert-info.alert-dismissable.info-update
+          strong
+            | {{ 'success_message' | translate }}
+      .modal-body
+        form ng-submit="update(counterparty.client_info);"
+          .row
+            .col-lg-6
+              label translate='name'
+              input ng-model="counterparty.client_info.name" name='name' type="text"
+              label translate='agreement'
+              input ng-model="counterparty.client_info.agreement" name='agreement' type="text"
+              label translate='invoice'
+              input.number ng-model="counterparty.client_info.invoice_id" ng-focus='setNumeric()' maxlength='8' name='invoice_id' type="text"
+            .col-lg-6
+              label translate='address'
+              input ng-model="counterparty.client_info.address" name='address' type="text"
+              label translate='repr_name'
+              input ng-model="counterparty.client_info.repr_name" name='repr_name' type="text"
+          .modal-footer
+            button.btn.btn-primary type="submit" translate='save_changes'
+            button.btn.btn-danger ng-click="$hide()" type="button" translate='cancel'

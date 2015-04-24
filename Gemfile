@@ -43,6 +43,7 @@ group :development, :test do
   gem 'faker'
   gem 'factory_girl_rails'
   gem 'shoulda'
+  gem 'shoulda-callback-matchers'
 end
 
 group :development do

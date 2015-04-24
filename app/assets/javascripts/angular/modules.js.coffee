@@ -6,4 +6,6 @@ angular.module('accounting.services', [
   'pascalprecht.translate'
   'ngCookies'
   'angular.filter'
+  'mgcrea.ngStrap'
+  'ngAnimate'
 ])

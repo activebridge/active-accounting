@@ -62,3 +62,10 @@ angular.module('accounting.services').factory 'Hours', ['$resource', ($resource)
   , update:
     method: 'PUT'
 ]
+
+angular.module('accounting.services').factory 'ClientInfo', ['$resource', ($resource) ->
+  $resource '/client_infos/:id',
+    id: '@id'
+  , update:
+    method: 'PUT'
+]

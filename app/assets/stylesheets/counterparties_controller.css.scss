@@ -38,6 +38,7 @@ form.editable-wrap {
   color: #ff8412;
   top: 1px;
   margin: 0 5px;
+  cursor: pointer;
 }
 
 .counterparties {
@@ -129,4 +130,9 @@ form.editable-wrap {
   span.error { position: absolute; }
 
   .fa-envelope { font-size: 15px; }
+
+  .glyphicon-info-sign {
+    cursor: pointer;
+    color: blue;
+  }
 }
