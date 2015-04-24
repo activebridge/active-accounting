@@ -4,7 +4,7 @@
       .modal-header ng-show="title"
         button.close ng-click="$hide()" type="button"  &times;
         h4.modal-title ng-bind-html="title"
-        .alert.alert-info.alert-dismissable ng-show="!!message"
+        .alert.alert-info.alert-dismissable.info-update
           strong
             | {{ 'success_message' | translate }}
       .modal-body

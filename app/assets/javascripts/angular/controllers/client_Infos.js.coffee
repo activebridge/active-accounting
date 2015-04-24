@@ -5,13 +5,7 @@
     ClientInfo.update( id: clientInfo.id, {client_info: clientInfo}
       (response) ->
         d.resolve()
-        $scope.message = response
-        setTimeout (->
-          $scope.$apply ->
-            $scope.message = undefined
-            return
-          return
-        ), 4000
+        $('.info-update').fadeIn().fadeOut(4000)
       (response) ->
         d.resolve response.clientInfo.errors['clientInfo'][0]
     )
