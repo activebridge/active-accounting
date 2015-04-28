@@ -39,6 +39,11 @@ angular.module('ActiveAccounting').config([
         templateUrl: '<%= asset_path('angular/report_hours/index.html') %>',
         controller: 'ReportHoursCtrl'
       })
+      .when('/invoices', {
+        resolve: Authentication,
+        templateUrl: '<%= asset_path('angular/invoices/index.html') %>',
+        controller: 'InvoicesCtrl'
+      })
       .when('/hours', {
         templateUrl: '<%= asset_path('angular/hours/index.html') %>',
         controller: 'HoursCtrl'

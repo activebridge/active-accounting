@@ -1,0 +1,594 @@
+meta charset="utf-8"
+= wicked_pdf_stylesheet_link_tag "pdf"
+table#pdf-invoice-table border="0" cellspacing="0" cols="7" frame="VOID" rules="NONE"
+  colgroup
+    col width="60"
+    col width="299"
+    col width="24"
+    col width="169"
+    col width="96"
+    col width="100"
+    col width="106"
+  tbody
+    tr
+      td align="CENTER" bgcolor="#FFFFFF" height="17" sdnum="1033;" sdval="29" valign="BOTTOM" width="60"
+        b
+          font color="#FFFFFF" face="Arial"  29
+      td align="LEFT" valign="BOTTOM" width="299"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM" width="24"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM" width="169"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM" width="96"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM" width="100"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM" width="106"
+        font color="#000000" face="Arial"
+          br
+    tr
+      td align="LEFT" height="48" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" colspan="3" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS") size="4"  Active Bridge, LLC
+      td align="RIGHT" colspan="3" valign="BOTTOM"
+        b
+          font color="#8394C9" face=("Trebuchet MS") size="6"  INVOICE
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" rowspan="3" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          | EDRPOU Code: 38988046
+          br>
+          | 18000, Cherkasy, 137 Gogolya Street, Ukraine
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" bgcolor="#FFFFFF" valign="BOTTOM"
+        font color="#FFFFFF" face=("Trebuchet MS")  041414
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")  DATE:
+      td align="CENTER" bgcolor="#C6D9F0" sdnum="1033;0;MDYYYY" sdval="41790" style=("border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000") valign="BOTTOM"
+        font face=("Trebuchet MS")
+          = Time.current.strftime("%m/%d/%Y")
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="RIGHT" sdnum="1033;" sdval="5" valign="BOTTOM"
+        font color="#FFFFFF" face=("Trebuchet MS")  5
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")  INVOICE #
+      td align="CENTER" bgcolor="#C6D9F0" style=("border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000") valign="BOTTOM"
+        font face=("Trebuchet MS")
+          = "#{@customer.client_info_invoice_id}-0#{@invoice_number}"
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        b
+          font color="#000000" face=("Trebuchet MS")  DUE DATE
+      td align="CENTER" bgcolor="#C6D9F0" sdnum="1033;0;MDYYYY" sdval="42170" style=("border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000") valign="BOTTOM"
+        font face=("Trebuchet MS")
+          = 14.days.from_now.strftime("%m/%d/%Y")
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" style=("border-top: 1px solid #000000") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" bgcolor="#3B4E87" style=("border-bottom: 1px solid #000000") valign="BOTTOM"
+        font color="#FFFFFF" face=("Trebuchet MS")  BILL TO:
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" style=("border-top: 1px solid #000000") valign="BOTTOM"
+        font face=("Trebuchet MS")
+          = @customer.client_info_repr_name
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font face=("Trebuchet MS")
+          = @customer.client_info_name
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" rowspan="2" valign="BOTTOM"
+        font face=("Trebuchet MS")
+          = @customer.client_info_address
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+    tr
+      td align="LEFT" height="12" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#FFFFFF" face=("Trebuchet MS")  294179042170
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+    tr
+      td align="LEFT" height="11" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+      td align="RIGHT" sdnum="1033;" sdval="294179042171" valign="BOTTOM"
+        font color="#FFFFFF" face=("Trebuchet MS")  294179042171
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+    tr
+      td align="LEFT" height="8" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+      td align="RIGHT" sdnum="1033;" sdval="294179042172" valign="BOTTOM"
+        font color="#FFFFFF" face=("Trebuchet MS")  294179042172
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+    tr
+      td align="LEFT" height="8" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+      td align="RIGHT" sdnum="1033;" sdval="294179042173" valign="BOTTOM"
+        font color="#FFFFFF" face=("Trebuchet MS")  294179042173
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+    tr
+      td align="LEFT" height="8" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+      td align="RIGHT" sdnum="1033;" sdval="294179042174" valign="BOTTOM"
+        font color="#FFFFFF" face=("Trebuchet MS")  294179042174
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+    tr
+      td align="LEFT" height="8" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+      td align="RIGHT" sdnum="1033;" sdval="294179042175" valign="BOTTOM"
+        font color="#FFFFFF" face=("Trebuchet MS")  294179042175
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="CENTER" bgcolor="#3B4E87" colspan="3" style=("border-bottom: 1px solid #000000") valign="BOTTOM"
+        font color="#FFFFFF" face=("Trebuchet MS")  DESCRIPTION
+      td align="CENTER" bgcolor="#3B4E87" style=("border-bottom: 1px solid #000000") valign="BOTTOM"
+        font color="#FFFFFF" face=("Trebuchet MS")  HOURS
+      td align="CENTER" bgcolor="#3B4E87" style=("border-bottom: 1px solid #000000") valign="BOTTOM"
+        font color="#FFFFFF" face=("Trebuchet MS")  RATE
+      td align="CENTER" bgcolor="#3B4E87" style=("border-bottom: 1px solid #000000") valign="BOTTOM"
+        font color="#FFFFFF" face=("Trebuchet MS")  AMOUNT
+    = render partial: "invoices/vendor_list.htm" , collection: @hours, as: :hour
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="CENTER" colspan="3" style=("border-top: 1px solid #000000") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" style=("border-top: 1px solid #000000") valign="BOTTOM"
+        font color="#FFFFFF" face=("Trebuchet MS")  [42]
+      td align="LEFT" style=("border-top: 1px solid #000000") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")  SUBTOTAL
+      td align="RIGHT" bgcolor="#E4E8F3" sdnum="1033;0;\\$#,##0.00;&quot;$(&quot;#,##0.00\\)" sdval="4040" style=("border-top: 1px solid #000000") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          = @total_money
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" bgcolor="#3B4E87" colspan="3" style=("border-bottom: 1px solid #000000") valign="BOTTOM"
+        font color="#FFFFFF" face=("Trebuchet MS")  INVOICE COMMENTS
+      td align="LEFT" style=("border-left: 1px solid #000000") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")  TAX RATE
+      td align="RIGHT" sdnum="1033;0;0.000%" sdval="0" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")  0.000%
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" colspan="3" style=("border-top: 1px solid #000000; border-left: 1px solid #666666; border-right: 1px solid #666666") valign="MIDDLE"
+        font color="#000000" face=("Trebuchet MS")  1. Total payment due in 14 days
+      td align="LEFT" style=("border-left: 1px solid #666666") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")  TAX
+      td align="RIGHT" bgcolor="#E4E8F3" sdnum="1033;0;\\$#,##0.00;&quot;$(&quot;#,##0.00\\)" sdval="0" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")  $0.00
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" colspan="3" style=("border-left: 1px solid #666666; border-right: 1px solid #666666") valign="MIDDLE"
+        font color="#000000" face=("Trebuchet MS")  2. Please provide description in your payment
+      td align="LEFT" style=("border-left: 1px solid #666666") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" style=("border-bottom: 1px solid #000000") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")  OTHER
+      td align="RIGHT" sdnum="1033;0;\\$#,##0.00;&quot;$(&quot;#,##0.00\\)" sdval="0" style=("border-bottom: 1px solid #000000") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")  $0.00
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" colspan="3" style=("border-left: 1px solid #666666; border-right: 1px solid #666666") valign="TOP"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" style=("border-left: 1px solid #666666") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" style=("border-top: 1px solid #000000") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")  TOTAL
+      td align="RIGHT" bgcolor="#E4E8F3" sdnum="1033;0;\\$#,##0.00;&quot;$(&quot;#,##0.00\\)" sdval="4040" style=("border-top: 1px solid #000000") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          = @total_money
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" colspan="3" style=("border-left: 1px solid #666666; border-right: 1px solid #666666") valign="TOP"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" style=("border-left: 1px solid #666666") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" colspan="3" style=("border-bottom: 1px solid #666666; border-left: 1px solid #666666; border-right: 1px solid #666666") valign="TOP"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" style=("border-left: 1px solid #666666") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="CENTER" colspan="2" valign="TOP"
+        font color="#000000" face=("Trebuchet MS")
+          br
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+      td align="LEFT" style=("border-top: 1px solid #666666") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" style=("border-top: 1px solid #666666") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" style=("border-top: 1px solid #666666") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td.font-size align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")  CEO: Ievgenii O. Korpan
+      td align="LEFT" style=("border-bottom: 1px solid #000000") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" style=("border-bottom: 1px solid #000000") valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" style=("border-top: 1px solid #000000") valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+      td align="LEFT" style=("border-top: 1px solid #000000") valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="LEFT" valign="BOTTOM"
+        font color="#000000" face="Arial"
+          br
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td.font-size align="CENTER" colspan="6" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")  If you have any questions about this invoice, please contact
+    tr
+      td align="LEFT" height="20" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td.font-size align="CENTER" colspan="7" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")  Ievgenii Korpan, +380977535731, eugene@active-bridge.com
+    tr
+      td align="LEFT" height="24" valign="BOTTOM"
+        font color="#000000" face=("Trebuchet MS")
+          br
+      td align="CENTER" colspan="6" valign="BOTTOM"
+        b
+          i
+            font color="#000000" face=("Trebuchet MS") size="3"  Thank You For Your Business!

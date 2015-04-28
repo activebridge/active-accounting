@@ -8,4 +8,5 @@ angular.module('accounting.services', [
   'angular.filter'
   'mgcrea.ngStrap'
   'ngAnimate'
+  'ui.bootstrap.buttons'
 ])

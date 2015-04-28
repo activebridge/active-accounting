@@ -16,4 +16,8 @@ class Hour < ActiveRecord::Base
     where("extract(year from month) = ?", Date.current.year)
     select("month(month) as month, sum(hours) as total_hours").group(:month)
   }
+
+  scope :by_customer, -> (id) {
+    where(customer_id: id) if id
+  }
 end

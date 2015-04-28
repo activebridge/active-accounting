@@ -1,0 +1,72 @@
+table#invoice-table border="0" cellspacing="0" cols="6"
+  colgroup width="243"
+  colgroup width="29"
+  colgroup width="160"
+  colgroup width="57"
+  colgroup width="97"
+  colgroup width="113"
+
+  tr
+    td align="CENTER" bgcolor="#3B4E87" colspan="3" height="20" style="border-bottom: 1px solid #000000" valign="BOTTOM"
+      b
+        font color="#FFFFFF" face="Trebuchet MS" translate='Vendors'
+    td align="CENTER" bgcolor="#3B4E87" style="border-bottom: 1px solid #000000" valign="BOTTOM"
+      b
+        font color="#FFFFFF" face="Trebuchet MS" translate='hours'
+    td align="CENTER" bgcolor="#3B4E87" style="border-bottom: 1px solid #000000" valign="BOTTOM"
+      b
+        font color="#FFFFFF" face="Trebuchet MS" translate='rate'
+    td align="CENTER" bgcolor="#3B4E87" style="border-bottom: 1px solid #000000" valign="BOTTOM"
+      b
+        font color="#FFFFFF" face="Trebuchet MS" translate='totall'
+  tr ng-repeat="hour in hours"
+    td align="LEFT" colspan="3" height="20" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" valign="BOTTOM"
+      font color="#000000" face="Trebuchet MS"
+        | {{hour.vendor}}
+    td align="CENTER" sdnum="1033;" sdval="152" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" valign="BOTTOM"
+      font color="#000000" face="Trebuchet MS"
+        | {{hour.hours}}
+    td align="CENTER" sdnum="1033;0;&quot;$&quot;#,##0.00" sdval="15" style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" valign="BOTTOM"
+      font color="#000000" face="Trebuchet MS"
+        | ${{ customer.value_payment || 0 }}
+    td align="RIGHT" bgcolor="#E4E8F3" sdnum="1033;0;#,##0.00;(#,##0.00)" sdval="2280" style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" valign="BOTTOM"
+      font color="#000000" face="Trebuchet MS"
+        | ${{hour.hours * customer.value_payment}}
+  tr
+    td align="CENTER" colspan="3" height="20" style="border-top: 1px solid #000000" valign="BOTTOM"
+      font color="#000000" face="Trebuchet MS"
+        br
+    td align="LEFT" style="border-top: 1px solid #000000" valign="BOTTOM"
+      font color="#FFFFFF" face="Trebuchet MS"
+    td align="LEFT" style="border-top: 1px solid #000000" valign="BOTTOM"
+      font color="#000000" face="Trebuchet MS" translate='subtotal'
+    td align="RIGHT" bgcolor="#E4E8F3" sdnum="1033;0;&quot;$&quot;#,##0.00;&quot;$&quot;(#,##0.00)" sdval="5130" style="border-top: 1px solid #000000" valign="BOTTOM"
+      font color="#000000" face="Trebuchet MS"
+        | ${{total}}
+  tr
+    td align="LEFT" colspan="4" height="20"
+    td align="LEFT" valign="BOTTOM"
+      font color="#000000" face="Trebuchet MS" translate='tax_rate'
+    td align="RIGHT" sdnum="1033;0;0.000%" sdval="0" valign="BOTTOM"
+      font color="#000000" face="Trebuchet MS"  0.000%
+  tr
+    td align="LEFT" colspan="4" height="20"
+    td align="LEFT" valign="BOTTOM"
+      font color="#000000" face="Trebuchet MS" translate='rate'
+    td align="RIGHT" bgcolor="#E4E8F3" sdnum="1033;0;&quot;$&quot;#,##0.00;&quot;$&quot;(#,##0.00)" sdval="0" valign="BOTTOM"
+      font color="#000000" face="Trebuchet MS"  $0.00
+  tr
+    td align="LEFT" colspan="4" height="20"
+    td align="LEFT" style="border-bottom: 1px solid #000000" valign="BOTTOM"
+      font color="#000000" face="Trebuchet MS" translate='other'
+    td align="RIGHT" sdnum="1033;0;&quot;$&quot;#,##0.00;&quot;$&quot;(#,##0.00)" sdval="0" style="border-bottom: 1px solid #000000" valign="BOTTOM"
+      font color="#000000" face="Trebuchet MS"  $0.00
+  tr
+    td align="LEFT" colspan="4" height="20"
+    td align="LEFT" style="border-top: 1px solid #000000" valign="BOTTOM"
+      b
+        font color="#000000" face="Trebuchet MS"  translate='totall'
+    td align="RIGHT" bgcolor="#E4E8F3" sdnum="1033;0;&quot;$&quot;#,##0.00;&quot;$&quot;(#,##0.00)" sdval="5130" style="border-top: 1px solid #000000" valign="BOTTOM"
+      b
+        font color="#000000" face="Trebuchet MS"
+          | ${{ total }}

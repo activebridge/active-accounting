@@ -19,10 +19,18 @@ app.directive "editRegister", ->
 
 app.config ['$translateProvider', ($translateProvider) ->
   $translateProvider.translations "en",
+    other: 'OTHER'
+    tax: 'TAX'
+    tax_rate: 'TAX RATE'
+    subtotal: 'SUBTOTAL'
+    rate: 'Rate'
+    savePdf: 'Export to PDF'
+    create: 'Create'
+    invoices: 'Invoices'
     success_message: 'Changes saved successfully!'
     address: 'Address'
     agreement: 'Agreement'
-    invoice: '№ invoice'
+    invoice: 'Invoice'
     repr_name: 'Name of Person Responsible'
     editClientInfo: 'Edit customer information'
     totalHours: 'Total hours'
@@ -108,9 +116,17 @@ app.config ['$translateProvider', ($translateProvider) ->
     activity: 'Activity'
 
   $translateProvider.translations "uk",
+    other: 'Інші'
+    tax: 'Податок'
+    subtotal: 'Разом'
+    tax_rate: 'Ставка податку'
+    rate: 'Ставка'
+    savePdf: 'Експорт в PDF'
+    create: 'Створити'
+    invoices: 'Рахунки'
     success_message: 'Зміни успішно збережені!'
     agreement: 'Угода'
-    invoice: '№ рахунку'
+    invoice: 'Рахунок'
     address: 'Адреса'
     editClientInfo: 'Редагувати інформацію про клієнта'
     repr_name: "Ім'я відвовідальної особи"

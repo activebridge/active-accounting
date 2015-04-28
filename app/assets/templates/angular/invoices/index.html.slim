@@ -1,0 +1,22 @@
+ng-include src='"#{asset_path('angular/shared/header.html')}"'
+.row
+  .col-lg-3.margin-left-20
+    select.custumers ng-model="params.customer_id"
+      option ng-repeat="customer in customers" value="{{customer.id}}"
+        | {{customer.name}}
+    button.margin-left-10 translate='create' ng-show='params.customer_id' ng-click='createInvoise()'
+    .text-center.calendar.width-320
+      .btn-group
+        label ng-repeat='month in months' class="btn btn-danger" ng-model="$parent.params.month" btn-radio="'{{$index + 1 + "/" + currentYear}}'" ng-init="clicked = currentMonth ==  $index + 1 " ng-class="{ 'active': clicked }"
+          | {{ month }}
+  .col-lg-7
+    ng-include#invoices src='"#{asset_path('angular/invoices/invoice.html')}"' ng-show='hours.length > 0'
+    .info-alas ng-hide='hours.length>0 || !hours'
+      br
+      .alert.alert-info.alert-dismissable
+        strong
+          | {{ 'alas' | translate }}
+        | {{ 'info_not_found' | translate }}
+  .col-lg-1
+    a href='/invoices/{{params.customer_id}}?month={{params.month}}' target="_parent" data-method='get' ng-show='hours.length > 0'
+      button translate='savePdf'

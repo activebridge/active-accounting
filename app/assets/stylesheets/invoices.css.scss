@@ -1,0 +1,11 @@
+#invoices {
+  #invoice-table {
+    tr, td, th { height: 20px; }
+  }
+
+  table.ng-scope tr:nth-child(even) {
+    background-color: white;
+    border-spacing: 0;
+    font-size: 12px;
+  }
+}
