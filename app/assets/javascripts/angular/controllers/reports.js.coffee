@@ -173,6 +173,9 @@
     $scope.funcPlan.show[curr_date.getMonth()] = false
 
     $scope.load(value)
+    $scope.workDays = workingDays.loadWorkDay(value, $scope.months)
 
   $("input.value").numeric({ decimalPlaces: 2 })
+
+  $scope.workDays = workingDays.loadWorkDay($scope.CheckedYear, $scope.months)
 ]
