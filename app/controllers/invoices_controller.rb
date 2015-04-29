@@ -15,7 +15,8 @@ class InvoicesController < ApplicationController
   def invoice_number(customer)
     start_date = customer.start_date
     invoice_date = params[:month].to_date
-    ((invoice_date.year * 12 + invoice_date.month) - (start_date.year * 12 + start_date.month)) + 1
+    number_of_months = 12
+    ((invoice_date.year * number_of_months + invoice_date.month) - (start_date.year * number_of_months + start_date.month)) + 1
   end
 
   def total_money(customer, hours)
