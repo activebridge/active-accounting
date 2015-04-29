@@ -2,7 +2,7 @@ class HoursController < VendorApplicationController
   before_action :find_hour, only: [:destroy, :update]
 
   def index
-    json = ActiveModel::ArraySerializer.new(all_hours.by_month(params[:month]),
+    json = ActiveModel::ArraySerializer.new(all_hours.by_customer(params[:customer_id]).by_month(params[:month]),
                                             each_serializer: HourSerializer)
     render json: json, status: 200
   end

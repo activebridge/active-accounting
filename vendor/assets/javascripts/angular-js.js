@@ -5,3 +5,4 @@
 //= require angular-js/angular-filter.min
 //= require angular-js/angular-strap.min
 //= require angular-js/angular-animate.min
+//= require angular-js/buttons

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resources :plan_registers
     resources :invitations
     resources :client_infos, only: :update
+    resources :invoices, only: :show
 
     resources :reports do
       collection do

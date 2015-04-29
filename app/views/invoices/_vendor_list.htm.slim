@@ -1,0 +1,17 @@
+tr
+  td align="LEFT" height="20" valign="BOTTOM"
+    font color="#000000" face="Trebuchet MS"
+      br
+  td align="LEFT" colspan="3" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" valign="BOTTOM"
+    font face="Trebuchet MS"
+      | Ruby on Rails developer
+  td align="CENTER" sdnum="1033;0;_-* #),##0.00_р_._-;-* #,##0.00_р_._-;_-* -??_р_._-;_-@" sdval="168" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" valign="BOTTOM"
+    font face="Trebuchet MS"
+      = hour.hours
+  td align="CENTER" sdnum="1033;0;_-[$$-409]* #),##0.00_ ;_-[$$-409]* -#,##0.00 ;_-[$$-409]* -??_ ;_-@_ " sdval="10" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" valign="BOTTOM"
+    font face="Trebuchet MS"
+      = "$#{@customer.value_payment}"
+  td.border align="RIGHT" bgcolor="#E4E8F3" sdnum="1033;0;_-* #),##0.00_р_._-;-* #,##0.00_р_._-;_-* -??_р_._-;_-@" sdval="1680" style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" valign="BOTTOM"
+    font face="Trebuchet MS"
+      -if @customer.value_payment
+        = hour.hours * @customer.value_payment

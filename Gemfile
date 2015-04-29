@@ -32,6 +32,8 @@ gem 'font-awesome-rails'
 gem 'jquery-validation-rails'
 gem 'devise'
 gem 'angular_rails_csrf'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary-edge'
 
 group :development, :test do
   gem 'pry'
@@ -44,6 +46,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'shoulda'
   gem 'shoulda-callback-matchers'
+  gem 'shoulda-matchers'
 end
 
 group :development do
