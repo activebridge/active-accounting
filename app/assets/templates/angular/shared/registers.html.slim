@@ -98,19 +98,19 @@
       h4.name_block
         | {{ 'count_without_pay' | translate }}
       span.list_count
-      table.table.table-striped
-        tr
-          th
-            | {{ 'counterparties' | translate }}
-          th.width_35
-            | {{ 'monthly_payment' | translate }}
-        tr ng-repeat="counterparties in counterpartiesWithoutPay"
-          td
-            | {{counterparties.name}}
-          td.text_right.width_35
-            | {{counterparties.value_payment}}
-      button.icon-button ng-click="showlistCount = !showlistCount" title="{{ 'closed' | translate }}" type="button"
-        span.glyphicon.glyphicon-remove
+        table.table.table-striped
+          tr
+            th
+              | {{ 'counterparties' | translate }}
+            th.width_35
+              | {{ 'monthly_payment' | translate }}
+          tr ng-repeat="counterparties in counterpartiesWithoutPay"
+            td
+              | {{counterparties.name}}
+            td.text_right.width_35
+              | {{counterparties.value_payment}}
+          button.icon-button ng-click="showlistCount = !showlistCount" title="{{ 'closed' | translate }}" type="button"
+            span.glyphicon.glyphicon-remove
     table.ng-scope.register ng-show="registers.length>0"
       tr
         th.date
