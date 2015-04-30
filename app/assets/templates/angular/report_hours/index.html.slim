@@ -23,11 +23,11 @@ ng-include src='"#{asset_path('angular/shared/header.html')}"'
           | {{ 'info_not_found' | translate }}
 
       div ng-repeat='(key, value) in hours | groupBy:"customer"'
-        b.customer_group.text-center ng-init='groupSuma = sumByGroup(value);'
+        b.customer_group.text-center
           | {{ key }}
           br
           i
-            | ({{ 'totalHours' | translate }}: {{ groupSuma }})
+            | ({{ 'totalHours' | translate }}: {{ sumByGroup(value) }})
         table
           tr ng-repeat='hour in value' ng-init='hours.total.hours =  hours.total.hours + hour.hours'
             td

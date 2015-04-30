@@ -10,10 +10,9 @@
     $scope.hours = Hours.query(month: $scope.filter)
 
     $scope.sumByGroup =(array) ->
-      if array.length > 1
-        array.reduce (a, b) ->
-          a.hours + b.hours
-      else
-        array[0].hours
+      total = 0
+      $.each array, ->
+        total = total + @hours
+      return total
   $scope.changeMonth()
 ]
