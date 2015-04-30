@@ -69,3 +69,12 @@ angular.module('accounting.services').factory 'ClientInfo', ['$resource', ($reso
   , update:
     method: 'PUT'
 ]
+
+angular.module('accounting.services').factory 'VendorChangePassword', ['$resource', ($resource) ->
+  $resource '/vendor_password_resets/:action',
+    id: '@id'
+  , change_password:
+    method: 'POST',
+    params:
+      action: 'change_password'
+]
