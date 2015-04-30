@@ -4,6 +4,6 @@ class InvitationMailer < ActionMailer::Base
   def create_invite_for_vendor(user, password)
     @user = user
     @password = password
-    mail(to: user.email, subject: 'Запрошення на управління естімейтами').deliver!
+    mail(to: user.email, subject: 'Запрошення на управління годинами').deliver!
   end
 end
