@@ -19,6 +19,11 @@ app.directive "editRegister", ->
 
 app.config ['$translateProvider', ($translateProvider) ->
   $translateProvider.translations "en",
+    password_error: 'Current password incorrect'
+    current_pass: 'Current password'
+    new_password: 'New password'
+    confirmation_pass: 'Password confirmation'
+    change_pass: 'Change Password'
     other: 'OTHER'
     tax: 'TAX'
     tax_rate: 'TAX RATE'
@@ -116,6 +121,11 @@ app.config ['$translateProvider', ($translateProvider) ->
     activity: 'Activity'
 
   $translateProvider.translations "uk",
+    password_error : 'Невірний поточний пароль!'
+    current_pass : "Поточний пароль"
+    new_password : "Новий пароль "
+    confirmation_pass : "Підтвердження нового пароля "
+    change_pass: 'Змінити пароль'
     other: 'Інші'
     tax: 'Податок'
     subtotal: 'Разом'
