@@ -5,8 +5,7 @@
 .hours
   .row
     .col-lg-3.text-center.calendar
-      b
-        | Календар по годиннам
+      b translate='hours_calendar'
       br
       .btn-group data-toggle="buttons"
         .btn.btn-primary.col-lg-3 ng-repeat='hours in hoursByMonths' ng-init="clicked = selectedMonth == hours.month" ng-class="{ 'active': clicked }" ng-click='changeMonth(hours.month)'
@@ -15,8 +14,7 @@
             br
               | ({{ hours.total_hours }})
     .col-lg-6
-      h1
-        | Управління власними естімейтами
+      h1 translate='management_hours'
       .form
         form#hours_form ng-submit="add()"
           .row
