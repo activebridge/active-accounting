@@ -6,4 +6,15 @@
 
     i { font-weight: normal; }
   }
+
+  tr {
+    height: 40px;
+    &:hover {
+      .hidde {
+        display: inline-table;
+      }
+    }
+  }
+
+  .icon { display: inline-flex; }
 }

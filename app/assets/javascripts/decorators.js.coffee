@@ -97,3 +97,33 @@ angular.module('accounting.services').factory 'registerDecorator', ["$rootScope"
 
     $scope.setMonthPicker()
 ]
+
+angular.module('accounting.services').factory 'hourDecorator', ["$q", 'Hours', ($q, Hours) ->
+  ($scope) ->
+    $scope.updateHours = (hour_id, data, successFunction) ->
+      d = $q.defer()
+      Hours.update( id: hour_id, {hour: { hours: data.hours } }
+        (response) ->
+          d.resolve()
+          successFunction
+        (response) ->
+          d.resolve response.data.errors['hours'][0]
+      )
+      return d.promise
+
+    $scope.delete = (hours_id, index, successFunction) ->
+      if confirm('Впевнений?')
+        Hours.delete
+          id: hours_id
+        , (success) ->
+          $scope.hours.splice(index,1)
+          successFunction
+          return
+
+    $scope.setNumeric = ->
+      $('.number').numeric
+        negative: false
+        decimal: false
+      $('.number').attr('maxlength', '3')
+    $scope.setNumeric()
+]
