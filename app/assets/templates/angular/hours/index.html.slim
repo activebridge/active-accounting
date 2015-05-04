@@ -44,7 +44,7 @@
 
         .row.show_button ng-repeat="hour in hours"
           .col-lg-4
-            | {{ hour.customer }}
+            | {{ hour.customer.name }}
           .col-lg-4
             span href='#' editable-text='hour.hours' e-class='number' e-ng-focus="setNumeric();" e-name="hours" e-form='rowform'
               | {{ hour.hours }}

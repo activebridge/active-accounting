@@ -22,9 +22,10 @@ ng-include src='"#{asset_path('angular/shared/header.html')}"'
             | {{ 'alas' | translate }}
           | {{ 'info_not_found' | translate }}
 
-      div ng-repeat='(key, value) in hours | groupBy:"customer"'
+      div ng-repeat='(key, value) in hours | groupBy:"customer.name"'
         b.customer_group.text-center
-          | {{ key }}
+          a href='/#/invoices/?month={{filter}}&customer_id={{value[0].customer.id}}'
+            | {{ key }}
           br
           i
             | ({{ 'totalHours' | translate }}: {{ sumByGroup(value) }})

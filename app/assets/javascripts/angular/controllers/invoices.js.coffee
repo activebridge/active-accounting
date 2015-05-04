@@ -1,4 +1,5 @@
-@InvoicesCtrl = ['$scope', 'Hours', 'Counterparty', '$translate', ($scope, Hours, Counterparty, $translate) ->
+@InvoicesCtrl = ['$scope', 'Hours', 'Counterparty', '$translate', '$routeParams', ($scope, Hours, Counterparty, $translate, $routeParams) ->
+
   $scope.params = {
     month: moment().format('MM/YYYY')
   }
@@ -13,7 +14,9 @@
     scope: 'active'
     group: 'Customer'
     () ->
-      $('select.custumers').select2({width: '179px', minimumResultsForSearch: '5'})
+      unless $.isEmptyObject($routeParams)
+        $scope.params = $routeParams
+        $scope.createInvoise()
 
   $scope.createInvoise = ->
     $.each $scope.customers, ->
@@ -29,4 +32,9 @@
             $scope.total = $scope.total + (@hours * $scope.customer.value_payment)
         else
           $scope.total = $scope.total + ($scope.hours[0].hours * $scope.customer.value_payment) if $scope.hours.length > 0
+
+  $scope.setSelect2 = ->
+    $('select.custumers').select2({width: '179px', minimumResultsForSearch: '5'})
+    $('#month_' + parseInt($scope.params.month.slice(0,2))).addClass('active')
+    return
 ]

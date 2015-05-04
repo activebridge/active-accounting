@@ -2,7 +2,7 @@ class HourSerializer < ActiveModel::Serializer
   attributes :id, :customer, :hours, :month, :vendor
 
   def customer
-    object.customer_name
+    CustomerSerializer.new(object.customer)
   end
 
   def month
