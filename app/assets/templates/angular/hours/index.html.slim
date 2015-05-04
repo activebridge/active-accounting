@@ -32,8 +32,8 @@
             .col-lg-4
               span.error
                 | {{newHours.errors.customer_id[0]}}
-              select.hours.clear_after_add ng-model="newHour.customer_id"
-                option ng-repeat="customer in customers" value="{{customer.id}}"
+              select.width-200.hours.clear_after_add ng-model="newHour.customer_id"
+                option ng-repeat='customer in customers' value='{{ customer.id }}' ng-selected='{{ default_customer.id == customer.id }}' init-select2='setSelect2()'
                   | {{customer.name}}
             .col-lg-4
               input.number ng-model="newHour.hours" type="text" name='hours' maxlength='3'

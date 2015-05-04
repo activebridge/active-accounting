@@ -1,5 +1,12 @@
 app = angular.module('ActiveAccounting', ['accounting.services'])
 
+app.directive 'initSelect2', ($timeout) ->
+  restrict: 'A'
+  link: (scope, element, attr) ->
+    if scope.$last
+      scope.$evalAsync attr.initSelect2
+    return
+
 app.directive "repeatComplete", ->
   (scope, element, attrs) ->
     if (scope.$last || scope.$index == 0)
