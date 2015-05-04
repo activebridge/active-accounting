@@ -51,6 +51,7 @@ Rails.application.routes.draw do
 
     resources :hours do
       collection do
+        get :default_customer
         get :customers
         get :total_hours
       end

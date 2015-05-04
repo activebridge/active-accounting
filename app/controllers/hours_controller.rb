@@ -33,6 +33,10 @@ class HoursController < VendorApplicationController
     render json: Customer.by_active(params[:scope])
   end
 
+  def default_customer
+    render json: { id: current_vendor.customer_id }
+  end
+
   def total_hours
     render json: current_vendor.hours.hours_by_month.to_json, status: 200
   end

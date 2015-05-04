@@ -7,6 +7,7 @@
   curr_date = new Date()
   $scope.currentYear = curr_date.getFullYear()
   $scope.currentMonth = curr_date.getMonth() + 1
+  $scope.newHour.month = moment().format('MM/YYYY')
 
   $scope.addBlankValues = (array) ->
     if array.length < 12
@@ -32,6 +33,8 @@
         0
     return array
 
+  $scope.default_customer = Hours.default_customer()
+
   $scope.LoadHours = ->
     Hours.total_hours (response) ->
       $scope.hoursByMonths = $scope.addBlankValues(response)
@@ -50,17 +53,14 @@
       () ->
         if parseInt(hour.month.slice(0,2)) == $scope.selectedMonth
           $scope.hours.unshift(hour)
-        $scope.newHour = {}
-        $('select.hours').select2('val', '')
+        $scope.newHour.hours = ''
         $scope.LoadHours()
+        $scope.newHour.month = moment().format('MM/YYYY')
       (response) ->
         $scope.newHour.errors = response.data.error
     )
 
-  $scope.customers = Hours.customers
-    scope: 'active'
-    () ->
-      $('select.hours').select2({width: '200px'})
+  $scope.customers = Hours.customers(scope: 'active')
 
   $scope.delete = (hours_id, index) ->
     if confirm('Впевнений?')
@@ -99,4 +99,8 @@
         d.resolve response.data.errors['hours'][0]
     )
     return d.promise
+
+  $scope.setSelect2 = ->
+    $('select.hours').select2()
+    $scope.newHour.customer_id = $scope.default_customer.id
 ]
