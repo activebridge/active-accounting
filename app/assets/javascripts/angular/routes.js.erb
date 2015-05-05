@@ -44,6 +44,11 @@ angular.module('ActiveAccounting').config([
         templateUrl: '<%= asset_path('angular/invoices/index.html') %>',
         controller: 'InvoicesCtrl'
       })
+      .when('/holidays', {
+        resolve: Authentication,
+        templateUrl: '<%= asset_path('angular/holidays/index.html') %>',
+        controller: 'HolidaysCtrl'
+      })
       .when('/hours', {
         templateUrl: '<%= asset_path('angular/hours/index.html') %>',
         controller: 'HoursCtrl'

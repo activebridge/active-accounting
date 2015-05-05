@@ -26,6 +26,8 @@ app.directive "editRegister", ->
 
 app.config ['$translateProvider', ($translateProvider) ->
   $translateProvider.translations "en",
+    list_holidays: 'List of our holidays for'
+    holidays: 'Holidays'
     password_error: 'Current password incorrect'
     current_pass: 'Current password'
     new_password: 'New password'
@@ -92,6 +94,7 @@ app.config ['$translateProvider', ($translateProvider) ->
     save_changes: "Save changes"
     month_all: "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
     year: "Year"
+    yearSmall: 'year'
     nextYear: "Next Year"
     prevYear: "Previous Year"
     jumpYears: "Jump Years"
@@ -130,6 +133,8 @@ app.config ['$translateProvider', ($translateProvider) ->
     activity: 'Activity'
 
   $translateProvider.translations "uk",
+    list_holidays: 'Список наших свят на'
+    holidays: 'Свята'
     password_error : 'Невірний поточний пароль!'
     current_pass : "Поточний пароль"
     new_password : "Новий пароль "
@@ -196,6 +201,7 @@ app.config ['$translateProvider', ($translateProvider) ->
     save_changes: "Зберегти зміни"
     month_all: "Січ,Лют,Бер,Кві,Тра,Чер,Лип,Сер,Вер,Жов,Лис,Гру"
     year: "Рік"
+    yearSmall: 'рік'
     nextYear: "Наступний рік"
     prevYear: "Попередній рік"
     jumpYears: "Вибрати рік"

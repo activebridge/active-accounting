@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     resources :invitations
     resources :client_infos, only: :update
     resources :invoices, only: :show
+    resources :holidays
 
     resources :reports do
       collection do
