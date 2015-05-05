@@ -1,7 +1,7 @@
 'use strict';
 
 var Authentication = { auth: ['Auth', function(Auth) {
-                       Auth.currentUser().then((function(user) {}), function(error) { window.location.replace('vendor_profile#/estimates'); }); }]}
+                       Auth.currentUser().then((function(user) {}), function(error) { window.location.replace('vendor_profile#/hours'); }); }]}
 
 angular.module('ActiveAccounting').config([
   '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
