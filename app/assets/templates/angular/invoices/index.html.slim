@@ -2,12 +2,12 @@ ng-include src='"#{asset_path('angular/shared/header.html')}"'
 .row
   .col-lg-3.margin-left-20
     select.custumers ng-model="params.customer_id"
-      option ng-repeat="customer in customers" value="{{customer.id}}"
+      option ng-repeat="customer in customers" value="{{customer.id}}" ng-selected='{{ params.customer_id == customer.id }}' init-select2='setSelect2()'
         | {{customer.name}}
     button.margin-left-10 translate='create' ng-show='params.customer_id' ng-click='createInvoise()'
     .text-center.calendar.width-320
       .btn-group
-        label ng-repeat='month in months' class="btn btn-danger" ng-model="$parent.params.month" btn-radio="'{{$index + 1 + "/" + currentYear}}'" ng-init="clicked = currentMonth ==  $index + 1 " ng-class="{ 'active': clicked }"
+        label ng-repeat='month in months' id='month_{{$index + 1}}' class="btn btn-danger" ng-model="$parent.params.month" btn-radio="'{{$index + 1 + "/" + currentYear}}'" ng-init="clicked = currentMonth ==  $index + 1 " ng-class="{ 'active': clicked }"
           | {{ month }}
   .col-lg-7
     ng-include#invoices src='"#{asset_path('angular/invoices/invoice.html')}"' ng-show='hours.length > 0'
