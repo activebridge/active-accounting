@@ -1,5 +1,6 @@
-@HoursCtrl = ['$scope', '$q', '$translate', 'Hours', 'Counterparty', 'registerDecorator', ($scope, $q , $translate, Hours, Counterparty, registerDecorator) ->
+@HoursCtrl = ['$scope', '$q', '$translate', 'Hours', 'Counterparty', 'registerDecorator', 'hourDecorator', ($scope, $q , $translate, Hours, Counterparty, registerDecorator, hourDecorator) ->
   registerDecorator($scope)
+  hourDecorator($scope)
 
   $scope.newHour = {}
   $scope.newHour.errors = {}
@@ -62,21 +63,6 @@
 
   $scope.customers = Hours.customers(scope: 'active')
 
-  $scope.delete = (hours_id, index) ->
-    if confirm('Впевнений?')
-      Hours.delete
-        id: hours_id
-      , (success) ->
-        $scope.hours.splice(index,1)
-        $scope.LoadHours()
-        return
-  $scope.setNumeric = ->
-    $('.number').numeric
-      negative: false
-      decimal: false
-    $('.number').attr('maxlength', '3')
-  $scope.setNumeric()
-
   $('#hours_form').validate
     errorElement: 'div'
     errorPlacement: (error, element) ->
@@ -88,17 +74,6 @@
     messages:
       'hours': 'Cant be blank'
       'month': 'Cant be blank'
-
-  $scope.update = (hour_id, data) ->
-    d = $q.defer()
-    Hours.update( id: hour_id, {hour: { hours: data.hours } }
-      (response) ->
-        d.resolve()
-        $scope.LoadHours()
-      (response) ->
-        d.resolve response.data.errors['hours'][0]
-    )
-    return d.promise
 
   $scope.setSelect2 = ->
     $('select.hours').select2()

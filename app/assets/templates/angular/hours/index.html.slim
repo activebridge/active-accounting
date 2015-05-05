@@ -52,7 +52,7 @@
             .month value='{{hour.month}}'
               | {{hour.month}}
           .col-lg-2.edit_icon
-            form.form-buttons.form-inline editable-form="" name="rowform" ng-show="rowform.$visible" onbeforesave="update(hour.id, $data)"
+            form.form-buttons.form-inline editable-form="" name="rowform" ng-show="rowform.$visible" onbeforesave="updateHours(hour.id, $data, LoadHours())"
               button.icon-button ng-disabled="rowform.$waiting" title="{{ 'save_changes' | translate }}" type="submit"
                 span.glyphicon.glyphicon-check
               button.icon-button ng-click="rowform.$cancel(); clearError()" ng-disabled="rowform.$waiting" title="{{ 'cancel' | translate }}" type="button"
@@ -60,7 +60,7 @@
             .buttons_record ng-show="!rowform.$visible"
               button.icon-button.hidde ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}" type="button"
                 span.glyphicon.glyphicon-edit
-              button.icon-button.hidde ng-click="delete(hour.id, $index)" title="{{ 'delete_reg' | translate }}" type="button"
+              button.icon-button.hidde ng-click="delete(hour.id, $index, LoadHours())" title="{{ 'delete_reg' | translate }}" type="button"
                 span.glyphicon.glyphicon-trash
         .info-alas ng-hide='hours.length>0'
           br

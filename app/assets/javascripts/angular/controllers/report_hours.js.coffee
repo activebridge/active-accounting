@@ -1,5 +1,6 @@
-@ReportHoursCtrl = ['$scope', '$q', '$translate', 'Hours', 'registerDecorator', ($scope, $q , $translate, Hours, registerDecorator) ->
+@ReportHoursCtrl = ['$scope', '$q', '$translate', 'Hours', 'registerDecorator', 'hourDecorator', ($scope, $q , $translate, Hours, registerDecorator, hourDecorator) ->
   registerDecorator($scope)
+  hourDecorator($scope)
   $scope.hours = {}
   $scope.filter = {}
 
@@ -15,4 +16,15 @@
         total = total + @hours
       return total
   $scope.changeMonth()
+
+  $scope.update = (hour_id, data) ->
+    d = $q.defer()
+    Hours.update( id: hour_id, {hour: { hours: data.hours } }
+      (response) ->
+        d.resolve()
+        $scope.changeMonth()
+      (response) ->
+        d.resolve response.data.errors['hours'][0]
+    )
+    return d.promise
 ]
