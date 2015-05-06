@@ -23,7 +23,13 @@ Rails.application.routes.draw do
     resources :invitations
     resources :client_infos, only: :update
     resources :invoices, only: :show
-    resources :holidays
+
+    resources :holidays do
+      collection do
+        get :by_month
+        get :working_days
+      end
+    end
 
     resources :reports do
       collection do
@@ -55,6 +61,7 @@ Rails.application.routes.draw do
         get :default_customer
         get :customers
         get :total_hours
+        post :update_approve_hours
       end
     end
 

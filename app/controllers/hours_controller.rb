@@ -34,11 +34,16 @@ class HoursController < VendorApplicationController
   end
 
   def default_customer
-    render json: { id: current_vendor.customer_id }
+    render json: { id: current_vendor.customer_id, auto_fill_hours: current_vendor.approve_hours }
   end
 
   def total_hours
     render json: current_vendor.hours.hours_by_month.to_json, status: 200
+  end
+
+  def update_approve_hours
+    current_vendor.update(approve_hours: params[:status])
+    render json: { status: :ok }
   end
 
   private

@@ -18,5 +18,5 @@ ng-include src='"#{asset_path('angular/shared/header.html')}"'
           | {{ 'alas' | translate }}
         | {{ 'info_not_found' | translate }}
   .col-lg-1
-    a href='/invoices/{{params.customer_id}}?month={{params.month}}' target="_parent" data-method='get' ng-show='hours.length > 0'
+    a href='/invoices/{{params.customer_id}}?month={{params.month}}' target='_blank' data-method='get' ng-show='hours.length > 0'
       button translate='savePdf'

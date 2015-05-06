@@ -6,3 +6,5 @@
 //= require angular-js/angular-strap.min
 //= require angular-js/angular-animate.min
 //= require angular-js/buttons
+//= require angular-js/date
+//= require angular-js/angular-toggle-switch

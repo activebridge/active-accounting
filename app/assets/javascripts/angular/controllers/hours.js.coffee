@@ -1,4 +1,4 @@
-@HoursCtrl = ['$scope', '$q', '$translate', 'Hours', 'Counterparty', 'registerDecorator', 'hourDecorator', ($scope, $q , $translate, Hours, Counterparty, registerDecorator, hourDecorator) ->
+@HoursCtrl = ['$scope', '$q', '$translate', 'Hours', 'Counterparty', 'registerDecorator', 'hourDecorator', 'Holiday', ($scope, $q , $translate, Hours, Counterparty, registerDecorator, hourDecorator, Holiday) ->
   registerDecorator($scope)
   hourDecorator($scope)
 
@@ -34,16 +34,26 @@
         0
     return array
 
-  $scope.default_customer = Hours.default_customer()
+
+  Hours.default_customer (response) ->
+    $scope.default_customer = response
+    $scope.approvehoursStatus =response.auto_fill_hours
 
   $scope.LoadHours = ->
     Hours.total_hours (response) ->
       $scope.hoursByMonths = $scope.addBlankValues(response)
 
+  $scope.updateApproveHours = ->
+    Hours.update_approve_hours(status: $scope.approvehoursStatus)
+
   $scope.changeMonth = (value) ->
     if value != $scope.selectedMonth
       $scope.selectedMonth = value
-      $scope.hours = Hours.query(month: value + '/' + $scope.currentYear, type: 'vendor')
+      parseValue = value + '/' + $scope.currentYear
+      $scope.hours = Hours.query(month: parseValue, type: 'vendor')
+      $scope.holidays = Holiday.by_month(month: parseValue)
+      $scope.workingDays = Holiday.working_days(date: parseValue)
+
   $scope.changeMonth($scope.currentMonth)
   $scope.LoadHours()
 

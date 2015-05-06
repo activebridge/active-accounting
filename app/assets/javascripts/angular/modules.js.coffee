@@ -6,7 +6,10 @@ angular.module('accounting.services', [
   'pascalprecht.translate'
   'ngCookies'
   'angular.filter'
-  'mgcrea.ngStrap'
   'ngAnimate'
+  'mgcrea.ngStrap'
+  'mgcrea.ngStrap.datepicker'
   'ui.bootstrap.buttons'
+  'ui.date'
+  'toggle-switch'
 ])

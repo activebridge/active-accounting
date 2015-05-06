@@ -63,6 +63,10 @@ angular.module('accounting.services').factory 'Hours', ['$resource', ($resource)
     method: 'GET',
     params:
       action: 'default_customer'
+  , update_approve_hours:
+    method: 'POST',
+    params:
+      action: 'update_approve_hours'
   , update:
     method: 'PUT'
 ]
@@ -84,5 +88,16 @@ angular.module('accounting.services').factory 'VendorChangePassword', ['$resourc
 ]
 
 angular.module('accounting.services').factory 'Holiday', ['$resource', ($resource) ->
-  $resource('/holidays/:id', {id: '@id'}, {update: {method: 'PUT'}})
+  $resource '/holidays/:id/:action',
+    id: '@id'
+  , by_month:
+    method: 'GET',
+    params:
+      action: 'by_month'
+  , working_days:
+    method: 'GET',
+    params:
+      action: 'working_days'
+  , update:
+    method: 'PUT'
 ]
