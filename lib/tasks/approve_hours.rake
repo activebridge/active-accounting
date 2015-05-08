@@ -1,5 +1,5 @@
-task approveHours: :environment do
-  if define_working_days.is_time_working?
+task approve_hours: :environment do
+  if work_days.is_working?
     hours = []
     Vendor.where(approve_hours: true).each do |vendor|
       hour = Hour.create(hour_params(vendor))
@@ -21,10 +21,10 @@ def hour_params(vendor, hours_in_day='')
 end
 
 def total_hours
-  define_working_days.count_by_month
+  work_days.count_by_month
 end
 
-def define_working_days
+def work_days
   current_day = Time.current
-  working_days = WorkingDays.new(current_day)
+  working_days = WorkDays.new(current_day)
 end

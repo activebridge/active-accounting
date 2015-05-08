@@ -94,10 +94,10 @@ angular.module('accounting.services').factory 'Holiday', ['$resource', ($resourc
     method: 'GET',
     params:
       action: 'by_month'
-  , working_days:
+  , work_days:
     method: 'GET',
     params:
-      action: 'working_days'
+      action: 'work_days'
   , update:
     method: 'PUT'
 ]

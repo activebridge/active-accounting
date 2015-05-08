@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     resources :holidays do
       collection do
         get :by_month
-        get :working_days
+        get :work_days
       end
     end
 

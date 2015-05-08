@@ -1,4 +1,4 @@
-class WorkingDays
+class WorkDays
 
   def initialize(current_day)
     @current_day = current_day
@@ -8,7 +8,7 @@ class WorkingDays
     weekdays.count - count_holidays(holidays_by_month)
   end
 
-  def is_time_working?
+  def is_working?
     last_weekday = (weekdays - holidays_by_month.pluck(:date)).last
     last_weekday.day == @current_day.day
   end
@@ -18,7 +18,9 @@ class WorkingDays
   def weekdays
     first_day = Date.new(@current_day.year, @current_day.month, 1)
     last_day = Date.new(@current_day.year, @current_day.month, -1)
-    wdays = [0,6]
+    saturday = 6
+    sunday = 0
+    wdays = [saturday,sunday]
     weekdays = (first_day..last_day).reject { |d| wdays.include? d.wday }
   end
 

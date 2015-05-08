@@ -4,5 +4,5 @@ end
 
 every 1.day, at: '11:30 am' do
   job_type :approve_hours_task, 'cd :path && :environment_variable=:environment bundle exec rake approve_hours_task --silent :output'
-  approve_hours_task 'approveHours'
+  approve_hours_task 'approve_hours'
 end

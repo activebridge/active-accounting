@@ -52,7 +52,7 @@
       parseValue = value + '/' + $scope.currentYear
       $scope.hours = Hours.query(month: parseValue, type: 'vendor')
       $scope.holidays = Holiday.by_month(month: parseValue)
-      $scope.workingDays = Holiday.working_days(date: parseValue)
+      $scope.workingDays = Holiday.work_days(date: parseValue)
 
   $scope.changeMonth($scope.currentMonth)
   $scope.LoadHours()
