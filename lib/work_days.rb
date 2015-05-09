@@ -18,10 +18,7 @@ class WorkDays
   def weekdays
     first_day = Date.new(@current_day.year, @current_day.month, 1)
     last_day = Date.new(@current_day.year, @current_day.month, -1)
-    saturday = 6
-    sunday = 0
-    wdays = [saturday,sunday]
-    weekdays = (first_day..last_day).reject { |d| wdays.include? d.wday }
+    weekdays = (first_day..last_day).reject { |d| Weekend.parse(d.to_s).is_weekend? }
   end
 
   def count_holidays(array)

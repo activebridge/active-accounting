@@ -1,5 +1,5 @@
 class HolidaysController < ApplicationController
-  before_filter :authenticate_user!, except: [:by_month, :work_days]
+  before_filter :authenticate_user!, except: :by_month
   before_action :find_holiday, only: [:destroy, :update]
 
   def index
@@ -33,12 +33,6 @@ class HolidaysController < ApplicationController
 
   def by_month
     render json: Holiday.by_month(params[:month].to_date), status: 200
-  end
-
-  def work_days
-    date = params[:date].to_date
-    work_days = WorkDays.new(date)
-    render json: { count: work_days.count_by_month }, status: 200
   end
 
   private

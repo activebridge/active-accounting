@@ -125,5 +125,6 @@ angular.module('accounting.services').factory 'hourDecorator', ["$q", 'Hours', (
         negative: false
         decimal: false
       $('.number').attr('maxlength', '3')
+      return
     $scope.setNumeric()
 ]

@@ -33,11 +33,4 @@ RSpec.describe HolidaysController, type: :controller do
   describe "#destroy" do
     it { expect { delete :destroy, id: holiday.id }.to change(Holiday, :count).by(-1) }
   end
-
-  describe "#working_days" do
-    it 'returns a successful 200 response' do
-      get :working_days, date: Time.current.to_s
-      expect(response).to be_success
-    end
-  end
 end

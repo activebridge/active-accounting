@@ -34,6 +34,7 @@ gem 'devise'
 gem 'angular_rails_csrf'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary-edge'
+gem 'gon'
 
 group :development, :test do
   gem 'pry'

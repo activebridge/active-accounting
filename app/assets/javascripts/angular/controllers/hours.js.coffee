@@ -1,6 +1,7 @@
-@HoursCtrl = ['$scope', '$q', '$translate', 'Hours', 'Counterparty', 'registerDecorator', 'hourDecorator', 'Holiday', ($scope, $q , $translate, Hours, Counterparty, registerDecorator, hourDecorator, Holiday) ->
+@HoursCtrl = ['$scope', '$q', '$translate', 'Hours', 'Counterparty', 'registerDecorator', 'hourDecorator', 'Holiday', 'WorkDay', ($scope, $q , $translate, Hours, Counterparty, registerDecorator, hourDecorator, Holiday, WorkDay) ->
   registerDecorator($scope)
   hourDecorator($scope)
+  $scope.current_vendor = gon.current_vendor
 
   $scope.newHour = {}
   $scope.newHour.errors = {}
@@ -34,17 +35,12 @@
         0
     return array
 
-
-  Hours.default_customer (response) ->
-    $scope.default_customer = response
-    $scope.approvehoursStatus =response.auto_fill_hours
-
   $scope.LoadHours = ->
     Hours.total_hours (response) ->
       $scope.hoursByMonths = $scope.addBlankValues(response)
 
   $scope.updateApproveHours = ->
-    Hours.update_approve_hours(status: $scope.approvehoursStatus)
+    Counterparty.update(id: $scope.current_vendor.id, counterparty: { approve_hours: $scope.current_vendor.approvehoursStatus })
 
   $scope.changeMonth = (value) ->
     if value != $scope.selectedMonth
@@ -52,7 +48,7 @@
       parseValue = value + '/' + $scope.currentYear
       $scope.hours = Hours.query(month: parseValue, type: 'vendor')
       $scope.holidays = Holiday.by_month(month: parseValue)
-      $scope.workingDays = Holiday.work_days(date: parseValue)
+      $scope.workingDays = WorkDay.get(date: parseValue)
 
   $scope.changeMonth($scope.currentMonth)
   $scope.LoadHours()
@@ -71,21 +67,18 @@
         $scope.newHour.errors = response.data.error
     )
 
-  $scope.customers = Hours.customers(scope: 'active')
-
-  $('#hours_form').validate
-    errorElement: 'div'
-    errorPlacement: (error, element) ->
-      error.insertBefore element
-      return
-    rules:
-      'hours': required: true
-      'month': required: true
-    messages:
-      'hours': 'Cant be blank'
-      'month': 'Cant be blank'
+  $scope.customers = Counterparty.customers(scope: 'active')
 
   $scope.setSelect2 = ->
     $('select.hours').select2()
-    $scope.newHour.customer_id = $scope.default_customer.id
+    $scope.newHour.customer_id = $scope.current_vendor.customer_id
+
+  $scope.delete = (hours_id, index) ->
+    if confirm('Впевнений?')
+      Hours.delete
+        id: hours_id
+      , (success) ->
+        $scope.hours.splice(index,1)
+        $scope.LoadHours()
+        return
 ]
