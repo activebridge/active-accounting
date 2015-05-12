@@ -1,4 +1,9 @@
 .list
+  ul.nav.nav-tabs ng-show="showGroup == 'Customer'"
+    li ng-class="{'active': infoPayment == 'monthly_payment'}"
+      a href="" ng-click="changeCustomerByPayment('monthly_payment')" translate="of_payment"
+    li ng-class="{'active': infoPayment == 'without_payment'}"
+      a href="" ng-click="changeCustomerByPayment('without_payment');" translate="without_prepay"
   .alert.alert-info.alert-dismissable ng-show="showGroup == 'Vendor' && !!message"
     strong
       | {{ message | translate }}
