@@ -1,10 +1,11 @@
 class HolidaysController < ApplicationController
+  before_filter :authenticate_user!, except: :by_month
   before_action :find_holiday, only: [:destroy, :update]
 
   def index
     json = ActiveModel::ArraySerializer.new(Holiday.by_year(params[:year]),
-                                           each_serializer: HolidaySerializer,
-                                           root: nil)
+                                            each_serializer: HolidaySerializer,
+                                            root: nil)
     render json: json, status: 200
   end
 
@@ -28,6 +29,10 @@ class HolidaysController < ApplicationController
     else
       render json: {status: :error, error: @holiday.errors.messages}, status: 422
     end
+  end
+
+  def by_month
+    render json: Holiday.by_month(params[:month].to_date), status: 200
   end
 
   private

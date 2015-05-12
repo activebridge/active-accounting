@@ -6,6 +6,11 @@ angular.module('accounting.services').factory 'Counterparty', ['$resource', ($re
     params:
       action: 'payments'
     isArray: true
+  , customers:
+    method: 'GET',
+    params:
+      action: 'customers'
+    isArray: true
   , update:
     method: 'PUT'
 ]
@@ -49,20 +54,11 @@ angular.module('accounting.services').factory 'Invitation', ['$resource', ($reso
 angular.module('accounting.services').factory 'Hours', ['$resource', ($resource) ->
   $resource '/hours/:id/:action',
     id: '@id'
-  , customers:
-    method: 'GET',
-    params:
-      action: 'customers'
-    isArray: true
   , total_hours:
     method: 'GET',
     params:
       action: 'total_hours'
     isArray: true
-  , default_customer:
-    method: 'GET',
-    params:
-      action: 'default_customer'
   , update:
     method: 'PUT'
 ]
@@ -84,5 +80,16 @@ angular.module('accounting.services').factory 'VendorChangePassword', ['$resourc
 ]
 
 angular.module('accounting.services').factory 'Holiday', ['$resource', ($resource) ->
-  $resource('/holidays/:id', {id: '@id'}, {update: {method: 'PUT'}})
+  $resource '/holidays/:id/:action',
+    id: '@id'
+  , by_month:
+    method: 'GET',
+    params:
+      action: 'by_month'
+  , update:
+    method: 'PUT'
+]
+
+angular.module('accounting.services').factory 'WorkDay', ['$resource', ($resource) ->
+  $resource '/work_days/'
 ]

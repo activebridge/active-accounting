@@ -12,6 +12,7 @@ FactoryGirl.define do
 
     factory :vendor, parent: :counterparty, class: 'Vendor' do
       type 'Vendor'
+      email { Faker::Internet.email }
       password { Faker::Internet.password(8) }
     end
   end

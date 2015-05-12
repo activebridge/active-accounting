@@ -26,6 +26,9 @@ app.directive "editRegister", ->
 
 app.config ['$translateProvider', ($translateProvider) ->
   $translateProvider.translations "en",
+    autoFill_hours: 'AutoFill hours'
+    title: 'Title'
+    count_working_days: 'The total number of working days'
     list_holidays: 'List of our holidays for'
     holidays: 'Holidays'
     password_error: 'Current password incorrect'
@@ -133,6 +136,9 @@ app.config ['$translateProvider', ($translateProvider) ->
     activity: 'Activity'
 
   $translateProvider.translations "uk",
+    autoFill_hours: 'Автозаповнення годин'
+    title: 'Назва'
+    count_working_days: 'Загальна кількість робочих днів'
     list_holidays: 'Список наших свят на'
     holidays: 'Свята'
     password_error : 'Невірний поточний пароль!'
@@ -140,7 +146,7 @@ app.config ['$translateProvider', ($translateProvider) ->
     new_password : "Новий пароль "
     confirmation_pass : "Підтвердження нового пароля "
     change_pass: 'Змінити пароль'
-    management_hours: 'Управління власними годиннами'
+    management_hours: 'Управління власними годинами'
     hours_calendar: 'Календар по годиннам'
     other: 'Інші'
     tax: 'Податок'

@@ -1,7 +1,11 @@
-.locale
-  a.fa.fa-key.margin-right-15 data-animation="am-fade-and-slide-top" bs-modal="modal" data-template="#{asset_path('angular/vendor_change_password/modal.html')}" title="{{ 'change_pass' | translate }}"
-  a href='vendor_logout' data-method='delete'
-    i.fa.fa-sign-out translate="sing_out"
+.row
+  .col-lg-12
+    .locale
+      b.margin-right-20
+        | {{ current_vendor.email }}
+      a.fa.fa-key.margin-right-15 data-animation="am-fade-and-slide-top" bs-modal="modal" data-template="#{asset_path('angular/vendor_change_password/modal.html')}" title="{{ 'change_pass' | translate }}"
+      a href='vendor_logout' data-method='delete'
+        i.fa.fa-sign-out translate="sing_out"
 .hours
   .row
     .col-lg-3.text-center.calendar
@@ -13,6 +17,30 @@
             | {{ months[hours.month - 1] }}
             br
               | ({{ hours.total_hours }})
+      h2.text-center translate='holidays' ng-show='holidays.holidays.length>0'
+      table.width-270 ng-show='holidays.holidays.length>0'
+        thead.bg-grey
+          tr
+            th.text-center translate='date'
+            th.text-center translate='title'
+        tbody
+          tr ng-repeat='holiday in holidays.holidays'
+            td
+              | {{ holiday.date }}
+            td
+              | {{ holiday.name }}
+      b
+        i
+          | {{ 'count_working_days' | translate }} : {{ workingDays.count }}
+        br
+        i
+          | {{ 'totalHours' | translate }} : {{ workingDays.count * 8 || 0 }}
+      br
+      .approve
+        b
+          | {{ 'autoFill_hours' | translate }} : 
+      toggle-switch ng-model="current_vendor.approvehoursStatus" on-label="Вкл" off-label="Викл" ng-change='updateApproveHours()'
+
     .col-lg-6
       h1 translate='management_hours'
       .form
@@ -33,12 +61,12 @@
               span.error
                 | {{newHours.errors.customer_id[0]}}
               select.width-200.hours.clear_after_add ng-model="newHour.customer_id"
-                option ng-repeat='customer in customers' value='{{ customer.id }}' ng-selected='{{ default_customer.id == customer.id }}' init-select2='setSelect2()'
+                option ng-repeat='customer in customers' value='{{ customer.id }}' ng-selected='{{current_vendor.customer_id == customer.id }}' init-select2='setSelect2()'
                   | {{customer.name}}
             .col-lg-4
-              input.number ng-model="newHour.hours" type="text" name='hours' maxlength='3'
+              input.number ng-model="newHour.hours" type="text" name='hours' maxlength='3' ng-required="true"
             .col-lg-2
-              input#month-picker ng-model="newHour.month" name='month' type="text"
+              input#month-picker ng-model="newHour.month" name='month' type="text" ng-required="true"
             .col-lg-2
               button.btn translate="NewArticle" type="submit"
 
@@ -60,7 +88,7 @@
             .buttons_record ng-show="!rowform.$visible"
               button.icon-button.hidde ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}" type="button"
                 span.glyphicon.glyphicon-edit
-              button.icon-button.hidde ng-click="delete(hour.id, $index, LoadHours())" title="{{ 'delete_reg' | translate }}" type="button"
+              button.icon-button.hidde ng-click="delete(hour.id, $index)" title="{{ 'delete_reg' | translate }}" type="button"
                 span.glyphicon.glyphicon-trash
         .info-alas ng-hide='hours.length>0'
           br
@@ -68,3 +96,5 @@
             strong
               | {{ 'alas' | translate }}
             | {{ 'info_not_found' | translate }}
+    .col-lg-3
+      div ui-date="dateOptions" name='DateOfBirth'

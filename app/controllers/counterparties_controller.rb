@@ -1,10 +1,11 @@
 class CounterpartiesController < ApplicationController
   before_action :find_conterparty, only: [:destroy, :update]
+  before_filter :authenticate_user!, except: [:update, :customers]
 
   def index
     json = ActiveModel::ArraySerializer.new(Counterparty.by_group(params[:group]).by_active(params[:scope]),
-                                           each_serializer: CounterpartySerializer,
-                                           root: nil)
+                                            each_serializer: CounterpartySerializer,
+                                            root: nil)
     render json: json, status: 200
   end
 
@@ -37,6 +38,10 @@ class CounterpartiesController < ApplicationController
                                            each_serializer: CounterpartyRegisterSerializer,
                                            root: nil)
     render json: json, status: 200
+  end
+
+  def customers
+    render json: Customer.by_active(params[:scope]), root: false
   end
 
   private
