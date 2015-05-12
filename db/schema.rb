@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20150506132832) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "value_payment"
-    t.boolean  "monthly_payment"
+    t.boolean  "monthly_payment",        default: false
     t.string   "type"
     t.integer  "customer_id"
     t.string   "email"

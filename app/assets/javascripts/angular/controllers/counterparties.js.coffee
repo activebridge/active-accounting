@@ -2,8 +2,9 @@
   $scope.newCounterparty = {}
   $scope.newCounterparty.errors = {}
 
-  $scope.load = ->
-    $scope.activeCounterparties = Counterparty.query(scope: 'active', group: $scope.showGroup)
+  $scope.load = (payment_by) ->
+    $scope.infoPayment = payment_by
+    $scope.activeCounterparties = Counterparty.query(scope: 'active', group: $scope.showGroup, payment: payment_by)
     $scope.inactiveCounterparties = Counterparty.query(scope: 'inactive', group: $scope.showGroup)
 
   $('#start_date').datepicker
@@ -16,6 +17,9 @@
     { value: "Vendor", text: 'Vendor' },
     { value: "Other", text: 'Other' }
   ]
+
+  $scope.changeCustomerByPayment = (value) ->
+    $scope.load(value)
 
   $scope.openDatepicker = ->
     $('.start_date').datepicker({ dateFormat: "dd-mm-yy" }).focus()
@@ -66,12 +70,13 @@
             changeActiveCounterparty(index, $scope.inactiveCounterparties, $scope.activeCounterparties, data)
         if !!data.customer_id
           $scope.activeCounterparties[index].customer.name = response.customer.name
+        $scope.activeCounterparties.splice(index,1) if $scope.infoPayment
       (response) ->
         d.resolve response.data.errors['data'][0]
     )
     return d.promise
 
-  $scope.load()
+  $scope.load('monthly_payment')
 
   $scope.conversionSelect = (conversion) ->
     if conversion
@@ -81,7 +86,8 @@
   $scope.changeGroup = (group) ->
     return if $scope.showGroup == group
     $scope.showGroup = group
-    $scope.load()
+    value = 'monthly_payment' if $scope.showGroup == 'Customer'
+    $scope.load(value)
 
   $scope.loadCustumers = () ->
     $scope.activeCustumers = Counterparty.query(scope: 'active', group: 'Customer')

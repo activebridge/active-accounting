@@ -25,10 +25,15 @@ class Counterparty < ActiveRecord::Base
     self.send(scope) if scope
   }
 
+  scope :by_payment, -> (scope) {
+    self.send(scope) if scope
+  }
+
   scope :by_group, -> (group) { where(type: group) if group}
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
   scope :monthly_payment, -> { where(monthly_payment: true) }
+  scope :without_payment, -> { where(monthly_payment: false) }
 
   scope :paid_for, -> (date) {
      joins(:registers).where("extract(month from date) = ? AND extract(year from date) = ?", date.month, date.year)

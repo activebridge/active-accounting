@@ -3,7 +3,9 @@ class CounterpartiesController < ApplicationController
   before_filter :authenticate_user!, except: [:update, :customers]
 
   def index
-    json = ActiveModel::ArraySerializer.new(Counterparty.by_group(params[:group]).by_active(params[:scope]),
+    json = ActiveModel::ArraySerializer.new(Counterparty.by_group(params[:group])
+                                                        .by_active(params[:scope])
+                                                        .by_payment(params[:payment]),
                                             each_serializer: CounterpartySerializer,
                                             root: nil)
     render json: json, status: 200
@@ -35,8 +37,8 @@ class CounterpartiesController < ApplicationController
     type = params[:sandbox] ? Register::TYPES::PLAN : Register::TYPES::FACT
     counterparties = Counterparty.unpaid_for(Date.parse(params[:month]), type)
     json = ActiveModel::ArraySerializer.new(counterparties,
-                                           each_serializer: CounterpartyRegisterSerializer,
-                                           root: nil)
+                                            each_serializer: CounterpartyRegisterSerializer,
+                                            root: nil)
     render json: json, status: 200
   end
 
