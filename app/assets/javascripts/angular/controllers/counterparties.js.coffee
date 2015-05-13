@@ -3,11 +3,7 @@
   $scope.newCounterparty.errors = {}
 
   $scope.load = ->
-    $scope.activeCounterparties = Counterparty.query(scope: 'active', group: $scope.showGroup)
-    $scope.inactiveCounterparties = Counterparty.query(scope: 'inactive', group: $scope.showGroup)
-
-  $('#start_date').datepicker
-    dateFormat: 'dd-mm-yy'
+    $scope.counterpaties = Counterparty.query(group: $scope.showGroup)
 
   $scope.showGroup = 'Customer'
 
@@ -17,10 +13,6 @@
     { value: "Other", text: 'Other' }
   ]
 
-  $scope.openDatepicker = ->
-    $('.start_date').datepicker({ dateFormat: "dd-mm-yy" }).focus()
-    return
-
   $scope.endOfMonth = ->
     curr_day = new Date().getDate()
     return curr_day >= 25
@@ -28,7 +20,7 @@
   $scope.add = ->
     counterparty = Counterparty.save($scope.newCounterparty,
       () ->
-        $scope.activeCounterparties.push(counterparty) if $scope.newCounterparty.type == $scope.showGroup
+        $scope.counterpaties.push(counterparty) if $scope.newCounterparty.type == $scope.showGroup
         $scope.newCounterparty = {}
         $('select.сounterparty-types').select2('val', '')
       (response) ->
@@ -46,26 +38,36 @@
           $scope.inactiveCounterparties.splice(index,1)
         return
 
-  changeActiveCounterparty = (index, active, inactive, data) ->
-    inactive.push(active[index])  if data.type == $scope.showGroup
-    active.splice(index,1)
+  $scope.setSelect2 = () ->
+    $('select.customer-select').select2()
+    return
 
-  $scope.update = (counterparty_id, data, index, active) ->
-    data.customer_id = ''        if data.type == 'Customer' && data.customer_id != ''
-    data.monthly_payment = false if data.active != active && active
-    return                       if data.monthly_payment && !data.value_payment
+  $scope.cloneCounterparty = (counterparty) ->
+    $scope.counterpartyOld = counterparty
+    $scope.editCounterparty = {}
+    angular.copy(counterparty, $scope.editCounterparty)
+
+  $scope.update = (counterparty) ->
+    data = {
+      'id': counterparty.id
+      'name': counterparty.name
+      'start_date': counterparty.start_date
+      'monthly_payment': counterparty.monthly_payment
+      'value_payment': counterparty.value_payment
+      'email': counterparty.email
+      'active': counterparty.active
+      'customer_id': counterparty.customer_id
+      'type': counterparty.type
+    }
+
     d = $q.defer()
-    Counterparty.update( id: counterparty_id, {counterparty: data}
+    data.customer_id = '' if data.type != $scope.counterpartyOld.type && data.customer_id != ''
+    Counterparty.update( id: data.id, { counterparty: data }
       (response) ->
         d.resolve()
-        if data.type != $scope.showGroup || data.active != active
-          if active
-            $scope.activeCounterparties[index].monthly_payment = false
-            changeActiveCounterparty(index, $scope.activeCounterparties, $scope.inactiveCounterparties, data)
-          else
-            changeActiveCounterparty(index, $scope.inactiveCounterparties, $scope.activeCounterparties, data)
-        if !!data.customer_id
-          $scope.activeCounterparties[index].customer.name = response.customer.name
+        $('.client-info-modal .alert').fadeIn().fadeOut(3000)
+        index = $scope.counterpaties.indexOf($scope.counterpartyOld)
+        $scope.counterpaties.splice(index, 1, response)
       (response) ->
         d.resolve response.data.errors['data'][0]
     )
@@ -85,6 +87,7 @@
 
   $scope.loadCustumers = () ->
     $scope.activeCustumers = Counterparty.query(scope: 'active', group: 'Customer')
+  $scope.loadCustumers()
 
   $scope.sendInvitation = (id) ->
     Invitation.save

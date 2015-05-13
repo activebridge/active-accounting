@@ -18,7 +18,7 @@ ng-include src='"#{asset_path('angular/shared/header.html')}"'
               span.error
                 | {{newCounterparty.errors.name[0]}}
             td
-              input#start_date ng-model="newCounterparty.start_date" type="text"
+              input datepicker='' ng-model="newCounterparty.start_date" type="text"
             td
               .select-types
                 select class="сounterparty-types" ng-model="newCounterparty.type"

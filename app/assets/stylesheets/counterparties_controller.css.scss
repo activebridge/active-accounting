@@ -97,8 +97,6 @@ form.editable-wrap {
     margin: 0;
   }
 
-  .start_date { width: 85px; }
-
   .change_value_payment {
     .glyphicon { font-size: 20px; }
   }
@@ -134,5 +132,11 @@ form.editable-wrap {
   .glyphicon-info-sign {
     cursor: pointer;
     color: blue;
+  }
+
+  .payment-check {
+    width: 16px !important;
+    margin-left: 10px;
+    top: 7px;
   }
 }

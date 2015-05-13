@@ -8,3 +8,4 @@
 //= require angular-js/buttons
 //= require angular-js/date
 //= require angular-js/angular-toggle-switch
+//= require angular-js/select2

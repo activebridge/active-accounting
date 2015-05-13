@@ -140,3 +140,5 @@ label { margin: 0; }
 }
 
 #MonthPicker_month-picker .active > .ui-button-text { background-color: #d6d4d4; }
+
+#ui-datepicker-div { z-index: 1200 !important; }

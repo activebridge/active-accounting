@@ -12,4 +12,5 @@ angular.module('accounting.services', [
   'ui.bootstrap.buttons'
   'ui.date'
   'toggle-switch'
+  'ui.select2'
 ])
