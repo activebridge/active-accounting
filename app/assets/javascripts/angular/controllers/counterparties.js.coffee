@@ -27,16 +27,13 @@
         $scope.newCounterparty.errors = response.data.error
     )
 
-  $scope.delete = (counterparty_id, index, active) ->
+  $scope.delete = (counterparty) ->
     if confirm('Впевнений?')
       Counterparty.delete
-        id: counterparty_id
+        id: counterparty.id
       , (success) ->
-        if active
-          $scope.activeCounterparties.splice(index,1)
-        else
-          $scope.inactiveCounterparties.splice(index,1)
-        return
+        index = $scope.counterpaties.indexOf(counterparty)
+        $scope.counterpaties.splice(index, 1)
 
   $scope.setSelect2 = () ->
     $('select.customer-select').select2()
