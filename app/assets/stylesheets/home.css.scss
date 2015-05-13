@@ -138,3 +138,8 @@ label { margin: 0; }
 .ui-datepicker-week-end, .holidays-to-highlight {
   a { background: #d6d4d4 !important; }
 }
+
+#MonthPicker_month-picker .active > .ui-button-text {
+  color: red;
+  background-color: #fff728;
+}
