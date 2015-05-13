@@ -61,6 +61,15 @@
     {value: "translations", text: $translate.instant('Translation')}
   ]
 
+
+  $scope.CounterpartyTypes = [
+    { value: "Customer", text: 'Customers' },
+    { value: "Vendor", text: 'Vendors' },
+    { value: "Other", text: 'Others' }
+  ]
+
+  $scope.CounterpatiesWithoutPayment = 'Customer'
+
   $scope.newRegister.currency = $scope.currencies[0].value
 
   $scope.counterparties = Counterparty.query

@@ -95,16 +95,19 @@
             button.icon-button ng-click="filter.clear(); filter.data.month=undenfined" title="{{ 'clearForm' | translate }}" type="button"
               span.glyphicon.glyphicon-repeat
     .list_count_block ng-show="showlistCount && counterpartiesWithoutPay.length>0"
-      h4.name_block
-        | {{ 'count_without_pay' | translate }}
+      .btn-group.counterparty-type
+        .btn.btn-primary ng-repeat='type in CounterpartyTypes' ng-model="$parent.CounterpatiesWithoutPayment" btn-radio="'{{type.value}}'" ng-init="clicked = type.value == 'Customer'"
+            | {{ type.text | translate }}
       span.list_count
+        h4.text-center
+          | {{ 'count_without_pay' | translate }}
         table.table.table-striped
           tr
             th
               | {{ 'counterparties' | translate }}
             th.width_35
               | {{ 'monthly_payment' | translate }}
-          tr ng-repeat="counterparties in counterpartiesWithoutPay"
+          tr ng-repeat="counterparties in counterpartiesWithoutPay  | filterBy: ['type']: CounterpatiesWithoutPayment"
             td
               | {{counterparties.name}}
             td.text_right.width_35

@@ -101,7 +101,7 @@
     font-size: 20px;
     color: black;
   }
-    
+
   .show_list_count {
     float: right;
     margin: 2px 20px;
@@ -127,9 +127,22 @@
       display: table;
       margin: 10px auto;
       white-space: nowrap;
-    }
 
-    .name_block { position: absolute; }
+      .icon-button { float: right; }
+    }
+  }
+
+  .counterparty-type {
+    display: table;
+    margin-top: -3px;
+    margin-left: -3px;
+
+    .btn {
+      width: 114px;
+      color: #444;
+      background-color: #d6d4d4;
+       border: 1px solid #aaa;
+    }
   }
 }
 
