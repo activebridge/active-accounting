@@ -9,6 +9,9 @@
 
   $scope.changeMonth = () ->
     $scope.hours = Hours.query(month: $scope.filter)
+    identifcator = parseInt($scope.filter.slice(0,2))
+    $('#MonthPicker_month-picker .active').removeClass( "active" )
+    $('.button-' + identifcator).addClass('active')
 
     $scope.sumByGroup =(array) ->
       total = 0
