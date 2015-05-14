@@ -139,7 +139,4 @@ label { margin: 0; }
   a { background: #d6d4d4 !important; }
 }
 
-#MonthPicker_month-picker .active > .ui-button-text {
-  color: red;
-  background-color: #fff728;
-}
+#MonthPicker_month-picker .active > .ui-button-text { background-color: #d6d4d4; }
