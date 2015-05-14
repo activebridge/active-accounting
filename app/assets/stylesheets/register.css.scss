@@ -108,11 +108,26 @@
   }
 
   .list_count_block {
-    display: flex;
+    display: block;
     background: #ececec;
     margin: 10px 25px;
     border: 3px groove #f1f2f4;
     border-radius: 10px;
+    width: 539px;
+    margin: 0 auto;
+
+    .table-striped {
+      font-size: 14px;
+
+      tr:nth-child(odd) { background-color: #f9f9f9; }
+
+      tr:nth-child(even) { background-color: white; }
+    }
+
+    .icon-button {
+      float: right !important;
+      margin: 5px 10px 0 0;
+    }
 
     .text_right { text-align: right; }
     .width_35 { width: 35%; }
@@ -125,10 +140,8 @@
 
     .list_count {
       display: table;
-      margin: 10px auto;
+      margin: 0px 10px 10px 10px;
       white-space: nowrap;
-
-      .icon-button { float: right; }
     }
   }
 
