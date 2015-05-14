@@ -1,0 +1,11 @@
+table.table-striped
+  tr
+    th
+      | {{ 'counterparties' | translate }}
+    th.width_35
+      | {{ 'monthly_payment' | translate }}
+  tr ng-repeat="counterparties in counterpartiesWithoutPay  | filterBy: ['type']: CounterpatiesWithoutPayment"
+    td
+      | {{counterparties.name}}
+    td.text_right.width_35
+      | {{counterparties.value_payment}}

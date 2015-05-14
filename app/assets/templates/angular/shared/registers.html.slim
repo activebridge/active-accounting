@@ -95,22 +95,34 @@
             button.icon-button ng-click="filter.clear(); filter.data.month=undenfined" title="{{ 'clearForm' | translate }}" type="button"
               span.glyphicon.glyphicon-repeat
     .list_count_block ng-show="showlistCount && counterpartiesWithoutPay.length>0"
-      h4.name_block
-        | {{ 'count_without_pay' | translate }}
-      span.list_count
-        table.table.table-striped
-          tr
-            th
-              | {{ 'counterparties' | translate }}
-            th.width_35
-              | {{ 'monthly_payment' | translate }}
-          tr ng-repeat="counterparties in counterpartiesWithoutPay"
-            td
-              | {{counterparties.name}}
-            td.text_right.width_35
-              | {{counterparties.value_payment}}
+      .row
+        .col-lg-offset-2.col-lg-8
+          h4.text-center
+            | {{ 'count_without_pay' | translate }}
+        .col-lg-2
           button.icon-button ng-click="showlistCount = !showlistCount" title="{{ 'closed' | translate }}" type="button"
             span.glyphicon.glyphicon-remove
+      .row
+        .col-lg-12
+          ul.nav.nav-tabs.margin-left-9.margin-right-9
+            li ng-class="{'active': CounterpatiesWithoutPayment == 'Customer'}"
+              a href="" ng-click="CounterpatiesWithoutPayment = 'Customer'"
+                | {{ 'Customers' | translate }}
+            li ng-class="{'active': CounterpatiesWithoutPayment == 'Vendor'}"
+              a href="" ng-click="CounterpatiesWithoutPayment = 'Vendor'"
+                | {{ 'Vendors' | translate }}
+            li ng-class="{'active': CounterpatiesWithoutPayment == 'Other'}"
+              a href="" ng-click="CounterpatiesWithoutPayment = 'Other'"
+                | {{ 'Others' | translate }}
+      span.list_count
+        .tab-content
+          .tab-pane ng-class="{'active': CounterpatiesWithoutPayment == 'Customer'}"
+            ng-include src='"#{asset_path('angular/counterparties/list_without_payment.html')}"'
+          .tab-pane ng-class="{'active': CounterpatiesWithoutPayment == 'Vendor'}"
+            ng-include src='"#{asset_path('angular/counterparties/list_without_payment.html')}"'
+          .tab-pane ng-class="{'active': CounterpatiesWithoutPayment == 'Other'}"
+            ng-include src='"#{asset_path('angular/counterparties/list_without_payment.html')}"'
+
     table.ng-scope.register ng-show="registers.length>0"
       tr
         th.date
