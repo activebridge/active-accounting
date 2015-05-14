@@ -32,7 +32,8 @@ class HolidaysController < ApplicationController
   end
 
   def by_month
-    render json: Holiday.by_month(params[:month].to_date), status: 200
+    render json: Holiday.by_month(params[:month].to_date)
+                        .order('holidays.date'), status: 200
   end
 
   private

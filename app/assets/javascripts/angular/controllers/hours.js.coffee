@@ -47,8 +47,22 @@
       $scope.selectedMonth = value
       parseValue = value + '/' + $scope.currentYear
       $scope.hours = Hours.query(month: parseValue, type: 'vendor')
-      $scope.holidays = Holiday.by_month(month: parseValue)
       $scope.workingDays = WorkDay.get(date: parseValue)
+      Holiday.by_month
+        month: parseValue
+        (response) ->
+          $scope.holidays = response
+          holidays = []
+          $.each response.holidays, () ->
+            holidays.push @date
+
+          $scope.dateOptions =
+            yearRange: '1900:-0'
+            beforeShowDay: (date) ->
+              if holidays.indexOf(moment(date).format('DD.MM.YYYY')) != -1
+                return [true, 'holidays-to-highlight', '']
+              else
+                return [true, '']
 
   $scope.changeMonth($scope.currentMonth)
   $scope.LoadHours()
