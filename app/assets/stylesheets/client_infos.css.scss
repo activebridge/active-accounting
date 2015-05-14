@@ -1,7 +1,6 @@
 .client-info-modal {
   input {
     width: 100%;
-    margin-bottom: 20px;
   }
 
   form { width: 100% !important; }
@@ -17,4 +16,6 @@
   }
 
   .info-update { display: none; }
+
+  .edit-modal input { margin-bottom: 20px; }
 }
