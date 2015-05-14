@@ -1,0 +1,48 @@
+.modal.client-info-modal.edit-counterparty-modal role="dialog" tabindex="-1"
+  .modal-dialog.dialog-edit
+    .modal-content
+      .modal-header ng-show="title"
+        button.close ng-click="$hide()" type="button"  &times;
+        h4.modal-title ng-bind-html="title"
+        .alert.alert-info.alert-dismissable.info-update
+          strong
+            | {{ 'success_message' | translate }}
+      .modal-body
+        form ng-submit="update(editCounterparty);" ng-init='cloneCounterparty(counterparty)'
+          .row
+            .col-lg-3
+              label translate='name'
+              input ng-model="editCounterparty.name" name='name' type="text" ng-required="true"
+            .col-lg-3
+              label translate='date'
+              input datepicker='' ng-model="editCounterparty.start_date" type="text" ng-required="true"
+            .col-lg-3
+              label translate='type'
+              select.width-169.counterparty-type ui-select2='' ng-model="editCounterparty.type"
+                option ng-repeat="type in types" translate="{{type.text}}" ng-selected='{{editCounterparty.type == type.value }}' value="{{type.value}}"
+            .col-lg-3
+              div ng-show="showGroup == 'Vendor'"
+                label translate='email'
+                input ng-model="editCounterparty.email" type="email"
+          .row
+            .col-lg-3
+              label translate='monthly_payment'
+              input.payment-check ng-model="editCounterparty.monthly_payment" type="checkbox"
+            .col-lg-3 ng-show="editCounterparty.monthly_payment"
+              label translate='totall'
+              input.number ng-model="editCounterparty.value_payment" numeric='' maxlength='6' type='text' ng-required="editCounterparty.monthly_payment"
+            .col-lg-6
+          .row ng-show="showGroup == 'Vendor'"
+            .col-lg-3
+              label translate='Customer'
+              select.width-169.customer-select ng-model="editCounterparty.customer_id"
+                option ng-repeat="customer in activeCustumers" init-select2='setSelect2()' ng-selected='{{counterparty.customer.id == customer.id }}' value="{{customer.id}}"
+                  | {{ customer.name }}
+            .col-lg-9
+          .row
+            .col-lg-3
+              label translate='activity'
+              input.payment-check ng-model="editCounterparty.active" name='active' type="checkbox"
+          .modal-footer
+            button.btn.btn-primary type="submit" translate='save_changes'
+            button.btn.btn-danger ng-click="$hide()" type="button" translate='cancel'

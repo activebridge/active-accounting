@@ -5,7 +5,7 @@
   table
     tr
       td.name-block
-        | {{ 'activ_cont' | translate }} ({{ activeCounterparties.length }}):
+        | {{ 'activ_cont' | translate }} ({{ (counterpaties | filter:{active:true}).length }}):
     tr
       th translate="name"
       th.editDate translate="date"
@@ -13,42 +13,27 @@
       th translate="email" ng-show="showGroup == 'Vendor'"
       th ng-show="showMonthlyPayment" translate="payment"
       th
-    tr.list-count-article class="list_{{ counterparty.active }}" ng-class="{stand_out: counterparty.monthly_payment && showMonthlyPayment}" ng-repeat="counterparty in activeCounterparties" repeat-complete=""
+    tr.list-count-article class="list_{{ counterparty.active }}" ng-class="{stand_out: counterparty.monthly_payment && showMonthlyPayment}" ng-repeat="counterparty in counterpaties | filter:{active:true} | filterBy: ['type']: showGroup" repeat-complete=""
       td
-        span.name e-form="rowform" e-name="name" e-ng-focus="conversionSelect(conversion = true)" e-required="" editable-text="counterparty.name"
-          | {{ counterparty.name }}
+        | {{ counterparty.name }}
       td.editDate
-        span.date e-class="start_date" e-form="rowform" e-name="start_date" e-ng-click="openDatepicker()" editable-text="counterparty.start_date" ng-click="datepicker()"
-          | {{ counterparty.start_date }}
+        | {{ counterparty.start_date }}
       td.width-162 ng-show="showGroup == 'Vendor'"
-        span e-class="сounterparty-types" e-form="rowform" e-name="customer_id" e-ng-options="s.id as s.name for s in activeCustumers" editable-select="counterparty.customer.id"
-          | {{ counterparty.customer.name }}
+        | {{ counterparty.customer.name }}
       td ng-show="showGroup == 'Vendor'"
-        span.name e-form="rowform" e-name="email" e-type='email' editable-email="counterparty.email"
-          | {{ counterparty.email }}
+        | {{ counterparty.email }}
       td.monthly_payment ng-show="showMonthlyPayment || rowform.$visible"
-        span e-form="rowform" e-name="monthly_payment" e-title="{{ 'monthly_payment' | translate }}" editable-checkbox="counterparty.monthly_payment"
-        span e-class="input_payment" e-form="rowform" e-name="value_payment" editable-text="counterparty.value_payment" ng-show="counterparty.monthly_payment"
-          | {{ counterparty.value_payment }}
-      td
-        span e-class="сounterparty-types" e-form="rowform" e-name="type" e-ng-options="q.value as (q.text|translate) for q in types" e-title="{{ 'type' | translate }}" editable-select="counterparty.type"
-      td
-        span.active e-form="rowform" e-name="active" e-title="{{ 'activity' | translate }}" editable-checkbox="counterparty.active"
+        | {{ counterparty.value_payment }}
       td.edit_icon
         .butn ng-show="!rowform.$visible"
-          button.icon-button.hidde ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}" type="button"
+          button.icon-button.hidde title="{{ 'edit_reg' | translate }}: {{ counterparty.name }}" type="button" data-animation="am-fade-and-slide-top" bs-modal="modal" data-template="#{asset_path('angular/counterparties/edit_modal.html')}"
             span.glyphicon.glyphicon-edit
           button.icon-button.hidde ng-show="showGroup == 'Vendor' && !!counterparty.email" ng-click="sendInvitation(counterparty.id)" title="{{ 'sendOnEmail' | translate }}" type="button"
             span.fa.fa-envelope
           span.hidde.glyphicon.glyphicon-info-sign data-animation="am-fade-and-slide-top" bs-modal="modal" data-template="#{asset_path('angular/client_infos/info_modal.html')}" ng-show="showGroup == 'Customer'" title="{{ 'Customer' | translate }}: {{ counterparty.name }}"
           span.hidde.glyphicon.glyphicon-question-sign.mess-info ng-show="counterparty.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}"
-          button.icon-button.hidde ng-click="delete(counterparty.id, $index, true)" ng-show="!counterparty.assigned" title="{{ 'delete_reg' | translate }}" type="button"
+          button.icon-button.hidde ng-click="delete(counterparty)" ng-show="!counterparty.assigned" title="{{ 'delete_reg' | translate }}" type="button"
             span.glyphicon.glyphicon-trash
-        form.form-buttons.form-inline editable-form="" name="rowform" ng-show="rowform.$visible" onbeforesave="update(counterparty.id, $data, $index, true)" shown="inserted == counterparty"
-          button.icon-button ng-disabled="rowform.$waiting" title="{{ 'save_changes' | translate }}" type="submit"
-            span.glyphicon.glyphicon-check
-          button.icon-button ng-click="rowform.$cancel()" ng-disabled="rowform.$waiting" title="{{ 'cancel' | translate }}" type="button"
-            span.glyphicon.glyphicon-remove
       td.monthly_payment
         .alert.alert-warning.alert-dismissable ng-show="!counterparty.successful_payment && counterparty.monthly_payment && endOfMonth()"
           button.close aria-hidden="true" data-dismiss="alert" type="button"  &times;
@@ -59,30 +44,18 @@
   table
     tr
       td.name-block
-        | {{ 'inacti_cont' | translate }} ({{ inactiveCounterparties.length }}):
+        | {{ 'inacti_cont' | translate }} ({{ (counterpaties | filter:{active:false}).length }}):
     tr
       th translate="name"
       th translate="date"
-    tr.list-count-article class="list_{{ counterparty.active }}" ng-repeat="counterparty in inactiveCounterparties"
+    tr.list-count-article class="list_{{ counterparty.active }}" ng-repeat="counterparty in counterpaties | filter:{active:false} | filterBy: ['type']: showGroup"
       td
-        span.name e-form="rowform" e-name="name" e-ng-focus="conversionSelect(conversion = true)" e-required="" editable-text="counterparty.name"
-          | {{ counterparty.name }}
+        | {{ counterparty.name }}
       td.editDate
-        span.date e-class="start_date" e-form="rowform" e-name="start_date" e-ng-click="openDatepicker()" editable-text="counterparty.start_date" ng-click="datepicker()"
-          | {{ counterparty.start_date }}
-      td
-        span e-class="сounterparty-types" e-form="rowform" e-name="type" e-ng-options="q.value as (q.text|translate) for q in types" e-title="{{ 'type' | translate }}" editable-select="counterparty.type"
-      td
-        span.active e-form="rowform" e-name="active" e-title="{{ 'activity' | translate }}" editable-checkbox="counterparty.active"
+        | {{ counterparty.start_date }}
       td.edit_icon
         .butn ng-show="!rowform.$visible"
-          button.icon-button.hidde ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}" type="button"
+          button.icon-button.hidde title="{{ 'edit_reg' | translate }}: {{ counterparty.name }}" type="button" data-animation="am-fade-and-slide-top" bs-modal="modal" data-template="#{asset_path('angular/counterparties/edit_modal.html')}"
             span.glyphicon.glyphicon-edit
-          span.hidde.glyphicon.glyphicon-info-sign.mess-info ng-show="counterparty.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}"
-          button.icon-button.hidde ng-click="delete(counterparty.id, $index, false)" ng-show="!counterparty.assigned" title="{{ 'delete_reg' | translate }}" type="button"
+          button.icon-button.hidde ng-click="delete(counterparty)" ng-show="!counterparty.assigned" title="{{ 'delete_reg' | translate }}" type="button"
             span.glyphicon.glyphicon-trash
-        form.form-buttons.form-inline editable-form="" name="rowform" ng-show="rowform.$visible" onbeforesave="update(counterparty.id, $data, $index, false)" shown="inserted == counterparty"
-          button.icon-button ng-disabled="rowform.$waiting" title="{{ 'save_changes' | translate }}" type="submit"
-            span.glyphicon.glyphicon-check
-          button.icon-button ng-click="rowform.$cancel()" ng-disabled="rowform.$waiting" title="{{ 'cancel' | translate }}" type="button"
-            span.glyphicon.glyphicon-remove

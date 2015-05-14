@@ -13,6 +13,17 @@ app.directive "repeatComplete", ->
       $('select.color-record').simplecolorpicker({picker: true, pickerDelay: 600})
       $("input.value").numeric({ decimalPlaces: 2 })
 
+app.directive "numeric", ->
+  (scope, element, attrs) ->
+    element.numeric
+      negative: false
+      decimalPlaces: 2
+
+app.directive "datepicker", ->
+  (scope, element, attrs) ->
+    element.datepicker
+      dateFormat: 'dd-mm-yy'
+
 app.directive "editRegister", ->
   restrict: 'E'
   scope: { ngModel: '=', articles:'=', counterparties: '=', sandbox: '='}
@@ -133,7 +144,7 @@ app.config ['$translateProvider', ($translateProvider) ->
     Vendors: 'Vendors'
     Other: 'Other'
     Others: 'Others'
-    activity: 'Activity'
+    activity: 'Active'
 
   $translateProvider.translations "uk",
     autoFill_hours: 'Автозаповнення годин'
@@ -199,7 +210,7 @@ app.config ['$translateProvider', ($translateProvider) ->
     note: "Примітка"
     background_color: "Колір фону"
     default_color: "За замовчуванням"
-    edit_reg: "Редегувати"
+    edit_reg: "Редагувати"
     delete_reg: "Видалення запису"
     deleteInfo: "Видалення не можливе. Контрагент має зв’язки."
     filter: "Фільтр"
@@ -241,7 +252,7 @@ app.config ['$translateProvider', ($translateProvider) ->
     Vendors: 'Постачальники'
     Other: 'Інший'
     Others: 'Інші'
-    activity: 'Активність'
+    activity: 'Активний'
 
 
   $translateProvider.preferredLanguage "uk"

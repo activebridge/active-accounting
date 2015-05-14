@@ -40,3 +40,4 @@
 //= require jquery-ui/datepicker-en-GB
 //= require jquery-ui/datepicker-uk
 //= require jquery-ui/moment
+//= require jquery-ui/jquery.serialize-object

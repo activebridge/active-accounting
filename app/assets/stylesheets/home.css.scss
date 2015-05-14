@@ -112,6 +112,7 @@ label { margin: 0; }
   .margin-right-#{$i} { margin-right: $i*1px; }
   .margin-bottom-#{$i} { margin-bottom: $i*1px; }
   .padding-left-#{$i} { padding-left: $i*1px; }
+  .padding-bottom-#{$i} { padding-bottom: $i*1px; }
 }
 
 .editable-empty { color: #D14 !important; }
@@ -140,3 +141,5 @@ label { margin: 0; }
 }
 
 #MonthPicker_month-picker .active > .ui-button-text { background-color: #d6d4d4; }
+
+#ui-datepicker-div { z-index: 1200 !important; }

@@ -97,8 +97,6 @@ form.editable-wrap {
     margin: 0;
   }
 
-  .start_date { width: 85px; }
-
   .change_value_payment {
     .glyphicon { font-size: 20px; }
   }
@@ -135,4 +133,19 @@ form.editable-wrap {
     cursor: pointer;
     color: blue;
   }
+
+  .payment-check {
+    width: 16px !important;
+    margin-left: 10px;
+    top: 7px;
+  }
+
+  .edit-counterparty-modal .row {
+    height: 66px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .dialog-edit { width: 800px; }
+
+  .modal-footer { border-top: none; }
 }
