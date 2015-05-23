@@ -16,9 +16,9 @@
     () ->
       unless $.isEmptyObject($routeParams)
         $scope.params = $routeParams
-        $scope.createInvoise()
+        $scope.createInvoice()
 
-  $scope.createInvoise = ->
+  $scope.createInvoice = ->
     $.each $scope.customers, ->
       if @id == parseInt($scope.params.customer_id)
         $scope.customer = @
@@ -37,4 +37,9 @@
     $('select.custumers').select2({width: '179px', minimumResultsForSearch: '5'})
     $('#month_' + parseInt($scope.params.month.slice(0,2))).addClass('active')
     return
+
+  $scope.current_tab = 'invoice'
+
+  $scope.changeGroup = (value) ->
+    $scope.current_tab = value
 ]

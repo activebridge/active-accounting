@@ -65,7 +65,8 @@ RSpec.describe CounterpartiesController, :type => :controller do
       it { expect(json).to eq(
             [ { "name" => counterparty_without_pay.name,
                 "id" => counterparty_without_pay.id,
-                "value_payment" => 2000.0 }
+                "value_payment" => 2000.0,
+                "type" => counterparty_without_pay.type }
             ]
           )
         }
@@ -80,10 +81,12 @@ RSpec.describe CounterpartiesController, :type => :controller do
       it { expect(json).to eq(
             [ { "name" => counterparty_with_payment_fact.name,
                 "id" => counterparty_with_payment_fact.id,
-                "value_payment" => 1000.0 },
+                "value_payment" => 1000.0,
+                "type" => counterparty_without_pay.type },
               { "name" => counterparty_without_pay.name,
                 "id" => counterparty_without_pay.id,
-                "value_payment" => 2000.0 }
+                "value_payment" => 2000.0,
+                "type" => counterparty_without_pay.type }
             ]
           )
         }

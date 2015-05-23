@@ -9,3 +9,14 @@
     font-size: 12px;
   }
 }
+
+#generated-act { display: table; }
+
+#invoice {
+  .tab-content {
+    border: 1px solid #dddddd;
+    border-top-color: transparent;
+    border-radius: 0 0 4px 4px;
+    padding: 10px 15px;
+  }
+}
