@@ -8,4 +8,6 @@ html ng-app="ActiveAccounting"
     = include_gon
   body
     = yield
-    div ng-view=""
+    .container-fluid
+      = render 'shared/vendor_header'
+      div ng-view=""

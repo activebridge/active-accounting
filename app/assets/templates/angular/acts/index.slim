@@ -1,0 +1,19 @@
+.row ng-controller='ActsCtrl'
+  .col-lg-3
+    select.custumers ng-model="actParams.id"
+      option ng-repeat="customer in customers" value="{{customer.id}}" ng-selected='{{ actParams.customer_id == customer.id }}' init-select2='setSelect2()'
+        | {{customer.name}}
+    button.margin-left-10 translate='create' ng-show='actParams.id' ng-click='createAct()'
+    .text-center.calendar.width-320
+      .btn-group
+        label ng-repeat='month in months' id='month_{{$index + 1}}' class="btn btn-danger" ng-model="$parent.actParams.month" btn-radio="'{{$index + 1 + "/" + currentYear}}'" ng-init="clicked = currentMonth ==  $index + 1 " ng-class="{ 'active': clicked }"
+          | {{ month }}
+  .col-lg-7#generated-act ng-show='buttonExport'
+  a href='/acts/{{actParams.id}}?month={{actParams.month}}&format=pdf' target='_blank' data-method='get'
+    button.width-86 translate='savePdf' ng-show='buttonExport'
+  .info-alas ng-show='infoActEmpty'
+    br
+    .alert.alert-info.alert-dismissable
+      strong
+        | {{ 'alas' | translate }}
+      | {{ 'info_not_found' | translate }}

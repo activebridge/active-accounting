@@ -37,6 +37,7 @@ app.directive "editRegister", ->
 
 app.config ['$translateProvider', ($translateProvider) ->
   $translateProvider.translations "en",
+    act: 'Act'
     autoFill_hours: 'AutoFill hours'
     title: 'Title'
     count_working_days: 'The total number of working days'
@@ -147,6 +148,7 @@ app.config ['$translateProvider', ($translateProvider) ->
     activity: 'Active'
 
   $translateProvider.translations "uk",
+    act: 'Акт'
     autoFill_hours: 'Автозаповнення годин'
     title: 'Назва'
     count_working_days: 'Загальна кількість робочих днів'
