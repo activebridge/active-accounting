@@ -7,4 +7,6 @@ html ng-app="ActiveAccounting"
     = csrf_meta_tags
   body
     = yield
-    div ng-view=""
+    .container-fluid
+      = render 'shared/admin_header'
+      div ng-view=""

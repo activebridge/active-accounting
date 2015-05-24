@@ -1,5 +1,4 @@
 .report
-  ng-include src='"#{asset_path('angular/shared/header.html')}"'
   .picker-wrapper
     select.margin-right-5.selectpicker ng-change="CheckYears(year)" ng-model="year"
       option ng-repeat="year in years" ng-selected="{{year==currYear}}"

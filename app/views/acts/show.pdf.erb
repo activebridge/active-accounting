@@ -1,0 +1,246 @@
+<meta charset="utf-8"></meta>
+<%= wicked_pdf_stylesheet_link_tag "acts_pdf" %>
+<div id="act_8282" align="center" x:publishsource="Excel">
+
+<table border="0" cellpadding="0" cellspacing="0" width="800" style="border-collapse:
+ collapse;table-layout:fixed;width:608pt">
+ <colgroup><col width="17" span="9" style="width:13pt">
+ <col width="18" style="width:14pt">
+ <col width="17" span="10" style="width:13pt">
+ <col width="26" style="width:20pt">
+ <col width="15" style="width:11pt">
+ <col width="9" style="width:7pt">
+ <col width="16" span="2" style="width:12pt">
+ <col width="20" style="width:15pt">
+ <col width="16" span="8" style="width:12pt">
+ <col width="35" style="width:26pt">
+ <col width="21" span="8" style="width:16pt">
+ <col width="26" style="width:20pt">
+ </colgroup><tbody><tr height="20" style="mso-height-source:userset;height:15.0pt">
+  <td height="20" class="xl728282" colspan="2" width="34" style="height:15.0pt;
+  width:26pt">Act #</td>
+  <td colspan="3" class="xl748282" width="51" style="width:39pt"><%= "#{@act_date.month}" + '/' "#{@act_date.end_of_month.day}" %></td>
+  <td class="xl728282" colspan="2" width="34" style="width:26pt">dated</td>
+  <td class="xl728282" width="17" style="width:13pt">&nbsp;</td>
+  <td colspan="6" class="xl738282" width="103" style="width:79pt"><%= @act_date.end_of_month.strftime('%m/%d/%Y') %></td>
+  <td class="xl728282" colspan="8" width="143" style="width:109pt">of
+  submitting/accepting</td>
+  <td rowspan="31" class="xl768282" width="9" style="width:7pt"></td>
+  <td colspan="12" class="xl728282" width="215" style="width:161pt">АКТ
+  приймання/здачі Послуг №</td>
+  <td colspan="9" class="xl718282" width="194" style="width:148pt"><%= "#{@act_date.month}" + '/' "#{@act_date.end_of_month.day}" %></td>
+ </tr>
+ <tr height="20" style="mso-height-source:userset;height:15.0pt">
+  <td colspan="22" height="20" class="xl728282" style="height:15.0pt">the works done
+  to the Development Services Agreement</td>
+  <td class="xl728282" colspan="2">від</td>
+  <td colspan="19" class="xl708282"><%= @act_date.end_of_month.strftime('%d/%m/%Y') %></td>
+ </tr>
+ <tr height="20" style="mso-height-source:userset;height:15.0pt">
+  <td colspan="22" height="20" class="xl698282" style="height:15.0pt"># <%= @customer.client_info_agreement %> dated  <%= @customer.start_date.strftime("%B #{@customer.start_date.day.ordinalize}, %Y")%></td>
+  <td colspan="12" class="xl728282">до<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+  </span>Договору<span style="mso-spacerun:yes">&nbsp;&nbsp; </span>про надання послуг</td>
+  <td colspan="9" class="xl698282">    № <%= @customer.client_info_agreement %><span style="mso-spacerun:yes">&nbsp;
+  </span>від <%= @customer.start_date.strftime("%e #{t('uk_month_names')[@customer.start_date.month - 1]} %Y")%> р.</td>
+ </tr>
+ <tr height="20" style="mso-height-source:userset;height:15.0pt">
+  <td colspan="3" height="20" class="xl758282" style="height:15.0pt">Between</td>
+  <td colspan="19" class="xl688282" width="331" style="width:253pt">Active Bridge,
+  LLC</td>
+  <td colspan="21" class="xl678282" width="409" style="width:309pt">Між ТОВ
+  "Ектів Брідж"</td>
+ </tr>
+ <tr height="37" style="mso-height-source:userset;height:27.75pt">
+  <td colspan="22" height="37" class="xl758282" style="height:27.75pt">137 Gogolya
+  Street, Cherkasy, 18000, Ukraine, and</td>
+  <td colspan="21" class="xl678282" width="409" style="width:309pt">18000,<span style="mso-spacerun:yes">&nbsp;&nbsp; </span>Черкаська обл., місто Черкаси, вул..
+  Гоголя 137, Україна, і</td>
+ </tr>
+ <tr height="19" style="mso-height-source:userset;height:14.25pt">
+  <td colspan="22" height="19" class="xl668282" style="height:14.25pt"><%= @customer.client_info_name %></td>
+  <td colspan="21" class="xl668282"><%= @customer.client_info_name %></td>
+ </tr>
+ <tr height="19" style="mso-height-source:userset;height:14.25pt">
+  <td colspan="22" height="19" class="xl658282" style="height:14.25pt"><%= @customer.client_info_address %></td>
+  <td colspan="21" class="xl658282"><%= @customer.client_info_address %></td>
+ </tr>
+ <tr height="19" style="mso-height-source:userset;height:14.25pt">
+  <td colspan="22" height="19" class="xl648282" width="382" style="height:14.25pt;
+  width:292pt">further together referred to as "Parties" and
+  separately as "Party", have concluded this Act of
+  submitting/accepting the works done (further together referred to as
+  "Act") about the following:</td>
+  <td colspan="21" class="xl638282" width="409" style="width:309pt">далі за текстом
+  "Сторони", а окремо "Сторона", склали дійсний Акт
+  приймання/здачі Послуг по виготовленню програмного продукту (далі -
+  "Акт") про нижченаведене:</td>
+ </tr>
+ <tr height="19" style="mso-height-source:userset;height:14.25pt">
+  <td colspan="22" height="19" class="xl698282" style="height:14.25pt">General
+  Objective of Act</td>
+  <td colspan="21" class="xl698282">Предмет підписання Акту</td>
+ </tr>
+ <tr height="25" style="mso-height-source:userset;height:18.75pt">
+  <td height="25" class="xl758282" colspan="22" style="height:18.75pt">The
+  CONSULTANT<span style="mso-spacerun:yes">&nbsp; </span>submits and the COMPANY
+  accepts the works</td>
+  <td colspan="21" class="xl758282">Виконавець здає, а Компанія приймає надані
+  послуги<span style="mso-spacerun:yes">&nbsp; </span>по</td>
+ </tr>
+ <tr height="20" style="mso-height-source:userset;height:15.0pt">
+  <td height="20" class="xl758282" colspan="2" style="height:15.0pt">done</td>
+  <td colspan="20" class="xl668282">since<%= @act_date.strftime('%d') %> till<span style="mso-spacerun:yes">&nbsp;&nbsp;
+  </span><%= @act_date.end_of_month.day %><span style="mso-spacerun:yes">&nbsp;&nbsp; </span><%= @act_date.strftime("%B")%></td>
+  <td colspan="14" class="xl758282">виготовленню програмного продукту</td>
+  <td colspan="7" class="xl668282">з <%= @act_date.day %> по <%= @act_date.end_of_month.day %> <%= t('uk_month_names')[@act_date.month - 1] %></td>
+ </tr>
+ <tr height="19" style="mso-height-source:userset;height:14.25pt">
+  <td colspan="13" height="19" class="xl658282" style="height:14.25pt">The works are
+  done to the amount of</td>
+  <td colspan="6" class="xl778282"><%= sprintf('%.2f', @total_by_hours).gsub('.',',') %></td>
+  <td colspan="3" class="xl758282">USD</td>
+  <td colspan="14" class="xl658282">Плата за надані Послуги становить</td>
+  <td colspan="7" class="xl788282"><%= sprintf('%.2f', @total_by_hours).gsub('.',',') %></td>
+ </tr>
+ <tr height="22" style="mso-height-source:userset;height:16.5pt">
+  <td colspan="22" height="22" class="xl758282" style="height:16.5pt">VAT excluded</td>
+  <td colspan="21" class="xl758282">доларів США без ПДВ</td>
+ </tr>
+ <tr height="289" style="mso-height-source:userset;height:216.75pt">
+  <td colspan="22" height="289" class="xl648282" width="382" style="height:216.75pt;
+  width:292pt">The CONSULTANT provided the COMPANY with following software
+  development services: <br>
+    Design and development of standard software, testing and support, that
+  includes: software development, development, creation, design improvement;
+  further maintenance on the use of the product implemented by the
+  CONSULTANT.<br>
+    <span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>These services are to produce a
+  "computer program" as an objective presentation of the data set and
+  commands, designed for the operation of computer devices in order to get to
+  the Company result.<br>
+    The software is a computer program (software package) that transferred in
+  full ownership and operation to the Company.<br>
+    The present act confirmed that the Consultant develops «computer programs»
+  on Company demand. And the «computer programs» is accepted by the
+  Company.<br>
+    The software is delivered to the customer on relevant information carriers.
+  <br>
+    <span style="mso-spacerun:yes">&nbsp;&nbsp; </span>At the time of the signing of the
+  act the ownership of the software moves from the Consultant to the
+  Company.<span style="mso-spacerun:yes">&nbsp; </span>This time is counted as the
+  start of obtaining the ownership of the software and<span style="mso-spacerun:yes">&nbsp; </span>as the moment of its delivery from the
+  Consultant<span style="mso-spacerun:yes">&nbsp; </span>to the Company.</td>
+  <td colspan="21" class="xl638282" width="409" style="width:309pt">Виконавець надав
+  Компанії такі Послуги по виготовленню програмного продукту:розробка та
+  виготовлення стандартного програмного забезпечення, тестування та супровід,
+  що включає в себе: виготовлення комп'ютерного<span style="mso-spacerun:yes">&nbsp;&nbsp; </span>програмування (продукту), розробку,
+  формування, дизайнерське облаштування;<span style="mso-spacerun:yes">&nbsp;&nbsp;
+  </span>подальше консультування<span style="mso-spacerun:yes">&nbsp;&nbsp; </span>з<span style="mso-spacerun:yes">&nbsp;&nbsp; </span>питань інформатизації та використання
+  продукту виготовленого Виконавцем. Дані послуги являють собою виготовлення
+  «комп’ютерної програми», як об’єктивної форми представлення сукупності даних
+  і команд, призначених для функціонування комп’ютерних пристроїв з метою
+  отримання визначеного Компанією результату. Програмний продукт являє собою
+  комп’ютерну програму (пакет комп’ютерних програм), які передаються у повне
+  володіння та експлуатацію Компанії. Даним актом підтверджується виготовлення
+  Виконавцем «комп’ютерної програми» на замовлення Компанії. Та прийняття її
+  останньою. Програмний продукт передано Замовнику на відповідних інформаційних
+  носіях.<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>В момент підписання
+  даного акту право власності на програмний продукт переходить від Виконавця до
+  Замовника та вважається моментом виникнення права власності на програмний
+  продукт та моментом його поставки від Виконавця до Замовника.</td>
+ </tr>
+ <tr height="19" style="mso-height-source:userset;height:14.25pt">
+  <td colspan="22" height="19" class="xl698282" style="height:14.25pt">Governing Law</td>
+  <td colspan="21" class="xl698282">Керівний Закон</td>
+ </tr>
+ <tr height="19" style="mso-height-source:userset;height:14.25pt">
+  <td colspan="22" height="19" class="xl648282" width="382" style="height:14.25pt;
+  width:292pt">The terms of this Act shall be construed and enforced under the
+  laws of the active Legislation of Ukraine.</td>
+  <td colspan="21" class="xl648282" width="409" style="width:309pt">Умови цього Акту
+  будуть тлумачитися й пропонуватися відповідно до чинного законодавства
+  України.</td>
+ </tr>
+ <tr height="19" style="mso-height-source:userset;height:14.25pt">
+  <td colspan="22" height="19" class="xl698282" style="height:14.25pt">Language of
+  the Act</td>
+  <td colspan="21" class="xl698282">Мова Акту</td>
+ </tr>
+ <tr height="34" style="mso-height-source:userset;height:25.5pt">
+  <td colspan="22" height="34" class="xl648282" width="382" style="height:25.5pt;
+  width:292pt">This Act is issued in two languages: Ukrainian and English. Both
+  versions of the Act are equal in power. In case of different interpretations
+  or erroneous translation the preferences is given a text of the agreement in
+  the English.</td>
+  <td colspan="21" class="xl648282" width="409" style="width:309pt">Цей акт складений
+  двома мовами: українською та англійською. Обидві версії акту є рівноправними.
+  У випадку виникнення різночитань або некоректності перекладу перевага
+  надається тексту Акту англійською мовою.</td>
+ </tr>
+ <tr height="62" style="mso-height-source:userset;height:46.5pt">
+  <td colspan="22" height="62" class="xl798282" width="382" style="height:46.5pt;
+  width:292pt">IN WITNESS WHEREOF, the parties have executed this Act by their
+  duly authorized representatives on the dates first above written.</td>
+  <td colspan="21" class="xl808282" width="409" style="width:309pt">У ПОСВІДЧЕННЯ
+  ЧОГО, сторони підписали цей Акт уповноваженими ними представниками у
+  вищевказані дати.</td>
+ </tr>
+ <tr height="19" style="mso-height-source:userset;height:14.25pt">
+  <td colspan="22" height="19" class="xl768282" style="height:14.25pt">By:</td>
+  <td colspan="21" class="xl768282">Від:</td>
+ </tr>
+ <tr height="24" style="mso-height-source:userset;height:18.0pt">
+  <td colspan="22" height="24" class="xl668282" style="height:18.0pt"><%= @customer.client_info_name %></td>
+  <td colspan="21" class="xl688282" width="409" style="width:309pt"><%= @customer.client_info_name %></td>
+ </tr>
+ <tr height="25" style="mso-height-source:userset;height:18.75pt">
+  <td colspan="22" height="25" class="xl818282" width="382" style="height:18.75pt;
+  width:292pt"><%= @customer.client_info_address %></td>
+  <td colspan="21" class="xl818282" width="409" style="width:309pt"><%= @customer.client_info_address %></td>
+ </tr>
+ <tr height="28" style="mso-height-source:userset;height:21.0pt">
+  <td height="28" class="xl768282" colspan="5" style="height:21.0pt">Printed Name:</td>
+  <td colspan="17" class="xl668282"><%= @customer.client_info_repr_name %></td>
+  <td class="xl768282" colspan="6">Друковане ім'я:</td>
+  <td colspan="15" class="xl668282"><%= @customer.client_info_repr_name %></td>
+ </tr>
+ <tr height="26" style="mso-height-source:userset;height:19.5pt">
+  <td colspan="2" height="26" class="xl768282" style="height:19.5pt">Title:</td>
+  <td colspan="20" class="xl768282">CEO</td>
+  <td colspan="3" class="xl768282">Посада:</td>
+  <td colspan="18" class="xl768282">CEO</td>
+ </tr>
+ <tr height="24" style="mso-height-source:userset;height:18.0pt">
+  <td colspan="22" height="24" class="xl768282" style="height:18.0pt">Signature:_______________</td>
+  <td colspan="21" class="xl768282">Підпис: ________________________</td>
+ </tr>
+ <tr height="27" style="mso-height-source:userset;height:20.25pt">
+  <td colspan="22" height="27" class="xl758282" style="height:20.25pt">and</td>
+  <td colspan="21" class="xl758282">та</td>
+ </tr>
+ <tr height="28" style="mso-height-source:userset;height:21.0pt">
+  <td colspan="22" height="28" class="xl668282" style="height:21.0pt">Active Bridge,
+  LLC</td>
+  <td colspan="21" class="xl768282">ТОВ “Ектів Брідж”</td>
+ </tr>
+ <tr height="35" style="mso-height-source:userset;height:26.25pt">
+  <td colspan="22" height="35" class="xl828282" style="height:26.25pt">137 Gogolya
+  Street, Cherkasy, 18000, Ukraine</td>
+  <td colspan="21" class="xl648282" width="409" style="width:309pt">18000, Черкаська
+  обл., місто Черкаси, вулиця Гоголя, будинок 137, Україна</td>
+ </tr>
+ <tr height="28" style="mso-height-source:userset;height:21.0pt">
+  <td colspan="22" height="28" class="xl768282" style="height:21.0pt">Printed Name:
+  Ievgenii O. Korpan</td>
+  <td colspan="21" class="xl768282">Друковане ім’я: Корпань Євгеній Олександрович</td>
+ </tr>
+ <tr height="25" style="mso-height-source:userset;height:18.75pt">
+  <td colspan="22" height="25" class="xl768282" style="height:18.75pt">Title: CEO</td>
+  <td colspan="21" class="xl768282">Посада: Генеральний Директор</td>
+ </tr>
+ <tr height="33" style="mso-height-source:userset;height:24.75pt">
+  <td colspan="22" height="33" class="xl768282" style="height:24.75pt">Signature:______________</td>
+  <td colspan="21" class="xl768282">Підпис: ________________________</td>
+ </tr>
+</tbody></table>
+</div>

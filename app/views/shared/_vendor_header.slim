@@ -1,0 +1,10 @@
+nav.navbar.navbar-default bs-navbar='' role='navigation'
+  .navbar-header
+    a.navbar-brand
+      | ActiveAccounting for vendors
+  ul.nav.navbar-nav.navbar-right
+    li.locale
+      a.fa.fa-key.margin-right-15 data-animation="am-fade-and-slide-top" bs-modal="modal" data-template="#{asset_path('angular/vendor_change_password/modal.html')}" title="{{ 'change_pass' | translate }}"
+    li.margin-right-10
+      a href='vendor_logout' data-method='delete'
+        i.fa.fa-sign-out translate="sing_out"
