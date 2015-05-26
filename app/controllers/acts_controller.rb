@@ -12,7 +12,7 @@ class ActsController < ApplicationController
         format.pdf do
           render pdf: "act_#{@customer.name + Time.current.strftime('%m-%d-%Y')}",
                  template: 'acts/show.pdf.erb',
-                 dpi: '600'
+                 dpi: '1200'
         end
       end
     end
