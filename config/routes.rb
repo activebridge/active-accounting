@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     resources :client_infos, only: :update
     resources :invoices, only: :show
     resources :work_days, only: :index
+    resources :acts, only: :show
 
     resources :holidays do
       collection do

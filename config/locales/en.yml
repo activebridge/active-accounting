@@ -20,4 +20,16 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  uk_month_names:
+  - січня
+  - лютого
+  - березня
+  - квітня
+  - травня
+  - червня
+  - липня
+  - серпня
+  - вересня
+  - жовтня
+  - листопада
+  - грудня

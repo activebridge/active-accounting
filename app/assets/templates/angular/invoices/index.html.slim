@@ -1,22 +1,33 @@
-ng-include src='"#{asset_path('angular/shared/header.html')}"'
-.row
-  .col-lg-3.margin-left-20
-    select.custumers ng-model="params.customer_id"
-      option ng-repeat="customer in customers" value="{{customer.id}}" ng-selected='{{ params.customer_id == customer.id }}' init-select2='setSelect2()'
-        | {{customer.name}}
-    button.margin-left-10 translate='create' ng-show='params.customer_id' ng-click='createInvoise()'
-    .text-center.calendar.width-320
-      .btn-group
-        label ng-repeat='month in months' id='month_{{$index + 1}}' class="btn btn-danger" ng-model="$parent.params.month" btn-radio="'{{$index + 1 + "/" + currentYear}}'" ng-init="clicked = currentMonth ==  $index + 1 " ng-class="{ 'active': clicked }"
-          | {{ month }}
-  .col-lg-7
-    ng-include#invoices src='"#{asset_path('angular/invoices/invoice.html')}"' ng-show='hours.length > 0'
-    .info-alas ng-hide='hours.length>0 || !hours'
-      br
-      .alert.alert-info.alert-dismissable
-        strong
-          | {{ 'alas' | translate }}
-        | {{ 'info_not_found' | translate }}
-  .col-lg-1
-    a href='/invoices/{{params.customer_id}}?month={{params.month}}' target='_blank' data-method='get' ng-show='hours.length > 0'
-      button translate='savePdf'
+#invoice
+  .row
+    .col-lg-12
+      ul.nav.nav-tabs
+        li ng-class="{'active': currentTab == 'invoice'}"
+          a href="javascript:void(false);" ng-click="changeGroup('invoice')" translate="invoice"
+        li ng-class="{'active': currentTab == 'act'}"
+          a href="javascript:void(false);" ng-click="changeGroup('act');" translate="act"
+  .tab-content
+    .tab-pane ng-class="{'active': currentTab == 'invoice'}"
+      .row
+        .col-lg-3
+          select.custumers ng-model="params.customer_id"
+            option ng-repeat="customer in customers" value="{{customer.id}}" ng-selected='{{ params.customer_id == customer.id }}' init-select2='setSelect2()'
+              | {{customer.name}}
+          button.margin-left-10 translate='create' ng-show='params.customer_id' ng-click='createInvoice()'
+          .text-center.calendar.width-320
+            .btn-group
+              label ng-repeat='month in months' id='month_{{$index + 1}}' class="btn btn-danger" ng-model="$parent.params.month" btn-radio="'{{$index + 1 + "/" + currentYear}}'" ng-init="clicked = currentMonth ==  $index + 1 " ng-class="{ 'active': clicked }"
+                | {{ month }}
+        .col-lg-7
+          ng-include#invoices src='"#{asset_path('angular/invoices/invoice.html')}"' ng-show='hours.length > 0'
+          .info-alas ng-hide='hours.length>0 || !hours'
+            br
+            .alert.alert-info.alert-dismissable
+              strong
+                | {{ 'alas' | translate }}
+              | {{ 'info_not_found' | translate }}
+        .col-lg-1
+          a href='/invoices/{{params.customer_id}}?month={{params.month}}' target='_blank' data-method='get' ng-show='hours.length > 0'
+            button translate='savePdf'
+    .tab-pane ng-class="{'active': currentTab == 'act'}"
+      ng-include src='"#{asset_path('angular/acts/index.slim')}"'

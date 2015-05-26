@@ -1,5 +1,4 @@
 .list
-  ng-include src='"#{asset_path('angular/shared/header.html')}"'
   .picker-wrapper
     .multiple-picker
       label.picker-label ng-class="{checked_label: clicked}" ng-click="clicked=!clicked; CheckYears(year, clicked)" ng-init="clicked = currYear == year" ng-repeat="year in years" type="checkbox"

@@ -1,8 +1,3 @@
-.counterparties, .articles {
-  float: left;
-  padding: 20px;
-}
-
 .clearboth {
   clear: both;
   margin-bottom: 30px;
@@ -89,12 +84,9 @@ label { margin: 0; }
   a { margin-left: 10px; }
 }
 
-.locale {
-  float: right;
-  margin: 5px 12px;
+.locale { width: 32px; }
 
-  a { text-decoration: none; }
-}
+.navbar-right { height: 30px; }
 
 .rate_currency {
   float: right;
@@ -111,6 +103,7 @@ label { margin: 0; }
   .margin-left-#{$i} { margin-left: $i*1px; }
   .margin-right-#{$i} { margin-right: $i*1px; }
   .margin-bottom-#{$i} { margin-bottom: $i*1px; }
+  .margin-top-#{$i} { margin-top: $i*1px; }
   .padding-left-#{$i} { padding-left: $i*1px; }
   .padding-bottom-#{$i} { padding-bottom: $i*1px; }
 }
@@ -142,4 +135,8 @@ label { margin: 0; }
 
 #MonthPicker_month-picker .active > .ui-button-text { background-color: #d6d4d4; }
 
-#ui-datepicker-div { z-index: 1200 !important; }
+#ui-datepicker-div {
+  z-index: 1200 !important;
+
+  tr { height: auto; }
+}
