@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506132832) do
+ActiveRecord::Schema.define(version: 20150527094316) do
 
   create_table "articles", force: true do |t|
     t.string   "name"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20150506132832) do
     t.string   "repr_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title_en"
+    t.string   "title_ua"
   end
 
   add_index "client_infos", ["customer_id"], name: "index_client_infos_on_customer_id", using: :btree
@@ -41,7 +43,7 @@ ActiveRecord::Schema.define(version: 20150506132832) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "value_payment"
-    t.boolean  "monthly_payment"
+    t.boolean  "monthly_payment",        default: false
     t.string   "type"
     t.integer  "customer_id"
     t.string   "email"

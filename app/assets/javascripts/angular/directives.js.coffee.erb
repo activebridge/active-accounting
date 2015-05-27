@@ -37,6 +37,8 @@ app.directive "editRegister", ->
 
 app.config ['$translateProvider', ($translateProvider) ->
   $translateProvider.translations "en",
+    title_ua: 'Ukrainian Title'
+    title_en: 'English Title'
     act: 'Act'
     autoFill_hours: 'AutoFill hours'
     title: 'Title'
@@ -148,6 +150,8 @@ app.config ['$translateProvider', ($translateProvider) ->
     activity: 'Active'
 
   $translateProvider.translations "uk",
+    title_ua: 'Посада українською'
+    title_en: 'Посада англійською'
     act: 'Акт'
     autoFill_hours: 'Автозаповнення годин'
     title: 'Назва'
