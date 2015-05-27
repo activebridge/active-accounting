@@ -5,7 +5,7 @@ class Customer < Counterparty
   has_many :hours
   has_one  :client_info, dependent: :destroy
 
-  delegate :repr_name, :name, :address, :invoice_id, :agreement, to: :client_info, prefix: true
+  delegate :repr_name, :name, :address, :invoice_id, :agreement, :title_en, :title_ua, to: :client_info, prefix: true
 
   def create_info_record
     self.create_client_info
