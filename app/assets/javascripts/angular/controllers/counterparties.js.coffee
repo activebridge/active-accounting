@@ -1,6 +1,27 @@
 @CounterpartiesCtrl = ['$scope', '$q', '$timeout', 'Counterparty', 'Invitation', '$translate', '$modal', ($scope, $q, $timeout, Counterparty, Invitation, $translate, $modal) ->
   $scope.newCounterparty = {}
   $scope.newCounterparty.errors = {}
+  $scope.counterparty = {}
+
+  $scope.clientInfoModal = $modal(
+    scope: $scope
+    template: 'assets/angular/client_infos/info_modal.html'
+    show: false)
+
+  $scope.showClientInfoModal = (counterparty) ->
+    $scope.counterparty = counterparty
+    $scope.clientInfoModal.$promise.then $scope.clientInfoModal.show
+    return
+
+  $scope.editCounterpartyModal = $modal(
+    scope: $scope
+    template: 'assets/angular/counterparties/edit_modal.html'
+    show: false)
+
+  $scope.showEditCounterpartyModal = (counterparty) ->
+    $scope.counterparty = counterparty
+    $scope.editCounterpartyModal.$promise.then $scope.editCounterpartyModal.show
+    return
 
   $scope.vendorInfoModal = $modal(
     scope: $scope
@@ -72,7 +93,8 @@
     Counterparty.update( id: data.id, { counterparty: data }
       (response) ->
         d.resolve()
-        $('.client-info-modal .alert').fadeIn().fadeOut(3000)
+        $('.info-update').fadeIn().fadeOut(4000)
+        $scope.editCounterpartyModal.hide()
         index = $scope.counterpaties.indexOf($scope.counterpartyOld)
         $scope.counterpaties.splice(index, 1, response)
       (response) ->
