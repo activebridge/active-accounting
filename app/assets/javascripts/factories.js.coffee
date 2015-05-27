@@ -93,3 +93,10 @@ angular.module('accounting.services').factory 'Holiday', ['$resource', ($resourc
 angular.module('accounting.services').factory 'WorkDay', ['$resource', ($resource) ->
   $resource '/work_days/'
 ]
+
+angular.module('accounting.services').factory 'VendorInfo', ['$resource', ($resource) ->
+  $resource '/vendor_infos/:id',
+    id: '@id'
+  , update:
+    method: 'PUT'
+]

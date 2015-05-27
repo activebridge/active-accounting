@@ -1,0 +1,29 @@
+.modal.client-info-modal role="dialog" tabindex="-1" ng-controller='VendorInfosCtrl'
+  .modal-dialog.edit-modal
+    .modal-content
+      .modal-header
+        button.close ng-click="$hide()" type="button"  &times;
+        h4.modal-title
+          | {{ 'edit_reg' | translate }}: {{ counterparty.name }}
+      .modal-body
+        form ng-submit="update(counterparty.vendor_info);"
+          .row
+            .col-lg-6
+              label translate='full_name'
+              input ng-model="counterparty.vendor_info.name" name='name' type="text"
+              label translate='ipn'
+              input ng-model="counterparty.vendor_info.ipn" name='ipn' maxlength='8' numeric='' type="text"
+              label translate='address'
+              input.number ng-model="counterparty.vendor_info.address" name='address' type="text"
+              label translate='mfo'
+              input.number ng-model="counterparty.vendor_info.mfo" maxlength='8' numeric='' name='mfo' type="text"
+            .col-lg-6
+              label translate='contract'
+              input ng-model="counterparty.vendor_info.contract" name='contract' type="text"
+              label translate='settlement_account'
+              input ng-model="counterparty.vendor_info.account" maxlength='8' numeric='' name='account' type="text"
+              label translate='bank'
+              input ng-model="counterparty.vendor_info.bank" name='bank' type="text"
+          .modal-footer
+            button.btn.btn-primary type="submit" translate='save_changes'
+            button.btn.btn-danger ng-click="$hide()" type="button" translate='cancel'
