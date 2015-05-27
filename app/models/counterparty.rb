@@ -36,8 +36,7 @@ class Counterparty < ActiveRecord::Base
 
   scope :unpaid_for, -> (date, type) {
     paid_ids = monthly_payment.for_registers(type).paid_for(date).select('id').uniq
-    monthly_payment.where("id not in (?)", paid_ids)
-                   .active
+    monthly_payment.where("id not in (?)", paid_ids).active
   }
 
   scope :for_registers, -> (type) {
