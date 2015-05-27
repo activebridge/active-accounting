@@ -31,7 +31,7 @@
           button.icon-button.hidde ng-show="showGroup == 'Vendor' && !!counterparty.email" ng-click="sendInvitation(counterparty.id)" title="{{ 'sendOnEmail' | translate }}" type="button"
             span.fa.fa-envelope
           span.hidde.glyphicon.glyphicon-info-sign data-animation="am-fade-and-slide-top" bs-modal="modal" data-template="#{asset_path('angular/client_infos/info_modal.html')}" ng-show="showGroup == 'Customer'" title="{{ 'Customer' | translate }}: {{ counterparty.name }}"
-          span.hidde.glyphicon.glyphicon-question-sign.mess-info ng-show="counterparty.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}"
+          span.hidde.glyphicon.glyphicon-question-sign.mess-info ng-show="counterparty.assigned" title="{{ 'deleteInfo' | translate }}"
           button.icon-button.hidde ng-click="delete(counterparty)" ng-show="!counterparty.assigned" title="{{ 'delete_reg' | translate }}" type="button"
             span.glyphicon.glyphicon-trash
       td.monthly_payment
@@ -57,5 +57,7 @@
         .butn ng-show="!rowform.$visible"
           button.icon-button.hidde title="{{ 'edit_reg' | translate }}: {{ counterparty.name }}" type="button" data-animation="am-fade-and-slide-top" bs-modal="modal" data-template="#{asset_path('angular/counterparties/edit_modal.html')}"
             span.glyphicon.glyphicon-edit
+          span.hidde.glyphicon.glyphicon-info-sign data-animation="am-fade-and-slide-top" bs-modal="modal" data-template="#{asset_path('angular/client_infos/info_modal.html')}" ng-show="showGroup == 'Customer'" title="{{ 'Customer' | translate }}: {{ counterparty.name }}"
           button.icon-button.hidde ng-click="delete(counterparty)" ng-show="!counterparty.assigned" title="{{ 'delete_reg' | translate }}" type="button"
             span.glyphicon.glyphicon-trash
+          span.hidde.glyphicon.glyphicon-question-sign.mess-info ng-show="counterparty.assigned" title="{{ 'deleteInfo' | translate }}"
