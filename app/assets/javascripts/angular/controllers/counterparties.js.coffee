@@ -1,6 +1,16 @@
-@CounterpartiesCtrl = ['$scope', '$q', '$timeout', 'Counterparty', 'Invitation', '$translate', ($scope, $q, $timeout, Counterparty, Invitation, $translate) ->
+@CounterpartiesCtrl = ['$scope', '$q', '$timeout', 'Counterparty', 'Invitation', '$translate', '$modal', ($scope, $q, $timeout, Counterparty, Invitation, $translate, $modal) ->
   $scope.newCounterparty = {}
   $scope.newCounterparty.errors = {}
+
+  $scope.vendorInfoModal = $modal(
+    scope: $scope
+    template: 'assets/angular/vendor_infos/modal.html'
+    show: false)
+
+  $scope.showVendorInfoModal = (counterparty) ->
+    $scope.counterparty = counterparty
+    $scope.vendorInfoModal.$promise.then $scope.vendorInfoModal.show
+    return
 
   $scope.load = ->
     $scope.counterpaties = Counterparty.query(group: $scope.showGroup)

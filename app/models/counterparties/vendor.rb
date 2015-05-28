@@ -1,6 +1,8 @@
 class Vendor < Counterparty
+  after_create :create_info_record
   belongs_to :customer
   has_many :hours
+  has_one  :vendor_info, dependent: :destroy
 
   before_create { generate_token(:auth_token) }
 
@@ -16,5 +18,9 @@ class Vendor < Counterparty
   def generate_token(column)
     self[column] = SecureRandom.urlsafe_base64
     generate_token if Vendor.exists?(column => self[column])
+  end
+
+  def create_info_record
+    self.create_vendor_info
   end
 end
