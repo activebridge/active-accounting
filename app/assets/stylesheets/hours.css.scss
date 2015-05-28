@@ -9,6 +9,21 @@
       }
     }
   }
+
+  .calendar {
+    max-width: 430px;
+
+    table {
+      max-width: 362px;
+      width: 100%;
+    }
+  }
+
+  #hours_form {
+    display: block;
+    margin: 0 auto;
+    max-width: 650px;
+  }
 }
 
 .fa-key { cursor: pointer; }
