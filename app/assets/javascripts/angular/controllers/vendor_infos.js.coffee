@@ -6,6 +6,7 @@
       (response) ->
         d.resolve()
         $('.info-update').fadeIn().fadeOut(4000)
+        $scope.vendorInfoModal.hide()
       (response) ->
         d.resolve response.vendorInfo.errors['vendorInfo'][0]
     )
