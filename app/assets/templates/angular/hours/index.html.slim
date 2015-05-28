@@ -1,92 +1,94 @@
 .hours
   .row
-    .col-lg-3.text-center.calendar
-      b translate='hours_calendar'
-      br
-      .btn-group data-toggle="buttons"
-        .btn.btn-primary.col-lg-3 ng-repeat='hours in hoursByMonths' ng-init="clicked = selectedMonth == hours.month" ng-class="{ 'active': clicked }" ng-click='changeMonth(hours.month)'
-          input#option1 name="options" type="radio"
-            | {{ months[hours.month - 1] }}
-            br
-              | ({{ hours.total_hours }})
-      h2.text-center translate='holidays' ng-show='holidays.holidays.length>0'
-      table.width-270 ng-show='holidays.holidays.length>0'
-        thead.bg-grey
-          tr
-            th.text-center translate='date'
-            th.text-center translate='title'
-        tbody
-          tr ng-repeat='holiday in holidays.holidays'
-            td
-              | {{ holiday.date }}
-            td
-              | {{ holiday.name }}
-      b
-        i
-          | {{ 'count_working_days' | translate }} : {{ workingDays.count }}
+    .col-lg-3.text-center
+      .calendar.pull-left
+        b translate='hours_calendar'
         br
-        i
-          | {{ 'totalHours' | translate }} : {{ workingDays.count * 8 || 0 }}
-      br
-      .approve
+        .btn-group data-toggle="buttons"
+          .btn.btn-primary.col-lg-3 ng-repeat='hours in hoursByMonths' ng-init="clicked = selectedMonth == hours.month" ng-class="{ 'active': clicked }" ng-click='changeMonth(hours.month)'
+            input#option1 name="options" type="radio"
+              | {{ months[hours.month - 1] }}
+              br
+                | ({{ hours.total_hours }})
+        h2.text-center translate='holidays' ng-show='holidays.holidays.length>0'
+        table ng-show='holidays.holidays.length>0'
+          thead.bg-grey
+            tr
+              th.text-center translate='date'
+              th.text-center translate='title'
+          tbody
+            tr ng-repeat='holiday in holidays.holidays'
+              td
+                | {{ holiday.date }}
+              td
+                | {{ holiday.name }}
         b
-          | {{ 'autoFill_hours' | translate }} : 
-      toggle-switch ng-model="current_vendor.approvehoursStatus" on-label="Вкл" off-label="Викл" ng-change='updateApproveHours()'
+          i
+            | {{ 'count_working_days' | translate }} : {{ workingDays.count }}
+          br
+          i
+            | {{ 'totalHours' | translate }} : {{ workingDays.count * 8 || 0 }}
+        br
+        .approve
+          b
+            | {{ 'autoFill_hours' | translate }} : 
+        .pull-left.margin-left-10 toggle-switch='' ng-model="current_vendor.approvehoursStatus" on-label="Вкл" off-label="Викл" ng-change='updateApproveHours()'
 
     .col-lg-6
-      h1 translate='management_hours'
-      .form
-        form#hours_form ng-submit="add()"
-          .row
-            .col-lg-4
-              b
-                | {{ 'Customer' | translate }}
-            .col-lg-4
-              b
-                | {{ 'hours' | translate }}
-            .col-lg-2
-              b
-                | {{ 'month' | translate }}
-            .col-lg-2
-          .row.margin-bottom-20
-            .col-lg-4
-              span.error
-                | {{newHours.errors.customer_id[0]}}
-              select.width-200.hours.clear_after_add ng-model="newHour.customer_id"
-                option ng-repeat='customer in customers' value='{{ customer.id }}' ng-selected='{{current_vendor.customer_id == customer.id }}' init-select2='setSelect2()'
-                  | {{customer.name}}
-            .col-lg-4
-              input.number ng-model="newHour.hours" type="text" name='hours' maxlength='3' ng-required="true"
-            .col-lg-2
-              input#month-picker ng-model="newHour.month" name='month' type="text" ng-required="true"
-            .col-lg-2
-              button.btn translate="NewArticle" type="submit"
+      .center
+        h1.text-center translate='management_hours'
+        #hours_form
+          form ng-submit="add()"
+            .row
+              .col-lg-4
+                b
+                  | {{ 'Customer' | translate }}
+              .col-lg-4
+                b
+                  | {{ 'hours' | translate }}
+              .col-lg-2
+                b
+                  | {{ 'month' | translate }}
+              .col-lg-2
+            .row.margin-bottom-20
+              .col-lg-4
+                span.error
+                  | {{newHours.errors.customer_id[0]}}
+                select.width-200.hours.clear_after_add ng-model="newHour.customer_id"
+                  option ng-repeat='customer in customers' value='{{ customer.id }}' ng-selected='{{current_vendor.customer_id == customer.id }}' init-select2='setSelect2()'
+                    | {{customer.name}}
+              .col-lg-4
+                input.number ng-model="newHour.hours" type="text" name='hours' maxlength='3' ng-required="true"
+              .col-lg-2
+                input#month-picker ng-model="newHour.month" name='month' type="text" ng-required="true"
+              .col-lg-2
+                button.btn translate="NewArticle" type="submit"
 
-        .row.show_button ng-repeat="hour in hours"
-          .col-lg-4
-            | {{ hour.customer.name }}
-          .col-lg-4
-            span href='#' editable-text='hour.hours' e-class='number' e-ng-focus="setNumeric();" e-name="hours" e-form='rowform'
-              | {{ hour.hours }}
-          .col-lg-2
-            .month value='{{hour.month}}'
-              | {{hour.month}}
-          .col-lg-2.edit_icon
-            form.form-buttons.form-inline editable-form="" name="rowform" ng-show="rowform.$visible" onbeforesave="updateHours(hour.id, $data, LoadHours())"
-              button.icon-button ng-disabled="rowform.$waiting" title="{{ 'save_changes' | translate }}" type="submit"
-                span.glyphicon.glyphicon-check
-              button.icon-button ng-click="rowform.$cancel(); clearError()" ng-disabled="rowform.$waiting" title="{{ 'cancel' | translate }}" type="button"
-                span.glyphicon.glyphicon-remove
-            .buttons_record ng-show="!rowform.$visible"
-              button.icon-button.hidde ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}" type="button"
-                span.glyphicon.glyphicon-edit
-              button.icon-button.hidde ng-click="delete(hour.id, $index)" title="{{ 'delete_reg' | translate }}" type="button"
-                span.glyphicon.glyphicon-trash
-        .info-alas ng-hide='hours.length>0'
-          br
-          .alert.alert-info.alert-dismissable
-            strong
-              | {{ 'alas' | translate }}
-            | {{ 'info_not_found' | translate }}
+          .row.show_button ng-repeat="hour in hours"
+            .col-lg-4
+              | {{ hour.customer.name }}
+            .col-lg-4
+              span href='#' editable-text='hour.hours' e-class='number' e-ng-focus="setNumeric();" e-name="hours" e-form='rowform'
+                | {{ hour.hours }}
+            .col-lg-2
+              .month value='{{hour.month}}'
+                | {{hour.month}}
+            .col-lg-2.edit_icon
+              form.form-buttons.form-inline editable-form="" name="rowform" ng-show="rowform.$visible" onbeforesave="updateHours(hour.id, $data, LoadHours())"
+                button.icon-button ng-disabled="rowform.$waiting" title="{{ 'save_changes' | translate }}" type="submit"
+                  span.glyphicon.glyphicon-check
+                button.icon-button ng-click="rowform.$cancel(); clearError()" ng-disabled="rowform.$waiting" title="{{ 'cancel' | translate }}" type="button"
+                  span.glyphicon.glyphicon-remove
+              .buttons_record ng-show="!rowform.$visible"
+                button.icon-button.hidde ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}" type="button"
+                  span.glyphicon.glyphicon-edit
+                button.icon-button.hidde ng-click="delete(hour.id, $index)" title="{{ 'delete_reg' | translate }}" type="button"
+                  span.glyphicon.glyphicon-trash
+          .info-alas ng-hide='hours.length>0'
+            br
+            .alert.alert-info.alert-dismissable
+              strong
+                | {{ 'alas' | translate }}
+              | {{ 'info_not_found' | translate }}
     .col-lg-3
-      div ui-date="dateOptions" name='DateOfBirth'
+      .pull-right ui-date="dateOptions" name='DateOfBirth'
