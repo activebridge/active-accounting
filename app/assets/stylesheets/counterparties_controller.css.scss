@@ -134,18 +134,25 @@ form.editable-wrap {
     color: blue;
   }
 
+  .info-update {
+    display: none;
+    width: 256px;
+  }
+}
+
+.edit-counterparty-modal .row {
+  height: 66px;
+  border-bottom: 1px solid #e5e5e5;
+
   .payment-check {
     width: 16px !important;
     margin-left: 10px;
     top: 7px;
   }
+}
 
-  .edit-counterparty-modal .row {
-    height: 66px;
-    border-bottom: 1px solid #e5e5e5;
-  }
-
-  .dialog-edit { width: 800px; }
+.dialog-edit {
+  width: 800px;
 
   .modal-footer { border-top: none; }
 }

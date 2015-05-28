@@ -6,6 +6,7 @@
       (response) ->
         d.resolve()
         $('.info-update').fadeIn().fadeOut(4000)
+        $scope.clientInfoModal.hide()
       (response) ->
         d.resolve response.clientInfo.errors['clientInfo'][0]
     )
@@ -15,4 +16,5 @@
     $('.number').numeric
       negative: false
       decimal: false
+    return
 ]
