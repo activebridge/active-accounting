@@ -34,7 +34,7 @@
           $scope.total = $scope.total + ($scope.hours[0].hours * $scope.customer.value_payment) if $scope.hours.length > 0
 
   $scope.setSelect2 = ->
-    $('select.custumers').select2({width: '179px', minimumResultsForSearch: '5'})
+    $('select.custumers').select2({width: '181px', minimumResultsForSearch: '5'})
     $('#month_' + parseInt($scope.params.month.slice(0,2))).addClass('active')
     return
 
