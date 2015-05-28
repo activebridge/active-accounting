@@ -3,35 +3,20 @@
   $scope.newCounterparty.errors = {}
   $scope.counterparty = {}
 
-  $scope.clientInfoModal = $modal(
-    scope: $scope
-    template: 'assets/angular/client_infos/info_modal.html'
-    show: false)
-
-  $scope.showClientInfoModal = (counterparty) ->
+  $scope.showClientInfoModal = (counterparty, url) ->
+    $scope.clientInfoModal = $modal(scope: $scope, template: url, show: false)
     $scope.counterparty = counterparty
     $scope.clientInfoModal.$promise.then $scope.clientInfoModal.show
-    return
 
-  $scope.editCounterpartyModal = $modal(
-    scope: $scope
-    template: 'assets/angular/counterparties/edit_modal.html'
-    show: false)
-
-  $scope.showEditCounterpartyModal = (counterparty) ->
+  $scope.showEditCounterpartyModal = (counterparty, url) ->
+    $scope.editCounterpartyModal = $modal(scope: $scope, template: url, show: false)
     $scope.counterparty = counterparty
     $scope.editCounterpartyModal.$promise.then $scope.editCounterpartyModal.show
-    return
 
-  $scope.vendorInfoModal = $modal(
-    scope: $scope
-    template: 'assets/angular/vendor_infos/modal.html'
-    show: false)
-
-  $scope.showVendorInfoModal = (counterparty) ->
+  $scope.showVendorInfoModal = (counterparty, url) ->
+    $scope.vendorInfoModal = $modal(scope: $scope, template: url, show: false)
     $scope.counterparty = counterparty
     $scope.vendorInfoModal.$promise.then $scope.vendorInfoModal.show
-    return
 
   $scope.load = ->
     $scope.counterpaties = Counterparty.query(group: $scope.showGroup)
