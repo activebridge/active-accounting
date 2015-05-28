@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20150527144416) do
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.boolean  "approve_hours",          default: false
+    t.boolean  "signed_in",              default: false
   end
 
   create_table "holidays", force: true do |t|
