@@ -13,4 +13,5 @@ angular.module('accounting.services', [
   'ui.date'
   'toggle-switch'
   'ui.select2'
+  'angular-loading-bar'
 ])
