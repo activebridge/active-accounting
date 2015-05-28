@@ -35,6 +35,10 @@ app.directive "editRegister", ->
     registerDecorator($scope)
   ]
 
+app.config ['cfpLoadingBarProvider', (cfpLoadingBarProvider) ->
+    cfpLoadingBarProvider.latencyThreshold = 10
+]
+
 app.config ['$translateProvider', ($translateProvider) ->
   $translateProvider.translations "en",
     title_ua: 'Ukrainian Title'
