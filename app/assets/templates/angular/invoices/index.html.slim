@@ -24,7 +24,7 @@
             br
             .alert.alert-info.alert-dismissable
               strong
-                | {{ 'alas' | translate }}
+                | {{ 'alas' | translate }}&nbsp;
               | {{ 'info_not_found' | translate }}
         .col-lg-1
           a href='/invoices/{{params.customer_id}}?month={{params.month}}' target='_blank' data-method='get' ng-show='hours.length > 0'
