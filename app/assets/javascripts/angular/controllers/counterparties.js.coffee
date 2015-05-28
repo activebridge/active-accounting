@@ -93,7 +93,11 @@
     $scope.load()
 
   $scope.loadCustumers = () ->
-    $scope.activeCustumers = Counterparty.query(scope: 'active', group: 'Customer')
+    $scope.activeCustumers = Counterparty.query
+      scope: 'active'
+      group: 'Customer'
+      () ->
+        $scope.activeCustumers.unshift({ id: '', name: $translate.instant('without_customer') })
   $scope.loadCustumers()
 
   $scope.sendInvitation = (id) ->
