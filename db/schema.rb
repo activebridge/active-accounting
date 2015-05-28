@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527094316) do
+ActiveRecord::Schema.define(version: 20150527144416) do
 
   create_table "articles", force: true do |t|
     t.string   "name"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20150527094316) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "value_payment"
-    t.boolean  "monthly_payment",        default: false
+    t.boolean  "monthly_payment"
     t.string   "type"
     t.integer  "customer_id"
     t.string   "email"
@@ -52,7 +52,6 @@ ActiveRecord::Schema.define(version: 20150527094316) do
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.boolean  "approve_hours",          default: false
-    t.boolean  "first_logged",           default: false
   end
 
   create_table "holidays", force: true do |t|
