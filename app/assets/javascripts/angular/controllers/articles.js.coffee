@@ -2,9 +2,18 @@
   $scope.newArticle = {}
   $scope.newArticle.errors = {}
 
-  $scope.articles = Article.query ->
-    $('#select').select2({width: '200px'})
-    return
+  $scope.load = ->
+    $scope.articles = Article.query
+      type: $scope.showGroup
+      () ->
+        $('#select').select2({width: '200px'})
+        return
+
+  $scope.showGroup = 'Revenue'
+
+  $scope.changeGroup = (group) ->
+    $scope.showGroup = group
+    $scope.load()
 
   $scope.showSelects = ->
     $('.search-select').select2({width: '200px'})
@@ -48,4 +57,6 @@
         d.resolve response.data.errors['name'][0]
     )
     return d.promise
+
+  $scope.load()
 ]

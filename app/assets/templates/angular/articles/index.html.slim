@@ -26,28 +26,21 @@
                   | {{newArticle.errors.type[0]}}
             td
               button.btn translate="NewArticle" type="submit"
-    .list
-      table
-        tr
-          th translate="name"
-          th translate="type"
-        tr.list-count-article ng-repeat="article in articles"
-          td.name
-            span.name e-form="rowform" e-name="name" e-ng-focus="showSelects()" e-required="" editable-text="article.name" onbeforesave="checkName($data)"
-              | {{ article.name }}
-          td.articleType
-            span.article_type class="{{ article.type }}" e-class="search-select" e-form="rowform" e-name="type" e-ng-options="s.value as s.text for s in type_msgs" editable-select="article.type"
-              | ({{article.type | translate}})
-          td ng-show="!rowform.$visible"
-            .butn ng-show="!rowform.$visible"
-              button.icon-button.hidde ng-click="rowform.$show()"
-                span.glyphicon.glyphicon-edit
-              span.hidde.glyphicon.glyphicon-info-sign.mess-info ng-show="article.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}"
-              button.icon-button.hidde ng-click="delete(article.id, $index)" ng-show="!article.assigned" type="button"
-                span.glyphicon.glyphicon-trash
-          td
-            form.form-buttons.form-inline editable-form="" name="rowform" ng-show="rowform.$visible" onbeforesave="update(article.id, $data)" shown="inserted == article"
-              button.icon-button.submit-article ng-disabled="rowform.$waiting" type="submit"
-                span.glyphicon.glyphicon-check
-              button.icon-button.submit-article ng-click="rowform.$cancel()" ng-disabled="rowform.$waiting" type="button"
-                span.glyphicon.glyphicon-remove
+    ul.nav.nav-tabs
+      li ng-class="{'active': showGroup == 'Revenue'}"
+        a href="" ng-click="changeGroup('Revenue')" translate="Revenue"
+      li ng-class="{'active': showGroup == 'Cost'}"
+        a href="" ng-click="changeGroup('Cost')" translate="Cost"
+      li ng-class="{'active': showGroup == 'Translation'}"
+        a href="" ng-click="changeGroup('Translation')" translate="Translation"
+      li ng-class="{'active': showGroup == 'Loan'}"
+        a href="" ng-click="changeGroup('Loan')" translate="Loan"
+    .tab-content
+      .tab-pane ng-class="{'active': showGroup == 'Revenue'}"
+        ng-include src='"#{asset_path('angular/articles/_list.html')}"'
+      .tab-pane ng-class="{'active': showGroup == 'Cost'}"
+        ng-include src='"#{asset_path('angular/articles/_list.html')}"'
+      .tab-pane ng-class="{'active': showGroup == 'Translation'}"
+        ng-include src='"#{asset_path('angular/articles/_list.html')}"'
+      .tab-pane ng-class="{'active': showGroup == 'Loan'}"
+        ng-include src='"#{asset_path('angular/articles/_list.html')}"'
