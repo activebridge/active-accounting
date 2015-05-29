@@ -1,7 +1,7 @@
 .report
   .picker-wrapper
-    select.margin-right-5.selectpicker ng-change="CheckYears(year)" ng-model="year"
-      option ng-repeat="year in years" ng-selected="{{year==currYear}}"
+    select.year-select.margin-right-5 ng-change="CheckYears(year)" ng-model="year"
+      option ng-repeat="year in years" ng-selected="{{year==currYear}}" init-select2='setSelect2()'
         | {{year}}
     .multiple-picker
       label.picker-label for="{{month}}" ng-class="{checked_label: clicked}" ng-click="clicked=!clicked; monthsChange(month, clicked)" ng-init="clicked = currentMonth == month" ng-repeat="month in months"
