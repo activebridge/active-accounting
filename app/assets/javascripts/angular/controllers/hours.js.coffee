@@ -40,7 +40,7 @@
       $scope.hoursByMonths = $scope.addBlankValues(response)
 
   $scope.updateApproveHours = ->
-    Counterparty.update(id: $scope.current_vendor.id, counterparty: { approve_hours: $scope.current_vendor.approvehoursStatus })
+    Counterparty.update(id: $scope.current_vendor.id, counterparty: { approve_hours: $scope.current_vendor.approve_hours })
 
   $scope.changeMonth = (value) ->
     if value != $scope.selectedMonth
