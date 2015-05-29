@@ -2,6 +2,7 @@
   registerDecorator($scope)
   hourDecorator($scope)
   $scope.current_vendor = gon.current_vendor
+  $scope.current_vendor.approvehoursStatus = $scope.current_vendor.approve_hours
 
   $scope.newHour = {}
   $scope.newHour.errors = {}
