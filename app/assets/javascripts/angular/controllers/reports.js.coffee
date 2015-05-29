@@ -175,4 +175,7 @@
     $scope.load(value)
 
   $("input.value").numeric({ decimalPlaces: 2 })
+
+  $scope.setSelect2 = ->
+    $('select.year-select').select2({ 'minimumResultsForSearch': 5 })
 ]
