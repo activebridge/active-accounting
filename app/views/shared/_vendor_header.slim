@@ -2,6 +2,11 @@ div ng-controller='TranslateCtrl'
   nav.navbar.navbar-default bs-navbar='' role='navigation'
     .navbar-header
       a.navbar-brand translate='brand'
+    ul.nav.navbar-nav
+      li  data-match-route='/hours'
+        a href='#/hours' translate='hours'
+      li  data-match-route='/calc'
+        a href='#/calc' translate='calc'
     ul.nav.navbar-nav.navbar-right
       li.locale
         a href='#' ng-click='changeLanguage("uk")'

@@ -1,8 +1,5 @@
 div ng-controller='TranslateCtrl'
   nav.navbar.navbar-default bs-navbar='' role='navigation'
-    .navbar-header
-      a.navbar-brand
-        | ActiveAccounting
     ul.nav.navbar-nav
       li  data-match-route='/counterparties'
         a href='/#/counterparties' translate='counterparties'
@@ -22,6 +19,8 @@ div ng-controller='TranslateCtrl'
         a href='/#/invoices' translate='invoices'
       li  data-match-route='/holidays'
         a href='/#/holidays' translate='holidays'
+      li  data-match-route='/calc'
+        a href='/#/calc' translate='calc'
     ul.nav.navbar-nav.navbar-right
       li.locale
         a href='#' ng-click='changeLanguage("uk")'
