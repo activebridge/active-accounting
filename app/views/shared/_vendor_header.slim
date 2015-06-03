@@ -1,10 +1,16 @@
-nav.navbar.navbar-default bs-navbar='' role='navigation'
-  .navbar-header
-    a.navbar-brand
-      | ActiveAccounting for vendors
-  ul.nav.navbar-nav.navbar-right
-    li.locale ng-controller='VendorChangePasswordsCtrl'
-      a.fa.fa-key.margin-right-15 ng-click='changePasswordModal("#{asset_path('angular/vendor_change_password/modal.html')}")'
-    li.margin-right-10
-      a href='vendor_logout' data-method='delete'
-        i.fa.fa-sign-out translate="sing_out"
+div ng-controller='TranslateCtrl'
+  nav.navbar.navbar-default bs-navbar='' role='navigation'
+    .navbar-header
+      a.navbar-brand translate='brand'
+    ul.nav.navbar-nav.navbar-right
+      li.locale
+        a href='#' ng-click='changeLanguage("uk")'
+          = image_tag 'ua.png'
+      li.locale.margin-right-15
+        a href='#' ng-click='changeLanguage("en")'
+          = image_tag 'gb.png'
+      li.locale ng-controller='VendorChangePasswordsCtrl'
+        a.fa.fa-key.margin-right-15 ng-click='changePasswordModal("#{asset_path('angular/vendor_change_password/modal.html')}")'
+      li.margin-right-10
+        a href='vendor_logout' data-method='delete'
+          i.fa.fa-sign-out translate="sing_out"
