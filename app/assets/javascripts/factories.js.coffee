@@ -59,6 +59,11 @@ angular.module('accounting.services').factory 'Hours', ['$resource', ($resource)
     params:
       action: 'total_hours'
     isArray: true
+  , years:
+    method: 'GET',
+    params:
+      action: 'years'
+    isArray: false
   , update:
     method: 'PUT'
 ]

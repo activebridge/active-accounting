@@ -12,12 +12,16 @@ class Hour < ActiveRecord::Base
     where("extract(month from month) = ? AND extract(year from month) = ?", date.month, date.year)
   }
 
-  scope :hours_by_month, -> {
-    where("extract(year from month) = ?", Date.current.year)
-    select("month(month) as month, sum(hours) as total_hours").group(:month)
+  scope :hours_by_month, -> (year) {
+    where("extract(year from month) = ?", year || Date.current.year)
+    .select("month(month) as month, sum(hours) as total_hours").group(:month)
   }
 
   scope :by_customer, -> (id) {
     where(customer_id: id) if id
+  }
+
+   scope :uniq_years, -> {
+    pluck(:month).map(&:year).uniq.sort
   }
 end

@@ -1,12 +1,42 @@
 .report_hours
   .row
-    .col-lg-1
-      | {{ 'month' | translate }}
-      input#month-picker.width-80 ng-change='changeMonth()' ng-model='filter' type='text'
-    .col-lg-10
+    .col-lg-3.text-center
+      .calendar.pull-left
+        b translate='hours_calendar'
+        br
+        | {{ 'year' | translate }}:
+        select.year-select ng-change="LoadHours(year)" ng-model="year"
+          option ng-repeat="year in years" ng-selected="{{year==currentYear}}" init-select2='setSelect2()'
+            | {{year}}
+        .btn-group data-toggle="buttons"
+          .btn.btn-primary.col-lg-3 ng-repeat='hours in hoursByMonths' ng-init="clicked = selectedMonth == hours.month" ng-class="{ 'active': clicked }" ng-click='changeMonth(hours.month)'
+            input#option1 name="options" type="radio"
+              | {{ months[hours.month - 1] }}
+              br
+                | ({{ hours.total_hours }})
+        h2.text-center translate='holidays' ng-show='holidays.holidays.length>0'
+        table ng-show='holidays.holidays.length>0'
+          thead.bg-grey
+            tr
+              th.text-center translate='date'
+              th.text-center translate='title'
+          tbody
+            tr ng-repeat='holiday in holidays.holidays'
+              td
+                | {{ holiday.date }}
+              td
+                | {{ holiday.name }}
+        b
+          i
+            | {{ 'count_working_days' | translate }} : {{ workingDays.count }}
+          br
+          i
+            | {{ 'totalHours' | translate }} : {{ workingDays.count * 8 || 0 }}
+
+    .col-lg-6
       h2.text-center translate='vendorsAndCustumersEstimate'
 
-      table
+      table.table_customer
         thead.bg-grey
           tr
             th.text-center translate='Customer'
@@ -23,12 +53,12 @@
 
       div ng-repeat='(key, value) in hours | groupBy:"customer.name"'
         b.customer_group.text-center
-          a href='/#/invoices/?month={{filter}}&customer_id={{value[0].customer.id}}'
+          a href='/#/invoices/?month={{monthAndYear}}&customer_id={{value[0].customer.id}}'
             | {{ key }}
           br
           i
             | ({{ 'totalHours' | translate }}: {{ sumByGroup(value) }})
-        table
+        table.table_customer
           tr ng-repeat='hour in value' ng-init='hours.total.hours =  hours.total.hours + hour.hours'
             td
             td
@@ -36,14 +66,14 @@
             td
               span href='#' editable-text='hour.hours' e-class='number' e-ng-focus="setNumeric();" e-name="hours" e-form='rowform'
                 | {{ hour.hours }}
-            td.icon
+            td
               | {{ hour.month }}
               form.form-buttons.form-inline editable-form="" name="rowform" ng-show="rowform.$visible" onbeforesave="update(hour.id, $data)"
                 button.icon-button.margin-left-30 ng-disabled="rowform.$waiting" title="{{ 'save_changes' | translate }}" type="submit"
                   span.glyphicon.glyphicon-check
                 button.icon-button ng-click="rowform.$cancel(); clearError()" ng-disabled="rowform.$waiting" title="{{ 'cancel' | translate }}" type="button"
                   span.glyphicon.glyphicon-remove
-              .buttons_record.margin-left-30 ng-show="!rowform.$visible"
+              span.buttons_record.margin-left-30 ng-show="!rowform.$visible"
                 button.icon-button.hidde ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}" type="button"
                   span.glyphicon.glyphicon-edit
                 button.icon-button.hidde ng-click="delete(hour.id, $index, LoadHours())" title="{{ 'delete_reg' | translate }}" type="button"
@@ -51,4 +81,7 @@
 
       b ng-show='hours.length>0'
         | {{ 'totalHoursByCustomers' | translate}}: {{ hours.total.hours }}
+
+    .col-lg-3
+      #holiday-calendar.pull-right ui-date="dateOptions"
 
