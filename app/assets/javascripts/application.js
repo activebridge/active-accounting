@@ -20,5 +20,9 @@
 //= require angular.min
 //= require angular-resource.min
 //= require angular-js
-//= require_tree ./angular/
+//= require angular/directives
+//= require angular/routes
+//= require angular/modules
+//= require_tree ./angular/controllers
+//= require_tree ./angular/decorators
 //= require_tree .

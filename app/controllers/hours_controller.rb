@@ -30,7 +30,11 @@ class HoursController < VendorApplicationController
   end
 
   def total_hours
-    render json: current_vendor.hours.hours_by_month.to_json, status: 200
+    render json: all_hours.hours_by_month(params[:year]).to_json, status: 200
+  end
+
+  def years
+    render json: { years: all_hours.uniq_years }, status: 200
   end
 
   private
@@ -48,6 +52,6 @@ class HoursController < VendorApplicationController
   end
 
   def all_hours
-    params[:type] ? current_vendor.hours : Hour
+    params[:type] == 'vendor' ? current_vendor.hours : Hour
   end
 end

@@ -8,7 +8,7 @@
         b translate='hours_calendar'
         br
         .btn-group data-toggle="buttons"
-          .btn.btn-primary.col-lg-3 ng-repeat='hours in hoursByMonths' ng-init="clicked = selectedMonth == hours.month" ng-class="{ 'active': clicked }" ng-click='changeMonth(hours.month)'
+          .btn.btn-primary.col-lg-3 ng-repeat='hours in hoursByMonths' ng-init="clicked = selectedMonth == hours.month" ng-class="{ 'active': clicked }" ng-click='changeMonth(hours.month, options = {type: "vendor"})'
             input#option1 name="options" type="radio"
               | {{ months[hours.month - 1] }}
               br
@@ -94,4 +94,4 @@
                 | {{ 'alas' | translate }}&nbsp;
               | {{ 'info_not_found' | translate }}
     .col-lg-3
-      .pull-right ui-date="dateOptions" name='DateOfBirth'
+      #holiday-calendar.pull-right ui-date="dateOptions"

@@ -1,24 +1,34 @@
-@ReportHoursCtrl = ['$scope', '$q', '$translate', 'Hours', 'registerDecorator', 'hourDecorator', ($scope, $q , $translate, Hours, registerDecorator, hourDecorator) ->
+@ReportHoursCtrl = ['$scope', '$q', '$translate', 'Hours', 'registerDecorator', 'hourDecorator', 'Holiday', 'WorkDay', ($scope, $q , $translate, Hours, registerDecorator, hourDecorator, Holiday, WorkDay) ->
   registerDecorator($scope)
   hourDecorator($scope)
   $scope.hours = {}
-  $scope.filter = {}
 
   curr_date = new Date()
-  $scope.filter = $.datepicker.formatDate('mm/yy', curr_date)
+  $scope.currentYear = curr_date.getFullYear()
+  $scope.currentMonth = curr_date.getMonth() + 1
+  $scope.currentDate = curr_date.getDate()
+  $scope.months = $translate.instant('fullMonthsName').split(',')
 
-  $scope.changeMonth = () ->
-    $scope.hours = Hours.query(month: $scope.filter)
-    identifcator = parseInt($scope.filter.slice(0,2))
-    $('#MonthPicker_month-picker .active').removeClass( "active" )
-    $('.button-' + identifcator).addClass('active')
+  loadYears = ->
+    Hours.years (response) ->
+      $scope.years = response['years']
+  loadYears()
 
-    $scope.sumByGroup =(array) ->
-      total = 0
-      $.each array, ->
-        total = total + @hours
-      return total
-  $scope.changeMonth()
+  $scope.LoadHours = (year, options = {}) ->
+    Hours.total_hours
+      year: $.trim(year)
+      (response) ->
+        $scope.hoursByMonths = $scope.addBlankValues(response)
+        $scope.changeMonth($scope.selectedMonth, options = { changeYear: true }) unless options.firstLoad
+
+  $scope.LoadHours($scope.currentYear, options = { firstLoad: true })
+  $scope.changeMonth($scope.currentMonth)
+
+  $scope.sumByGroup =(array) ->
+    total = 0
+    $.each array, ->
+      total = total + @hours
+    return total
 
   $scope.update = (hour_id, data) ->
     d = $q.defer()
@@ -30,4 +40,8 @@
         d.resolve response.data.errors['hours'][0]
     )
     return d.promise
+
+  $scope.setSelect2 = ->
+    $('select.year-select').select2({ 'minimumResultsForSearch': 5 })
+    return
 ]

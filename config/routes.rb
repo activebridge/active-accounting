@@ -62,6 +62,7 @@ Rails.application.routes.draw do
     resources :hours do
       collection do
         get :total_hours
+        get :years
       end
     end
 

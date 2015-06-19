@@ -1,8 +1,19 @@
 .report_hours {
-  .customer_group, th, td { width: 250px; }
+  th, td { width: 250px; }
+
+  .table_customer {
+    width: 100%;
+
+    th, td { width: 25%; }
+    .buttons_record { white-space: nowrap; }
+    .editable-input { width: 100px; }
+  }
+
+  .year-select { margin-left: 5px; }
 
   .customer_group {
     display: table;
+    width: 25%;
 
     i { font-weight: normal; }
   }
@@ -15,6 +26,4 @@
       }
     }
   }
-
-  .icon { display: inline-flex; }
 }

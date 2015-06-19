@@ -10,60 +10,17 @@
   curr_date = new Date()
   $scope.currentYear = curr_date.getFullYear()
   $scope.currentMonth = curr_date.getMonth() + 1
+  $scope.currentDate = curr_date.getDate()
   $scope.newHour.month = moment().format('MM/YYYY')
 
-  $scope.addBlankValues = (array) ->
-    if array.length < 12
-
-      #add in array current months
-      i = 0
-      isMonths = []
-      while i < array.length
-        isMonths.push(array[i].month)
-        i++
-
-      #add in array empty values
-      i = 0
-      while i < 12
-        if isMonths.indexOf(i+1) == -1
-          array.push({ "month":i+1, "total_hours":0 })
-        i++
-      array.sort (a, b) ->
-        if a.month > b.month
-          return 1
-        if a.month < b.month
-          return -1
-        0
-    return array
-
   $scope.LoadHours = ->
-    Hours.total_hours (response) ->
-      $scope.hoursByMonths = $scope.addBlankValues(response)
+    Hours.total_hours
+      type: 'vendor'
+      (response) ->
+        $scope.hoursByMonths = $scope.addBlankValues(response)
 
   $scope.updateApproveHours = ->
     Counterparty.update(id: $scope.current_vendor.id, counterparty: { approve_hours: $scope.current_vendor.approvehoursStatus })
-
-  $scope.changeMonth = (value) ->
-    if value != $scope.selectedMonth
-      $scope.selectedMonth = value
-      parseValue = value + '/' + $scope.currentYear
-      $scope.hours = Hours.query(month: parseValue, type: 'vendor')
-      $scope.workingDays = WorkDay.get(date: parseValue)
-      Holiday.by_month
-        month: parseValue
-        (response) ->
-          $scope.holidays = response
-          holidays = []
-          $.each response.holidays, () ->
-            holidays.push @date
-
-          $scope.dateOptions =
-            yearRange: '1900:-0'
-            beforeShowDay: (date) ->
-              if holidays.indexOf(moment(date).format('DD.MM.YYYY')) != -1
-                return [true, 'holidays-to-highlight', '']
-              else
-                return [true, '']
 
   $scope.changeMonth($scope.currentMonth)
   $scope.LoadHours()
