@@ -14,14 +14,22 @@ class Hour < ActiveRecord::Base
 
   scope :hours_by_month, -> (year) {
     where("extract(year from month) = ?", year || Date.current.year)
-    .select("month(month) as month, sum(hours) as total_hours").group(:month)
+    .select("month(month) as report_month, sum(hours) as total_hours").group(:report_month)
   }
 
   scope :by_customer, -> (id) {
     where(customer_id: id) if id
   }
 
-   scope :uniq_years, -> {
+  scope :uniq_years, -> {
     pluck(:month).map(&:year).uniq.sort
+  }
+
+  scope :find_double, -> (params) {
+    where("customer_id = #{params[:customer_id]}
+            AND vendor_id = #{params[:vendor_id]}
+            AND hours = #{params[:hours]}
+            AND extract(month from month) = #{params[:month].month}
+            AND extract(year from month) = #{params[:month].year}")
   }
 end

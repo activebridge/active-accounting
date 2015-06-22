@@ -63,6 +63,7 @@ Rails.application.routes.draw do
       collection do
         get :total_hours
         get :years
+        post :approve_hours
       end
     end
 

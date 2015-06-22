@@ -10,12 +10,19 @@
   }
 
   .year-select { margin-left: 5px; }
+  .alert { margin: 0; }
 
   .customer_group {
     display: table;
     width: 25%;
 
     i { font-weight: normal; }
+  }
+
+  .btn-auto-hours {
+    font-size: 15px;
+    margin-top: 20px;
+    padding: 5px;
   }
 
   tr {

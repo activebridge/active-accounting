@@ -8,9 +8,9 @@
         b translate='hours_calendar'
         br
         .btn-group data-toggle="buttons"
-          .btn.btn-primary.col-lg-3 ng-repeat='hours in hoursByMonths' ng-init="clicked = selectedMonth == hours.month" ng-class="{ 'active': clicked }" ng-click='changeMonth(hours.month, options = {type: "vendor"})'
+          .btn.btn-primary.col-lg-3 ng-repeat='hours in hoursByMonths' ng-init="clicked = selectedMonth == hours.report_month" ng-class="{ 'active': clicked }" ng-click='changeMonth(hours.report_month, options = {type: "vendor"})'
             input#option1 name="options" type="radio"
-              | {{ months[hours.month - 1] }}
+              | {{ months[hours.report_month - 1] }}
               br
                 | ({{ hours.total_hours }})
         h2.text-center translate='holidays' ng-show='holidays.holidays.length>0'
