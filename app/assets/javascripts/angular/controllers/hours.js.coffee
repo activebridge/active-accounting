@@ -22,7 +22,7 @@
   $scope.updateApproveHours = ->
     Counterparty.update(id: $scope.current_vendor.id, counterparty: { approve_hours: $scope.current_vendor.approvehoursStatus })
 
-  $scope.changeMonth($scope.currentMonth)
+  $scope.changeMonth($scope.currentMonth, options = {type: "vendor"})
   $scope.LoadHours()
 
   $scope.months = $translate.instant('fullMonthsName').split(',')

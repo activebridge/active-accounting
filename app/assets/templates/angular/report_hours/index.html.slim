@@ -9,7 +9,7 @@
           option ng-repeat="year in years" ng-selected="{{year==currentYear}}" init-select2='setSelect2()'
             | {{year}}
         .btn-group data-toggle="buttons"
-          .btn.btn-primary.col-lg-3 ng-repeat='hours in hoursByMonths' ng-init="clicked = selectedMonth == hours.month" ng-class="{ 'active': clicked }" ng-click='changeMonth(hours.month)'
+          .btn.btn-primary.col-lg-3 ng-repeat='hours in hoursByMonths' ng-init="clicked = selectedMonth == hours.report_month" ng-class="{ 'active': clicked }" ng-click='changeMonth(hours.report_month)'
             input#option1 name="options" type="radio"
               | {{ months[hours.report_month - 1] }}
               br
