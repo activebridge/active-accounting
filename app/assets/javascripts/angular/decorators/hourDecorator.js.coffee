@@ -35,25 +35,25 @@ angular.module('accounting.services').factory 'hourDecorator', ["$q", 'Hours', '
         i = 0
         isMonths = []
         while i < array.length
-          isMonths.push(array[i].month)
+          isMonths.push(array[i].report_month)
           i++
 
         #add in array empty values
         i = 0
         while i < 12
           if isMonths.indexOf(i+1) == -1
-            array.push({ "month":i+1, "total_hours":0 })
+            array.push({ "report_month":i+1, "total_hours":0 })
           i++
         array.sort (a, b) ->
-          if a.month > b.month
+          if a.report_month > b.report_month
             return 1
-          if a.month < b.month
+          if a.report_month < b.report_month
             return -1
           0
       return array
 
     $scope.changeMonth = (value, options = {}) ->
-      if value != $scope.selectedMonth || options.changeYear
+      if value != $scope.selectedMonth || options.update
         $scope.selectedMonth = value
         $scope.monthAndYear = value + '/' + ($.trim($scope.year) || $scope.currentYear)
         $scope.hours = Hours.query(month: $scope.monthAndYear, type: options.type)

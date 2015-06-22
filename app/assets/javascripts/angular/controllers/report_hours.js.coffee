@@ -8,6 +8,7 @@
   $scope.currentMonth = curr_date.getMonth() + 1
   $scope.currentDate = curr_date.getDate()
   $scope.months = $translate.instant('fullMonthsName').split(',')
+  $scope.year = $scope.currentYear
 
   loadYears = ->
     Hours.years (response) ->
@@ -19,7 +20,7 @@
       year: $.trim(year)
       (response) ->
         $scope.hoursByMonths = $scope.addBlankValues(response)
-        $scope.changeMonth($scope.selectedMonth, options = { changeYear: true }) unless options.firstLoad
+        $scope.changeMonth($scope.selectedMonth, options = { update: true }) unless options.firstLoad
 
   $scope.LoadHours($scope.currentYear, options = { firstLoad: true })
   $scope.changeMonth($scope.currentMonth)
@@ -35,7 +36,7 @@
     Hours.update( id: hour_id, {hour: { hours: data.hours } }
       (response) ->
         d.resolve()
-        $scope.changeMonth()
+        $scope.LoadHours($scope.year)
       (response) ->
         d.resolve response.data.errors['hours'][0]
     )
@@ -44,4 +45,18 @@
   $scope.setSelect2 = ->
     $('select.year-select').select2({ 'minimumResultsForSearch': 5 })
     return
+
+  $scope.approveHours = ->
+    Hours.approve_hours (response) ->
+      if response.status is 'OK'
+        $scope.showInfoApproveHours = true
+        $scope.countRecordsApproveHours = response.count_records
+        setTimeout (->
+          $scope.$apply ->
+            $scope.showInfoApproveHours = false
+            return
+          return
+        ), 3000
+        $scope.LoadHours($scope.year) if response.count_records > 0
+
 ]

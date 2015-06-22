@@ -37,6 +37,12 @@ class HoursController < VendorApplicationController
     render json: { years: all_hours.uniq_years }, status: 200
   end
 
+  def approve_hours
+    approve_hours = ApproveHours.new(Time.current)
+    count_records = approve_hours.working
+    render json: { status: 'OK', count_records: count_records }, status: 200
+  end
+
   private
 
   def hour_params

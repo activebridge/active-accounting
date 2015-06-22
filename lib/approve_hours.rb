@@ -5,18 +5,20 @@ class ApproveHours
   end
 
   def working
-    if work_days.is_working?
-      hours = []
-      vendors = Vendor.where(approve_hours: true)
-      vendors.each do |vendor|
-        unless vendor.customer_id.nil?
+    hours = []
+    vendors = Vendor.where(approve_hours: true)
+    vendors.each do |vendor|
+      unless vendor.customer_id.nil?
+        double = Hour.find_double(hour_params(vendor))
+        if double.empty?
           hour = Hour.create(hour_params(vendor))
           NotificationMailer.vendor_auto_add_hours(vendor, hour)
           hours << hour
         end
       end
-      NotificationMailer.admin_auto_add_hours(hours) unless vendors.empty?
     end
+    NotificationMailer.admin_auto_add_hours(hours) unless hours.empty?
+    hours.size
   end
 
   private

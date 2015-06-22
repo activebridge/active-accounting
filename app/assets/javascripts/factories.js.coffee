@@ -64,6 +64,10 @@ angular.module('accounting.services').factory 'Hours', ['$resource', ($resource)
     params:
       action: 'years'
     isArray: false
+  , approve_hours:
+    method: 'POST',
+    params:
+      action: 'approve_hours'
   , update:
     method: 'PUT'
 ]

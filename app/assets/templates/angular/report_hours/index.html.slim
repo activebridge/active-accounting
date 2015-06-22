@@ -11,7 +11,7 @@
         .btn-group data-toggle="buttons"
           .btn.btn-primary.col-lg-3 ng-repeat='hours in hoursByMonths' ng-init="clicked = selectedMonth == hours.month" ng-class="{ 'active': clicked }" ng-click='changeMonth(hours.month)'
             input#option1 name="options" type="radio"
-              | {{ months[hours.month - 1] }}
+              | {{ months[hours.report_month - 1] }}
               br
                 | ({{ hours.total_hours }})
         h2.text-center translate='holidays' ng-show='holidays.holidays.length>0'
@@ -32,10 +32,26 @@
           br
           i
             | {{ 'totalHours' | translate }} : {{ workingDays.count * 8 || 0 }}
+      br
+      button.btn-auto-hours.ng-scope ng-click="approveHours()" translate="autoFill_hours"
 
     .col-lg-6
-      h2.text-center translate='vendorsAndCustumersEstimate'
+      .info-alas ng-show='showInfoApproveHours && countRecordsApproveHours > 0'
+        br
+        .alert.alert-success
+          strong
+            | {{ 'well_done' | translate }}&nbsp;
+          | {{ 'successfully_added_records' | translate }}
+          | {{countRecordsApproveHours}} )
 
+      .info-alas ng-show='showInfoApproveHours && countRecordsApproveHours == 0'
+        br
+        .alert.alert-info
+          strong
+            | {{ 'alas' | translate }}&nbsp;
+          | {{ 'nothing_added' | translate }}
+
+      h2.text-center translate='vendorsAndCustumersEstimate'
       table.table_customer
         thead.bg-grey
           tr
@@ -76,7 +92,7 @@
               span.buttons_record.margin-left-30 ng-show="!rowform.$visible"
                 button.icon-button.hidde ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}" type="button"
                   span.glyphicon.glyphicon-edit
-                button.icon-button.hidde ng-click="delete(hour.id, $index, LoadHours())" title="{{ 'delete_reg' | translate }}" type="button"
+                button.icon-button.hidde ng-click="delete(hour.id, $index, LoadHours(year))" title="{{ 'delete_reg' | translate }}" type="button"
                   span.glyphicon.glyphicon-trash
 
       b ng-show='hours.length>0'
