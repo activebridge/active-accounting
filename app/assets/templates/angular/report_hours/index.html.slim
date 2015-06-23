@@ -14,14 +14,14 @@
               | {{ months[hours.report_month - 1] }}
               br
                 | ({{ hours.total_hours }})
-        h2.text-center translate='holidays' ng-show='holidays.holidays.length>0'
-        table ng-show='holidays.holidays.length>0'
+        h2.text-center translate='holidays' ng-show='(holidays | filter: {month: monthAndYear}).length>0'
+        table ng-show='(holidays | filter: {month: monthAndYear}).length>0'
           thead.bg-grey
             tr
               th.text-center translate='date'
               th.text-center translate='title'
           tbody
-            tr ng-repeat='holiday in holidays.holidays'
+            tr ng-repeat='holiday in holidays | filter: {month: monthAndYear}'
               td
                 | {{ holiday.date }}
               td
@@ -92,7 +92,7 @@
               span.buttons_record.margin-left-30 ng-show="!rowform.$visible"
                 button.icon-button.hidde ng-click="rowform.$show()" title="{{ 'edit_reg' | translate }}" type="button"
                   span.glyphicon.glyphicon-edit
-                button.icon-button.hidde ng-click="delete(hour.id, $index, LoadHours(year))" title="{{ 'delete_reg' | translate }}" type="button"
+                button.icon-button.hidde ng-click="delete(hour.id, $index)" title="{{ 'delete_reg' | translate }}" type="button"
                   span.glyphicon.glyphicon-trash
 
       b ng-show='hours.length>0'

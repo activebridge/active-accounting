@@ -91,10 +91,6 @@ angular.module('accounting.services').factory 'VendorChangePassword', ['$resourc
 angular.module('accounting.services').factory 'Holiday', ['$resource', ($resource) ->
   $resource '/holidays/:id/:action',
     id: '@id'
-  , by_month:
-    method: 'GET',
-    params:
-      action: 'by_month'
   , update:
     method: 'PUT'
 ]

@@ -22,8 +22,9 @@
   $scope.updateApproveHours = ->
     Counterparty.update(id: $scope.current_vendor.id, counterparty: { approve_hours: $scope.current_vendor.approvehoursStatus })
 
-  $scope.changeMonth($scope.currentMonth, options = {type: "vendor"})
+  $scope.LoadCalendar()
   $scope.LoadHours()
+  $scope.changeMonth($scope.currentMonth, options = {type: "vendor"})
 
   $scope.months = $translate.instant('fullMonthsName').split(',')
 
@@ -53,4 +54,15 @@
         $scope.hours.splice(index,1)
         $scope.LoadHours()
         return
+
+  $scope.updateHours = (hour_id, data) ->
+    d = $q.defer()
+    Hours.update( id: hour_id, {hour: { hours: data.hours } }
+      (response) ->
+        d.resolve()
+        $scope.LoadHours()
+      (response) ->
+        d.resolve response.data.errors['hours'][0]
+    )
+    return d.promise
 ]

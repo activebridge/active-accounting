@@ -22,6 +22,7 @@
         $scope.hoursByMonths = $scope.addBlankValues(response)
         $scope.changeMonth($scope.selectedMonth, options = { update: true }) unless options.firstLoad
 
+  $scope.LoadCalendar()
   $scope.LoadHours($scope.currentYear, options = { firstLoad: true })
   $scope.changeMonth($scope.currentMonth)
 
@@ -58,5 +59,14 @@
           return
         ), 3000
         $scope.LoadHours($scope.year) if response.count_records > 0
+
+  $scope.delete = (hours_id, index) ->
+    if confirm('Впевнений?')
+      Hours.delete
+        id: hours_id
+      , (success) ->
+        $scope.hours.splice(index,1)
+        $scope.LoadHours($scope.year)
+        return
 
 ]

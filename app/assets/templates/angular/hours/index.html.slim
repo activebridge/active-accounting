@@ -13,14 +13,14 @@
               | {{ months[hours.report_month - 1] }}
               br
                 | ({{ hours.total_hours }})
-        h2.text-center translate='holidays' ng-show='holidays.holidays.length>0'
-        table ng-show='holidays.holidays.length>0'
+        h2.text-center translate='holidays' ng-show='(holidays | filter: {month: monthAndYear}).length>0'
+        table ng-show='(holidays | filter: {month: monthAndYear}).length>0'
           thead.bg-grey
             tr
               th.text-center translate='date'
               th.text-center translate='title'
           tbody
-            tr ng-repeat='holiday in holidays.holidays'
+            tr ng-repeat='holiday in holidays | filter: {month: monthAndYear}'
               td
                 | {{ holiday.date }}
               td
@@ -77,7 +77,7 @@
               .month value='{{hour.month}}'
                 | {{hour.month}}
             .col-lg-2.edit_icon
-              form.form-buttons.form-inline editable-form="" name="rowform" ng-show="rowform.$visible" onbeforesave="updateHours(hour.id, $data, LoadHours())"
+              form.form-buttons.form-inline editable-form="" name="rowform" ng-show="rowform.$visible" onbeforesave="updateHours(hour.id, $data)"
                 button.icon-button ng-disabled="rowform.$waiting" title="{{ 'save_changes' | translate }}" type="submit"
                   span.glyphicon.glyphicon-check
                 button.icon-button ng-click="rowform.$cancel(); clearError()" ng-disabled="rowform.$waiting" title="{{ 'cancel' | translate }}" type="button"
