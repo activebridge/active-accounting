@@ -1,0 +1,48 @@
+#main_container.container
+  h1
+    | {{ 'calc' | translate }}
+  table.table.table-striped
+    tr
+      th translate='social_tax'
+      th translate='exchange_rate'
+      th translate='salary'
+      th translate='translation'
+      th
+    tbody
+      tr
+        th
+          input.form-control disabled='disable' ng-init='socialTax = 422.65' ng-model='socialTax' smart-float='' type='number'
+        th
+          input numeric='' class='form-control' ng-model='exchange' value='{{exchange | number:2}}' ng-change='report()' maxlength='4'
+        th
+          input.form-control numeric='' ng-change='report()' ng-model='salary' value='0' maxlength='6' type='number'
+        th
+          input.form-control numeric='' ng-change='report(translation)' ng-model='translation' value='0' maxlength='10' type='number'
+        th
+  table
+    tr
+      td Заробітня плата:
+      td
+        .text-right
+          | {{salaryHrn | number:2}}
+    tr
+      td Єдиний соціальний податок:
+      td
+        .text-right
+          | {{socialTax}}
+    tr
+      td Комісія за переведення в готівку (0.75%):
+      td
+        .text-right
+          | {{cashingTax | number:2}}
+    tr
+      td Єдиний податок (4%):
+      td
+        .text-right
+          | {{singleTax | number:2}}
+    tr
+      td
+        h2 Всього:
+      td
+        h2.text-right
+          | {{total}}
