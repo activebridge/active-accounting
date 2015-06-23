@@ -27,12 +27,7 @@ Rails.application.routes.draw do
     resources :work_days, only: :index
     resources :acts, only: :show
     resources :vendor_infos, only: :update
-
-    resources :holidays do
-      collection do
-        get :by_month
-      end
-    end
+    resources :holidays
 
     resources :reports do
       collection do
