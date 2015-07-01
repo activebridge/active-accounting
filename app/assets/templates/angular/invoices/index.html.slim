@@ -1,12 +1,20 @@
 #invoice
   .row
     .col-lg-12
+      ul.nav.nav-pills
+        li ng-class="{'active': currentType == 'customer'}"
+          a href="javascript:void(false);" ng-click="changeType('customer')" translate="Customers"
+        li ng-class="{'active': currentType == 'vendor'}"
+          a href="javascript:void(false);" ng-click="changeType('vendor');" translate="Vendors"
+  .clearboth
+  .row
+    .col-lg-12
       ul.nav.nav-tabs
         li ng-class="{'active': currentTab == 'invoice'}"
           a href="javascript:void(false);" ng-click="changeGroup('invoice')" translate="invoice"
         li ng-class="{'active': currentTab == 'act'}"
           a href="javascript:void(false);" ng-click="changeGroup('act');" translate="act"
-  .tab-content
+  .tab-content  ng-show="currentType == 'customer'"
     .tab-pane ng-class="{'active': currentTab == 'invoice'}"
       .row
         .col-lg-3
@@ -31,3 +39,7 @@
             button translate='savePdf'
     .tab-pane ng-class="{'active': currentTab == 'act'}"
       ng-include src='"#{asset_path('angular/acts/index.slim')}"'
+  .tab-content  ng-show="currentType == 'vendor'"
+    .tab-pane ng-class="{'active': currentTab == 'invoice'}"
+    .tab-pane ng-class="{'active': currentTab == 'act'}"
+      ng-include src='"#{asset_path('angular/acts/vendor.html.slim')}"'

@@ -35,6 +35,7 @@ gem 'angular_rails_csrf'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary-edge'
 gem 'gon'
+gem 'numbers_and_words'
 
 group :development, :test do
   gem 'pry'

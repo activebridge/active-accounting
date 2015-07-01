@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527144416) do
+ActiveRecord::Schema.define(version: 20150626080426) do
 
   create_table "articles", force: true do |t|
     t.string   "name"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20150527144416) do
   create_table "counterparties", force: true do |t|
     t.string   "name"
     t.date     "start_date"
-    t.boolean  "active",                 default: true
+    t.boolean  "active",                   default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "value_payment"
@@ -51,8 +51,9 @@ ActiveRecord::Schema.define(version: 20150527144416) do
     t.string   "auth_token"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
-    t.boolean  "approve_hours",          default: false
-    t.boolean  "signed_in",              default: false
+    t.boolean  "approve_hours",            default: false
+    t.boolean  "signed_in",                default: false
+    t.string   "currency_monthly_payment", default: "USD"
   end
 
   create_table "holidays", force: true do |t|
@@ -100,12 +101,22 @@ ActiveRecord::Schema.define(version: 20150527144416) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "vendor_acts", force: true do |t|
+    t.string   "total_money"
+    t.date     "month"
+    t.integer  "vendor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "vendor_acts", ["vendor_id"], name: "index_vendor_acts_on_vendor_id", using: :btree
+
   create_table "vendor_infos", force: true do |t|
     t.string   "name"
-    t.integer  "ipn"
+    t.string   "ipn"
     t.string   "address"
     t.string   "contract"
-    t.integer  "account"
+    t.string   "account"
     t.string   "bank"
     t.integer  "mfo"
     t.integer  "vendor_id"

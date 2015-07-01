@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Vendor, type: :model do
   context "association" do
     it { should belong_to(:customer) }
+    it { should have_many(:vendor_acts) }
   end
 
   context "after create callbacks" do

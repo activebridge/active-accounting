@@ -2,7 +2,17 @@
 
   $scope.update = (vendorInfo) ->
     d = $q.defer()
-    VendorInfo.update( id: vendorInfo.id, {vendor_info: vendorInfo}
+    data = {
+      'id': vendorInfo.id
+      'name': vendorInfo.name
+      'account': vendorInfo.account
+      'bank': vendorInfo.bank
+      'contract': vendorInfo.contract
+      'ipn': vendorInfo.ipn
+      'mfo': vendorInfo.mfo
+      'address': vendorInfo.address
+    }
+    VendorInfo.update( id: vendorInfo.id, {vendor_info: data}
       (response) ->
         d.resolve()
         $('.info-update').fadeIn().fadeOut(4000)

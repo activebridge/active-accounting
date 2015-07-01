@@ -8,10 +8,10 @@ class ActsController < ApplicationController
       @total_by_hours = invoice_calculator.total_money
       @act_date = params[:month].to_date
       respond_to do |format|
-        format.html { render 'acts/show.pdf.erb' }
+        format.html { render 'acts/show_customer.pdf.erb' }
         format.pdf do
           render pdf: "act_#{@customer.name + Time.current.strftime('%m-%d-%Y')}",
-                 template: 'acts/show.pdf.erb',
+                 template: 'acts/show_customer.pdf.erb',
                  dpi: '1200'
         end
       end

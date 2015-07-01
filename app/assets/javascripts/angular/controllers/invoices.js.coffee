@@ -10,6 +10,10 @@
 
   $scope.months = $translate.instant('fullMonthsName').split(',')
 
+  $scope.vendors = Counterparty.query
+    scope: 'active'
+    group: 'Vendor'
+
   $scope.customers = Counterparty.query
     scope: 'active'
     group: 'Customer'
@@ -39,7 +43,11 @@
     return
 
   $scope.currentTab = 'invoice'
+  $scope.currentType = 'customer'
 
   $scope.changeGroup = (value) ->
     $scope.currentTab = value
+
+  $scope.changeType = (value) ->
+    $scope.currentType = value
 ]

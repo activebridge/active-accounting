@@ -123,6 +123,9 @@ GEM
     net-ssh (2.9.1)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
+    numbers_and_words (0.10.0)
+      activesupport
+      i18n
     orm_adapter (0.5.0)
     passenger (4.0.53)
       daemon_controller (>= 1.2.0)
@@ -279,6 +282,7 @@ DEPENDENCIES
   mandrill_mailer
   minitest
   mysql2
+  numbers_and_words
   passenger
   pry
   rails (= 4.1.1)

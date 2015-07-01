@@ -2,7 +2,6 @@ class VendorInfo < ActiveRecord::Base
   belongs_to :vendor
 
   def short_name
-    array = name.split.map(&:capitalize)
-    array[0] + " #{array[1][0]}.#{array[2][0]}."
+    name.split(" ").map{|s| if name.split(" ").rindex(s) > 0 then s[0] + '.' else s + ' ' end}.join if name
   end
 end

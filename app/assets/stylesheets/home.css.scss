@@ -149,3 +149,28 @@ label { margin: 0; }
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+.input_and_select {
+  input {
+    width: 104px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    float: left;
+  }
+
+  .currency {
+    margin-left: 0;
+    width: 65px;
+    height: 26px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+
+    .select2-choice {
+      border-left: none;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+    }
+  }
+}
+
+#acts-table { width: 50%; }

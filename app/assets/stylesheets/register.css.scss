@@ -54,27 +54,6 @@
     }
   }
 
-  .value_plan {
-    width: 125px;
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
-    float: left;
-  }
-
-  .currency {
-    margin-left: 0;
-    width: 60px;
-    height: 26px;
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-
-    .select2-choice {
-      border-left: none;
-      border-bottom-left-radius: 0;
-      border-top-left-radius: 0;
-    }
-  }
-
   .td_correction {
     white-space: nowrap;
     min-width: 200px;

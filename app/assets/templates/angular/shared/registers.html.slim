@@ -19,8 +19,8 @@
             select.counterparty.clear_after_add ng-model="newRegister.counterparty_id"
               option ng-repeat="counterparty in counterparties" value="{{counterparty.id}}"
                 | {{counterparty.name}}
-          td ng-class=("{td_correction: sandbox}")
-            input.value ng-class="{value_plan: sandbox}" ng-model="newRegister.value" type="text"
+          td ng-class=("{td_correction: sandbox, input_and_select: sandbox}")
+            input.value ng-model="newRegister.value" type="text"
             select.currency ng-model="newRegister.currency" ng-options="q.value as q.text for q in currencies" ng-show="sandbox"
           td
             input ng-model="newRegister.notes" type="text"
@@ -155,7 +155,7 @@
           span e-class="search-select" e-form="rowform" e-name="counterparty_id" e-ng-options="s.id as s.name for s in counterparties" editable-select="register.counterparty.id"
           .buttons ng-show="!rowform.$visible"
             | {{ register.counterparty.name }}
-        td.td_correction
+        td.td_correction ng-class=("{input_and_select: sandbox}")
           span e-class="value" e-form="rowform" e-name="value" e-ng-class="{value_plan: sandbox}" editable-text="register.value"
             span.buttons ng-show="!rowform.$visible"
               span
