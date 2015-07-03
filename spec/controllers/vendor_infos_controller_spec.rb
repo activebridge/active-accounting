@@ -16,10 +16,10 @@ RSpec.describe VendorInfosController, type: :controller do
     end
 
     it { expect(vendor_info.name).to eql(vendor_info_attributes[:name]) }
-    it { expect(vendor_info.ipn).to eql(vendor_info_attributes[:ipn].to_i) }
+    it { expect(vendor_info.ipn).to eql(vendor_info_attributes[:ipn]) }
     it { expect(vendor_info.contract).to eql(vendor_info_attributes[:contract]) }
     it { expect(vendor_info.address).to eql(vendor_info_attributes[:address]) }
-    it { expect(vendor_info.account).to eql(vendor_info_attributes[:account].to_i) }
+    it { expect(vendor_info.account).to eql(vendor_info_attributes[:account]) }
     it { expect(vendor_info.bank).to eql(vendor_info_attributes[:bank]) }
     it { expect(vendor_info.mfo).to eql(vendor_info_attributes[:mfo].to_i) }
   end

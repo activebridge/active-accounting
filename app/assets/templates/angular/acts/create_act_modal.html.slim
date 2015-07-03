@@ -1,0 +1,19 @@
+.modal.client-info-modal.edit-counterparty-modal role="dialog" tabindex="-1"
+  .modal-dialog.modal-md
+    .modal-content
+      .modal-header
+        button.close ng-click="$hide()" type="button"  &times;
+        h4.modal-title
+          | {{ 'extra_options_create' | translate }}
+      .modal-body
+        form ng-submit="createAct(extraOptions);"
+          .row
+            .col-lg-4
+              label translate='rate_currency'
+              input numeric='' ng-model="extraOptions.rateDollar" type="text" ng-required="true" ng-change='changeRateDollar()'
+            .col-lg-4
+              label translate='translation'
+              input numeric='' ng-model="extraOptions.translation" type="text" ng-required="true"
+          .modal-footer
+            button.btn.btn-primary type="submit" translate='create'
+            button.btn.btn-danger ng-click="$hide()" type="button" translate='cancel'

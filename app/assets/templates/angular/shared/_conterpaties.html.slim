@@ -26,7 +26,8 @@
       td ng-show="showGroup == 'Vendor'"
         | {{ counterparty.email }}
       td.monthly_payment ng-show="showMonthlyPayment || rowform.$visible"
-        | {{ counterparty.value_payment }}
+        | {{ counterparty.value_payment }}&nbsp;
+        span ng-show="counterparty.value_payment" translate='{{counterparty.currency_monthly_payment}}'
       td.edit_icon
         .butn
           button.icon-button.hidde title="{{ 'edit_reg' | translate }}: {{ counterparty.name }}" type="button" ng-click='showEditCounterpartyModal(counterparty, "#{asset_path("angular/counterparties/edit_modal.html")}")'

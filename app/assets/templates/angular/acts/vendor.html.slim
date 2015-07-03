@@ -1,0 +1,39 @@
+.row ng-controller='VendorActsCtrl'
+  .col-lg-3
+    select.custumers ng-model="actParams.id" ng-change='changeSelect()'
+      option ng-repeat="vendor in vendors" value="{{vendor.id}}" ng-selected='{{ actParams.vendor_id == vendor.id }}' init-select2='setSelect2()'
+        | {{vendor.name}}
+    button.btn.margin-left-2.margin-bottom-1 translate='create' ng-show='actParams.id' ng-click='showCreateActModal("#{asset_path("angular/acts/create_act_modal.html")}")'
+    .text-center.calendar.width-320
+      .btn-group
+        label ng-repeat='month in months' id='month_{{$index + 1}}' class="btn btn-danger" ng-model="$parent.actParams.month" btn-radio="'{{$index + 1 + "/" + currentYear}}'" ng-init="clicked = currentMonth ==  $index + 1 " ng-class="{ 'active': clicked }"
+          | {{ month }}
+  h2 ng-show="acts.length > 0"
+    | {{ 'list_acts_for' | translate }} {{ currentVendor.name }}
+  table#acts-table.ng-scope ng-show="acts.length > 0"
+    tr
+      th.col-lg-2 translate="number"
+      th.col-lg-2 translate="month"
+      th.col-lg-2 translate="totall"
+    tr ng-repeat="act in acts"
+      td.col-lg-2
+        | {{ act.id }}
+      td.col-lg-2
+        | {{ act.month }}
+      td.col-lg-2
+        | {{ act.total_money }} {{ 'uah' | translate }}
+      td.col-lg-1
+        button.icon-button.hidd ng-click="showAct(act.id)" title="{{ 'preview' | translate }}" type="button"
+          span.glyphicon.glyphicon-eye-open
+        a href='/vendor_acts/{{act.id}}?format=pdf' target='_blank' data-method='get'
+          button.icon-button.hidd title="{{ 'savePdf' | translate }}" type="button"
+            span.glyphicon.glyphicon-file
+  .col-lg-7#generated-act-vendor ng-show='buttonExport'
+  a href='/vendor_acts/{{idShowAct}}?format=pdf' target='_blank' data-method='get'
+    button.width-86 translate='savePdf' ng-show='buttonExport'
+  .info-alas ng-show='infoActEmpty'
+    br
+    .alert.alert-info.alert-dismissable
+      strong
+        | {{ 'alas' | translate }}&nbsp;
+      | {{ 'info_not_found' | translate }}

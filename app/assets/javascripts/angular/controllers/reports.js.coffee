@@ -15,7 +15,7 @@
     $scope.loadDates()
 
   $scope.loadDates = ->
-    $cookies.rateDollar = $scope.rateDollar
+    $cookies.rateDollar = $scope.rateDollar.replace(',','.')
 
     Report.query
       report_type: 'revenues'

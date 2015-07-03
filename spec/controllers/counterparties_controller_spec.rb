@@ -47,10 +47,10 @@ RSpec.describe CounterpartiesController, :type => :controller do
     let!(:counterparty_with_payment_fact) { FactoryGirl.create(:counterparty,
                                                           monthly_payment:true,
                                                           value_payment:1000) }
-    let!(:register1) { FactoryGirl.create(:register, counterparty: counterparty_with_payment_fact) }
+    let!(:register1) { FactoryGirl.create(:register, counterparty: counterparty_with_payment_fact, date: Date.today) }
 
     let!(:counterparty) { FactoryGirl.create(:counterparty) }
-    let!(:register2) { FactoryGirl.create(:register, counterparty: counterparty) }
+    let!(:register2) { FactoryGirl.create(:register, counterparty: counterparty, date: Date.today) }
 
     let!(:counterparty_without_pay) { FactoryGirl.create(:counterparty,
                                                           monthly_payment:true,

@@ -3,6 +3,7 @@ class Vendor < Counterparty
   belongs_to :customer
   has_many :hours
   has_one  :vendor_info, dependent: :destroy
+  has_many :vendor_acts, dependent: :destroy
 
   before_create { generate_token(:auth_token) }
 

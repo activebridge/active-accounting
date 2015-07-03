@@ -23,6 +23,11 @@
 
   $scope.showGroup = 'Customer'
 
+  $scope.currencies = [
+    {value: "UAH", text: $translate.instant('currency_UA')},
+    {value: "USD", text: 'USD'}
+  ]
+
   $scope.types = [
     { value: "Customer", text: 'Customer' },
     { value: "Vendor", text: 'Vendor' },
@@ -71,6 +76,7 @@
       'active': counterparty.active
       'customer_id': counterparty.customer_id
       'type': counterparty.type
+      'currency_monthly_payment': counterparty.currency_monthly_payment
     }
 
     d = $q.defer()

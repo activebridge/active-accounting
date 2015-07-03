@@ -12,7 +12,7 @@ RSpec.describe ActsController, type: :controller do
   describe '#show' do
     before { get :show, { id: customer.id, month: Time.current.strftime('%m/%Y') } }
 
-    it { should render_template('show.pdf.erb') }
+    it { should render_template('show_customer.pdf.erb') }
   end
 end
 

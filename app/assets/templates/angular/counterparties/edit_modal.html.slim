@@ -28,7 +28,10 @@
               input.payment-check ng-model="editCounterparty.monthly_payment" type="checkbox"
             .col-lg-3 ng-show="editCounterparty.monthly_payment"
               label translate='totall'
-              input.number ng-model="editCounterparty.value_payment" numeric='' maxlength='6' type='text' ng-required="editCounterparty.monthly_payment"
+              .input_and_select
+                input.number ng-model="editCounterparty.value_payment" numeric='' maxlength='6' type='text' ng-required="editCounterparty.monthly_payment"
+                select.currency ui-select2='' ng-model="editCounterparty.currency_monthly_payment"
+                  option ng-repeat="type in currencies" translate="{{type.text}}" ng-selected='{{editCounterparty.currency_monthly_payment == type.value }}' value="{{type.value}}"
             .col-lg-6
           .row ng-show="showGroup == 'Vendor'"
             .col-lg-3

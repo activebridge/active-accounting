@@ -19,7 +19,7 @@
   $scope.filter.data = {}
 
   $scope.changeValue = ->
-    $cookies.rateDollar = $scope.rateDollar
+    $cookies.rateDollar = $scope.rateDollar.replace(',','.')
     $.each $scope.registers, (k, v)->
       v.value_currency = $scope.changeValueCurrency(v.currency, v.value)
 

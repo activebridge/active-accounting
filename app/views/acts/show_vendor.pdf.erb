@@ -1,0 +1,97 @@
+<meta charset='utf-8'>
+<%= wicked_pdf_stylesheet_link_tag "acts_vendor_pdf" %>
+<div class="act_body">
+  <div class='act_001'>
+    Акт №
+    <span id='vendor_act_id'><%= @act_params.id %></span>
+    АА/ <%= "#{@act_params.month.month}" + '/ ' "#{@act_params.month.year}"%>
+  </div>
+  <div class="act_clearbord_10"></div>
+  <div class='act_002'>
+    <div>
+      приймання - передачі наданих послуг з проведення робіт по виготовленню (створенню) та постачання програмної продукції
+    </div>
+    <div>
+      <span>згідно п.п. 2.1. Договору про надання послуг</span>
+      <span class='act_001, act_003'><%= @vendor.vendor_info.contract %> вiд <%= @vendor.start_date.strftime('%d.%m.%Y') %> р</span>
+    </div>
+  </div>
+  <div class="act_clearbord_10"></div>
+  <div class='act_004'>
+    <span class='act_left'>м. Черкаси</span>
+    <span class='act_right'><%= @act_params.month.strftime('%d.%m.%Y') %></span>
+  </div>
+  <div class="act_clearbord_20"></div>
+  <div class='act_005'>
+    &emsp;&emsp;Ми, що нижче підписалися, представник ТОВ „ЕКТІВ БРІДЖ” (код ЄДРПОУ 38988046), що зареєстровано за адресою: 18000, Черкаська обл., м. Черкаси, вул. Гоголя, будинок 137, в особі Генерального Директора Корпаня Євгенія Олександровича, що діє на підставі Статуту (надалі іменується „Замовник”), з одного боку, та фізична особа підприємець – <b> <%= @vendor.vendor_info.name %> </b> (надалі іменується „Виконавець”), який діє на підставі свідоцтва про державну реєстрацію і свідоцтва про сплату єдиного податку з іншого боку, приймає наступні послуги з проведення робіт по виготовленню комп'ютерного програмування (програмного продукту); подальшого консультування з питань інформатизації та використання продукту виготовленого Виконавцем. Дані послуги являють собою виготовлення «комп’ютерної програми», як об’єктивної форми представлення сукупності даних і команд, призначених для функціонування комп’ютерних пристроїв з метою отримання визначеного Замовником результату. Відповідно, програмний продукт являє собою комп’ютерну програму, або пакет комп’ютерних програм, які після виготовлення передаються в експлуатацію. Даний акт є підтвердженням виготовлення Виконавцем програмного продукту на замовлення Замовника <b>за <%= t('uk_month_nominative')[@act_params.month.month - 1] %>  <%= @act_params.month.year %> року.</b>, на суму <b> <%= @act_params.total_money.to_s.tr_s('.', ',') %> </b> грн, без ПДВ.
+  </div>
+  <div class='act_006'>
+    <%= @total_money_words %> <%= @act_params.total_money.to_s.split(".")[1] %> коп. ( без ПДВ )
+  </div>
+  <div class="act_clearbord_20"></div>
+  <div class='act_005'>
+    <div>
+      &emsp;&emsp;Характеристики та об’єми продукту є змістом самого продукту і містяться у відповідних інформаційних носіях та повністю влаштовують Замовника і відповідають Замовленню, яке передувало його (продукту) виготовленню.
+    </div>
+    <div>
+      &emsp;&emsp;Разом із даним актом приймання-передачі Виконавець передає Замовнику виготовлений предмет Договору на відповідних інформаційних носіях, копія якого залишається у Виконавця.
+    </div>
+    <div>
+      &emsp;&emsp;В момент підписання даного акту (з дати його підписання та отримання оплати) право власності на виготовлений програмний продукт переходить від Виконавця до Замовника та є моментом поставки даного програмного продукту від Виконавця до Замовника.
+    </div>
+    <div>
+      &emsp;&emsp;Замовник приймає програмний продукт (результат наданих послуг) повністю і ніяких претензій до Виконавця не має.
+    </div>
+    <div class="act_clearbord_10"></div>
+    <div>
+      &emsp;&emsp;Даний акт складено у двох примірниках.
+    </div>
+  </div>
+  <div class="act_clearbord_20"></div>
+  <span class="act_text_center act_text_bold act_details_all" >
+    <span class="act_details act_left">
+      <div >Замовник:</div>
+      <div >ТОВ „ЕКТІВ БРІДЖ”</div>
+    </span>
+    <span class="act_details act_right">
+      <div >Виконавець:</div>
+      <div >Фізична особа – підприємець</div>
+      <div ><%= @vendor.vendor_info.name %></div>
+    </span>
+  </span>
+  <span class="act_details_all">
+    <span class="act_details act_left">
+      <div >КОД ЄДРПОУ 38988046</div>
+      <div >18000, Черкаська обл., м. Черкаси, вул. Гоголя, будинок 137</div>
+      <div >Р/р 26000051511947 у ПАТ КБ</div>
+      <div >ПРИВАТБАНК</div>
+      <div >МФО 354347</div>
+    </span>
+    <span class="act_details act_right">
+      <div >ІПН: <%= @vendor.vendor_info.ipn %></div>
+      <div ><%= @vendor.vendor_info.address %></div>
+      <div >Р/р <%= @vendor.vendor_info.account %></div>
+      <div><%= @vendor.vendor_info.bank %></div>
+      <div>МФО <%= @vendor.vendor_info.mfo %></div>
+    </span>
+  </span>
+  <div class="act_clearbord_40"></div>
+  <span class="act_details_all">
+    <span class="act_details act_left">
+      <div class="act_text_bold">Генеральний директор</div>
+      <div class="act_clearbord_20"></div>
+      <span>_________________</span>
+      <span class='act_003'>Корпань Є.О.</span>
+      <div class="act_clearbord_20"></div>
+      <div class="act_003">М.П.</div>
+    </span>
+    <span class="act_details act_right">
+      <div class="act_text_bold">Фізична особа – підприємець</div>
+      <div class="act_clearbord_20"></div>
+      <span>_________________</span>
+      <span class='act_003'><%= @vendor.vendor_info.short_name %></span>
+      <div class="act_clearbord_20"></div>
+      <div class="act_003">М.П.</div>
+    </span>
+  </span>
+</div>

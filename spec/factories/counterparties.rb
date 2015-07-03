@@ -5,6 +5,7 @@ FactoryGirl.define do
     start_date { Date.yesterday }
     active true
     type {TYPES[rand(1)]}
+    currency_monthly_payment "USD"
 
     factory :customer, parent: :counterparty, class: 'Customer' do
       type 'Customer'
