@@ -88,6 +88,6 @@ Rails.application.configure do
     password:             SECRETS['mandrill_password'] }
 
   config.action_mailer.default_url_options = {
-    host: 'accounting.active-bridge.com:3000'
+    host: 'accounting.active-bridge.com'
   }
 end
