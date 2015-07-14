@@ -4,20 +4,16 @@ class VendorCalculator
   def initialize(vendor, params)
     @vendor = vendor
     @translation = params[:translation].to_f
-    @rate = params[:rateDollar].to_f
+    @rate = @vendor.currency_monthly_payment == "USD" ? params[:rateDollar].to_f : 1
     @month = params[:month]
   end
 
   def total_money
-    @total_money ||= sprintf("%.2f", (summ_salary + cashing_tax)/0.96)
+    @total_money ||= sprintf("%.2f", (summ_salary + summ_salary * 0.0075)/0.96)
   end
 
   def summ_salary
-    @summ_salary ||= (@vendor.currency_monthly_payment == "USD" ? @vendor.value_payment * @rate : @vendor.value_payment) + SOCIAL_TAX + @translation
-  end
-
-  def cashing_tax
-    @cashing_tax ||= (@vendor.currency_monthly_payment == "USD" ? summ_salary * 0.0075 : 0)
+    @summ_salary ||= @vendor.value_payment * @rate + SOCIAL_TAX + @translation
   end
 
   def total_money_words salary

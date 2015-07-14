@@ -48,6 +48,17 @@
   margin-top: 5px;
 }
 
+.act_007 {
+  font-style: italic;
+  font-size: 10px;
+}
+
+.act_008 {
+  font-size: 10px;
+  text-align: justify;
+  word-spacing: 1px;
+}
+
 .act_details {
   display: block;
   width: 35%;

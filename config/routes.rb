@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     resources :work_days, only: :index
     resources :acts, only: :show
     resources :vendor_acts
+    resources :vendor_orders
+    resources :order_features
     resources :vendor_infos, only: :update
     resources :holidays
 

@@ -1,0 +1,1 @@
+class Additional < Feature; end

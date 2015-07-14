@@ -1,0 +1,36 @@
+.modal.list-features-modal role="dialog" tabindex="-1"
+  .modal-dialog.dialog-edit
+    .modal-content
+      .modal-header
+        button.close ng-click="$hide()" type="button"  &times;
+        h4.modal-title
+          | {{ 'control_characteristics_web' | translate }}
+      .modal-body
+        .margin-15
+          input.height-34.margin-left-2.width-400 ng-model='searchFeature' placeholder="{{ 'search_feature' | translate }}"
+        div ng-repeat="groupFeatures in allFeatures | groupBy:'type' | toArray:true | orderBy:'type':reverse"
+          div ng-if="groupFeatures.$key == 'Primary'"
+            | 1 Імплементація WEB-додатку:
+          .height-10 ng-if="groupFeatures.$key == 'Additional'"
+          div ng-if="groupFeatures.$key == 'Additional'"
+            | 2 Імплементація додаткових функцій WEB-додатку:
+          div.one-feature.margin-left-10 ng-repeat='feature in groupFeatures | filter: {name: searchFeature}' ng-if='!feature.typeVirtual'
+            form editable-form='' name="editableForm" onaftersave="updateFeature(feature.id, $data)"
+              span editable-text="feature.name" e-name='name' e-required=''
+                | ◊ {{ feature.name }}
+              span
+                span.hidde ng-show="!editableForm.$visible"
+                  button.icon-button ng-click="editableForm.$show()" type="button" title="{{ 'edit_reg' | translate }}"
+                    span.glyphicon.glyphicon-edit
+                  button.icon-button.margin-left-30 ng-click="deleteFeature(feature)" type="button" title="{{ 'delete_reg' | translate }}"
+                    span.glyphicon.glyphicon-trash
+                span ng-show="editableForm.$visible"
+                  button.btn.margin-left-2.margin-bottom-1 type="submit" ng-disabled="editableForm.$waiting"
+                    | {{ 'update' | translate }}
+                  button.btn.margin-left-2.margin-bottom-1 type="button" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()"
+                    | {{ 'cancel' | translate }}
+          div
+            div.error ng-show="errorShowModal[groupFeatures.$key]"
+             | {{ 'error_for_empty' | translate }}
+            input.width-373.margin-left-10 ng-model="newFeaturesModal[groupFeatures.$key]"
+            button.btn.margin-left-2.margin-bottom-1 translate="add" ng-click='createFeature(groupFeatures.$key, newFeaturesModal, errorShowModal)'
