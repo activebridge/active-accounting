@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626080426) do
+ActiveRecord::Schema.define(version: 20150702075401) do
 
   create_table "articles", force: true do |t|
     t.string   "name"
@@ -56,6 +56,13 @@ ActiveRecord::Schema.define(version: 20150626080426) do
     t.string   "currency_monthly_payment", default: "USD"
   end
 
+  create_table "features", force: true do |t|
+    t.string   "name"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "holidays", force: true do |t|
     t.string   "name"
     t.date     "date"
@@ -74,6 +81,16 @@ ActiveRecord::Schema.define(version: 20150626080426) do
 
   add_index "hours", ["customer_id"], name: "index_hours_on_customer_id", using: :btree
   add_index "hours", ["vendor_id"], name: "index_hours_on_vendor_id", using: :btree
+
+  create_table "order_features", force: true do |t|
+    t.integer  "vendor_order_id"
+    t.integer  "feature_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "order_features", ["feature_id"], name: "index_order_features_on_feature_id", using: :btree
+  add_index "order_features", ["vendor_order_id"], name: "index_order_features_on_vendor_order_id", using: :btree
 
   create_table "registers", force: true do |t|
     t.date     "date"
@@ -125,5 +142,14 @@ ActiveRecord::Schema.define(version: 20150626080426) do
   end
 
   add_index "vendor_infos", ["vendor_id"], name: "index_vendor_infos_on_vendor_id", using: :btree
+
+  create_table "vendor_orders", force: true do |t|
+    t.date     "month"
+    t.integer  "vendor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "vendor_orders", ["vendor_id"], name: "index_vendor_orders_on_vendor_id", using: :btree
 
 end

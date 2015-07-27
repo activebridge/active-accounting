@@ -105,3 +105,17 @@ angular.module('accounting.services').factory 'VendorInfo', ['$resource', ($reso
   , update:
     method: 'PUT'
 ]
+
+angular.module('accounting.services').factory 'OrderFeatures', ['$resource', ($resource) ->
+  $resource '/order_features/:id',
+    id: '@id'
+  , update:
+    method: 'PUT'
+]
+
+angular.module('accounting.services').factory 'VendorActs', ['$resource', ($resource) ->
+  $resource '/vendor_acts/:id',
+    id: '@id'
+  , update:
+    method: 'PUT'
+]

@@ -6,7 +6,7 @@ class VendorActsController < ApplicationController
     acts = ActiveModel::ArraySerializer.new(@vendor.vendor_acts.order('id desc'),
                                            each_serializer: VendorActSerializer,
                                            root: nil)
-    render json: { acts: acts, vendor: @vendor }, status: 200
+    render json: acts, status: 200
   end
 
   def create

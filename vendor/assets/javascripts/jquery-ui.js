@@ -41,3 +41,4 @@
 //= require jquery-ui/datepicker-uk
 //= require jquery-ui/moment
 //= require jquery-ui/jquery.serialize-object
+//= require jquery-ui/underscore-min

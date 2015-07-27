@@ -1,4 +1,4 @@
-@VendorActsCtrl = ['$scope', '$http', '$translate', '$modal', '$cookies', ($scope, $http, $translate, $modal, $cookies) ->
+@VendorActsCtrl = ['$scope', '$http', '$translate', '$modal', '$cookies', 'VendorActs', ($scope, $http, $translate, $modal, $cookies, VendorActs) ->
   $scope.actParams = {
     month: moment().format('MM/YYYY')
   }
@@ -8,22 +8,22 @@
     $scope.createActModal = $modal(scope: $scope, template: url, show: false)
     $scope.createActModal.$promise.then $scope.createActModal.show
 
-  $scope.changeSelect = ->
-    $http.get("vendor_acts?vendor_id=#{$scope.actParams.id}").success(
-      (response) ->
-        $scope.acts = response.acts
-        $scope.currentVendor = response.vendor
+  $scope.changeSelect = () ->
+    $scope.currentVendor = _.find $scope.vendors, (vendor) ->
+      parseInt($scope.actParams.id) == vendor.id
+    $scope.acts = VendorActs.query(
+      vendor_id: $scope.currentVendor.id
+      () ->
         $("#generated-act-vendor").html ''
-        $scope.buttonExport = false
-        $scope.infoActEmpty = true if response.acts.length == 0
+        $scope.showCurrentAct = false
+        $scope.infoActEmpty = $scope.acts.length == 0
     )
 
   displayAct = (response) ->
     $("#generated-act-vendor").html response
     $scope.idShowAct = $('#vendor_act_id').text()
-    $scope.buttonExport = true
+    $scope.showCurrentAct = true
     $scope.infoActEmpty = false
-    $scope.acts = []
 
   errorResponse = (response) ->
     messages = ''
@@ -45,6 +45,7 @@
       (response) ->
         $scope.createActModal.hide()
         displayAct(response)
+        $scope.acts = VendorActs.query(vendor_id: $scope.currentVendor.id)
     ).error (response) ->
       $scope.createActModal.hide()
       errorResponse(response)
@@ -59,4 +60,7 @@
 
   $scope.changeRateDollar = ->
     $cookies.rateDollar = $scope.extraOptions.rateDollar.replace(',','.')
+
+  $scope.hideCurrentAct = ->
+    $scope.showCurrentAct = false
 ]

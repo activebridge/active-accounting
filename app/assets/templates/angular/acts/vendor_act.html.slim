@@ -8,9 +8,10 @@
       .btn-group
         label ng-repeat='month in months' id='month_{{$index + 1}}' class="btn btn-danger" ng-model="$parent.actParams.month" btn-radio="'{{$index + 1 + "/" + currentYear}}'" ng-init="clicked = currentMonth ==  $index + 1 " ng-class="{ 'active': clicked }"
           | {{ month }}
-  h2 ng-show="acts.length > 0"
-    | {{ 'list_acts_for' | translate }} {{ currentVendor.name }}
-  table#acts-table.ng-scope ng-show="acts.length > 0"
+  div
+    h2 ng-show="!showCurrentAct && acts.length > 0"
+      | {{ 'list_acts_for' | translate }} {{ currentVendor.name }}
+  table#acts-table.ng-scope ng-show="!showCurrentAct && acts.length > 0"
     tr
       th.col-lg-2 translate="number"
       th.col-lg-2 translate="month"
@@ -28,9 +29,12 @@
         a href='/vendor_acts/{{act.id}}?format=pdf' target='_blank' data-method='get'
           button.icon-button.hidd title="{{ 'savePdf' | translate }}" type="button"
             span.glyphicon.glyphicon-file
-  .col-lg-7#generated-act-vendor ng-show='buttonExport'
+  .col-lg-7 ng-show='showCurrentAct'
+    button.margin-left-50.icon-button.icon-back ng-click="hideCurrentAct()" type="button" title="{{ 'back_to_list' | translate }}"
+      span.glyphicon.glyphicon-arrow-left
+    #generated-act-vendor
   a href='/vendor_acts/{{idShowAct}}?format=pdf' target='_blank' data-method='get'
-    button.width-86 translate='savePdf' ng-show='buttonExport'
+    button.width-86 translate='savePdf' ng-show='showCurrentAct'
   .info-alas ng-show='infoActEmpty'
     br
     .alert.alert-info.alert-dismissable

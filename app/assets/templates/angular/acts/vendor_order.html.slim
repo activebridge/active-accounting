@@ -1,0 +1,148 @@
+.row ng-controller='VendorOrdersCtrl'
+  .col-lg-3
+    select.custumers ng-model="orderParams.id" ng-change='changeSelect()'
+      option ng-repeat="vendor in vendors" value="{{vendor.id}}" ng-selected='{{ orderParams.vendor_id == vendor.id }}' init-select2='setSelect2()'
+        | {{vendor.name}}
+    button.btn.margin-left-2.margin-bottom-1 translate='create' ng-show='orderParams.id' ng-click='createOrder()'
+    .text-center.calendar.width-320
+      .btn-group
+        label ng-repeat='month in months' id='month_{{$index + 1}}' class="btn btn-danger" ng-model="$parent.orderParams.month" btn-radio="'{{$index + 1 + "/" + currentYear}}'" ng-init="clicked = currentMonth ==  $index + 1 " ng-class="{ 'active': clicked }"
+          | {{ month }}
+    .height-10
+    button.btn.width-273.height-30 translate='control_characteristics' ng-click='showListFeaturesModal("#{asset_path("angular/acts/list_vendor_orders_modal.html")}")'
+  h2 ng-show="orders.length > 0 && !showCurrentOrder"
+    | {{ 'list_orders_for' | translate }} {{ currentVendor.name }}
+  table#acts-table.ng-scope ng-show="orders.length > 0 && !showCurrentOrder"
+    tr
+      th.col-lg-2 translate="number"
+      th.col-lg-2 translate="month"
+    tr ng-repeat="order in orders"
+      td.col-lg-2
+        | {{ order.id }}
+      td.col-lg-2
+        | {{ order.month }}
+      td.col-lg-1
+        button.icon-button.hidd ng-click="showOrder(order)" title="{{ 'preview' | translate }}" type="button"
+          span.glyphicon.glyphicon-eye-open
+        a href='/vendor_orders/{{order.id}}?format=pdf' target='_blank' data-method='get'
+          button.icon-button.hidd title="{{ 'savePdf' | translate }}" type="button"
+            span.glyphicon.glyphicon-file
+  .col-lg-7#generated-order-vendor ng-show='showCurrentOrder'
+    .act_body
+      button.icon-button.icon-back ng-click="hideCurrentOrder()" type="button" title="{{ 'back_to_list' | translate }}"
+        span.glyphicon.glyphicon-arrow-left
+      .act_001
+        | Замовлення №
+        span#vendor_order_id
+          | {{ currentOrder.id }}
+        |  АА/ {{ currentOrder.month }}
+      .act_clearbord_10
+      .act_002
+        div
+          span до Договору про надання послуг
+          span.act_001.act_003
+            | {{ currentVendor.vendor_info.contract }} вiд {{ currentVendor.start_date }} р
+        div
+          | по виготовленню продукту комп’ютерного програмування.
+      .act_004
+        span.act_left м. Черкаси
+        span.act_right
+          | {{ currentOrder.first_day_month }}
+      .act_clearbord_10
+      .act_008
+        | &emsp;&emsp;Ми, що нижче підписалися, представник ТОВ „ЕКТІВ БРІДЖ” (код ЄДРПОУ 38988046), що зареєстровано за адресою: 18000, Черкаська обл., м. Черкаси, вул. Гоголя, будинок 137, в особі Генерального Директора Корпаня Євгенія Олександровича, що діє на підставі Статуту (надалі іменується „Замовник”), з одного боку, та фізична особа підприємець
+        b
+          |  {{ currentVendor.vendor_info.name }}&nbsp;
+        | (надалі іменується „Виконавець”), який діє на підставі свідоцтва про державну реєстрацію і свідоцтва про сплату єдиного податку з іншого боку, зобов’язується виконати ЗАМОВЛЕННЯ, яке складається із наступного:
+      .act_clearbord_10
+      .act_001
+        | 1. Предмет замовлення
+      .act_008
+        div
+          b 1.1. Замовник замовляє, а Виконавець зобов'язується надати із застосуванням власних сил та засобів Замовнику послуги
+          |  з виготовлення комп'ютерного програмування (продукту); подальшого консультування з питань інформатизації та використання продукту виготовленого Виконавцем. Дані послуги являють собою виготовлення «комп’ютерної програми», як об’єктивної форми представлення сукупності даних і команд, призначених для функціонування комп’ютерних пристроїв з метою отримання визначеного Замовником результату. Відповідно, програмний продукт являє собою комп’ютерну програму, або пакет комп’ютерних програм (в залежності від складності та характеру замовлення), які після виготовлення передаютьсяв експлуатацію відповідно до призначення.
+        div
+          | &emsp;&emsp;Тобто, предметом даного Замовлення є безпосереднє виготовлення Виконавцем «комп’ютерної програми» на замовлення Замовника. По тексту предмет Замовлення – послуги з виготовлення продукту комп’ютерного програмування. Предмет Замовлення після його виготовлення має бути передано Замовнику на відповідних інформаційних носіях вказаних Замовником.
+      .act_clearbord_10
+      .act_001
+        | 2. Характеристики замовлення
+      .act_007.act_text_center
+        | (необхідне помітити)
+      .act_007
+        div ng-repeat="groupFeatures in currentOrder.features | groupBy:'type' | toArray:true"
+          div ng-if="groupFeatures.$key == 'Primary'"
+            | 2.1 Імплементація WEB-додатку:
+          .height-10 ng-if="groupFeatures.$key == 'Additional'"
+          div ng-if="groupFeatures.$key == 'Additional'"
+            | 2.2 Імплементація додаткових функцій WEB-додатку:
+          div.one-feature ng-repeat='feature in groupFeatures' ng-if='!feature.typeVirtual'
+            | ◊ 2.{{ indexGroup[groupFeatures.$key] }}.{{$index}} {{ feature.name }}
+            button.icon-button.hidde ng-click="deleteFeature(feature, options = { orderId: true })" type="button"
+              span.glyphicon.glyphicon-trash
+          .height-10
+          div ng-show="(selectShow[groupFeatures.$key] && (allFeatures | filter: {type: groupFeatures.$key, show: true}).length > 0)"
+            select.features-select ng-attr-id="{{ 'addFeture' + groupFeatures.$key }}" ng-model="idFeature[groupFeatures.$key]" ng-change='addFeature(groupFeatures.$key)'
+              option.new-feature value="newFeature"
+                | << ДОБАВИТИ НОВУ ХАРАКТЕРИСТИКУ >>
+              option ng-repeat="feature in allFeatures | filter: {type: groupFeatures.$key, show: true}" value="{{feature.id}}" init-select2='setSelect2ForFeatures(groupFeatures.$key)'
+                | {{feature.name}}
+          div ng-hide="(selectShow[groupFeatures.$key] && (allFeatures | filter: {type: groupFeatures.$key, show: true}).length > 0)"
+            div.error ng-show="errorShow[groupFeatures.$key]"
+             | {{ 'error_for_empty' | translate }}
+            input.width-373 ng-model="newFeatures[groupFeatures.$key]"
+            button.btn.margin-left-2.margin-bottom-1.width-auto translate="add" ng-click='createFeature(groupFeatures.$key, newFeatures, errorShow, options = { orderId: true })'
+            button.btn.margin-left-2.margin-bottom-1.width-auto translate="cancel" ng-click='canselCreateFeature(groupFeatures.$key)' ng-hide='selectShow[groupFeatures.$key]'
+      .height-10
+      .act_007
+        div ng-repeat='feature in additionalFeatures'
+          | ◊ 2.2.{{$index + 1}} {{ feature.name }}
+      .act_clearbord_20
+      span.act_text_center.act_text_bold.act_details_all
+        span.act_details.act_left
+          div Замовник:
+          div ТОВ „ЕКТІВ БРІДЖ”
+        span.act_details.act_right
+          div Виконавець:
+          div Фізична особа – підприємець
+          div
+            | {{ currentVendor.vendor_info.name }}
+      span.act_details_all
+        span.act_details.act_left
+          div КОД ЄДРПОУ 38988046
+          div 18000, Черкаська обл., м. Черкаси, вул. Гоголя, будинок 137
+          div Р/р 26000051511947 у ПАТ КБ
+          div ПРИВАТБАНК
+          div МФО 354347
+        span.act_details.act_right
+          div ІПН: {{ currentVendor.vendor_info.ipn }}
+          div
+            | {{ currentVendor.vendor_info.address }}
+          div Р/р {{ currentVendor.vendor_info.account }}
+          div
+            | {{ currentVendor.vendor_info.bank }}
+          div МФО {{ currentVendor.vendor_info.mfo }}
+      .act_clearbord_40
+      span.act_details_all
+        span.act_details.act_left
+          .act_text_bold Генеральний директор
+          .act_clearbord_20
+          span _________________
+          span.act_003 Корпань Є.О.
+          .act_clearbord_20
+          .act_003 М.П.
+        span.act_details.act_right
+          .act_text_bold Фізична особа – підприємець
+          .act_clearbord_20
+          span _________________
+          span.act_003
+            | {{ currentVendor.vendor_info.short_name }}
+          .act_clearbord_20
+          .act_003 М.П.
+  a href='/vendor_orders/{{currentOrder.id}}?format=pdf' target='_blank' data-method='get'
+    button.width-86 translate='savePdf' ng-show='showCurrentOrder'
+  .info-alas ng-show='orders.length == 0 && !showCurrentOrder'
+    br
+    .alert.alert-info.alert-dismissable
+      strong
+        | {{ 'alas' | translate }}&nbsp;
+      | {{ 'info_not_found' | translate }}
