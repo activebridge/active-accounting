@@ -84,9 +84,10 @@ label { margin: 0; }
   a { margin-left: 10px; }
 }
 
-.locale { width: 32px; }
-
-.navbar-right { height: 30px; }
+.locale {
+  height: 30px;
+  width: 32px;
+}
 
 .rate_currency {
   float: right;
