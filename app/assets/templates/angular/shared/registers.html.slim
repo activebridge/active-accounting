@@ -181,7 +181,7 @@
             button.icon-button.hidd ng-click="delete(register.id, $index)" title="{{ 'delete_reg' | translate }}" type="button"
               span.glyphicon.glyphicon-trash
           span.hidd ng-show="!rowform.$visible"
-            select.color-record ng-change="update(register.id, {background: colorRecord}); register.background = colorRecord" ng-model="colorRecord"
+            select.color-record ng-change="update(register.id, {background: colorRecord}, $index); register.background = colorRecord" ng-model="colorRecord"
               option value=""
               option value="#7bd148"  Green
               option value="#5484ed"  Bold blue
