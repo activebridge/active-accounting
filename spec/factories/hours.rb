@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :hour do
-    month Time.current.strftime('%m/%Y').to_date
+    month Date.current.beginning_of_month
     hours 150
   end
 end
