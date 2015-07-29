@@ -19,7 +19,11 @@ Rails.application.routes.draw do
     end
 
     resources :articles
-    resources :registers
+    resources :registers do
+      collection do
+        get :sumary_profit
+      end
+    end
     resources :plan_registers
     resources :invitations
     resources :client_infos, only: :update

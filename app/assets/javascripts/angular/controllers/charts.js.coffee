@@ -1,4 +1,4 @@
-@ChartsCtrl = ['$scope', 'Chart', '$translate', ($scope, Chart, $translate) ->
+@ChartsCtrl = ['$scope', 'Chart', 'Register', '$translate', ($scope, Chart, Register, $translate) ->
 
   $scope.currYear = new Date().getFullYear()
   $scope.myYear = [$scope.currYear]
@@ -39,6 +39,10 @@
 
         generalChart.draw()
 
+    $scope.profit = Register.sumaryProfit
+      year: year
+      (response) ->
+        console.log response
         lineChart = new JSChart(containerLine, 'line')
 
         # TODO: set real data to setDataArray
@@ -67,6 +71,7 @@
   $scope.CheckYears = (value, clicked) ->
     if clicked
       $('#chartcontainer' + value).show()
+      $('#line_chart' + value).show()
       if $scope.myYear.indexOf(value) == -1
         $scope.myYear.push(value)
         containerBar = 'chartcontainer' + value
@@ -74,6 +79,7 @@
         $scope.load(value, containerBar. containerLine)
     else
       $('#chartcontainer' + value).hide()
+      $('#line_chart' + value).hide()
     return
 
 ]

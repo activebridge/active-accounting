@@ -42,6 +42,11 @@ class RegistersController < ApplicationController
     end
   end
 
+  def sumary_profit
+    result = Register.get_payments(params[:year])
+    render json: result
+  end
+
   private
 
   def set_model
