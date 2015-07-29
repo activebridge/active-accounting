@@ -18,19 +18,14 @@
     $scope.counterparty = counterparty
     $scope.vendorInfoModal.$promise.then $scope.vendorInfoModal.show
 
+  $scope.loadedData = {}
+
   $scope.load = ->
-    if $scope.showGroup == 'Customer'
-      if !$scope.customers
-        $scope.customers = Counterparty.query(group: 'Customer')
-      $scope.counterpaties = $scope.customers
-    else if $scope.showGroup == 'Vendor'
-      if !$scope.vendors
-        $scope.vendors = Counterparty.query(group: 'Vendor')
-      $scope.counterpaties = $scope.vendors
-    else if $scope.showGroup == 'Other'
-      if !$scope.others
-        $scope.others = Counterparty.query(group: 'Other')
-      $scope.counterpaties = $scope.others
+    if !!$scope.loadedData[$scope.showGroup]
+      $scope.counterpaties = $scope.loadedData[$scope.showGroup]
+    else
+      $scope.counterpaties = Counterparty.query(group: $scope.showGroup)
+      $scope.loadedData[$scope.showGroup] = $scope.counterpaties
 
   $scope.showGroup = 'Customer'
 
