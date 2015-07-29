@@ -36,6 +36,7 @@
         $scope.newHour.hours = ''
         $scope.LoadHours()
         $scope.newHour.month = moment().format('MM/YYYY')
+        $scope.newHour.errors = []
       (response) ->
         $scope.newHour.errors = response.data.error
     )
