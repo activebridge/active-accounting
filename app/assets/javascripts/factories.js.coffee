@@ -119,3 +119,10 @@ angular.module('accounting.services').factory 'VendorActs', ['$resource', ($reso
   , update:
     method: 'PUT'
 ]
+
+angular.module('accounting.services').factory 'MissingHours', ['$resource', ($resource) ->
+  $resource '/missing_hours/:id',
+    id: '@id'
+  , update:
+    method: 'PUT'
+]

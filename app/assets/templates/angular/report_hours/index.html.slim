@@ -51,6 +51,9 @@
             | {{ 'alas' | translate }}&nbsp;
           | {{ 'nothing_added' | translate }}
 
+      .row
+        a.cursor-pointer ng-click='misingHoursModal("#{asset_path("angular/report_hours/missing_hours_modal.html")}")'
+          | {{ 'magic_button' | translate }}
       h2.text-center translate='vendorsAndCustumersEstimate'
       table.table_customer
         thead.bg-grey
@@ -100,4 +103,3 @@
 
     .col-lg-3
       #holiday-calendar.pull-right ui-date="dateOptions"
-
