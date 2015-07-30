@@ -46,7 +46,6 @@
         $(response.profits).each (k, v) ->
           profits_data.push(v)
 
-        console.log profits_data[0]
         lineChart = new JSChart(containerLine, 'line')
 
         lineChart.setDataArray(profits_data)
@@ -66,8 +65,6 @@
         lineChart.setFlagRadius(6)
         lineChart.setAxisPaddingLeft(65)
         $.each profits_data, (index, value) ->
-          console.log value
-          console.log profits_data[index]
           lineChart.setTooltip([value[0], value[1]])
 
         lineChart.draw()
