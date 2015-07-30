@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     resources :order_features
     resources :vendor_infos, only: :update
     resources :holidays
+    resources :missing_hours, only: :index
 
     resources :reports do
       collection do

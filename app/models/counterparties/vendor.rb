@@ -10,6 +10,10 @@ class Vendor < Counterparty
 
   delegate :name, to: :customer, prefix: true
 
+  scope :by_missing_hours, -> (date = Date.current.at_beginning_of_month) {
+    includes(:hours).reject { |v| v.hours.find_by(month: date) }
+  }
+
   def send_password_reset
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now

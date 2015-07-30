@@ -1,0 +1,25 @@
+.modal.missing-hours-modal role="dialog" tabindex="-1" ng-controller='MissingHoursCtrl'
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close ng-click="$hide()" type="button"  &times;
+        h4.modal-title
+          | {{ 'missing_hours' | translate }}
+      .modal-body
+        table.table ng-show='users.length > 0'
+          tr
+            th
+              | {{ 'name' | translate }}
+            th
+              | {{ 'email' | translate }}
+          tr ng-repeat='user in users'
+            td
+              | {{ user.name }}
+            td
+              | {{ user.email }}
+        .alert.alert-info.alert-dismissable ng-hide='users.length > 0'
+          strong
+            | {{ 'alas' | translate }}&nbsp;
+          | {{ 'info_not_found' | translate }}
+      .modal-footer
+        button.btn.btn-danger ng-click="$hide()" type="button" translate='cancel'
