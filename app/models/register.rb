@@ -51,7 +51,12 @@ class Register < ActiveRecord::Base
     where("extract(month from date) in (#{months}) and extract(year from date) in (#{years})")
   }
 
-  scope :get_payments, -> (year) { where('YEAR(date) = (?)', year).group_by{ |reg| reg.date.strftime('%-m') } }
+  scope :get_payments, -> (year) {
+    joins(:article)
+    .select('registers.date, SUM(registers.value) AS total, articles.type AS type')
+    .where('YEAR(date) = ? AND registers.type = "Fact" AND articles.type IN ("Revenue", "Cost")', year)
+    .group(:type).order(:date)
+  }
 
   scope :by_date, -> (date) { where(date: Date.parse(date)) unless date.blank? }
   scope :by_counterparty, -> (data) { where(counterparty_id: data) if data }

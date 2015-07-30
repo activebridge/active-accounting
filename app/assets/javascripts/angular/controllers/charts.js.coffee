@@ -42,11 +42,14 @@
     $scope.profit = Register.sumaryProfit
       year: year
       (response) ->
-        console.log response
+        profits_data = []
+        $(response.profits).each (k, v) ->
+          profits_data.push(v)
+
+        console.log profits_data[0]
         lineChart = new JSChart(containerLine, 'line')
 
-        # TODO: set real data to setDataArray
-        lineChart.setDataArray([[1,4], [2,7], [3,88], [4,88], [5,88], [6,88], [7,58], [8,88], [9,38], [10,880], [11,8], [12,5]])
+        lineChart.setDataArray(profits_data)
         lineChart.setLineColor('#8D9386');
         lineChart.setLineWidth(4)
         lineChart.setTitleColor('#7D7D7D')
@@ -58,6 +61,15 @@
         lineChart.setAxisNameX('Month')
         lineChart.setAxisNameY('Total')
         lineChart.setTitle(year.toString())
+        lineChart.setLabelY([100, '100%'])
+        lineChart.setSize(1200, 500)
+        lineChart.setFlagRadius(6)
+        lineChart.setAxisPaddingLeft(65)
+        $.each profits_data, (index, value) ->
+          console.log value
+          console.log profits_data[index]
+          lineChart.setTooltip([value[0], value[1]])
+
         lineChart.draw()
 
 
