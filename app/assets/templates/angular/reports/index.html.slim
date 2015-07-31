@@ -3,12 +3,13 @@
     select.year-select.margin-right-5 ng-change="CheckYears(year)" ng-model="year"
       option ng-repeat="year in years" ng-selected="{{year==currYear}}" init-select2='setSelect2()'
         | {{year}}
+    | &nbsp;
     .multiple-picker
       label.picker-label for="{{month}}" ng-class="{checked_label: clicked}" ng-click="clicked=!clicked; monthsChange(month, clicked)" ng-init="clicked = currentMonth == month" ng-repeat="month in months"
         | {{month}}
   .margin_vertical
     span
-      | {{ 'all_plans' | translate }}: 
+      | {{ 'all_plans' | translate }}:
     a.pointer ng-click="funcPlan.showAll(true)" ng-show="funcPlan.showComand('show')"
       | {{ 'show' | translate }}
     span ng-show="funcPlan.showComand('show') && funcPlan.showComand('hide')"
@@ -25,7 +26,7 @@
       .left &nbsp
       .value.bold ng-class="{plan_show: funcPlan.show[$index], month_height: funcPlan.show[$index]}" ng-repeat="month in months" ng-show="isShow(parseMonthName(month))"
         div
-          | {{month}} 
+          | {{month}}
           label ng-click="funcPlan.show[$index]=!funcPlan.show[$index]"
             span.glyphicon.glyphicon-cog.pointer title="{{'plan_month' | translate}}"
         div ng-show="funcPlan.show[$index]"
