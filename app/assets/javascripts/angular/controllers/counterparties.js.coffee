@@ -3,6 +3,9 @@
   $scope.newCounterparty.errors = {}
   $scope.counterparty = {}
 
+  $scope.parseVersions = (content) ->
+    return angular.fromJson("#{content}")
+
   $scope.showClientInfoModal = (counterparty, url) ->
     $scope.clientInfoModal = $modal(scope: $scope, template: url, show: false)
     $scope.counterparty = counterparty

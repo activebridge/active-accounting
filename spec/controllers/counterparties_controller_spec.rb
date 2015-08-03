@@ -27,6 +27,15 @@ RSpec.describe CounterpartiesController, :type => :controller do
       it { expect(json).to have(1).items }
       it { expect(json.first["active"]).to be_falsey }
     end
+
+    context 'returns list of versions' do
+      before do
+        get :index, scope: 'inactive', format: :json
+        inactive_counterparty.update(value_payment: 400)
+      end
+
+      it { expect(json.first['versions']).to have(1).item }
+    end
   end
 
   describe "#destroy" do
