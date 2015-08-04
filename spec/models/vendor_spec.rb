@@ -15,4 +15,21 @@ RSpec.describe Vendor, type: :model do
   context "delegate" do
     it { should delegate_method(:name).to(:customer).with_prefix(true) }
   end
+
+  describe 'scope' do
+    context '.by_missing_hours' do
+      context 'should include vendor' do
+        let!(:vendor) { create(:vendor) }
+        it { expect(Vendor.by_missing_hours).to include(vendor) }
+      end
+
+      context 'should not include vendor' do
+        let(:customer) { FactoryGirl.create(:customer) }
+        let(:vendor) { FactoryGirl.create(:vendor, customer_id: customer.id, approve_hours: true) }
+        let!(:hour) { FactoryGirl.create(:hour, customer_id: customer.id, vendor_id: vendor.id) }
+
+        it { expect(Vendor.by_missing_hours).to_not include(vendor) }
+      end
+    end
+  end
 end

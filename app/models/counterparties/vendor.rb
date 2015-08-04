@@ -11,7 +11,11 @@ class Vendor < Counterparty
   delegate :name, to: :customer, prefix: true
 
   scope :by_missing_hours, -> (date = Date.current.at_beginning_of_month) {
-    includes(:hours).reject { |v| v.hours.find_by(month: date) }
+    includes(:hours).reject do |v|
+      v.hours.where(
+        "extract(month from month) = ? AND extract(year from month) = ?", date.month, date.year
+      ).first
+    end
   }
 
   def send_password_reset
