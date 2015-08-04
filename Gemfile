@@ -37,6 +37,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary-edge'
 gem 'gon'
 gem 'numbers_and_words'
+gem 'paper_trail', '~> 4.0.0'
 
 group :development, :test do
   gem 'pry'
@@ -50,6 +51,7 @@ group :development, :test do
   gem 'shoulda'
   gem 'shoulda-callback-matchers'
   gem 'shoulda-matchers'
+  gem 'test-unit'
 end
 
 group :development do

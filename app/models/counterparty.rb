@@ -7,6 +7,8 @@ class Counterparty < ActiveRecord::Base
     OTHER = 'Other'
   end
 
+  has_paper_trail only: :value_payment
+
   def customer?
     type == TYPES::CUSTOMER
   end

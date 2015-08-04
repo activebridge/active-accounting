@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150702075401) do
+ActiveRecord::Schema.define(version: 20150730133908) do
 
   create_table "articles", force: true do |t|
     t.string   "name"
@@ -151,5 +151,16 @@ ActiveRecord::Schema.define(version: 20150702075401) do
   end
 
   add_index "vendor_orders", ["vendor_id"], name: "index_vendor_orders_on_vendor_id", using: :btree
+
+  create_table "versions", force: true do |t|
+    t.string   "item_type",                     null: false
+    t.integer  "item_id",                       null: false
+    t.string   "event",                         null: false
+    t.string   "whodunnit"
+    t.text     "object",     limit: 2147483647
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
 end
