@@ -55,7 +55,7 @@ class Register < ActiveRecord::Base
     joins(:article)
     .select('registers.date, SUM(registers.value) AS total, articles.type AS type')
     .where('YEAR(date) = ? AND registers.type = "Fact" AND articles.type IN ("Revenue", "Cost")', year)
-    .group(:type).order(:date)
+    .group('MONTH(date), type').order(:date)
   }
 
   scope :by_date, -> (date) { where(date: Date.parse(date)) unless date.blank? }
