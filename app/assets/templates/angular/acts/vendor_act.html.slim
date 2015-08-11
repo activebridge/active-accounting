@@ -3,7 +3,7 @@
     select.custumers ng-model="actParams.id" ng-change='changeSelect()'
       option ng-repeat="vendor in vendors" value="{{vendor.id}}" ng-selected='{{ actParams.vendor_id == vendor.id }}' init-select2='setSelect2()'
         | {{vendor.name}}
-    button.btn.margin-left-2.margin-bottom-1 translate='create' ng-show='actParams.id' ng-click='showCreateActModal("#{asset_path("angular/acts/create_act_modal.html")}")'
+    button.btn.margin-left-2.margin-bottom-1 translate='create' ng-show='actParams.id && acts.length > 0' ng-click='showCreateActModal("#{asset_path("angular/acts/create_act_modal.html")}")'
     .text-center.calendar.width-320
       .btn-group
         label ng-repeat='month in months' id='month_{{$index + 1}}' class="btn btn-danger" ng-model="$parent.actParams.month" btn-radio="'{{$index + 1 + "/" + currentYear}}'" ng-init="clicked = currentMonth ==  $index + 1 " ng-class="{ 'active': clicked }"
@@ -13,17 +13,15 @@
       | {{ 'list_acts_for' | translate }} {{ currentVendor.name }}
   table#acts-table.ng-scope ng-show="!showCurrentAct && acts.length > 0"
     tr
-      th.col-lg-2 translate="number"
       th.col-lg-2 translate="month"
       th.col-lg-2 translate="totall"
+      th
     tr ng-repeat="act in acts"
-      td.col-lg-2
-        | {{ act.id }}
       td.col-lg-2
         | {{ act.month }}
       td.col-lg-2
         | {{ act.total_money }} {{ 'uah' | translate }}
-      td.col-lg-1
+      td.col-lg-2
         button.icon-button.hidd ng-click="showAct(act.id)" title="{{ 'preview' | translate }}" type="button"
           span.glyphicon.glyphicon-eye-open
         a href='/vendor_acts/{{act.id}}?format=pdf' target='_blank' data-method='get'
