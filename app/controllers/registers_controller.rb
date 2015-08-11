@@ -43,8 +43,8 @@ class RegistersController < ApplicationController
   end
 
   def sumary_profit
-    all_registers = Register.get_payments(params[:year]).group_by{ |reg| reg.date.strftime('%b') }
-    render json: { profits: count_profit(all_registers) }
+    all_registers = Register.get_payments(params[:year]).group_by{ |reg| reg.date.strftime('%-m').to_i - 1 }
+    render json: { profits: count_profit(all_registers).to_json }
   end
 
   private
@@ -67,7 +67,7 @@ class RegistersController < ApplicationController
   end
 
   def count_profit(data)
-    month_value = { 'Jan' => 0, 'Feb' => 0, 'Mar' => 0, 'Apr' => 0, 'May' => 0, 'Jun' => 0, 'Jul' => 0, 'Aug' => 0, 'Sep' => 0, 'Oct' => 0, 'Nov' => 0, 'Dec' => 0 }
+    month_value = Array.new(12, 0)
     data.merge(data) do |month, objs|
       cost = objs.select{ |obj| obj.type == 'Cost' }.first.try(:total)
       revenue = objs.select{ |obj| obj.type == 'Revenue' }.first.try(:total)

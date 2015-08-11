@@ -2,7 +2,8 @@
 
   $scope.currYear = new Date().getFullYear()
   $scope.myYear = [$scope.currYear]
-  $scope.load = (year, containerBar, containerLine) ->
+  $scope.chartLineData = {}
+  $scope.load = (year, containerBar) ->
     $scope.data = Chart.query
       year: year,
       (response) ->
@@ -39,41 +40,46 @@
 
         generalChart.draw()
 
-    $scope.profit = Register.sumaryProfit
+  $scope.loadLine = (year) ->
+    Register.sumaryProfit
       year: year
       (response) ->
-        profits_data = []
-        $(response.profits).each (k, v) ->
-          profits_data.push(v)
+        $scope.chartLineData[year] = JSON.parse(response.profits) if $scope.chartLineData[year] == undefined
+        $scope.drawLineChart(year)
 
-        lineChart = new JSChart(containerLine, 'line')
+  $scope.drawLineChart = (year) ->
+    profits_data = []
+    $.each $scope.chartLineData[year], (index, value) ->
+      profits_data.push([$translate.instant('fullMonthsName').split(',')[index], value])
 
-        lineChart.setDataArray(profits_data)
-        lineChart.setLineColor('#8D9386');
-        lineChart.setLineWidth(4)
-        lineChart.setTitleColor('#7D7D7D')
-        lineChart.setAxisColor('#9F0505')
-        lineChart.setGridColor('#a4a4a4')
-        lineChart.setAxisValuesColor('#333639')
-        lineChart.setAxisNameColor('#333639')
-        lineChart.setTextPaddingLeft(0)
-        lineChart.setAxisNameX($translate.instant('month'))
-        lineChart.setAxisNameY($translate.instant('totall'))
-        lineChart.setTitle(year.toString())
-        lineChart.setLabelY([100, '100%'])
-        lineChart.setSize(1200, 500)
-        lineChart.setFlagRadius(6)
-        lineChart.setAxisPaddingLeft(65)
-        $.each profits_data, (index, value) ->
-          lineChart.setTooltip([value[0], value[1]])
+    lineChart = new JSChart('line_chart' + year, 'line')
 
-        lineChart.draw()
+    lineChart.setDataArray(profits_data)
+    lineChart.setLineColor('#8D9386');
+    lineChart.setLineWidth(4)
+    lineChart.setTitleColor('#7D7D7D')
+    lineChart.setAxisColor('#9F0505')
+    lineChart.setGridColor('#a4a4a4')
+    lineChart.setAxisValuesColor('#333639')
+    lineChart.setAxisNameColor('#333639')
+    lineChart.setTextPaddingLeft(0)
+    lineChart.setAxisNameX($translate.instant('month'))
+    lineChart.setAxisNameY($translate.instant('profit'))
+    lineChart.setTitle(year.toString())
+    lineChart.setSize(1200, 500)
+    lineChart.setFlagRadius(6)
+    lineChart.setAxisPaddingLeft(65)
+    $.each profits_data, (index, value) ->
+      lineChart.setTooltip([value[0], value[1]])
+
+    lineChart.draw()
 
 
   loadYears = ->
     Chart.years (response) ->
       $scope.years = response['charts']
-      $scope.load($scope.currYear, 'chartcontainer' + $scope.currYear, 'line_chart' + $scope.currYear)
+      $scope.load($scope.currYear, 'chartcontainer' + $scope.currYear)
+      $scope.loadLine($scope.currYear)
 
   loadYears()
 
@@ -85,10 +91,15 @@
         $scope.myYear.push(value)
         containerBar = 'chartcontainer' + value
         containerLine = 'line_chart' + value
-        $scope.load(value, containerBar. containerLine)
+        $scope.load(value, containerBar)
+        $scope.loadLine(value)
     else
       $('#chartcontainer' + value).hide()
-      $('#line_chart' + value).hide()
+      $('#line_chart' + value).empty().hide()
+
+    $.each $scope.chartLineData, (year, data) ->
+      $scope.drawLineChart(year)
+
     return
 
 ]

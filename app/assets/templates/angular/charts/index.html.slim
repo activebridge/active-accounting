@@ -5,6 +5,7 @@
         | {{year}}
   .counterparties
     #chartcontainer.ctrl
-      div id="chartcontainer{{year}}" ng-repeat="year in years"
-      hr
-      div id="line_chart{{year}}" ng-repeat="year in years"
+      div ng-repeat="year in years"
+        div id="chartcontainer{{year}}"
+        div id="line_chart{{year}}"
+        hr
