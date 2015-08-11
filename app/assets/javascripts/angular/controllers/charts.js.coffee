@@ -49,10 +49,10 @@
         lineChart = new JSChart(containerLine, 'line')
 
         lineChart.setDataArray(profits_data)
+        lineChart.setAxisValuesNumberX(12)
         lineChart.setLineColor('#8D9386');
         lineChart.setLineWidth(4)
         lineChart.setTitleColor('#7D7D7D')
-        lineChart.setAxisColor('#9F0505')
         lineChart.setGridColor('#a4a4a4')
         lineChart.setAxisValuesColor('#333639')
         lineChart.setAxisNameColor('#333639')
