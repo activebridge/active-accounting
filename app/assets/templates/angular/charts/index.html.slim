@@ -1,11 +1,15 @@
-.list
+.list ng-init="clicked = currYear == year"
+  a.checkbox ng-click="showAttrProfitCharts=!showAttrProfitCharts; showProfitCharts(years, showAttrProfitCharts)"
+    .btn-link
+      | {{ 'show_hide_profit_chart' | translate }}
   .picker-wrapper
     .multiple-picker
-      label.picker-label ng-class="{checked_label: clicked}" ng-click="clicked=!clicked; CheckYears(year, clicked);" ng-init="clicked = currYear == year" ng-repeat="year in years" type="checkbox"
+      label.picker-label ng-class="{checked_label: clicked}" ng-click="clicked=!clicked; CheckYears(year, clicked, showAttrProfitCharts);" ng-init="clicked = currYear == year" ng-repeat="year in years" type="checkbox"
         | {{year}}
   .counterparties
     #chartcontainer.ctrl
       div ng-repeat="year in years"
         div id="chartcontainer{{year}}"
-        div id="line_chart{{year}}"
+        div ng-class="{'chart-right': showAttrProfitCharts}"
+          div id="line_chart{{year}}"
         hr

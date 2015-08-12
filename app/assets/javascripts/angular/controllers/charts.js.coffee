@@ -2,6 +2,7 @@
 
   $scope.currYear = new Date().getFullYear()
   $scope.myYear = [$scope.currYear]
+  $scope.selectedYears = [$scope.currYear]
   $scope.chartLineData = {}
   $scope.load = (year, containerBar) ->
     $scope.data = Chart.query
@@ -66,24 +67,24 @@
     lineChart.setAxisNameX($translate.instant('month'))
     lineChart.setAxisNameY($translate.instant('profit'))
     lineChart.setTitle(year.toString())
-    lineChart.setSize(1200, 500)
+    lineChart.setSize(1100, 500)
     lineChart.setFlagRadius(6)
     lineChart.setAxisPaddingLeft(65)
+    lineChart.setAxisValuesNumberX(12)
     $.each profits_data, (index, value) ->
       lineChart.setTooltip([value[0], value[1]])
 
     lineChart.draw()
 
-
   loadYears = ->
     Chart.years (response) ->
       $scope.years = response['charts']
       $scope.load($scope.currYear, 'chartcontainer' + $scope.currYear)
-      $scope.loadLine($scope.currYear)
 
   loadYears()
 
-  $scope.CheckYears = (value, clicked) ->
+  $scope.CheckYears = (value, clicked, showAttrProfitCharts) ->
+    $scope.changeSelectedYears(clicked, value)
     if clicked
       $('#chartcontainer' + value).show()
       $('#line_chart' + value).show()
@@ -92,7 +93,7 @@
         containerBar = 'chartcontainer' + value
         containerLine = 'line_chart' + value
         $scope.load(value, containerBar)
-        $scope.loadLine(value)
+        $scope.loadLine(value) if showAttrProfitCharts
     else
       $('#chartcontainer' + value).hide()
       $('#line_chart' + value).empty().hide()
@@ -101,5 +102,20 @@
       $scope.drawLineChart(year)
 
     return
+
+  $scope.showProfitCharts = (years, showAttrProfitCharts) ->
+    if showAttrProfitCharts
+      $.each $scope.selectedYears, () ->
+        $('#line_chart' + @).show()
+        $scope.loadLine(@)
+    else
+      $.each years, () ->
+        $('#line_chart' + @).hide()
+
+  $scope.changeSelectedYears = (add, year) ->
+    if add
+      $scope.selectedYears.push(year) if $scope.selectedYears.indexOf(year) == -1
+    else
+      $scope.selectedYears.splice($scope.selectedYears.indexOf(year), 1)
 
 ]
