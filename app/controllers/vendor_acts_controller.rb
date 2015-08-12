@@ -1,5 +1,5 @@
 class VendorActsController < ApplicationController
-  before_action :find_act, only: :show
+  before_action :find_act, only: [:show, :update]
   before_action :find_vendor
 
   def index
@@ -21,7 +21,7 @@ class VendorActsController < ApplicationController
           format.html { render "acts/show_vendor.pdf.erb" }
         end
       else
-        render json: { status: :error, messages:  @act_params.errors.messages[:month][0] }, status: 422
+        render json: { status: :error, messages:  @act_params.errors.messages[:month] }, status: 422
       end
     end
   end
@@ -35,6 +35,14 @@ class VendorActsController < ApplicationController
                template: "acts/show_vendor.pdf.erb",
                dpi: '1200'
       end
+    end
+  end
+
+  def update
+    if @act_params.update_attributes(vendor_act__params)
+      render json: @act_params, status: 201
+    else
+      render json: {status: :error, error: 'Something went wrong!'}, status: 422
     end
   end
 
@@ -59,5 +67,9 @@ class VendorActsController < ApplicationController
     end
     empty_fields.unshift 'you_must_fill_fields' if empty_fields.length > 0
     empty_fields
+  end
+
+  def vendor_act__params
+    params.require(:vendor_act).permit!
   end
 end

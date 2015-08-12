@@ -11,22 +11,24 @@
   div
     h2 ng-show="!showCurrentAct && acts.length > 0"
       | {{ 'list_acts_for' | translate }} {{ currentVendor.name }}
-  table#acts-table.ng-scope ng-show="!showCurrentAct && acts.length > 0"
-    tr
-      th.col-lg-2 translate="month"
-      th.col-lg-2 translate="totall"
-      th
-    tr ng-repeat="act in acts"
-      td.col-lg-2
-        | {{ act.month }}
-      td.col-lg-2
-        | {{ act.total_money }} {{ 'uah' | translate }}
-      td.col-lg-2
-        button.icon-button.hidd ng-click="showAct(act.id)" title="{{ 'preview' | translate }}" type="button"
-          span.glyphicon.glyphicon-eye-open
-        a href='/vendor_acts/{{act.id}}?format=pdf' target='_blank' data-method='get'
-          button.icon-button.hidd title="{{ 'savePdf' | translate }}" type="button"
-            span.glyphicon.glyphicon-file
+  .col-lg-9
+    #acts-table.ng-scope ng-show="!showCurrentAct && acts.length > 0"
+      div.row
+        .col-lg-2 translate="month"
+        .col-lg-2 translate="totall"
+      div ng-repeat="act in acts"
+        .row
+          .col-lg-2
+            | {{ act.month }}
+          .col-lg-8
+            a href='#' editable-text='act.total_money' onbeforesave="updateAct(act.id, $data)"
+              | {{ act.total_money }} {{ 'uah' | translate }}
+          .col-lg-2
+            button.icon-button ng-click="showAct(act.id)" title="{{ 'preview' | translate }}" type="button"
+              span.glyphicon.glyphicon-eye-open
+            a href='/vendor_acts/{{act.id}}?format=pdf' target='_blank' data-method='get'
+              button.icon-button title="{{ 'savePdf' | translate }}" type="button"
+                span.glyphicon.glyphicon-file
   .col-lg-7 ng-show='showCurrentAct'
     button.margin-left-50.icon-button.icon-back ng-click="hideCurrentAct()" type="button" title="{{ 'back_to_list' | translate }}"
       span.glyphicon.glyphicon-arrow-left
