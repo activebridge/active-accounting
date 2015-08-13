@@ -1,2 +1,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.navbar-nav { margin: 0; }
+
+.container-fluid {
+  max-width: 1400px;
+  display: table;
+}

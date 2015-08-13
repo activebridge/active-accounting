@@ -9,6 +9,8 @@ angular.module('accounting.services', [
   'ngAnimate'
   'mgcrea.ngStrap'
   'mgcrea.ngStrap.datepicker'
+  'mgcrea.ngStrap.tooltip'
+  'mgcrea.ngStrap.popover'
   'ui.bootstrap.buttons'
   'ui.date'
   'toggle-switch'

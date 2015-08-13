@@ -20,7 +20,14 @@ angular.module('accounting.services').factory 'Article', ['$resource', ($resourc
 ]
 
 angular.module('accounting.services').factory 'Register', ['$resource', ($resource) ->
-  $resource('/registers/:id', {id: '@id'}, {update: {method: 'PUT'}})
+  $resource '/registers/:id/:action',
+    id: '@id'
+  , update:
+    method: 'PUT'
+  , sumaryProfit:
+    method: 'GET'
+    params:
+      action: 'sumary_profit'
 ]
 
 angular.module('accounting.services').factory 'PlanRegister', ['$resource', ($resource) ->
@@ -101,6 +108,27 @@ angular.module('accounting.services').factory 'WorkDay', ['$resource', ($resourc
 
 angular.module('accounting.services').factory 'VendorInfo', ['$resource', ($resource) ->
   $resource '/vendor_infos/:id',
+    id: '@id'
+  , update:
+    method: 'PUT'
+]
+
+angular.module('accounting.services').factory 'OrderFeatures', ['$resource', ($resource) ->
+  $resource '/order_features/:id',
+    id: '@id'
+  , update:
+    method: 'PUT'
+]
+
+angular.module('accounting.services').factory 'VendorActs', ['$resource', ($resource) ->
+  $resource '/vendor_acts/:id',
+    id: '@id'
+  , update:
+    method: 'PUT'
+]
+
+angular.module('accounting.services').factory 'MissingHours', ['$resource', ($resource) ->
+  $resource '/missing_hours/:id',
     id: '@id'
   , update:
     method: 'PUT'

@@ -1,4 +1,4 @@
-@ReportHoursCtrl = ['$scope', '$q', '$translate', 'Hours', 'registerDecorator', 'hourDecorator', 'Holiday', 'WorkDay', ($scope, $q , $translate, Hours, registerDecorator, hourDecorator, Holiday, WorkDay) ->
+@ReportHoursCtrl = ['$scope', '$q', '$translate', '$modal', 'Hours', 'registerDecorator', 'hourDecorator', 'Holiday', 'WorkDay', ($scope, $q , $translate, $modal, Hours, registerDecorator, hourDecorator, Holiday, WorkDay) ->
   registerDecorator($scope)
   hourDecorator($scope)
   $scope.hours = {}
@@ -14,6 +14,10 @@
     Hours.years (response) ->
       $scope.years = response['years']
   loadYears()
+
+  $scope.misingHoursModal = (url) ->
+    $scope.missingHours = $modal(scope: $scope, template: url, show: false)
+    $scope.missingHours.$promise.then $scope.missingHours.show
 
   $scope.LoadHours = (year, options = {}) ->
     Hours.total_hours

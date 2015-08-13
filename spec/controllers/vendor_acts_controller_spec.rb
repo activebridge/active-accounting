@@ -12,8 +12,8 @@ RSpec.describe VendorActsController, type: :controller do
   describe '#index' do
     before { get :index, vendor_id: vendor.id }
 
-    it { expect(json['acts']).to have(1).items }
-    it { expect(json['vendor']['id']).to eq(vendor.id) }
+    it { expect(json).to have(1).items }
+    it { expect(json.first['id']).to eq(vendor_act.id) }
   end
 
   describe '#create' do

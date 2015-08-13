@@ -84,9 +84,10 @@ label { margin: 0; }
   a { margin-left: 10px; }
 }
 
-.locale { width: 32px; }
-
-.navbar-right { height: 30px; }
+.locale {
+  height: 30px;
+  width: 32px;
+}
 
 .rate_currency {
   float: right;
@@ -99,7 +100,9 @@ label { margin: 0; }
 }
 
 @for $i from 1 through 400 {
+  .height-#{$i} { height: $i*1px; }
   .width-#{$i} { width: $i*1px; }
+  .margin-#{$i} { margin: $i*1px; }
   .margin-left-#{$i} { margin-left: $i*1px; }
   .margin-right-#{$i} { margin-right: $i*1px; }
   .margin-bottom-#{$i} { margin-bottom: $i*1px; }
@@ -107,6 +110,8 @@ label { margin: 0; }
   .padding-left-#{$i} { padding-left: $i*1px; }
   .padding-bottom-#{$i} { padding-bottom: $i*1px; }
 }
+
+.width-auto { width: auto; }
 
 .editable-empty { color: #D14 !important; }
 
@@ -174,3 +179,32 @@ label { margin: 0; }
 }
 
 #acts-table { width: 50%; }
+
+.dropdown-fetuatures {
+  .select2-result-label { font-size: 10px; }
+  .new-feature { color: blue; }
+}
+
+.one-feature {
+  margin-top: 5px;
+
+  &:hover {
+    color: gray;
+    .hidde { display: initial; }
+
+    .icon-button {
+      font-size: 15;
+      position: absolute;
+      margin-top: -5px;
+    }
+  }
+}
+
+.list-features-modal {
+  input { width: 500px; }
+  form { width: 96%; }
+}
+
+.icon-back {
+  font-size: 25px;
+}

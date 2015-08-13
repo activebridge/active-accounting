@@ -31,11 +31,13 @@ gem 'rails_12factor'
 gem 'font-awesome-rails'
 gem 'jquery-validation-rails'
 gem 'devise'
+gem 'devise-bootstrap-views'
 gem 'angular_rails_csrf'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary-edge'
 gem 'gon'
 gem 'numbers_and_words'
+gem 'paper_trail', '~> 4.0.0'
 
 group :development, :test do
   gem 'pry'
@@ -49,6 +51,7 @@ group :development, :test do
   gem 'shoulda'
   gem 'shoulda-callback-matchers'
   gem 'shoulda-matchers'
+  gem 'test-unit'
 end
 
 group :development do

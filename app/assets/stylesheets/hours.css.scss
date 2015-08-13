@@ -1,6 +1,12 @@
-.hours {
-  margin-left: 20px;
+.missing-hours-modal {
+  table tr td, table tr th { border: 0; }
+}
 
+.cursor-pointer { cursor: pointer; }
+
+.margin-0 { margin: 0; }
+
+.hours {
   .show_button {
     height: 40px;
     &:hover {
@@ -11,27 +17,31 @@
   }
 
   .calendar {
-    max-width: 430px;
+    .row {
+      margin: 0;
+      margin-bottom: 10px;
+    }
 
     table {
       max-width: 362px;
       width: 100%;
     }
+
+    .toggle-switch { font-size: 12px; }
   }
 
   #hours_form {
     display: block;
     margin: 0 auto;
     max-width: 650px;
+
+    table tr th, table tr td { border: 0; }
+    .table-responsive {
+      border: 0;
+    }
   }
 }
 
 .info-update { display: none; }
 
 .fa-key { cursor: pointer; }
-
-.approve {
-  display: table;
-  margin-top: 3px;
-  float: left;
-}

@@ -11,7 +11,9 @@
     .col-lg-12
       ul.nav.nav-tabs
         li ng-class="{'active': currentTab == 'invoice'}"
-          a href="javascript:void(false);" ng-click="changeGroup('invoice')" translate="invoice"
+          a href="javascript:void(false);" ng-click="changeGroup('invoice')"
+            span translate="invoice" ng-show="currentType == 'customer'"
+            span translate="order" ng-show="currentType == 'vendor'"
         li ng-class="{'active': currentTab == 'act'}"
           a href="javascript:void(false);" ng-click="changeGroup('act');" translate="act"
   .tab-content  ng-show="currentType == 'customer'"
@@ -41,5 +43,6 @@
       ng-include src='"#{asset_path('angular/acts/index.slim')}"'
   .tab-content  ng-show="currentType == 'vendor'"
     .tab-pane ng-class="{'active': currentTab == 'invoice'}"
+      ng-include src='"#{asset_path('angular/acts/vendor_order.html.slim')}"'
     .tab-pane ng-class="{'active': currentTab == 'act'}"
-      ng-include src='"#{asset_path('angular/acts/vendor.html.slim')}"'
+      ng-include src='"#{asset_path('angular/acts/vendor_act.html.slim')}"'

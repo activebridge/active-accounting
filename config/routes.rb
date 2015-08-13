@@ -19,7 +19,11 @@ Rails.application.routes.draw do
     end
 
     resources :articles
-    resources :registers
+    resources :registers do
+      collection do
+        get :sumary_profit
+      end
+    end
     resources :plan_registers
     resources :invitations
     resources :client_infos, only: :update
@@ -27,8 +31,11 @@ Rails.application.routes.draw do
     resources :work_days, only: :index
     resources :acts, only: :show
     resources :vendor_acts
+    resources :vendor_orders
+    resources :order_features
     resources :vendor_infos, only: :update
     resources :holidays
+    resources :missing_hours, only: :index
 
     resources :reports do
       collection do

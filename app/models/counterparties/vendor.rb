@@ -4,10 +4,19 @@ class Vendor < Counterparty
   has_many :hours
   has_one  :vendor_info, dependent: :destroy
   has_many :vendor_acts, dependent: :destroy
+  has_many :vendor_orders, dependent: :destroy
 
   before_create { generate_token(:auth_token) }
 
   delegate :name, to: :customer, prefix: true
+
+  scope :by_missing_hours, -> (date = Date.current.at_beginning_of_month) {
+    includes(:hours).reject do |v|
+      v.hours.where(
+        "extract(month from month) = ? AND extract(year from month) = ?", date.month, date.year
+      ).first
+    end
+  }
 
   def send_password_reset
     generate_token(:password_reset_token)

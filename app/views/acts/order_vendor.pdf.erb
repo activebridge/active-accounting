@@ -1,0 +1,107 @@
+<meta charset='utf-8'>
+<%= wicked_pdf_stylesheet_link_tag "acts_vendor_pdf" %>
+<div class="act_body">
+  <div class='act_001'>
+    Замовлення №
+    <span id='vendor_act_id'><%= @order.id %></span>
+    АА/ <%= "#{@order.month.month}" + '/ ' "#{@order.month.year}"%>
+  </div>
+  <div class="act_clearbord_10"></div>
+  <div class='act_002'>
+    <div>
+      <span>до Договору про надання послуг</span>
+      <span class='act_001 act_003'><%= @vendor.vendor_info.contract %> вiд <%= @vendor.start_date.strftime('%d.%m.%Y') %> р</span>
+    </div>
+    <div>
+      по виготовленню продукту комп’ютерного програмування.
+    </div>
+  </div>
+  <div class='act_004'>
+    <span class='act_left'>м. Черкаси</span>
+    <span class='act_right'><%= @order.month.strftime('%d.%m.%Y') %></span>
+  </div>
+  <div class="act_clearbord_10"></div>
+  <div class='act_008'>
+    &emsp;&emsp;Ми, що нижче підписалися, представник ТОВ „ЕКТІВ БРІДЖ” (код ЄДРПОУ 38988046), що зареєстровано за адресою: 18000, Черкаська обл., м. Черкаси, вул. Гоголя, будинок 137, в особі Генерального Директора Корпаня Євгенія Олександровича, що діє на підставі Статуту (надалі іменується „Замовник”), з одного боку, та фізична особа підприємець <b> <%= @vendor.vendor_info.name %> </b> (надалі іменується „Виконавець”), який діє на підставі свідоцтва про державну реєстрацію і свідоцтва про сплату єдиного податку з іншого боку, зобов’язується виконати ЗАМОВЛЕННЯ, яке складається із наступного:
+  </div>
+  <div class="act_clearbord_10"></div>
+  <div class='act_001'>
+    1. Предмет замовлення
+  </div>
+  <div class='act_008'>
+    <div>
+      <b> 1.1. Замовник замовляє, а Виконавець зобов'язується надати із застосуванням власних сил та засобів Замовнику послуги </b>
+      з виготовлення комп'ютерного програмування (продукту); подальшого консультування з питань інформатизації та використання продукту виготовленого Виконавцем. Дані послуги являють собою виготовлення «комп’ютерної програми», як об’єктивної форми представлення сукупності даних і команд, призначених для функціонування комп’ютерних пристроїв з метою отримання визначеного Замовником результату. Відповідно, програмний продукт являє собою комп’ютерну програму, або пакет комп’ютерних програм (в залежності від складності та характеру замовлення), які після виготовлення передаютьсяв експлуатацію відповідно до призначення.
+    </div>
+    <div>
+      &emsp;&emsp;Тобто, предметом даного Замовлення є безпосереднє виготовлення Виконавцем «комп’ютерної програми» на замовлення Замовника. По тексту предмет Замовлення – послуги з виготовлення продукту комп’ютерного програмування. Предмет Замовлення після його виготовлення має бути передано Замовнику на відповідних інформаційних носіях вказаних Замовником.
+    </div>
+  </div>
+  <div class="act_clearbord_10"></div>
+  <div class='act_001'>
+    2. Характеристики замовлення
+  </div>
+  <div class='act_007 act_text_center'>
+    (необхідне помітити)
+  </div>
+  <div class='act_007'>
+    <div>2.1 Імплементація WEB- додатку :</div>
+    <% @primaries.each_with_index do |primary, index| %>
+      <div>◊ 2.1.<%= index + 1 %> <%= primary.name %></div>
+    <% end %>
+  </div>
+  <div class="act_clearbord_10"></div>
+  <div class='act_007'>
+    2.2 Імплементація додаткових функцій WEB-додатку:
+    <% @additionals.each_with_index do |additional, index| %>
+      <div>◊ 2.2.<%= index + 1 %> <%= additional.name %></div>
+    <% end %>
+  </div>
+  <div class="act_clearbord_20"></div>
+  <span class="act_text_center act_text_bold act_details_all" >
+    <span class="act_details act_left">
+      <div >Замовник:</div>
+      <div >ТОВ „ЕКТІВ БРІДЖ”</div>
+    </span>
+    <span class="act_details act_right">
+      <div >Виконавець:</div>
+      <div >Фізична особа – підприємець</div>
+      <div ><%= @vendor.vendor_info.name %></div>
+    </span>
+  </span>
+  <span class="act_details_all">
+    <span class="act_details act_left">
+      <div >КОД ЄДРПОУ 38988046</div>
+      <div >18000, Черкаська обл., м. Черкаси, вул. Гоголя, будинок 137</div>
+      <div >Р/р 26000051511947 у ПАТ КБ</div>
+      <div >ПРИВАТБАНК</div>
+      <div >МФО 354347</div>
+    </span>
+    <span class="act_details act_right">
+      <div >ІПН: <%= @vendor.vendor_info.ipn %></div>
+      <div ><%= @vendor.vendor_info.address %></div>
+      <div >Р/р <%= @vendor.vendor_info.account %></div>
+      <div><%= @vendor.vendor_info.bank %></div>
+      <div>МФО <%= @vendor.vendor_info.mfo %></div>
+    </span>
+  </span>
+  <div class="act_clearbord_40"></div>
+  <span class="act_details_all">
+    <span class="act_details act_left">
+      <div class="act_text_bold">Генеральний директор</div>
+      <div class="act_clearbord_20"></div>
+      <span>_________________</span>
+      <span class='act_003'>Корпань Є.О.</span>
+      <div class="act_clearbord_20"></div>
+      <div class="act_003">М.П.</div>
+    </span>
+    <span class="act_details act_right">
+      <div class="act_text_bold">Фізична особа – підприємець</div>
+      <div class="act_clearbord_20"></div>
+      <span>_________________</span>
+      <span class='act_003'><%= @vendor.vendor_info.short_name %></span>
+      <div class="act_clearbord_20"></div>
+      <div class="act_003">М.П.</div>
+    </span>
+  </span>
+</div>
