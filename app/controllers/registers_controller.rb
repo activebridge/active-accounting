@@ -72,7 +72,8 @@ class RegistersController < ApplicationController
       cost = objs.select{ |obj| obj.type == 'Cost' }.first.try(:total)
       revenue = objs.select{ |obj| obj.type == 'Revenue' }.first.try(:total)
       rate = cost && revenue ? (cost / revenue) * 100 : 0
-      month_value[month] = rate.round(2)
+      # hack to display chart by profit instead of cost
+      month_value[month] = (100 - rate.round(2))
     end
     month_value.to_a
   end
