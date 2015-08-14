@@ -53,4 +53,13 @@ RSpec.describe VendorActsController, type: :controller do
 
     it { should render_template('show_vendor.pdf.erb') }
   end
+
+  describe '#update' do
+    let(:attr) { { total_money: vendor_act.total_money.to_f + 1} }
+    let!(:old_money) { vendor_act.total_money.to_f }
+
+    before { put :update, id: vendor_act.id, vendor_act: attr }
+
+    it { expect(vendor_act.reload.total_money.to_f).to eq(old_money + 1) }
+  end
 end
