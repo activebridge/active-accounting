@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require highcharts
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require bootstrap-sprockets
