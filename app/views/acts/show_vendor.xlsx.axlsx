@@ -1,0 +1,14 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Act') do |sheet|
+  header_style = wb.styles.add_style({alignment: { horizontal: :center, vertical: :center, wrap_text: true}})
+
+  sheet.add_row ["Акт № АА/ #{@act_params.month.month}/ #{@act_params.month.year}", '', ''], sz: 16, style: header_style
+  sheet.add_row ['приймання - передачі наданих послуг з проведення робіт по виготовленню (створенню) та постачання програмної продукції', '', ''], style: header_style
+  sheet.add_row ['згідно п.п. 2.1. Договору про надання послуг', '', ''], style: header_style
+  sheet.add_row ['м. Черкаси', '', "#{@act_params.month.strftime('%d.%m.%Y')}"]
+
+  sheet.column_widths 30, 80, 30
+  sheet.merge_cells('A1:C1')
+  sheet.merge_cells('A2:C2')
+  sheet.merge_cells('A3:C3')
+end

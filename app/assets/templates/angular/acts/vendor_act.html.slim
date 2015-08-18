@@ -29,6 +29,9 @@
         a href='/vendor_acts/{{act.id}}?format=pdf' target='_blank' data-method='get'
           button.icon-button.hidd title="{{ 'savePdf' | translate }}" type="button"
             span.glyphicon.glyphicon-file
+        a href='/vendor_acts/{{act.id}}?format=xlsx' target='_blank' data-method='get'
+          button.icon-button.hidd title="save XLS " type="button"
+            span.glyphicon.glyphicon-list-alt
   .col-lg-7 ng-show='showCurrentAct'
     button.margin-left-50.icon-button.icon-back ng-click="hideCurrentAct()" type="button" title="{{ 'back_to_list' | translate }}"
       span.glyphicon.glyphicon-arrow-left

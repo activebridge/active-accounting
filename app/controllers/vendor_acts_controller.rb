@@ -35,6 +35,7 @@ class VendorActsController < ApplicationController
                template: "acts/show_vendor.pdf.erb",
                dpi: '1200'
       end
+      format.xlsx { render 'acts/show_vendor', filename: 'act.xlsx', locals: { act_params: @act_params, vendor: @vendor, total_money_words: @total_money_words } }
     end
   end
 
