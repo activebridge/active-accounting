@@ -55,11 +55,10 @@ RSpec.describe VendorActsController, type: :controller do
   end
 
   describe '#update' do
-    let(:attr) { { total_money: vendor_act.total_money.to_f + 1} }
-    let!(:old_money) { vendor_act.total_money.to_f }
+    let(:attr) { { total_money: 200} }
 
     before { put :update, id: vendor_act.id, vendor_act: attr }
 
-    it { expect(vendor_act.reload.total_money.to_f).to eq(old_money + 1) }
+    it { expect(vendor_act.reload.total_money).to eq('200') }
   end
 end
