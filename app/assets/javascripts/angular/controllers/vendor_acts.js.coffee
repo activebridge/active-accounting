@@ -1,4 +1,4 @@
-@VendorActsCtrl = ['$scope', '$http', '$translate', '$modal', '$cookies', 'VendorActs', ($scope, $http, $translate, $modal, $cookies, VendorActs) ->
+@VendorActsCtrl = ['$q', '$scope', '$http', '$translate', '$modal', '$cookies', 'VendorActs', ($q, $scope, $http, $translate, $modal, $cookies, VendorActs) ->
   $scope.actParams = {
     month: moment().format('MM/YYYY')
   }
@@ -63,4 +63,16 @@
 
   $scope.hideCurrentAct = ->
     $scope.showCurrentAct = false
+
+  $scope.updateAct = (id, data) ->
+    d = $q.defer()
+    VendorActs.update(id: id, { total_money: data }
+      (response) ->
+        d.resolve()
+      (response) ->
+        d.resolve(response.data.errors)
+
+    )
+    return d.promise
+
 ]
