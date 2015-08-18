@@ -42,11 +42,6 @@ class RegistersController < ApplicationController
     end
   end
 
-  def sumary_profit
-    all_registers = Register.get_payments(params[:year]).group_by{ |reg| reg.date.strftime('%-m').to_i - 1 }
-    render json: { profits: count_profit(all_registers).to_json }
-  end
-
   private
 
   def set_model

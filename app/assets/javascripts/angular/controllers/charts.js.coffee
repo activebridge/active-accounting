@@ -2,79 +2,47 @@
 
   $scope.currYear = new Date().getFullYear()
   $scope.myYear = [$scope.currYear]
+  $scope.charts = {}
   $scope.selectedYears = [$scope.currYear]
   $scope.chartLineData = {}
+  $scope.chartBarData = {}
+
   $scope.load = (year, containerBar) ->
     $scope.data = Chart.query
       year: year,
       (response) ->
-        revenueData = []
-        costData = []
-        translationData = []
-        profitData = []
-        loanData = []
+        revenueData     = Array.from(Array(12), (x, i) => 0)
+        costData        = Array.from(Array(12), (x, i) => 0)
+        translationData = Array.from(Array(12), (x, i) => 0)
+        profitData      = Array.from(Array(12), (x, i) => 0)
+        loanData        = Array.from(Array(12), (x, i) => 0)
 
-        $(response).each (k, v) ->
-          revenueData.push([v.month.toString(), v.revenue, v.cost, v.profit, v.translation, v.loan])
-        generalChart = new JSChart(containerBar, 'bar')
-        generalChart.setDataArray(revenueData, 'revenue')
+        for key in response
+          index = key.month - 1
+          revenueData[index] = key.revenue
+          profitData[index] = key.profit
+          translationData[index] = key.translation
+          costData[index] = key.cost
+          loanData[index] = key.loan
 
-        generalChart.setBarColor('#32CD32', 1)
-        generalChart.setBarColor('#F62817', 2)
-        generalChart.setBarColor('#008080', 3)
-        generalChart.setBarColor('#FDD017', 4)
-        generalChart.setBarColor('#F5F5DC', 5)
+        $scope.chartBarData[year] = { revenue: revenueData, cost: costData, profit: profitData, translation: translationData, loan: loanData }
 
-        generalChart.setLegendShow(true)
-        generalChart.setAxisNameX($translate.instant('month'))
-        generalChart.setAxisNameY($translate.instant('totall'))
+        if $scope.showAttrProfitCharts
+          $scope.setLineChartData(year)
+          $scope.drawLineChart(year)
 
-        generalChart.setLegendForBar(1, $translate.instant('Revenue'))
-        generalChart.setLegendForBar(2, $translate.instant('Cost'))
-        generalChart.setLegendForBar(3, $translate.instant('profit'))
-        generalChart.setLegendForBar(4, $translate.instant('Translation'))
-        generalChart.setLegendForBar(5, $translate.instant('Loan'))
+        $scope.drawBarChart(year)
 
-        generalChart.setSize(1200, 500)
-        generalChart.setTitle(year.toString())
-        generalChart.setAxisPaddingLeft(65)
-
-        generalChart.draw()
-
-  $scope.loadLine = (year) ->
-    Register.sumaryProfit
-      year: year
-      (response) ->
-        $scope.chartLineData[year] = JSON.parse(response.profits) if $scope.chartLineData[year] == undefined
-        $scope.drawLineChart(year)
-
-  $scope.drawLineChart = (year) ->
-    profits_data = []
-    $.each $scope.chartLineData[year], (index, value) ->
-      profits_data.push([$translate.instant('fullMonthsName').split(',')[index], value])
-
-    lineChart = new JSChart('line_chart' + year, 'line')
-
-    lineChart.setDataArray(profits_data)
-    lineChart.setLineColor('#8D9386');
-    lineChart.setLineWidth(4)
-    lineChart.setTitleColor('#7D7D7D')
-    lineChart.setAxisColor('#9F0505')
-    lineChart.setGridColor('#a4a4a4')
-    lineChart.setAxisValuesColor('#333639')
-    lineChart.setAxisNameColor('#333639')
-    lineChart.setTextPaddingLeft(0)
-    lineChart.setAxisNameX($translate.instant('month'))
-    lineChart.setAxisNameY($translate.instant('profit'))
-    lineChart.setTitle(year.toString())
-    lineChart.setSize(1100, 500)
-    lineChart.setFlagRadius(6)
-    lineChart.setAxisPaddingLeft(65)
-    lineChart.setAxisValuesNumberX(12)
-    $.each profits_data, (index, value) ->
-      lineChart.setTooltip([value[0], value[1]])
-
-    lineChart.draw()
+  $scope.setLineChartData = (year) ->
+    $scope.chartLineData[year] = []
+    allData = _.zip($scope.chartBarData[year]['revenue'], $scope.chartBarData[year]['cost'])
+    _.each allData, (data)->
+      profitRange = if data[0] > 0 && data[1] > 0
+        result = Math.round(data[1]/data[0]*100).toFixed(2)
+        parseFloat(result)
+      else
+        0
+      $scope.chartLineData[year].push(profitRange)
 
   loadYears = ->
     Chart.years (response) ->
@@ -93,29 +61,114 @@
         containerBar = 'chartcontainer' + value
         containerLine = 'line_chart' + value
         $scope.load(value, containerBar)
-        $scope.loadLine(value) if showAttrProfitCharts
     else
       $('#chartcontainer' + value).hide()
-      $('#line_chart' + value).empty().hide()
-
-    $.each $scope.chartLineData, (year, data) ->
-      $scope.drawLineChart(year)
+      $('#line_chart' + value).hide()
 
     return
 
   $scope.showProfitCharts = (years, showAttrProfitCharts) ->
-    if showAttrProfitCharts
-      $.each $scope.selectedYears, () ->
-        $('#line_chart' + @).show()
-        $scope.loadLine(@)
-    else
-      $.each years, () ->
-        $('#line_chart' + @).hide()
+    year = years[0]
+    for year in $scope.selectedYears
+      if showAttrProfitCharts
+        $('#line_chart' + year).show()
+        $scope.drawLineChart(year)
+      else
+        $('#line_chart' + year).hide()
 
   $scope.changeSelectedYears = (add, year) ->
     if add
       $scope.selectedYears.push(year) if $scope.selectedYears.indexOf(year) == -1
     else
       $scope.selectedYears.splice($scope.selectedYears.indexOf(year), 1)
+
+  monthTranslationArray = () ->
+    month = []
+    $.each $translate.instant('fullMonthsName').split(','), (k, v) ->
+      month.push(v)
+
+  $scope.drawLineChart = (year) ->
+    return if $scope.charts[year]
+    $scope.setLineChartData(year) unless $scope.chartLineData[year]
+    months = monthTranslationArray()
+
+    $('#line_chart' + year).highcharts
+      chart:
+        type: 'line'
+      title:
+        text: ' '
+      tooltip:
+        valueSuffix: '%'
+        crosshairs: [true, true]
+        headerFormat: '{point.key}: '
+        pointFormat: '{point.y}'
+        footerFormat: ''
+        valueDecimals: 2
+      legend:
+        enabled: false
+      ignoreHiddenSeries: true
+      xAxis:
+        categories: months
+      yAxis:
+        min: 0
+        title:
+          text: $translate.instant('profit')
+      series: [
+        {
+          name: ' '
+          data: $scope.chartLineData[year]
+        }
+      ]
+    $scope.charts[year] = true
+
+  $scope.drawBarChart = (year) ->
+    months = monthTranslationArray()
+
+    $('#chartcontainer' + year).highcharts
+      chart:
+        type: 'column'
+      title:
+        text: year
+      subtitle:
+        test: 'SubtitleText'
+      colors: ['#32CD32', '#F62817', '#008080', '#FDD017', '#F5F5DC']
+      tooltip:
+        valueSuffix: ' hrn'
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} hrn</b></td></tr>'
+        footerFormat: '</table>'
+        shared: true
+        useHTML: true
+      xAxis:
+        categories: months
+        title:
+          text: $translate.instant('month')
+      yAxis:
+        min: 0
+        title:
+          text: $translate.instant('totall')
+      series: [
+        {
+          name: $translate.instant('Revenue')
+          data: $scope.chartBarData[year]['revenue']
+        }
+        {
+          name: $translate.instant('Cost')
+          data: $scope.chartBarData[year]['cost']
+        }
+        {
+          name: $translate.instant('profit')
+          data: $scope.chartBarData[year]['profit']
+        }
+        {
+          name: $translate.instant('Translation')
+          data: $scope.chartBarData[year]['translation']
+        }
+        {
+          name: $translate.instant('Loan')
+          data: $scope.chartBarData[year]['loan']
+        }
+      ]
 
 ]
