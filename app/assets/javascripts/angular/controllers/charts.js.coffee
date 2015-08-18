@@ -11,11 +11,11 @@
     $scope.data = Chart.query
       year: year,
       (response) ->
-        revenueData     = Array.from(Array(12), (x, i) => 0)
-        costData        = Array.from(Array(12), (x, i) => 0)
-        translationData = Array.from(Array(12), (x, i) => 0)
-        profitData      = Array.from(Array(12), (x, i) => 0)
-        loanData        = Array.from(Array(12), (x, i) => 0)
+        revenueData     = [0,0,0,0,0,0,0,0,0,0,0,0]
+        costData        = [0,0,0,0,0,0,0,0,0,0,0,0]
+        translationData = [0,0,0,0,0,0,0,0,0,0,0,0]
+        profitData      = [0,0,0,0,0,0,0,0,0,0,0,0]
+        loanData        = [0,0,0,0,0,0,0,0,0,0,0,0]
 
         for key in response
           index = key.month - 1
