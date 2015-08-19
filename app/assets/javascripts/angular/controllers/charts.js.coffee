@@ -114,6 +114,7 @@
       xAxis:
         categories: months
       yAxis:
+        min: minProfit
         title:
           text: $translate.instant('profit')
       series: [
