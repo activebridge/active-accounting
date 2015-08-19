@@ -37,9 +37,11 @@
     $scope.chartLineData[year] = []
     allData = _.zip($scope.chartBarData[year]['revenue'], $scope.chartBarData[year]['cost'])
     _.each allData, (data)->
-      profitRange = if data[0] > 0 && data[1] > 0
-        result = Math.round(data[1]/data[0]*100).toFixed(2)
-        parseFloat(result)
+      revenue = data[0]
+      cost = data[1]
+      profit = revenue - cost
+      profitRange = if revenue != 0
+        parseFloat(Math.round( (profit * 100)/ revenue ).toFixed(2))
       else
         0
       $scope.chartLineData[year].push(profitRange)
@@ -90,6 +92,8 @@
   $scope.drawLineChart = (year) ->
     return if $scope.charts[year]
     $scope.setLineChartData(year) unless $scope.chartLineData[year]
+    minProfit = Math.min.apply(null, $scope.chartLineData[year])
+    minProfit = 0 if minProfit > 0
     months = monthTranslationArray()
 
     $('#line_chart' + year).highcharts
@@ -110,7 +114,6 @@
       xAxis:
         categories: months
       yAxis:
-        min: 0
         title:
           text: $translate.instant('profit')
       series: [
