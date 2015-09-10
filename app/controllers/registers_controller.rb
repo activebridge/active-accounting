@@ -4,7 +4,7 @@ class RegistersController < ApplicationController
   before_action :set_model
 
   def index
-    registers = @model.order('created_at desc')
+    registers = @model.order('date asc')
                     .by_month(params[:month])
                     .by_type(params[:type])
                     .by_article(params[:article_id])
