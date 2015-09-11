@@ -124,7 +124,7 @@
       $scope.model.delete
         id: register_id
       , (success) ->
-        $scope.registers.splice(index,1)
+        $('tr#register_' + register_id).remove()
         return
 
   $scope.valueOnlyNumeric()
