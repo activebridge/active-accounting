@@ -168,10 +168,12 @@
         {
           name: $translate.instant('Translation')
           data: $scope.chartBarData[year]['translation']
+          visible: false
         }
         {
           name: $translate.instant('Loan')
           data: $scope.chartBarData[year]['loan']
+          visible: false
         }
       ]
 
