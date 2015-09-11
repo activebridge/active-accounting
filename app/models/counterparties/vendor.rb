@@ -11,7 +11,7 @@ class Vendor < Counterparty
   delegate :name, to: :customer, prefix: true
 
   scope :by_missing_hours, -> (date = Date.current.at_beginning_of_month) {
-    includes(:hours).reject do |v|
+    includes(:hours).active.reject do |v|
       v.hours.where(
         "extract(month from month) = ? AND extract(year from month) = ?", date.month, date.year
       ).first
