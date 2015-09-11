@@ -138,7 +138,7 @@
           a href="" ng-class="{'up_arrow' : predicate=='value_currency' && reverse, 'down_arrow' : predicate=='value_currency' && !reverse}" ng-click="predicate='value_currency'; reverse=!reverse"
             | {{ 'totall' | translate }}
         th translate="notes"
-      tr ng-repeat="register in registers | orderBy:predicate:reverse" repeat-complete="" style="background: {{ register.background }}" id="register_{{register.id}}"
+      tr ng-repeat="register in registers | orderBy:predicate:reverse" repeat-complete="" style="background: {{ register.background }}"
         td
           span e-class="dateup" e-form="rowform" e-name="date" e-ng-click="openDatepicker()" e-ng-focus="showSelect()" editable-text="register.date"
           .buttons ng-show="!rowform.$visible"
