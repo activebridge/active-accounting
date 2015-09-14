@@ -4,16 +4,15 @@ class RegistersController < ApplicationController
   before_action :set_model
 
   def index
-    registers = @model.order('date asc')
+    registers = @model.order('date desc')
                     .by_month(params[:month])
                     .by_type(params[:type])
                     .by_article(params[:article_id])
                     .by_counterparty(params[:counterparty_id])
                     .by_date(params[:date])
                     .by_value(params[:value])
-    if params[:offset]
-      registers = registers.limit(10).offset(params[:offset].to_i)
-    end
+                    .limit(10)
+                    .offset(params[:offset] ? params[:offset].to_i : 0)
     json = ActiveModel::ArraySerializer.new(registers,
                                            each_serializer: RegisterSerializer,
                                            root: nil)
