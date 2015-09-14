@@ -123,7 +123,7 @@
           .tab-pane ng-class="{'active': CounterpatiesWithoutPayment == 'Other'}"
             ng-include src='"#{asset_path('angular/counterparties/list_without_payment.html')}"'
 
-    table.ng-scope.register ng-show="registers.length>0"
+    table.ng-scope.register ng-show="registers.length>0" ng-init='reverse = true'
       tr
         th.date
           a href="" ng-class="{'up_arrow' : predicate=='date_reverse' && reverse, 'down_arrow' : predicate=='date_reverse' && !reverse}" ng-click="predicate='date_reverse'; reverse=!reverse"
@@ -138,7 +138,7 @@
           a href="" ng-class="{'up_arrow' : predicate=='value_currency' && reverse, 'down_arrow' : predicate=='value_currency' && !reverse}" ng-click="predicate='value_currency'; reverse=!reverse"
             | {{ 'totall' | translate }}
         th translate="notes"
-      tr ng-repeat="register in registers | orderBy:predicate:reverse" repeat-complete="" style="background: {{ register.background }}"
+      tr ng-repeat="register in registers | orderBy:(predicate || 'date_reverse'):reverse" repeat-complete="" style="background: {{ register.background }}"
         td
           span e-class="dateup" e-form="rowform" e-name="date" e-ng-click="openDatepicker()" e-ng-focus="showSelect()" editable-text="register.date"
           .buttons ng-show="!rowform.$visible"
