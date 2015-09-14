@@ -124,7 +124,8 @@
       $scope.model.delete
         id: register_id
       , (success) ->
-        $scope.registers.splice(index,1)
+        registers_length = $scope.registers.length - 1
+        $scope.registers.splice(registers_length - index, 1)
         return
 
   $scope.valueOnlyNumeric()
