@@ -40,7 +40,7 @@ RSpec.describe VendorActsController, type: :controller do
       before { post :create, { vendor_id: vendor_not_info.id, month: month, rateDollar: 22 } }
 
       it { expect(response.status).to eq(422) }
-      it { expect(json['messages']).to eq(["you_must_fill_fields", "name", "ipn", "address", "contract", "account", "bank", "mfo"]) }
+      it { expect(json['messages']).to eq(["you_must_fill_fields", "name", "ipn", "address", "contract", "account", "bank", "mfo", "agreement_date"]) }
     end
 
     it 'add act' do

@@ -14,8 +14,9 @@ RSpec.describe Customer, type: :model do
     it { should delegate_method(:name).to(:client_info).with_prefix(true) }
     it { should delegate_method(:address).to(:client_info).with_prefix(true) }
     it { should delegate_method(:invoice_id).to(:client_info).with_prefix(true) }
-    it { should delegate_method(:agreement).to(:client_info).with_prefix(true) }
+    it { should delegate_method(:agreement_number).to(:client_info).with_prefix(true) }
     it { should delegate_method(:title_en).to(:client_info).with_prefix(true) }
     it { should delegate_method(:title_ua).to(:client_info).with_prefix(true) }
+    it { should delegate_method(:agreement_date).to(:client_info).with_prefix(true) }
   end
 end
