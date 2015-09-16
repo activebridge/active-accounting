@@ -53,6 +53,7 @@ group :development, :test do
   gem 'shoulda-callback-matchers'
   gem 'shoulda-matchers'
   gem 'test-unit'
+  gem 'jasmine'
 end
 
 group :development do
