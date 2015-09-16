@@ -37,11 +37,11 @@
   <td colspan="19" class="xl708282"><%= @act_date.end_of_month.strftime('%d/%m/%Y') %></td>
  </tr>
  <tr height="20" style="mso-height-source:userset;height:15.0pt">
-  <td colspan="22" height="20" class="xl698282" style="height:15.0pt"># <%= @customer.client_info_agreement %> dated  <%= @customer.start_date.strftime("%B #{@customer.start_date.day.ordinalize}, %Y")%></td>
+  <td colspan="22" height="20" class="xl698282" style="height:15.0pt"># <%= @customer.client_info_agreement_number %> dated  <%= @customer.client_info_agreement_date.strftime("%B #{@customer.client_info_agreement_date.day.ordinalize}, %Y")%></td>
   <td colspan="12" class="xl728282">до<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
   </span>Договору<span style="mso-spacerun:yes">&nbsp;&nbsp; </span>про надання послуг</td>
-  <td colspan="9" class="xl698282">    № <%= @customer.client_info_agreement %><span style="mso-spacerun:yes">&nbsp;
-  </span>від <%= @customer.start_date.strftime("%e #{t('uk_month_names')[@customer.start_date.month - 1]} %Y")%> р.</td>
+  <td colspan="9" class="xl698282">    № <%= @customer.client_info_agreement_date %><span style="mso-spacerun:yes">&nbsp;
+  </span>від <%= @customer.client_info_agreement_date.strftime("%e #{t('uk_month_names')[@customer.client_info_agreement_date.month - 1]} %Y")%> р.</td>
  </tr>
  <tr height="20" style="mso-height-source:userset;height:15.0pt">
   <td colspan="3" height="20" class="xl758282" style="height:15.0pt">Between</td>

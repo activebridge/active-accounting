@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730133908) do
+ActiveRecord::Schema.define(version: 20150916064154) do
 
   create_table "articles", force: true do |t|
     t.string   "name"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20150730133908) do
   create_table "client_infos", force: true do |t|
     t.integer  "customer_id"
     t.string   "name"
-    t.string   "agreement"
+    t.string   "agreement_number"
     t.integer  "invoice_id"
     t.string   "address"
     t.string   "repr_name"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20150730133908) do
     t.datetime "updated_at"
     t.string   "title_en"
     t.string   "title_ua"
+    t.date     "agreement_date"
   end
 
   add_index "client_infos", ["customer_id"], name: "index_client_infos_on_customer_id", using: :btree
@@ -139,6 +140,7 @@ ActiveRecord::Schema.define(version: 20150730133908) do
     t.integer  "vendor_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "agreement_date"
   end
 
   add_index "vendor_infos", ["vendor_id"], name: "index_vendor_infos_on_vendor_id", using: :btree
