@@ -1,2 +1,1 @@
-class Loan < Article
-end
+Article::Loan = Class.new(Article)

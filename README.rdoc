@@ -26,3 +26,26 @@ Things you may want to cover:
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+**Test AngularJS**
+
+for run angularjs unit tests you need:
+
+1. run `rake jasmine` in console;
+
+2. open in browser `localhost:4444` by default;
+
+
+for run Protractor tests (tests for views with selenium)
+
+1. install `nodejs` ;
+
+2. `{sudo} npm install -g protractor`
+
+3. `{sudo} webdriver-manager update`
+
+4. for creating object in DB `rake protractor:cleanup` will run seed fot test envirement
+
+5. `rake protractor:spec`
+
+More info [protractor](https://github.com/angular/protractor/) and [protractor-rails](https://github.com/tyronewilson/protractor-rails)

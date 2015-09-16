@@ -1,2 +1,1 @@
-class Cost < Article
-end
+Article::Cost = Class.new(Article)
