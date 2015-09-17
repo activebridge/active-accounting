@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Article, type: :model do
 
   context "association" do
-    it { should have_many(:registers) }
+    it { is_expected.to have_many(:registers) }
   end
 
   context 'boolean methods' do

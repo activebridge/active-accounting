@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe RegistersController, :type => :controller do
 
   before do
-    controller.stub(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_user!) { true }
   end
 
 

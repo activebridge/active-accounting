@@ -6,7 +6,7 @@ RSpec.describe VendorActsController, type: :controller do
   let!(:vendor_act) { FactoryGirl.create(:vendor_act, vendor_id: vendor.id) }
 
   before do
-    controller.stub(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_user!) { true }
   end
 
   describe '#index' do
@@ -22,7 +22,7 @@ RSpec.describe VendorActsController, type: :controller do
     context 'render html' do
       before { post :create, { vendor_id: vendor.id, month: month, rateDollar: 22 } }
 
-      it { should render_template('show_vendor.pdf.erb') }
+      it { is_expected.to render_template('show_vendor.pdf.erb') }
     end
 
     context "responds with a 422 status, vendor hasn't monthly payment" do
@@ -51,7 +51,7 @@ RSpec.describe VendorActsController, type: :controller do
   describe '#show' do
     before { get :show, id: vendor_act.id }
 
-    it { should render_template('show_vendor.pdf.erb') }
+    it { is_expected.to render_template('show_vendor.pdf.erb') }
   end
 
   describe '#update' do

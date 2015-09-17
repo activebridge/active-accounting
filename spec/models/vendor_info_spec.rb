@@ -4,7 +4,7 @@ RSpec.describe VendorInfo, type: :model do
   let(:vendor_info) { FactoryGirl.create(:vendor_info, name: 'Галушка Олександр Анатолійович') }
 
   context "associations" do
-    it { should belong_to(:vendor) }
+    it { is_expected.to belong_to(:vendor) }
   end
 
   it 'convert short_name' do

@@ -13,13 +13,13 @@ RSpec.describe Register, :type => :model do
     context 'returns records' do
       subject { Register.by_months([Date.parse(date1), Date.parse(date2)]) }
 
-      it { should have(2).items }
+      it { is_expected.to have(2).items }
     end
 
     context 'exepts nil' do
       subject { Register.by_months(nil) }
 
-      it { should be_blank }
+      it { is_expected.to be_blank }
     end
   end
 end
