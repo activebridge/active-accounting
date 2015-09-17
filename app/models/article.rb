@@ -17,20 +17,10 @@ class Article < ActiveRecord::Base
     "#{ name } (#{ type_msg })"
   end
 
-  def revenue?
-    type == TYPES::REVENUE
-  end
-
-  def translation?
-    type == TYPES::TRANSLATION
-  end
-
-  def cost?
-    type == TYPES::COST
-  end
-
-  def loan?
-    type == TYPES::LOAN
+  TYPES.constants.each do |article_type|
+    define_method("#{article_type.to_s.downcase}?") do
+      type == article_type.to_s.capitalize
+    end
   end
 
   def assigned?
