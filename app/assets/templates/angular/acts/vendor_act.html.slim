@@ -1,5 +1,5 @@
 .row ng-controller='VendorActsCtrl'
-  .col-lg-3
+  .col-lg-4
     select.custumers ng-model="actParams.id" ng-change='changeSelect()'
       option ng-repeat="vendor in vendors" value="{{vendor.id}}" ng-selected='{{ actParams.vendor_id == vendor.id }}' init-select2='setSelect2()'
         | {{vendor.name}}
@@ -11,7 +11,7 @@
   div
     h2 ng-show="!showCurrentAct && acts.length > 0"
       | {{ 'list_acts_for' | translate }} {{ currentVendor.name }}
-  .col-lg-9
+  .col-lg-8
     #acts-table.ng-scope ng-show="!showCurrentAct && acts.length > 0"
       div.row
         .col-lg-2 translate="month"
