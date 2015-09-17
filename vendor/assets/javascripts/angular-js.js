@@ -10,3 +10,4 @@
 //= require angular-js/angular-toggle-switch
 //= require angular-js/select2
 //= require angular-js/loading-bar.min
+//= require angular-js/collapse

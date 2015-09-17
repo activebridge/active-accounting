@@ -11,6 +11,7 @@ angular.module('accounting.services', [
   'mgcrea.ngStrap.datepicker'
   'mgcrea.ngStrap.tooltip'
   'mgcrea.ngStrap.popover'
+  'mgcrea.ngStrap.collapse'
   'ui.bootstrap.buttons'
   'ui.date'
   'toggle-switch'
