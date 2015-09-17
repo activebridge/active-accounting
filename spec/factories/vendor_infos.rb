@@ -7,5 +7,6 @@ FactoryGirl.define do
     account { Faker::Number.number(8) }
     bank { Faker::Name.name }
     mfo { Faker::Number.number(8) }
+    agreement_date { Date.yesterday }
   end
 end

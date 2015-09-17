@@ -24,6 +24,8 @@
               input ng-model="counterparty.vendor_info.account" maxlength='14' numeric='' name='account' type="text"
               label translate='bank'
               input ng-model="counterparty.vendor_info.bank" name='bank' type="text"
+              label translate='agreement_date'
+              input datepicker='' ng-model="counterparty.vendor_info.agreement_date" name='agreement_date' type="text"
           .modal-footer
             button.btn.btn-primary type="submit" translate='save_changes'
             button.btn.btn-danger ng-click="$hide()" type="button" translate='cancel'

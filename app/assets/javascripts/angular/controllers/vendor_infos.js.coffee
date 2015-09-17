@@ -11,6 +11,7 @@
       'ipn': vendorInfo.ipn
       'mfo': vendorInfo.mfo
       'address': vendorInfo.address
+      'agreement_date': vendorInfo.agreement_date
     }
     VendorInfo.update( id: vendorInfo.id, {vendor_info: data}
       (response) ->

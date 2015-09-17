@@ -16,9 +16,10 @@ RSpec.describe ClientInfosController, type: :controller do
     end
 
     it { expect(client_info.name).to eql(client_info_attributes[:name]) }
-    it { expect(client_info.agreement).to eql(client_info_attributes[:agreement]) }
+    it { expect(client_info.agreement_number).to eql(client_info_attributes[:agreement_number]) }
     it { expect(client_info.invoice_id).to eql(client_info_attributes[:invoice_id].to_i) }
     it { expect(client_info.address).to eql(client_info_attributes[:address]) }
     it { expect(client_info.repr_name).to eql(client_info_attributes[:repr_name]) }
+    it { expect(client_info.agreement_date).to eql(client_info_attributes[:agreement_date]) }
   end
 end
