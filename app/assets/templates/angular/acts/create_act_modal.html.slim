@@ -14,6 +14,9 @@
             .col-lg-4
               label translate='translation'
               input numeric='' ng-model="extraOptions.translation" type="text" ng-required="true"
+            .col-lg-4
+              label translate='month'
+              input month-picker='' ng-model="actParams.month" type="text" ng-required="true"
           .modal-footer
             button.btn.btn-primary type="submit" translate='create'
             button.btn.btn-danger ng-click="$hide()" type="button" translate='cancel'
