@@ -5,7 +5,7 @@ RSpec.describe VendorInfosController, type: :controller do
   let!(:vendor_info) { FactoryGirl.create(:vendor_info) }
 
   before do
-    controller.stub(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_user!) { true }
   end
 
   describe "#update" do

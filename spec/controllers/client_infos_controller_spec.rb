@@ -5,7 +5,7 @@ RSpec.describe ClientInfosController, type: :controller do
   let!(:client_info) { FactoryGirl.create(:client_info) }
 
   before do
-    controller.stub(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_user!) { true }
   end
 
   describe "#update" do

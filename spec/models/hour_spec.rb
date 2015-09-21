@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Hour, type: :model do
   context "associations" do
-    it { should belong_to(:customer) }
-    it { should belong_to(:vendor) }
+    it { is_expected.to belong_to(:customer) }
+    it { is_expected.to belong_to(:vendor) }
   end
 
   context "validation rules" do
-    it { should validate_presence_of(:hours) }
-    it { should_not allow_value('').for(:hours) }
+    it { is_expected.to validate_presence_of(:hours) }
+    it { is_expected.not_to allow_value('').for(:hours) }
   end
 end

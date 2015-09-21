@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Vendor, type: :model do
   context "association" do
-    it { should belong_to(:customer) }
-    it { should have_many(:vendor_acts) }
+    it { is_expected.to belong_to(:customer) }
+    it { is_expected.to have_many(:vendor_acts) }
   end
 
   context "after create callbacks" do
@@ -13,7 +13,7 @@ RSpec.describe Vendor, type: :model do
   end
 
   context "delegate" do
-    it { should delegate_method(:name).to(:customer).with_prefix(true) }
+    it { is_expected.to delegate_method(:name).to(:customer).with_prefix(true) }
   end
 
   describe 'scope' do
