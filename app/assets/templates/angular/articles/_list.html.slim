@@ -8,7 +8,7 @@
         span.name e-form="rowform" e-name="name" e-ng-focus="showSelects()" e-required="" editable-text="article.name" onbeforesave="checkName($data)"
           | {{ article.name }}
       td.articleType
-        span.article_type class="{{ article.type }}" e-class="search-select" e-form="rowform" e-name="type" e-ng-options="s.value as s.text for s in type_msgs" editable-select="article.type"
+        span.article_type class="{{ article.type }}" e-class="search-select" e-form="rowform" e-name="type" e-ng-options="s.value as s.text for s in article_types" editable-select="article.type"
           | ({{article.type | translate}})
       td ng-show="!rowform.$visible"
         .butn ng-show="!rowform.$visible"

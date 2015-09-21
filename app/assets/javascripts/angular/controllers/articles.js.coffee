@@ -33,13 +33,6 @@
   $scope.checkName = (data) ->
     "can't be blank"  unless data?
 
-  $scope.type_msgs = [
-    { value: "Revenue", text: $translate.instant('Revenue') },
-    { value: "Cost", text: $translate.instant('Cost') },
-    { value: "Translation", text: $translate.instant('Translation') }
-    { value: "Loan", text: $translate.instant('Loan') }
-  ]
-
   $scope.delete = (article_id, index) ->
     if confirm('Впевнений?')
       Article.delete
@@ -57,6 +50,14 @@
         d.resolve response.data.errors['name'][0]
     )
     return d.promise
+
+  $scope.article_types = $.map(gon.article_types, (type) ->
+    type = type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase()
+    {
+      value: type
+      text: $translate.instant(type)
+    }
+  )
 
   $scope.load()
 ]
