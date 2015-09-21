@@ -37,11 +37,15 @@
     {value: "USD", text: 'USD'}
   ]
 
-  $scope.types = [
-    { value: "Customer", text: 'Customer' },
-    { value: "Vendor", text: 'Vendor' },
-    { value: "Other", text: 'Other' }
-  ]
+  $scope.types = gon.counterparty_types
+
+  $scope.types_options = $.map($scope.types, (type) ->
+    type = type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase() unless type == 'HR'
+    {
+      value: type
+      text: $translate.instant(type)
+    }
+  )
 
   $scope.endOfMonth = ->
     curr_day = new Date().getDate()

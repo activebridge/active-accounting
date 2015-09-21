@@ -5,20 +5,15 @@ class Counterparty < ActiveRecord::Base
     CUSTOMER = 'Customer'
     VENDOR = 'Vendor'
     OTHER = 'Other'
+    HR = 'HR'
   end
 
   has_paper_trail only: :value_payment
 
-  def customer?
-    type == TYPES::CUSTOMER
-  end
-
-  def vendor?
-    type == TYPES::VENDOR
-  end
-
-  def other?
-    type == TYPES::OTHER
+  TYPES.constants.each do |type|
+    define_method("#{type.to_s.downcase}?") do
+      type == type.to_s.capitalize
+    end
   end
 
   validates :name, :type, presence: true

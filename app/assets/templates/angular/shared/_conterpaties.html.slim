@@ -21,9 +21,9 @@
         | {{ counterparty.name }}
       td.editDate
         | {{ counterparty.start_date }}
-      td.width-162 ng-show="showGroup == 'Vendor'"
+      td.width-162 ng-show="showGroup == 'Vendor' || showGroup == 'HR'"
         | {{ counterparty.customer.name }}
-      td ng-show="showGroup == 'Vendor'"
+      td ng-show="showGroup == 'Vendor' || showGroup == 'HR'"
         | {{ counterparty.email }}
       td.monthly_payment ng-show="showMonthlyPayment || rowform.$visible"
         | {{ counterparty.value_payment }}&nbsp;
@@ -32,7 +32,7 @@
         .butn
           button.icon-button.hidde title="{{ 'edit_reg' | translate }}: {{ counterparty.name }}" type="button" ng-click='showEditCounterpartyModal(counterparty, "#{asset_path("angular/counterparties/edit_modal.html")}")'
             span.glyphicon.glyphicon-edit
-          button.icon-button.hidde ng-show="showGroup == 'Vendor' && !!counterparty.email && !counterparty.signed_in" ng-click="sendInvitation(counterparty.id)" title="{{ 'sendOnEmail' | translate }}" type="button"
+          button.icon-button.hidde ng-show="showGroup == 'Vendor' || showGroup == 'Hr' && !!counterparty.email && !counterparty.signed_in" ng-click="sendInvitation(counterparty.id)" title="{{ 'sendOnEmail' | translate }}" type="button"
             span.fa.fa-envelope
           span.hidde.glyphicon.glyphicon-info-sign ng-click='showVendorInfoModal(counterparty, "#{asset_path("angular/vendor_infos/modal.html")}")' ng-show="showGroup == 'Vendor'"
           span.hidde.glyphicon.glyphicon-info-sign ng-click='showClientInfoModal(counterparty, "#{asset_path("angular/client_infos/info_modal.html")}")' ng-show="showGroup == 'Customer'"
