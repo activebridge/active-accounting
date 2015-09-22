@@ -1,7 +1,7 @@
 @HoursCtrl = ['$scope', '$q', '$translate', 'Hours', 'Counterparty', 'registerDecorator', 'hourDecorator', 'Holiday', 'WorkDay', ($scope, $q , $translate, Hours, Counterparty, registerDecorator, hourDecorator, Holiday, WorkDay) ->
   registerDecorator($scope)
   hourDecorator($scope)
-  $scope.current_vendor = gon.current_vendor
+  $scope.current_vendor = gon.current_counterparty
   $scope.current_vendor.approvehoursStatus = $scope.current_vendor.approve_hours
 
   $scope.newHour = {}

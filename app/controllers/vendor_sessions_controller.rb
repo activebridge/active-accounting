@@ -1,14 +1,16 @@
 class VendorSessionsController < VendorApplicationController
+  before_action :fetch_counterparty, only: :create
 
   def new; end
 
   def create
-    if find_vendor.nil?
-      flash.now[:error] = 'Invalid email or password'
+    if @counterparty
+      session[:counterparty_id] = @counterparty.id
+      @counterparty.update(signed_in: true)
     else
-      session[:vendor_id] = find_vendor.id
-      find_vendor.update(signed_in: true) unless find_vendor.signed_in?
+      flash.now[:error] = 'Invalid email or password'
     end
+
     render layout: false
   end
 
@@ -19,7 +21,7 @@ class VendorSessionsController < VendorApplicationController
 
   private
 
-  def find_vendor
-    Vendor.find_by(email: params[:email], password: params[:password])
+  def fetch_counterparty
+    @counterparty ||= Counterparty.find_by(email: params[:email], password: params[:password])
   end
 end

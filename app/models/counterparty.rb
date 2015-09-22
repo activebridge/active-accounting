@@ -16,6 +16,10 @@ class Counterparty < ActiveRecord::Base
     end
   end
 
+  def hr?
+    type == 'HR'
+  end
+
   validates :name, :type, presence: true
 
   scope :by_active, -> (scope) {

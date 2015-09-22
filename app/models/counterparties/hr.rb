@@ -1,2 +1,1 @@
-class HR < Counterparty
-end
+class HR < Counterparty; end

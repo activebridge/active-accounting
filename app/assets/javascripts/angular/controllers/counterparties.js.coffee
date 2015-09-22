@@ -137,4 +137,8 @@
           return
         return
       ), 5000
+
+  $scope.parseType = (type) ->
+    return type if type == 'HR'
+    return type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase()
 ]

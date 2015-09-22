@@ -25,7 +25,7 @@
                 br
                 span.error
                   | {{newCounterparty.errors.type[0]}}
-            td ng-show='newCounterparty.type=="Vendor" || newCounterparty.type=="Hr"'
+            td ng-show='newCounterparty.type=="Vendor" || newCounterparty.type=="HR"'
               input class='email' ng-model="newCounterparty.email" type='email' placeholder='user@example.com'
             td
               button.btn translate="NewArticle" type="submit"
@@ -36,8 +36,8 @@
       span ng-show=" showMonthlyPayment"
         | ({{ 'hide' | translate }})
     ul.nav.nav-tabs
-      li ng-repeat="type in types" ng-init='type = type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase()' ng-class="{'active': showGroup == type}"
+      li ng-repeat="type in types" ng-init='type = parseType(type)' ng-class="{'active': showGroup == type}"
         a href="" ng-click="changeGroup(type); showGroup=='Vendor' ? loadCustumers() : ''" translate="{{type}}s"
     .tab-content
-      .tab-pane ng-repeat="type in types" ng-init='type = type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase()' ng-class="{'active': showGroup == type}"
+      .tab-pane ng-repeat="type in types" ng-init='type = parseType(type)' ng-class="{'active': showGroup == type}"
         ng-include src='"#{asset_path('angular/shared/_conterpaties.html')}"'
