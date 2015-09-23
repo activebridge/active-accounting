@@ -1,0 +1,41 @@
+.row.hours
+  .col-md-9
+    // year selector
+    .btn.col-lg-2 ng-click="currentYear = currentYear - 1"
+      | << {{currentYear - 1}}
+    .col-lg-2
+      | {{currentYear}}
+    .btn.col-lg-2 ng-click="currentYear = currentYear + 1"
+      | >> {{currentYear + 1}}
+
+    br
+    br
+
+    // month selector
+    .btn.col-lg-2 ng-click="changeMonth(false)"
+      div ng-show="currentMonth > 1"
+        | << {{currentMonth - 1}}
+      div ng-show="currentMonth <= 1"
+        | << 12
+    .col-lg-2
+      | {{currentMonth}}
+    .btn.col-lg-2 ng-click="changeMonth(true)"
+      div ng-show="currentMonth < 12"
+        | >> {{currentMonth + 1}}
+      div ng-show="currentMonth >= 12"
+        | >> 1
+
+    br
+    br
+    br
+
+    | Vacation days: {{vacationDays}}
+
+    .btn-group data-toggle="buttons"
+      .col-md-12
+        .btn.btn-primary.col-lg-3.btn-xlarge ng-repeat='r in daysNames'
+          | {{ r }}
+        .btn.btn-primary.col-lg-3.btn-xlarge ng-repeat='t in test'
+        .btn.btn-primary.col-lg-3.btn-xlarge ng-repeat='day in days' ng-click='selectVacationDay(day)'
+          | {{ day }}
+  .col-md-3
