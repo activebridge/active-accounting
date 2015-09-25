@@ -1,2 +1,1 @@
-class Translation < Article
-end
+Article::Translation = Class.new(Article)

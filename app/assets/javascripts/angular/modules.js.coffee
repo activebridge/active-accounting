@@ -17,4 +17,5 @@ angular.module('accounting.services', [
   'toggle-switch'
   'ui.select2'
   'angular-loading-bar'
+  'ngMock'
 ])
