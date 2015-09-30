@@ -1,9 +1,44 @@
-.btn-xlarge {
-	width: 130px;
-	height: 50px;	
-  padding: 18px 28px;
-  line-height: normal;
-  -webkit-border-radius: 0;
-     -moz-border-radius: 0;
-          border-radius: 0;
+.calendar {
+  min-width: 320px;
+
+  .cell {
+    display: inline-block;
+    width: 12%;
+    height: 50px;
+    text-align: center;
+    background-color: #f8f8f8;
+    margin: 2px;
+    border: 1px solid #c8c8c8;
+    padding-top: 15px;
+
+    &.last-not-current {
+      margin-right: -2px;
+    }
+
+    &.calendar-header {
+      background-color: #ffffff;
+      border: none;
+      margin-bottom: -15px;
+    }
+
+    &.vacation_day {
+      background-color: green;
+    }
+
+    &:not(.not-current) {
+      cursor: pointer;
+    }
+  }
+
+  .weekend {
+    background-color: #e6e6e6;
+  }
+}
+
+.vacation {
+  .ui-datepicker {
+    padding: 0;
+    border: none;
+    width: inherit;
+  }
 }

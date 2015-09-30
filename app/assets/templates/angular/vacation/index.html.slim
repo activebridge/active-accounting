@@ -1,41 +1,39 @@
-.row.hours
+.row.vacation
   .col-md-9
-    // year selector
-    .btn.col-lg-2 ng-click="currentYear = currentYear - 1"
-      | << {{currentYear - 1}}
-    .col-lg-2
-      | {{currentYear}}
-    .btn.col-lg-2 ng-click="currentYear = currentYear + 1"
-      | >> {{currentYear + 1}}
+    .row
+      .col-sm-7
+        .calendar
+          .ui-datepicker-inline.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all style=("display: block;")
+            .ui-datepicker-header.ui-widget-header.ui-helper-clearfix.ui-corner-all
+              a.ui-datepicker-prev.ui-corner-all ng-click="currentYear = currentYear - 1"
+                span.ui-icon.ui-icon-circle-triangle-w
+                  | <
+              a.ui-datepicker-next.ui-corner-all ng-click="currentYear = currentYear + 1"
+                span.ui-icon.ui-icon-circle-triangle-e
+                  | >
+              .ui-datepicker-title
+                span.ui-datepicker-month
+                  | {{ currentYear }}
+            .ui-datepicker-header.ui-widget-header.ui-helper-clearfix.ui-corner-all
+              a.ui-datepicker-prev.ui-corner-all ng-click="changeMonth(false)"
+                span.ui-icon.ui-icon-circle-triangle-w
+                  | <
+              a.ui-datepicker-next.ui-corner-all ng-click="changeMonth(true)"
+                span.ui-icon.ui-icon-circle-triangle-e
+                  | >
+              .ui-datepicker-title
+                span.ui-datepicker-month
+                  | {{ months[currentMonth-1] }}
+          .cell.calendar-header ng-repeat='r in daysNames'
+            | {{ r }}
+          .cell.not-current ng-repeat='t in test' ng-class="{'last-not-current':$last}"
+            | &nbsp
+          .cell ng-repeat='day in days' ng-click='selectVacationDay(day)' ng-class='{ weekend: isWeekend(day), vacation_day: isVacation(day) }'
+            | {{ day }}
 
     br
-    br
-
-    // month selector
-    .btn.col-lg-2 ng-click="changeMonth(false)"
-      div ng-show="currentMonth > 1"
-        | << {{currentMonth - 1}}
-      div ng-show="currentMonth <= 1"
-        | << 12
-    .col-lg-2
-      | {{currentMonth}}
-    .btn.col-lg-2 ng-click="changeMonth(true)"
-      div ng-show="currentMonth < 12"
-        | >> {{currentMonth + 1}}
-      div ng-show="currentMonth >= 12"
-        | >> 1
-
-    br
-    br
-    br
-
-    | Vacation days: {{vacationDays}}
-
-    .btn-group data-toggle="buttons"
-      .col-md-12
-        .btn.btn-primary.col-lg-3.btn-xlarge ng-repeat='r in daysNames'
-          | {{ r }}
-        .btn.btn-primary.col-lg-3.btn-xlarge ng-repeat='t in test'
-        .btn.btn-primary.col-lg-3.btn-xlarge ng-repeat='day in days' ng-click='selectVacationDay(day)'
-          | {{ day }}
+    .row
+      .col-sm-2
+        button.btn ng-click='addVacation'
+          | Додати
   .col-md-3
