@@ -6,18 +6,16 @@ class Counterparty < ActiveRecord::Base
     VENDOR = 'Vendor'
     OTHER = 'Other'
     HR = 'HR'
+
+    DISPLAY_TYPES = constants.collect{ |type| const_get(type) }
   end
 
   has_paper_trail only: :value_payment
 
-  TYPES.constants.each do |type|
-    define_method("#{type.to_s.downcase}?") do
-      type == type.to_s.capitalize
+  TYPES::DISPLAY_TYPES.each do |type|
+    define_method("#{type.downcase}?") do
+      self.type == type
     end
-  end
-
-  def hr?
-    type == 'HR'
   end
 
   validates :name, :type, presence: true

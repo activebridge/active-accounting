@@ -37,15 +37,15 @@
     {value: "USD", text: 'USD'}
   ]
 
-  $scope.types = gon.counterparty_types
+  $scope.displayTypes = gon.counterparty_display_types
 
-  $scope.types_options = $.map($scope.types, (type) ->
-    type = type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase() unless type == 'HR'
+  $scope.typesOptions = $.map($scope.displayTypes, (type) ->
     {
-      value: type
+      value: type.toUpperCase()
       text: $translate.instant(type)
     }
   )
+
 
   $scope.endOfMonth = ->
     curr_day = new Date().getDate()
@@ -114,6 +114,7 @@
       return
 
   $scope.changeGroup = (group) ->
+    $scope.loadCustumers() if group == 'Vendor'
     return if $scope.showGroup == group
     $scope.showGroup = group
     $scope.load()
@@ -138,7 +139,6 @@
         return
       ), 5000
 
-  $scope.parseType = (type) ->
-    return type if type == 'HR'
-    return type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase()
+  $scope.isVendor = (type) ->
+    ['VENDOR', 'HR'].indexOf(String(type).toUpperCase()) > -1
 ]

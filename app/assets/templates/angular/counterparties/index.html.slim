@@ -8,7 +8,7 @@
             th translate="name"
             th translate="date"
             th translate="type"
-            th translate='email' ng-show='newCounterparty.type=="Vendor"'
+            th translate='email' ng-show='isVendor(newCounterparty.type)'
             th
           tr
             td
@@ -21,11 +21,11 @@
             td
               .select-types
                 select class="сounterparty-types" ng-model="newCounterparty.type"
-                  option ng-init="conversionSelect($last)" ng-repeat="type in types_options" translate="{{type.text}}" value="{{type.value}}"
+                  option ng-init="conversionSelect($last)" ng-repeat="type in typesOptions" translate="{{type.text}}" value="{{type.value}}"
                 br
                 span.error
                   | {{newCounterparty.errors.type[0]}}
-            td ng-show='newCounterparty.type=="Vendor" || newCounterparty.type=="HR"'
+            td ng-show='isVendor(newCounterparty.type)'
               input class='email' ng-model="newCounterparty.email" type='email' placeholder='user@example.com'
             td
               button.btn translate="NewArticle" type="submit"
@@ -36,8 +36,8 @@
       span ng-show=" showMonthlyPayment"
         | ({{ 'hide' | translate }})
     ul.nav.nav-tabs
-      li ng-repeat="type in types" ng-init='type = parseType(type)' ng-class="{'active': showGroup == type}"
-        a href="" ng-click="changeGroup(type); showGroup=='Vendor' ? loadCustumers() : ''" translate="{{type}}s"
+      li ng-repeat="type in displayTypes" ng-class="{'active': showGroup == type}"
+        a href="" ng-click="changeGroup(type)" translate="{{type}}s"
     .tab-content
-      .tab-pane ng-repeat="type in types" ng-init='type = parseType(type)' ng-class="{'active': showGroup == type}"
+      .tab-pane ng-repeat="type in displayTypes" ng-class="{'active': showGroup == type}"
         ng-include src='"#{asset_path('angular/shared/_conterpaties.html')}"'
