@@ -1,4 +1,5 @@
-@CounterpartiesCtrl = ['$scope', '$q', '$timeout', 'Counterparty', 'Invitation', '$translate', '$modal', ($scope, $q, $timeout, Counterparty, Invitation, $translate, $modal) ->
+@CounterpartiesCtrl = ['$scope', '$q', '$timeout', 'Counterparty', 'Invitation', '$translate', '$modal', 'counterpartyDecorator', ($scope, $q, $timeout, Counterparty, Invitation, $translate, $modal, counterpartyDecorator) ->
+  counterpartyDecorator($scope)
   $scope.newCounterparty = {}
   $scope.newCounterparty.errors = {}
   $scope.counterparty = {}
@@ -31,21 +32,6 @@
       $scope.loadedData[$scope.showGroup] = $scope.counterpaties
 
   $scope.showGroup = 'Customer'
-
-  $scope.currencies = [
-    {value: "UAH", text: $translate.instant('currency_UA')},
-    {value: "USD", text: 'USD'}
-  ]
-
-  $scope.displayTypes = gon.counterparty_display_types
-
-  $scope.typesOptions = $.map($scope.displayTypes, (type) ->
-    {
-      value: type.toUpperCase()
-      text: $translate.instant(type)
-    }
-  )
-
 
   $scope.endOfMonth = ->
     curr_day = new Date().getDate()
@@ -139,6 +125,6 @@
         return
       ), 5000
 
-  $scope.isVendor = (type) ->
-    ['VENDOR', 'HR'].indexOf(String(type).toUpperCase()) > -1
+  $scope.isVendorType = ->
+    ['VENDOR', 'HR'].indexOf(String($scope.editCounterparty.type).toUpperCase()) > -1 if $scope.editCounterparty
 ]
