@@ -1,7 +1,9 @@
 angular.module('accounting.services').factory 'counterpartyDecorator', ["$q", 'Counterparty', '$translate', ($q, Counterparty, $translate) ->
   ($scope) ->
+    $scope.special_types = ['VENDOR', 'Vendor', 'HR']
+
     $scope.isVendor = (type) ->
-      ['VENDOR', 'HR'].indexOf(String(type).toUpperCase()) > -1
+      $scope.special_types.indexOf(type) > -1
 
     $scope.currencies = [
       {value: "UAH", text: $translate.instant('currency_UA')},

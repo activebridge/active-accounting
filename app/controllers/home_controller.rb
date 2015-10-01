@@ -15,7 +15,6 @@ class HomeController < ApplicationController
 
   def set_gon_variables
     gon.article_types = Article::TYPES.constants
-    gon.counterparty_types = Counterparty::TYPES.constants
     gon.counterparty_display_types = Counterparty::TYPES::DISPLAY_TYPES
   end
 end

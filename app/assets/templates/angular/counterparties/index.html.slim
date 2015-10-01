@@ -8,7 +8,7 @@
             th translate="name"
             th translate="date"
             th translate="type"
-            th translate='email' ng-show='isVendor(newCounterparty.type)'
+            th translate='email' ng-show='isVendorType(newCounterparty)'
             th
           tr
             td
@@ -25,7 +25,7 @@
                 br
                 span.error
                   | {{newCounterparty.errors.type[0]}}
-            td ng-show='isVendor(newCounterparty.type)'
+            td ng-show='isVendorType(newCounterparty)'
               input class='email' ng-model="newCounterparty.email" type='email' placeholder='user@example.com'
             td
               button.btn translate="NewArticle" type="submit"

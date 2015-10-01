@@ -19,7 +19,7 @@
               select.width-169.counterparty-type ui-select2='' ng-model="editCounterparty.type"
                 option ng-repeat="type in typesOptions" translate="{{type.text}}" ng-selected='{{editCounterparty.type == type.value }}' value="{{type.value}}"
             .col-lg-3
-              div ng-show='isVendorType()'
+              div ng-show='isVendorType(editCounterparty)'
                 label translate='email'
                 input ng-model="editCounterparty.email" type="email"
           .row

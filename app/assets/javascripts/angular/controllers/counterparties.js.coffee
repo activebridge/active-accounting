@@ -125,6 +125,6 @@
         return
       ), 5000
 
-  $scope.isVendorType = ->
-    ['VENDOR', 'HR'].indexOf(String($scope.editCounterparty.type).toUpperCase()) > -1 if $scope.editCounterparty
+  $scope.isVendorType = (model) ->
+    return $scope.special_types.indexOf(model.type) > -1
 ]
