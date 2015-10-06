@@ -69,6 +69,7 @@ Rails.application.routes.draw do
         get :total_hours
         get :years
         post :approve_hours
+        get :confirm
       end
     end
 
