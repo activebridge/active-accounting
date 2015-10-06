@@ -1,5 +1,6 @@
 class HoursController < VendorApplicationController
   before_action :find_hour, only: [:destroy, :update]
+  before_action :approve_hours_service, only: [:approve_hours, :confirm]
 
   def index
     json = ActiveModel::ArraySerializer.new(all_hours.by_customer(params[:customer_id]).by_month(params[:month]),
@@ -38,9 +39,18 @@ class HoursController < VendorApplicationController
   end
 
   def approve_hours
-    approve_hours = ApproveHours.new(Time.current)
-    count_records = approve_hours.working
-    render json: { status: 'OK', count_records: count_records }, status: 200
+    @approve_hours.working
+    render json: { status: :ok }, status: 200
+  end
+
+  def confirm
+    vendor = Vendor.find_by(auth_token: params[:token])
+    if vendor
+      @approve_hours.confirm(vendor)
+      flash.now[:notice] = 'Thanks, your autofilled hours have been confirmed!'
+    else
+      render file: "#{Rails.root}/public/404.html", layout: false, status: 404
+    end
   end
 
   private
@@ -55,6 +65,10 @@ class HoursController < VendorApplicationController
 
   def find_hour
     @hour = Hour.find(params[:id])
+  end
+
+  def approve_hours_service
+    @approve_hours ||= ApproveHours.new
   end
 
   def all_hours

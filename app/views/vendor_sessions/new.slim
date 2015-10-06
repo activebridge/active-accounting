@@ -1,6 +1,4 @@
 .panel.panel-default
-  - flash.each do |name, msg|
-    = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
   .panel-heading.text-center
     h4 Active accounting for vendors
   .row

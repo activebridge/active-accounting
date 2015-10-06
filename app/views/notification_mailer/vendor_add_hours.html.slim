@@ -1,0 +1,25 @@
+h2
+  | Необхідно підтвердити або редагувати витрачені години на клієнта
+| =====================================================================================
+
+table
+  tr
+    th
+      | Клієнт
+    th
+      | Години
+    th
+      | Місяць
+    th
+    th
+  tr
+    td
+      = @vendor.customer_name
+    td
+      = @hour[:hours]
+    td
+      = @hour[:month].strftime('%m.%Y')
+    td
+      = link_to 'Підтвердити', confirm_hours_url(token: @vendor.auth_token, date: @hour[:month])
+    td
+      = link_to 'Редагувати години', vendor_profile_url + '#/hours'

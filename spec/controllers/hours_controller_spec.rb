@@ -68,17 +68,22 @@ RSpec.describe HoursController, type: :controller do
 
     it 'The successful addition of records' do
       post :approve_hours
-      expect(json['count_records']).to eql(1)
+      expect(json['status']).to eql('ok')
+    end
+  end
+
+  describe "#confirm" do
+    before { post :approve_hours }
+
+    it 'add hours' do
+      vendor.reload
+      expect { get :confirm, { token: vendor.auth_token } }.to change(Hour, :count).by(1)
     end
 
-    context 'Failed to add records, because there is a duplicate' do
-      let(:count_work_days) { WorkDays.new(Time.current).count_by_month }
-      let!(:hour_double) { FactoryGirl.create(:hour, customer_id: customer.id, vendor_id: vendor.id, hours: count_work_days * 8) }
+    it 'not add hours when dublicate request' do
+      get :confirm, { token: SecureRandom.urlsafe_base64 }
 
-      before { post :approve_hours }
-
-      it { expect(json['count_records']).to eql(0) }
+      expect(response).to be_not_found
     end
-
   end
 end
