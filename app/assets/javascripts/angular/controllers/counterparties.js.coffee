@@ -1,4 +1,5 @@
-@CounterpartiesCtrl = ['$scope', '$q', '$timeout', 'Counterparty', 'Invitation', '$translate', '$modal', ($scope, $q, $timeout, Counterparty, Invitation, $translate, $modal) ->
+@CounterpartiesCtrl = ['$scope', '$q', '$timeout', 'Counterparty', 'Invitation', '$translate', '$modal', 'counterpartyDecorator', ($scope, $q, $timeout, Counterparty, Invitation, $translate, $modal, counterpartyDecorator) ->
+  counterpartyDecorator($scope)
   $scope.newCounterparty = {}
   $scope.newCounterparty.errors = {}
   $scope.counterparty = {}
@@ -31,17 +32,6 @@
       $scope.loadedData[$scope.showGroup] = $scope.counterpaties
 
   $scope.showGroup = 'Customer'
-
-  $scope.currencies = [
-    {value: "UAH", text: $translate.instant('currency_UA')},
-    {value: "USD", text: 'USD'}
-  ]
-
-  $scope.types = [
-    { value: "Customer", text: 'Customer' },
-    { value: "Vendor", text: 'Vendor' },
-    { value: "Other", text: 'Other' }
-  ]
 
   $scope.endOfMonth = ->
     curr_day = new Date().getDate()
@@ -110,6 +100,7 @@
       return
 
   $scope.changeGroup = (group) ->
+    $scope.loadCustumers() if group == 'Vendor'
     return if $scope.showGroup == group
     $scope.showGroup = group
     $scope.load()
@@ -133,4 +124,7 @@
           return
         return
       ), 5000
+
+  $scope.isVendorType = (model) ->
+    return $scope.specialTypes.indexOf(model.type) > -1
 ]

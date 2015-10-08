@@ -23,8 +23,8 @@ class VendorPasswordResetsController < VendorApplicationController
   end
 
   def change_password
-    if current_vendor.password == params[:current_password]
-      current_vendor.update(password: params[:new_password])
+    if current_counterparty.password == params[:current_password]
+      current_counterparty.update(password: params[:new_password])
       render json: { status: :ok }
     else
       render json: { status: :error }, status: 422

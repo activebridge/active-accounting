@@ -1,8 +1,15 @@
 class VendorHomeController < VendorApplicationController
   before_filter :redirect_to_new_session
-  layout 'angular_vendor'
+
+  layout :counterparty_layout
 
   def index
-    gon.current_vendor = VendorSerializer.new(current_vendor)
+    gon.current_counterparty = VendorSerializer.new(current_counterparty)
+  end
+
+  private
+
+  def counterparty_layout
+    current_counterparty.vendor? ? 'angular_vendor' : 'angular_hr'
   end
 end

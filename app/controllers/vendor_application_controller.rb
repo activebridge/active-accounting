@@ -3,12 +3,18 @@ class VendorApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   skip_before_filter :verify_authenticity_token
 
-  def current_vendor
-    session[:vendor_id] ? Vendor.find(session[:vendor_id]) : nil
+  helper_method :current_counterparty
+
+  def current_counterparty
+    @current_counterparty ||= Counterparty.find(session[:counterparty_id]) if session[:counterparty_id]
   end
 
   def redirect_to_new_session
-    redirect_to vendor_login_path unless session[:vendor_id]
+    redirect_to vendor_login_path unless current_counterparty
+  end
+
+  def redirect_to_hr_manager
+    redirect_to vendor_profile_path + '#/hr_manager' if current_counterparty.hr?
   end
 
   def default_serializer_options

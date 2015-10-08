@@ -4,24 +4,31 @@ RSpec.describe HoursController, type: :controller do
 
   let(:customer) { FactoryGirl.create(:customer) }
   let(:vendor) { FactoryGirl.create(:vendor, customer_id: customer.id, approve_hours: true) }
+  let(:hr) { FactoryGirl.create(:hr, approve_hours: true) }
   let!(:hour) { FactoryGirl.create(:hour, customer_id: customer.id, vendor_id: vendor.id) }
   let(:hour_attributes) { FactoryGirl.attributes_for(:hour, customer_id: customer.id, vendor_id: vendor.id, hours: 30) }
   let(:unvalid_hour_attributes) { FactoryGirl.attributes_for(:hour, hours:'', customer_id:'', month: '')}
 
   before do
     allow(controller).to receive(:authenticate_user!) { true }
+    session[:counterparty_id] = vendor.id
   end
 
   describe "#index" do
+    subject { get :index, month: hour.month, customer_id: customer.id }
     it 'returns a successful 200 response' do
-      get :index, month: hour.month, customer_id: customer.id
-      expect(response).to be_success
+      expect(subject).to be_success
+    end
+
+    it 'redirect hr to hr_dashboard' do
+      session[:counterparty_id] = hr.id
+      expect(subject).to redirect_to vendor_profile_path + '#/hr_manager'
     end
   end
 
   describe '#create' do
     before(:each) do |test|
-      session[:vendor_id] = vendor.id
+      session[:counterparty_id] = vendor.id
     end
 
     it 'add hour' do

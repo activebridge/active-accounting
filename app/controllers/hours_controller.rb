@@ -1,6 +1,7 @@
 class HoursController < VendorApplicationController
   before_action :find_hour, only: [:destroy, :update]
   before_action :approve_hours_service, only: [:approve_hours, :confirm]
+  before_filter :redirect_to_hr_manager
 
   def index
     json = ActiveModel::ArraySerializer.new(all_hours.by_customer(params[:customer_id]).by_month(params[:month]),
@@ -56,7 +57,7 @@ class HoursController < VendorApplicationController
   private
 
   def hour_params
-    params.require(:hour).permit!.merge(vendor_id: current_vendor.id, month: params[:hour][:month].to_date)
+    params.require(:hour).permit!.merge(vendor_id: current_counterparty.id, month: params[:hour][:month].to_date)
   end
 
   def update_params
@@ -72,6 +73,6 @@ class HoursController < VendorApplicationController
   end
 
   def all_hours
-    params[:type] == 'vendor' ? current_vendor.hours : Hour
+    params[:type] == 'vendor' ? current_counterparty.hours : Hour
   end
 end
