@@ -126,5 +126,5 @@
       ), 5000
 
   $scope.isVendorType = (model) ->
-    return $scope.special_types.indexOf(model.type) > -1
+    return $scope.specialTypes.indexOf(model.type) > -1
 ]
