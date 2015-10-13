@@ -1,10 +1,9 @@
 FactoryGirl.define do
-  TYPES = Counterparty::TYPES.constants.map(&:to_s)
   factory :counterparty do
     name { Faker::Name.name }
     start_date { Date.yesterday }
     active true
-    type {TYPES[rand(1)]}
+    type {Counterparty::TYPES::DISPLAY_TYPES[rand(1)]}
     currency_monthly_payment "USD"
 
     factory :customer, parent: :counterparty, class: 'Customer' do
