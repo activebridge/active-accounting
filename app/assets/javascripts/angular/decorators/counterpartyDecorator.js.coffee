@@ -14,7 +14,7 @@ angular.module('accounting.services').factory 'counterpartyDecorator', ["$q", 'C
 
     $scope.typesOptions = $.map($scope.displayTypes, (type) ->
       {
-        value: type.toUpperCase()
+        value: type
         text: $translate.instant(type)
       }
     )
