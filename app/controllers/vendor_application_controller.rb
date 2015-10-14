@@ -14,7 +14,7 @@ class VendorApplicationController < ActionController::Base
   end
 
   def redirect_to_hr_manager
-    redirect_to vendor_profile_path + '#/hr_manager' if current_counterparty.hr?
+    redirect_to vendor_profile_path + '#/hr_manager' if current_counterparty.try(:hr?)
   end
 
   def default_serializer_options
