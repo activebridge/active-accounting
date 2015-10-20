@@ -1,5 +1,5 @@
 class VendorCalculator
-  SOCIAL_TAX = 422.65
+  SOCIAL_TAX = 478.17
 
   def initialize(vendor, params)
     @vendor = vendor
