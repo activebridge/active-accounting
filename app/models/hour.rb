@@ -32,4 +32,8 @@ class Hour < ActiveRecord::Base
             AND extract(month from month) = #{params[:month].month}
             AND extract(year from month) = #{params[:month].year}")
   }
+
+  scope :total_hours, -> {
+    pluck("hours").inject(:+)
+  }
 end

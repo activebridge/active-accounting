@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     resources :plan_registers
     resources :invitations
     resources :client_infos, only: :update
-    resources :invoices, only: :show
+    resources :invoices, only: [:index, :show, :create]
     resources :work_days, only: :index
     resources :acts, only: :show
     resources :vendor_acts

@@ -1,4 +1,4 @@
-table#invoice-table border="0" cellspacing="0" cols="6"
+table#invoice-table ng-show='showInvoice' border="0" cellspacing="0" cols="6" 
   colgroup width="243"
   colgroup width="29"
   colgroup width="160"
@@ -6,6 +6,8 @@ table#invoice-table border="0" cellspacing="0" cols="6"
   colgroup width="97"
   colgroup width="113"
 
+  button.icon-button.icon-back ng-click="hideCurrentInvoice()" ng-show='showInvoice' type="button" title="{{ 'back_to_list' | translate }}"
+    span.glyphicon.glyphicon-arrow-left
   tr
     td align="CENTER" bgcolor="#3B4E87" colspan="3" height="20" style="border-bottom: 1px solid #000000" valign="BOTTOM"
       b
