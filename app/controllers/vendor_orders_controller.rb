@@ -18,7 +18,7 @@ class VendorOrdersController < ApplicationController
         order.features << Feature.all
         render json: VendorOrderSerializer.new(order), status: 200
       else
-        render json: {status: :error}, status: 422
+        render json: { status: :error, messages:  order.errors.messages[:month] }, status: 422
       end
     end
   end

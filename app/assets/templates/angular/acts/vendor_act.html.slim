@@ -3,16 +3,16 @@
     select.custumers ng-model="actParams.id" ng-change='changeSelect()'
       option ng-repeat="vendor in vendors" value="{{vendor.id}}" ng-selected='{{ actParams.vendor_id == vendor.id }}' init-select2='setSelect2()'
         | {{vendor.name}}
-    button.btn.margin-left-2.margin-bottom-1 translate='create' ng-show='actParams.id && acts.length > 0' ng-click='showCreateActModal("#{asset_path("angular/acts/create_act_modal.html")}")'
+    button.btn.margin-left-2.margin-bottom-1 translate='create' ng-show='showCreateActButton()' ng-click='showCreateActModal("#{asset_path("angular/acts/create_act_modal.html")}")'
     .text-center.calendar.width-320
       .btn-group
         label ng-repeat='month in months' id='month_{{$index + 1}}' class="btn btn-danger" ng-model="$parent.actParams.month" btn-radio="'{{$index + 1 + "/" + currentYear}}'" ng-init="clicked = currentMonth ==  $index + 1 " ng-class="{ 'active': clicked }"
           | {{ month }}
   div
-    h2 ng-show="!showCurrentAct && acts.length > 0"
+    h2 ng-show="showActsRegistry()"
       | {{ 'list_acts_for' | translate }} {{ currentVendor.name }}
   .col-lg-8
-    #acts-table.ng-scope ng-show="!showCurrentAct && acts.length > 0"
+    #acts-table.ng-scope ng-show="showActsRegistry()"
       div.row
         .col-lg-2 translate="month"
         .col-lg-2 translate="totall"

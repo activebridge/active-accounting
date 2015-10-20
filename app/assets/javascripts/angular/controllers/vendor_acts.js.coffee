@@ -75,4 +75,9 @@
     )
     return d.promise
 
+  $scope.showCreateActButton = () ->
+    return $scope.acts && $scope.actParams.id && $scope.acts.length >= 0
+
+  $scope.showActsRegistry = () ->
+    return $scope.acts && !$scope.showCurrentAct && $scope.acts.length > 0
 ]
