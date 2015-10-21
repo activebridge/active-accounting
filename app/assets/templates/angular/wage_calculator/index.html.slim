@@ -11,7 +11,7 @@
     tbody
       tr
         th
-          input.form-control disabled='disable' ng-init='socialTax = 422.65' ng-model='socialTax' smart-float='' type='number'
+          input.form-control disabled='disable' ng-init='socialTax = #{VendorCalculator::SOCIAL_TAX}' ng-model='socialTax' smart-float='' type='number'
         th
           input numeric='' class='form-control' ng-model='exchange' value='{{exchange | number:2}}' ng-change='report()' maxlength='4'
         th
