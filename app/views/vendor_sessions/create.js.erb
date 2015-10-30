@@ -1,0 +1,10 @@
+<% if flash[:error] %>
+  $('span.errors').show().text('<%= flash[:error] %>').fadeOut(5000)
+<% else %>
+  <% if current_counterparty.hr? %>
+    href = '<%= vendor_profile_path %>' + '#/hr_manager';
+  <% else  %>
+    href = '<%= vendor_profile_path %>' + '#/hours';
+  <% end %>
+  window.location = href
+<% end %>
