@@ -8,19 +8,23 @@ class ApproveHours
     vendors = Vendor.where(approve_hours: true)
     vendors.each do |vendor|
       unless vendor.customer_id.nil?
-        double = Hour.find_double(hour_params(vendor))
-        if double.empty?
-          NotificationMailer.vendor_add_hours(vendor, hour_params(vendor))
+        unless double?(vendor)
+          NotificationMailer.vendor_add_hours(vendor, hour_params(vendor), verifier.generate(hour_params(vendor)))
         end
       end
     end
   end
 
-  def confirm(vendor)
-    hour = Hour.create(hour_params(vendor))
-    NotificationMailer.admin_auto_add_hours(hour)
-    vendor.generate_token(:auth_token)
-    vendor.save
+  def confirm(token)
+    params = verifier.verify(token)
+    vendor = Vendor.find(params[:vendor_id])
+    unless double?(vendor)
+      hour = Hour.create(params)
+      NotificationMailer.admin_auto_add_hours(hour)
+    end
+
+    rescue
+      false
   end
 
   private
@@ -40,5 +44,13 @@ class ApproveHours
 
   def work_days
     working_days = WorkDays.new(@current_day)
+  end
+
+  def verifier
+    @verifier ||= ActiveSupport::MessageVerifier.new(Rails.application.secrets.secret_key_base)
+  end
+
+  def double?(vendor)
+    Hour.find_double(hour_params(vendor)).present?
   end
 end

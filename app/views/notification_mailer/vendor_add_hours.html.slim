@@ -20,6 +20,6 @@ table
     td
       = @hour[:month].strftime('%m.%Y')
     td
-      = link_to 'Підтвердити', confirm_hours_url(token: @vendor.auth_token, date: @hour[:month])
+      = link_to 'Підтвердити', confirm_hours_url(token: @token)
     td
       = link_to 'Редагувати години', vendor_profile_url + '#/hours'

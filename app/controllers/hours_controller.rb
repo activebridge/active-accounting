@@ -45,9 +45,7 @@ class HoursController < VendorApplicationController
   end
 
   def confirm
-    vendor = Vendor.find_by(auth_token: params[:token])
-    if vendor
-      @approve_hours.confirm(vendor)
+    if @approve_hours.confirm(params[:token])
       flash.now[:notice] = 'Thanks, your autofilled hours have been confirmed!'
     else
       render file: "#{Rails.root}/public/404.html", layout: false, status: 404
