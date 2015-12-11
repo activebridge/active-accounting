@@ -82,11 +82,6 @@ RSpec.describe HoursController, type: :controller do
   describe "#confirm" do
     before { post :approve_hours }
 
-    it 'add hours' do
-      vendor.reload
-      expect { get :confirm, { token: vendor.auth_token } }.to change(Hour, :count).by(1)
-    end
-
     it 'not add hours when dublicate request' do
       get :confirm, { token: SecureRandom.urlsafe_base64 }
 
