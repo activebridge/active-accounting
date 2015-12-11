@@ -18,6 +18,7 @@ class ApproveHours
   def confirm(token)
     params = verifier.verify(token)
     vendor = Vendor.find(params[:vendor_id])
+
     unless double?(vendor)
       hour = Hour.create(params)
       NotificationMailer.admin_auto_add_hours(hour)
