@@ -1,3 +1,15 @@
 #chartcontainer {
   div img { display: none;}
 }
+
+.average_rate {
+  z-index: 1;
+  position: absolute;
+  margin-left: 5%;
+  margin-top: 2%;
+  font-size: 12px;
+}
+
+.line_chart {
+  z-index: 0;
+}
