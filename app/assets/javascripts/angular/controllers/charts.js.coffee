@@ -58,6 +58,7 @@
     if clicked
       $('#chartcontainer' + value).show()
       $('#line_chart' + value).show()
+      $('#average_rate' + value).show()
       if $scope.myYear.indexOf(value) == -1
         $scope.myYear.push(value)
         containerBar = 'chartcontainer' + value
@@ -66,6 +67,7 @@
     else
       $('#chartcontainer' + value).hide()
       $('#line_chart' + value).hide()
+      $('#average_rate' + value).hide()
 
     return
 
@@ -74,9 +76,11 @@
     for year in $scope.selectedYears
       if showAttrProfitCharts
         $('#line_chart' + year).show()
+        $('#average_rate' + year).show()
         $scope.drawLineChart(year)
       else
         $('#line_chart' + year).hide()
+        $('#average_rate' + year).hide()
 
   $scope.changeSelectedYears = (add, year) ->
     if add
@@ -92,6 +96,14 @@
   $scope.drawLineChart = (year) ->
     return if $scope.charts[year]
     $scope.setLineChartData(year) unless $scope.chartLineData[year]
+
+    list = $scope.chartLineData[year]
+    average = 0
+    for i in [0..(list.length-1)]
+      average += list[i]
+    average /= list.length
+    $('#average_rate' + year).text('Сер. відсоток: ' + Math.round(average) + "%")
+
     minProfit = Math.min.apply(null, $scope.chartLineData[year])
     minProfit = 0 if minProfit > 0
     months = monthTranslationArray()
