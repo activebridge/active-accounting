@@ -40,7 +40,6 @@ form.editable-wrap {
   color: #ff8412;
   top: 1px;
   margin: 0 5px;
-  cursor: pointer;
 }
 
 .counterparties {
@@ -131,10 +130,12 @@ form.editable-wrap {
 
   .fa-envelope { font-size: 15px; }
 
-  .glyphicon-info-sign {
+  .glyphicon-user {
     cursor: pointer;
-    color: blue;
+    color: gray;
   }
+
+  .glyphicon-user:hover { color: #070707; }
 
   .info-update {
     display: none;

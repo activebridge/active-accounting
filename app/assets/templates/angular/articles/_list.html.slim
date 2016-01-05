@@ -14,7 +14,7 @@
         .butn ng-show="!rowform.$visible"
           button.icon-button.hidde ng-click="rowform.$show()"
             span.glyphicon.glyphicon-edit
-          span.hidde.glyphicon.glyphicon-info-sign.mess-info ng-show="article.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}"
+          span.hidde.glyphicon.glyphicon-trash.mess-info ng-show="article.assigned && !rowform.$visible" title="{{ 'deleteInfo' | translate }}"
           button.icon-button.hidde ng-click="delete(article.id, $index)" ng-show="!article.assigned" type="button"
             span.glyphicon.glyphicon-trash
       td
