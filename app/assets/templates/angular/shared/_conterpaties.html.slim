@@ -34,9 +34,9 @@
             span.glyphicon.glyphicon-edit
           button.icon-button.hidde ng-show="isVendor(showGroup) && !!counterparty.email && !counterparty.signed_in" ng-click="sendInvitation(counterparty.id)" title="{{ 'sendOnEmail' | translate }}" type="button"
             span.fa.fa-envelope
-          span.hidde.glyphicon.glyphicon-info-sign ng-click='showVendorInfoModal(counterparty, "#{asset_path("angular/vendor_infos/modal.html")}")' ng-show="showGroup == 'Vendor'"
-          span.hidde.glyphicon.glyphicon-info-sign ng-click='showClientInfoModal(counterparty, "#{asset_path("angular/client_infos/info_modal.html")}")' ng-show="showGroup == 'Customer'"
-          span.hidde.glyphicon.glyphicon-question-sign.mess-info ng-show="counterparty.assigned" title="{{ 'deleteInfo' | translate }}"
+          span.hidde.glyphicon.glyphicon-user ng-click='showVendorInfoModal(counterparty, "#{asset_path("angular/vendor_infos/modal.html")}")' ng-show="showGroup == 'Vendor'"
+          span.hidde.glyphicon.glyphicon-user ng-click='showClientInfoModal(counterparty, "#{asset_path("angular/client_infos/info_modal.html")}")' ng-show="showGroup == 'Customer'"
+          span.hidde.glyphicon.glyphicon-trash.mess-info ng-show="counterparty.assigned" title="{{ 'deleteInfo' | translate }}"
           button.icon-button.hidde ng-click="delete(counterparty)" ng-show="!counterparty.assigned" title="{{ 'delete_reg' | translate }}" type="button"
             span.glyphicon.glyphicon-trash
           span.hidde.glyphicon.glyphicon-eye-open title="{{counterparty.name}}" data-trigger='hover' data-content="{{counterparty.versions}}" data-template="#{asset_path("angular/counterparties/versions.tpl.slim")}" bs-popover=true
