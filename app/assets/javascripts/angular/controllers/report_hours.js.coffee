@@ -1,7 +1,10 @@
-@ReportHoursCtrl = ['$scope', '$q', '$translate', '$modal', 'Hours', 'registerDecorator', 'hourDecorator', 'Holiday', 'WorkDay', ($scope, $q , $translate, $modal, Hours, registerDecorator, hourDecorator, Holiday, WorkDay) ->
+@ReportHoursCtrl = ['$scope', '$q', '$translate', '$modal', 'Hours', 'Counterparty', 'registerDecorator', 'hourDecorator', 'Holiday', 'WorkDay', ($scope, $q , $translate, $modal, Hours, Counterparty, registerDecorator, hourDecorator, Holiday, WorkDay) ->
   registerDecorator($scope)
   hourDecorator($scope)
   $scope.hours = {}
+
+  $scope.newHour = {}
+  $scope.newHour.errors = {}
 
   curr_date = new Date()
   $scope.currentYear = curr_date.getFullYear()
@@ -48,8 +51,29 @@
     return d.promise
 
   $scope.setSelect2 = ->
+    $('select.hours').select2()
+    $scope.newHour.customer_id = $scope.customer_id
+    $scope.newHour.vendor_id = $scope.vendor_id
     $('select.year-select').select2({ 'minimumResultsForSearch': 5 })
     return
+
+  $scope.add = ->
+    hour = Hours.save($scope.newHour,
+      () ->
+        if parseInt(hour.month.slice(0,2)) == $scope.selectedMonth
+          $scope.hours.unshift(hour)
+        $scope.newHour.hours = ''
+        $scope.LoadHours()
+        $scope.newHour.month = moment().format('MM/YYYY')
+        $scope.newHour.errors = []
+      (response) ->
+        $scope.newHour.errors = response.data.error
+    )
+
+  $scope.customers = Counterparty.customers(scope: 'active')
+  $scope.vendors = Counterparty.query
+    scope: 'active'
+    group: 'Vendor'
 
   $scope.approveHours = ->
     Hours.approve_hours (response) ->

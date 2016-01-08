@@ -63,6 +63,26 @@
             th translate='hours'
             th translate='month'
 
+        tr
+          td
+            span.error
+              | {{newHour.errors.customer_id[0]}}
+            select.width-150.hours.clear_after_add ng-model="newHour.customer_id"
+              option ng-repeat='customer in customers' value='{{ customer.id }}' ng-selected='{{ customer_id == customer.id }}' init-select2='setSelect2()'
+                | {{customer.name}}
+          td
+            select.width-150.hours.clear_after_add ng-model="newHour.vendor_id"
+              option ng-repeat='vendor in vendors' value='{{ vendor.id }}' ng-selected='{{ vendor_id == vendor.id }}' init-select2='setSelect2()'
+                | {{ vendor.name }}
+          td
+            span.error
+              | {{newHour.errors.hours[0]}}
+            input.number ng-model="newHour.hours" type="text" name='hours' maxlength='3' ng-required="true"
+          td
+            input#month-picker ng-model="newHour.month" name='month' type="text" ng-required="true"
+          td
+            button.btn translate="NewArticle" type="submit" ng-click="add()"
+
       .info-alas ng-hide='hours.length>0'
         br
         .alert.alert-info.alert-dismissable
