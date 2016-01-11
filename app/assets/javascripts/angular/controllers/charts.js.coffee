@@ -98,10 +98,17 @@
     $scope.setLineChartData(year) unless $scope.chartLineData[year]
 
     list = $scope.chartLineData[year]
+    revenue = $scope.chartBarData[year]['revenue']
+    cost = $scope.chartBarData[year]['cost']
     average = 0
+    length = 0
+
     for i in [0..(list.length-1)]
       average += list[i]
-    average /= list.length
+      unless revenue[i] == 0 && cost[i] == 0
+        length += 1
+
+    average /= length
     $('#average_rate' + year).text('Сер. відсоток: ' + Math.round(average) + "%")
 
     minProfit = Math.min.apply(null, $scope.chartLineData[year])
