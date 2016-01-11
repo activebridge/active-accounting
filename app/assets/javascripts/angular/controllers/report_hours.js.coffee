@@ -51,12 +51,8 @@
 
   $scope.setSelect2 = ->
     $('select.hours').select2()
-    $scope.newHour.customer_id = $scope.customer_id
     $scope.newHour.vendor_id = $scope.vendor_id
-    $scope.current_vendor = Counterparty.query
-      group: 'Vendor'
-      id: $scope.vendor_id
-    $scope.current_vendor.approvehoursStatus = $scope.current_vendor.approve_hours
+    $scope.newHour.customer_id = $scope.customer_id
     $('select.year-select').select2({ 'minimumResultsForSearch': 5 })
     return
 
@@ -66,7 +62,7 @@
         if parseInt(hour.month.slice(0,2)) == $scope.selectedMonth
           $scope.hours.unshift(hour)
         $scope.newHour.hours = ''
-        $scope.LoadHours()
+        $scope.LoadHours($scope.year)
         $scope.newHour.month = moment().format('MM/YYYY')
         $scope.newHour.errors = []
       (response) ->

@@ -10,7 +10,11 @@ class HoursController < VendorApplicationController
   end
 
   def create
-    hour = Hour.new(hour_params)
+    hour = if params[:vendor_id]
+      Hour.new(admin_hour_params)
+    else
+      Hour.new(hour_params)
+    end
     if hour.save
       render json: HourSerializer.new(hour), status: 200
     else
@@ -56,6 +60,10 @@ class HoursController < VendorApplicationController
 
   def hour_params
     params.require(:hour).permit!.merge(vendor_id: current_counterparty.id, month: params[:hour][:month].to_date)
+  end
+
+  def admin_hour_params
+    params.require(:hour).permit!.merge(month: params[:hour][:month].to_date)
   end
 
   def update_params
