@@ -2,7 +2,6 @@
   registerDecorator($scope)
   hourDecorator($scope)
   $scope.hours = {}
-
   $scope.newHour = {}
   $scope.newHour.errors = {}
 
@@ -54,6 +53,10 @@
     $('select.hours').select2()
     $scope.newHour.customer_id = $scope.customer_id
     $scope.newHour.vendor_id = $scope.vendor_id
+    $scope.current_vendor = Counterparty.query
+      group: 'Vendor'
+      id: $scope.vendor_id
+    $scope.current_vendor.approvehoursStatus = $scope.current_vendor.approve_hours
     $('select.year-select').select2({ 'minimumResultsForSearch': 5 })
     return
 
