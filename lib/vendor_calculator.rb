@@ -1,5 +1,5 @@
 class VendorCalculator
-  SOCIAL_TAX = 478.17
+  SOCIAL_TAX = 303.16
 
   def initialize(vendor, params)
     @vendor = vendor
@@ -9,7 +9,7 @@ class VendorCalculator
   end
 
   def total_money
-    @total_money ||= sprintf("%.2f", (summ_salary + summ_salary * 0.0075)/0.96)
+    @total_money ||= sprintf("%.2f", (summ_salary + summ_salary * 0.0075)/0.95)
   end
 
   def summ_salary
