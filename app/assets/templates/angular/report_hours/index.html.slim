@@ -71,6 +71,8 @@
               option ng-repeat='customer in customers' value='{{ customer.id }}' ng-selected='{{ customer_id == customer.id }}' init-select2='setSelect2()'
                 | {{customer.name}}
           td
+            span.error
+              | {{newHour.errors.vendor_id[0]}}
             select.width-150.hours.clear_after_add ng-model="newHour.vendor_id"
               option ng-repeat='vendor in vendors' value='{{ vendor.id }}' ng-selected='{{ vendor_id == vendor.id }}' init-select2='setSelect2()'
                 | {{ vendor.name }}

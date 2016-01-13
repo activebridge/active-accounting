@@ -1,4 +1,4 @@
-@ReportHoursCtrl = ['$scope', '$q', '$translate', '$modal', 'Hours', 'Counterparty', 'registerDecorator', 'hourDecorator', 'Holiday', 'WorkDay', ($scope, $q , $translate, $modal, Hours, Counterparty, registerDecorator, hourDecorator, Holiday, WorkDay) ->
+@ReportHoursCtrl = ['$scope', '$q', '$translate', '$modal', 'Hours', 'Counterparty', 'ReportHours', 'registerDecorator', 'hourDecorator', 'Holiday', 'WorkDay', ($scope, $q , $translate, $modal, Hours, Counterparty, ReportHours, registerDecorator, hourDecorator, Holiday, WorkDay) ->
   registerDecorator($scope)
   hourDecorator($scope)
   $scope.hours = {}
@@ -11,6 +11,7 @@
   $scope.currentDate = curr_date.getDate()
   $scope.months = $translate.instant('fullMonthsName').split(',')
   $scope.year = $scope.currentYear
+  $scope.newHour.month = moment().format('MM/YYYY')
 
   loadYears = ->
     Hours.years (response) ->
@@ -57,7 +58,7 @@
     return
 
   $scope.add = ->
-    hour = Hours.save($scope.newHour,
+    hour = ReportHours.save($scope.newHour,
       () ->
         if parseInt(hour.month.slice(0,2)) == $scope.selectedMonth
           $scope.hours.unshift(hour)

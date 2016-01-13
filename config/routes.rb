@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     resources :vendor_infos, only: :update
     resources :holidays
     resources :missing_hours, only: :index
+    resources :report_hours, only: :create
 
     resources :reports do
       collection do
@@ -72,14 +73,6 @@ Rails.application.routes.draw do
   resources :vendor_password_resets do
     collection do
       post :change_password
-    end
-  end
-
-  resources :hours do
-    collection do
-      get :total_hours
-      get :years
-      post :approve_hours
     end
   end
 end

@@ -79,6 +79,10 @@ angular.module('accounting.services').factory 'Hours', ['$resource', ($resource)
     method: 'PUT'
 ]
 
+angular.module('accounting.services').factory 'ReportHours', ['$resource', ($resource) ->
+  $resource '/report_hours/:id'
+]
+
 angular.module('accounting.services').factory 'ClientInfo', ['$resource', ($resource) ->
   $resource '/client_infos/:id',
     id: '@id'
