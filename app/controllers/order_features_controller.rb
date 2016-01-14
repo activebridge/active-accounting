@@ -12,7 +12,7 @@ class OrderFeaturesController < VendorApplicationController
   def create
     feature = Feature.new(feature_params)
     if feature.save
-      @order.features << feature if @order
+      @order && @order.order_features.create(feature: feature)
       render json: FeatureSerializer.new(feature), status: 200
     else
       render json: {status: :error, error: feature.errors.messages}, status: 422
@@ -20,13 +20,13 @@ class OrderFeaturesController < VendorApplicationController
   end
 
   def show
-    @order.features << @feature if @order && @order.features.exclude?(@feature)
+    @order.order_features.create(feature: @feature) if @order && @order.features.exclude?(@feature)
     render json: FeatureSerializer.new(@feature), status: 200
   end
 
   def destroy
     if @order
-      @order.features.delete(@feature)
+      @order.order_features.find_by_feature_id(@feature).destroy
     else
       @feature.destroy
     end
