@@ -5,7 +5,6 @@ ENV["RAILS_ENV"] ||= 'test'
 require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -55,6 +54,6 @@ RSpec.configure do |config|
     request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(USER, PASSWORD) if defined? request
   end
 
-  config.include Requests::JsonHelpers, :type => :controller
+  config.include Requests::JsonHelpers, type: :controller
   config.include Devise::TestHelpers, type: :controller
 end

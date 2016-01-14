@@ -1,5 +1,6 @@
 class Feature < ActiveRecord::Base
-  has_many :order_features, dependent: :destroy
+  has_many :order_features
+  has_many :vendor_orders, through: :order_features
 
   TYPES = ['Primary', 'Additional']
 

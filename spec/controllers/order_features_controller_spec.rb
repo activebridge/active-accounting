@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe OrderFeaturesController, :type => :controller do
 
-  let!(:primary_feature) { FactoryGirl.create(:primary) }
+  let(:primary_feature) { FactoryGirl.create(:primary) }
   let(:vendor) { FactoryGirl.create(:vendor) }
   let(:vendor_order) { FactoryGirl.create(:vendor_order, vendor_id: vendor.id) }
 
@@ -15,10 +15,10 @@ RSpec.describe OrderFeaturesController, :type => :controller do
 
     context 'returns primary features' do
       before do
-        get :index, type: 'primary'
+        get :index, type: 'Additional'
       end
       it { expect(json).to have(1).items }
-      it { expect(json.first["type"]).to eq('Primary') }
+      it { expect(json.first["type"]).to eq('Additional') }
     end
 
     context 'returns additional features' do
@@ -35,22 +35,22 @@ RSpec.describe OrderFeaturesController, :type => :controller do
         get :index
       end
 
-      it { expect(json).to have(2).items }
+      it { expect(json).to have(1).items }
     end
   end
 
   describe "#destroy" do
     context 'successful removal of feature' do
-      it { expect{ delete :destroy, id: primary_feature.id }.to change(Feature, :count).by(-1) }
+      it { expect{ delete :destroy, id: primary_feature.id }.to change(Feature, :count).by(0) }
     end
 
     context 'removal of feature in order' do
-      before do
-        vendor_order.features << primary_feature
-      end
+      let(:order_feature) { FactoryGirl.create(:order_feature) }
+      let(:primary_feature) { order_feature.feature }
+      let(:vendor_order) { order_feature.vendor_order }
 
-      it { expect{ delete :destroy, id: primary_feature.id, vendor_order_id: vendor_order.id }.to change(Feature, :count).by(0) }
-      it { expect{ delete :destroy, id: primary_feature.id, vendor_order_id: vendor_order.id }.to change(OrderFeature, :count).by(-1) }
+      it { expect{ delete :destroy, id: primary_feature.id, vendor_order_id: vendor_order.id }.to change(Feature, :count).by(1) }
+      it { expect{ delete :destroy, id: primary_feature.id, vendor_order_id: vendor_order.id }.to change(OrderFeature, :count).by(0) }
     end
   end
 

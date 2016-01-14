@@ -7,6 +7,6 @@ RSpec.describe VendorAct, type: :model do
   end
 
   context 'validates' do
-    it { is_expected.to validate_uniqueness_of(:month).with_message('Act for this month has been created already!') }
+    it { is_expected.to validate_uniqueness_of(:month).with_message('Act for this month has been already created!') }
   end
 end
