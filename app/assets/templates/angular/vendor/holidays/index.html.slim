@@ -1,0 +1,14 @@
+.container
+  .row
+    .col-md-6.col-md-offset-3
+      .row
+        h2
+          | {{ 'list_holidays' | translate }} {{ currentYear }} {{ 'yearSmall' | translate}}
+      .row
+        .col-md-6
+          b translate='title'
+        .col-md-6
+          b translate='date'
+      .row ng-repeat='holiday in holidays'
+        .col-md-6 ng-bind='holiday.name'
+        .col-md-6 ng-bind='holiday.date'

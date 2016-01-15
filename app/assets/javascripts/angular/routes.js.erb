@@ -49,6 +49,10 @@ angular.module('ActiveAccounting').config([
         templateUrl: '<%= asset_path('angular/holidays/index.html') %>',
         controller: 'HolidaysCtrl'
       })
+      .when('/our-holidays', {
+        templateUrl: '<%= asset_path('angular/vendor/holidays/index.html') %>',
+        controller: 'VendorHolidaysCtrl'
+      })
       .when('/calc', {
         templateUrl: '<%= asset_path('angular/wage_calculator/index.html') %>',
         controller: 'WageCalculatorCtrl'
