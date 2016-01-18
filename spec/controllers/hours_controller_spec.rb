@@ -15,7 +15,7 @@ RSpec.describe HoursController, type: :controller do
   end
 
   describe "#index" do
-    subject { get :index, month: hour.month, customer_id: customer.id }
+    subject { get :index, month: hour.month, customer_id: customer.id, vendor_id: vendor.id }
     it 'returns a successful 200 response' do
       expect(subject).to be_success
     end

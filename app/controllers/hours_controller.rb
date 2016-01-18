@@ -4,8 +4,8 @@ class HoursController < VendorApplicationController
   before_filter :redirect_to_hr_manager
 
   def index
-    json = ActiveModel::ArraySerializer.new(all_hours.by_customer(params[:customer_id]).by_month(params[:month]),
-                                            each_serializer: HourSerializer)
+    hours = all_hours.by_customer(params[:customer_id]).by_month(params[:month]).by_vendor(params[:vendor_id])
+    json = ActiveModel::ArraySerializer.new(hours, each_serializer: HourSerializer)
     render json: json, status: 200
   end
 

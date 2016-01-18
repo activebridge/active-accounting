@@ -4,6 +4,8 @@
   $scope.hours = {}
   $scope.newHour = {}
   $scope.newHour.errors = {}
+  $scope.filter = {}
+  $scope.filter.data = {}
 
   curr_date = new Date()
   $scope.currentYear = curr_date.getFullYear()
@@ -97,4 +99,18 @@
         $scope.LoadHours($scope.year)
         return
 
+  $scope.filter.clear = ->
+    $('select.search').select2('val', '')
+    $scope.filter.data = {}
+
+  $scope.filter.show = ->
+    $scope.filter.active = !($scope.filter.active)
+    $scope.filter.clear()
+
+  $scope.filter.fetchHours = () ->
+    $scope.hours = Hours.query
+      customer_id: $scope.filter.data.customer_id
+      vendor_id: $scope.filter.data.vendor_id
+      month: $scope.selectedMonth + '/' + $scope.currentYear
+    return
 ]

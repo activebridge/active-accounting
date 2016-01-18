@@ -21,6 +21,10 @@ class Hour < ActiveRecord::Base
     where(customer_id: id) if id
   }
 
+  scope :by_vendor, -> (id) {
+    where(vendor_id: id) if id
+  }
+
   scope :uniq_years, -> {
     pluck(:month).map(&:year).uniq.sort
   }
