@@ -22,6 +22,9 @@ module ActiveAccounting
     config.autoload_paths += Dir["#{config.root}/app/models/**/",
                                  "#{config.root}/app/decorators/**/",
                                  "#{config.root}/lib/**/"]
+
+    # don't show asset logs in console
+    config.assets.logger = nil if Rails.env.development?
   end
 end
 
