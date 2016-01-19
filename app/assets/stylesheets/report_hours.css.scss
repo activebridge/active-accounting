@@ -33,4 +33,26 @@
       }
     }
   }
+
+  a.filter {
+    font-size: 14px;
+    float: right;
+  }
+
+  .head_filter {
+    font-size: 18px;
+    color: black;
+  }
+
+  .position_right button {
+    float: right;
+  }
+
+  .position_left {
+    width: 100%;
+  }
+
+  .hours_filter tr {
+    height: 0px;
+  }
 }

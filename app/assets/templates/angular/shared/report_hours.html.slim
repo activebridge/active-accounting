@@ -1,0 +1,32 @@
+table ng-class="{position_left: filter.active}"
+  tr
+    td ng-show="!filter.active"
+      a.filter href="javascript: void(false);" ng-click="filter.show()"
+        | {{ 'show' | translate }}: {{ 'filter' | translate }}
+
+form.form-filter.ng-pristine.ng-valid ng-class="{open_form_filter: filter.active}" ng-submit="filter.fetchHours()"
+  .head_filter ng-show="filter.active"
+    span
+      | {{ 'filter' | translate }}
+    span.position_right
+      button.icon-button ng-click="filter.active = !filter.active" title="{{ 'close' | translate }} {{ 'filter' | translate }}" type="button"
+        span.glyphicon.glyphicon-remove
+
+  table ng-class="{position_left: filter.active}" ng-show="filter.active"
+    tr
+      th translate='Customer'
+      th translate='Vendor'
+    tr
+      td
+        select.width-150.hours.customer.search ng-model="filter.data.customer_id"
+          option ng-repeat='customer in customers' value='{{ customer.id }}' ng-selected='{{ customer_id == customer.id }}' init-select2='setSelect2()'
+            | {{customer.name}}
+      td
+        select.width-150.hours.vendor.search ng-model="filter.data.vendor_id"
+          option ng-repeat='vendor in vendors' value='{{ vendor.id }}' ng-selected='{{ vendor_id == vendor.id }}' init-select2='setSelect2()'
+            | {{vendor.name}}
+      td
+        button.icon-button title="{{ 'searchFilter' | translate }}" type="submit"
+          span.glyphicon.glyphicon-search
+        button.icon-button ng-click="filter.clear()" title="{{ 'clearForm' | translate }}" type="button"
+          span.glyphicon.glyphicon-repeat
