@@ -13,7 +13,7 @@
         th
           input.form-control disabled='disable' ng-init='socialTax = #{VendorCalculator::SOCIAL_TAX}' ng-model='socialTax' smart-float='' type='number'
         th
-          input numeric='' class='form-control' ng-model='exchange' value='{{exchange | number:2}}' ng-change='report()' maxlength='4'
+          input numeric='' class='form-control' ng-model='exchange' value='{{exchange | number:2}}' ng-change='report()' maxlength='5'
         th
           input.form-control numeric='' ng-change='report()' ng-model='salary' value='0' maxlength='6' type='number'
         th
@@ -26,7 +26,7 @@
         .text-right
           | {{salaryHrn | number:2}}
     tr
-      td Єдиний соціальний податок:
+      td Єдиний соціальний внесок:
       td
         .text-right
           | {{socialTax}}
@@ -34,12 +34,12 @@
       td Комісія за переведення в готівку (0.75%):
       td
         .text-right
-          | {{cashingTax | number:2}}
+          | {{cashingTaxSum | number:2}}
     tr
       td Єдиний податок (5%):
       td
         .text-right
-          | {{singleTax | number:2}}
+          | {{singleTaxSum | number:2}}
     tr
       td
         h2 Всього:
