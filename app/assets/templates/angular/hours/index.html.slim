@@ -1,47 +1,43 @@
 .row.hours
-  .col-md-3
-    .row
-      .col-md-12.col-sm-6
-        .calendar.text-center
-          .row
-            b translate='hours_calendar'
-          .row
-            .btn-group data-toggle="buttons"
-              .btn.btn-primary.col-lg-3 ng-repeat='hours in hoursByMonths' ng-init="clicked = selectedMonth == hours.report_month" ng-class="{ 'active': clicked }" ng-click='changeMonth(hours.report_month, options = {type: "vendor"})'
-                input#option1 name="options" type="radio"
-                  | {{ months[hours.report_month - 1] }}
-                  br
-                    | ({{ hours.total_hours }})
-          .row
-            h2.text-center translate='holidays' ng-show='(holidays | filter: {month: monthAndYear}).length>0'
-            table ng-show='(holidays | filter: {month: monthAndYear}).length>0'
-              thead.bg-grey
-                tr
-                  th.text-center translate='date'
-                  th.text-center translate='title'
-              tbody
-                tr ng-repeat='holiday in holidays | filter: {month: monthAndYear}'
-                  td
-                    | {{ holiday.date }}
-                  td
-                    | {{ holiday.name }}
-          .row
-            b
-              i
-                | {{ 'count_working_days' | translate }}: {{ workingDays.count }}
-          .row
-            b
-              i
-                | {{ 'totalHours' | translate }}: {{ workingDays.count * 8 || 0 }}
-          .row
-            .col-md-8.col-sm-6.col-xs-6
-              b
-                | {{ 'autoFill_hours' | translate }}:&nbsp;
-            .col-md-4.col-sm-6.col-xs-6
-              .pull-left toggle-switch='' ng-model="current_vendor.approvehoursStatus" on-label="Вкл" off-label="Викл" ng-change='updateApproveHours()'
-      .col-md-12.col-sm-6
-        #holiday-calendar ui-date="dateOptions"
-  .col-md-9
+  .col-md-3.col-sm-4
+    .calendar.text-center
+      .row
+        b translate='hours_calendar'
+      .row
+        .btn-group data-toggle="buttons"
+          .btn.btn-primary.col-lg-3 ng-repeat='hours in hoursByMonths' ng-init="clicked = selectedMonth == hours.report_month" ng-class="{ 'active': clicked }" ng-click='changeMonth(hours.report_month, options = {type: "vendor"})'
+            input#option1 name="options" type="radio"
+              | {{ months[hours.report_month - 1] }}
+              br
+                | ({{ hours.total_hours }})
+      .row
+        h2.text-center translate='holidays' ng-show='(holidays | filter: {month: monthAndYear}).length>0'
+        table ng-show='(holidays | filter: {month: monthAndYear}).length>0'
+          thead.bg-grey
+            tr
+              th.text-center translate='date'
+              th.text-center translate='title'
+          tbody
+            tr ng-repeat='holiday in holidays | filter: {month: monthAndYear}'
+              td
+                | {{ holiday.date }}
+              td
+                | {{ holiday.name }}
+      .row
+        b
+          i
+            | {{ 'count_working_days' | translate }}: {{ workingDays.count }}
+      .row
+        b
+          i
+            | {{ 'totalHours' | translate }}: {{ workingDays.count * 8 || 0 }}
+      .row
+        .col-md-8.col-sm-6.col-xs-6
+          b
+            | {{ 'autoFill_hours' | translate }}:&nbsp;
+        .col-md-4.col-sm-6.col-xs-6
+          .pull-left toggle-switch='' ng-model="current_vendor.approvehoursStatus" on-label="Вкл" off-label="Викл" ng-change='updateApproveHours()'
+  .col-md-6
     .row
       h1.text-center translate='management_hours'
       #hours_form
@@ -99,3 +95,5 @@
     .alert.alert-info.alert-dismissable.info-update
       strong
         | {{ 'success_message' | translate }}
+  .col-md-3
+    #holiday-calendar ui-date="dateOptions"
