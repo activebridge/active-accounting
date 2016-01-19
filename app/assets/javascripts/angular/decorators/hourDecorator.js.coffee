@@ -62,5 +62,4 @@ angular.module('accounting.services').factory 'hourDecorator', ["$q", 'Hours', '
         setDate = setDay + '.' + $scope.monthAndYear.replace('/','.')
         $('#holiday-calendar').datepicker( "setDate", setDate )
         return
-
 ]

@@ -1,4 +1,4 @@
-angular.module('accounting.services').factory 'registerDecorator', ["$rootScope", "$q", "$translate", "$cookies", "Register", "PlanRegister", ($rootScope, $q, $translate, $cookies, Register, PlanRegister) ->
+angular.module('accounting.services').factory 'registerDecorator', ["$rootScope", "$filter","$q", "$translate", "$cookies", "Register", "PlanRegister", ($rootScope, $filter, $q, $translate, $cookies, Register, PlanRegister) ->
   ($scope) ->
     if $scope.sandbox
       $scope.model = PlanRegister
@@ -94,6 +94,18 @@ angular.module('accounting.services').factory 'registerDecorator', ["$rootScope"
       $('#month-picker').MonthPicker
         ShowIcon: false,
         i18n: {year: $translate.instant('year'), jumpYears: $translate.instant('jumpYears'), prevYear: $translate.instant('prevYear'), nextYear: $translate.instant('nextYear'), months: $translate.instant('months').split(".") }
+      $('#month-picker').change ->
+        month = $('#month-picker').val().substr(0, 2)
+        year = $('#month-picker').val().substr(3, 4)
+        if month < $filter('date')(new Date(), 'MM') && year <= $filter('date')(new Date(), 'YYYY')
+          changeClientsState(true)
+        else
+          changeClientsState(false)
+
+    changeClientsState = (state) ->
+      $('.hours').prop('disabled', state)
+      $('.number').prop('disabled', state)
+      $('.btn').prop('disabled', state)
 
     $scope.setMonthPicker()
 ]
