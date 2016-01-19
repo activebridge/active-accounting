@@ -53,6 +53,9 @@ group :development, :test do
   gem 'shoulda-callback-matchers'
   gem 'shoulda-matchers'
   gem 'test-unit'
+  gem 'jasmine'
+  gem 'jasmine-jquery-rails'
+  gem 'protractor-rails'
 end
 
 group :development do

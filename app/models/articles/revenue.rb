@@ -1,3 +1,1 @@
-class Revenue < Article
-
-end
+Article::Revenue = Class.new(Article)

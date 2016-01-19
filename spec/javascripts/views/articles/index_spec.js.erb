@@ -1,0 +1,15 @@
+describe('homepage', function() {
+  it('user login', function() {
+    browser.get('/');
+    var email = element(by.id('email'));
+    var password = element(by.id('password'));
+    var form = element(by.css('form'))
+
+    email.sendKeys('test@te.st')
+    password.sendKeys('12345678')
+    form.submit();
+
+    // need another expectation
+    expect(1+1).toBe(2);
+  });
+});
