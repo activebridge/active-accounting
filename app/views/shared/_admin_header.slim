@@ -25,10 +25,10 @@ div ng-controller='TranslateCtrl'
         li  data-match-route='/calc'
           a href='/#/calc' translate='calc'
         li.locale
-          a href='#' ng-click='changeLanguage("uk")'
+          a href='javascript:void(0);' ng-click='changeLanguage("uk")'
             = image_tag 'ua.png'
         li.locale.margin-right-15
-          a href='#' ng-click='changeLanguage("en")'
+          a href='javascript:void(0);' ng-click='changeLanguage("en")'
             = image_tag 'gb.png'
         li.margin-right-10
           a href='/users/sign_out' data-method='delete'
