@@ -4,7 +4,12 @@
 
   $scope.currentYear = moment().format('YYYY')
 
-  $scope.holidays = Holiday.query(year: $scope.currentYear)
+  $scope.load = ->
+    $scope.holidays = Holiday.query(year: $scope.currentYear)
+    return
+
+  $('.date').datepicker
+    changeYear: true
 
   $scope.add = ->
     holiday = Holiday.save($scope.newHoliday,
@@ -37,5 +42,13 @@
   $scope.setDatepicker = ->
     $('.date').datepicker()
     return
+
+  $scope.changeDate = ->
+    if $scope.currentYear != $scope.newHoliday.date.slice(6)
+      $scope.currentYear = $scope.newHoliday.date.slice(6)
+      $scope.load()
+    return
+
   $scope.setDatepicker()
+  $scope.load()
 ]
