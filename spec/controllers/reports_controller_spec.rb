@@ -77,4 +77,11 @@ RSpec.describe ReportsController, :type => :controller do
 
   end
 
+  describe '#years' do
+    let!(:register) { FactoryGirl.create(:register) }
+
+    subject { get :years }
+
+    it { is_expected.to be_success }
+  end
 end

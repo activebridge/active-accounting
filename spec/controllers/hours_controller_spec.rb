@@ -64,7 +64,7 @@ RSpec.describe HoursController, type: :controller do
     it { expect(json.first['report_month']).to eql(hour.month.month) }
   end
 
-   describe "#years" do
+  describe "#years" do
     before { get :years }
 
     it { expect(json['years']).to have(1).items }
