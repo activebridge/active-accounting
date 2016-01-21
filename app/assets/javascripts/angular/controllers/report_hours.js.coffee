@@ -65,6 +65,7 @@
         if parseInt(hour.month.slice(0,2)) == $scope.selectedMonth
           $scope.hours.unshift(hour)
         $scope.newHour.hours = ''
+        loadYears()
         $scope.LoadHours($scope.year)
         $scope.newHour.month = moment().format('MM/YYYY')
         $scope.newHour.errors = []
@@ -95,6 +96,7 @@
       Hours.delete
         id: hours_id
       , (success) ->
+        loadYears()
         $scope.hours.splice(index,1)
         $scope.LoadHours($scope.year)
         return
@@ -111,6 +113,6 @@
     $scope.hours = Hours.query
       customer_id: $scope.filter.data.customer_id
       vendor_id: $scope.filter.data.vendor_id
-      month: $scope.selectedMonth + '/' + $scope.currentYear
+      month: $scope.selectedMonth + '/' + $.trim($scope.year)
     return
 ]
