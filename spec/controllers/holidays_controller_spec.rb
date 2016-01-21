@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe HolidaysController, type: :controller do
   let!(:holiday) { FactoryGirl.create(:holiday) }
-  let(:holiday_attributes) { FactoryGirl.attributes_for(:holiday) }
-  let(:unvalid_holiday_attributes) { FactoryGirl.attributes_for(:holiday, name:'', date:'')}
+  let(:holiday_attributes) { FactoryGirl.attributes_for(:holiday, name: 'name', date: '20.01.2016') }
+  let(:invalid_holiday_attributes) { FactoryGirl.attributes_for(:holiday, name:'', date:'')}
 
   before do
     allow(controller).to receive(:authenticate_user!) { true }
@@ -17,16 +17,46 @@ RSpec.describe HolidaysController, type: :controller do
   end
 
   describe '#create' do
-    it 'add holiday' do
-      expect {
-        post :create, { holiday: holiday_attributes }
-      }.to change(Holiday, :count).by(1)
+    subject { -> { post :create, holiday: holiday_params } }
+
+    context 'with valid params' do
+      let(:holiday_params) { holiday_attributes }
+      it { is_expected.to change(Holiday, :count).by(1) }
     end
 
-    it 'add holiday from unvalid holiday attributes' do
-      expect {
-        post :create, { holiday: unvalid_holiday_attributes }
-      }.to_not change(Holiday, :count)
+    context 'with invalid params' do
+      let(:holiday_params) { invalid_holiday_attributes }
+      it { is_expected.to_not change(Holiday, :count) }
+    end
+  end
+
+  describe '#create' do
+    subject { -> { post :create, holiday: holiday_params } }
+
+    context 'with valid params' do
+      let(:holiday_params) { holiday_attributes }
+      it { is_expected.to change(Holiday, :count).by(1) }
+    end
+
+    context 'with invalid params' do
+      let(:holiday_params) { invalid_holiday_attributes }
+      it { is_expected.to_not change(Holiday, :count) }
+    end
+  end
+
+  describe '#update' do
+    subject { -> { put :update, { id: holiday.id, holiday: holiday_params } } }
+    before { subject.call }
+
+    context 'with valid params' do
+      let(:holiday_params) { holiday_attributes }
+      it { expect(json['name']).to eq(holiday_attributes[:name]) }
+      it { expect(json['date']).to eq(holiday_attributes[:date]) }
+    end
+
+    context 'with invalid params' do
+      let(:holiday_params) { invalid_holiday_attributes }
+      it { expect(json['status']).to eq('error') }
     end
   end
 

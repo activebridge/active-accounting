@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe CounterpartiesController, :type => :controller do
+  let(:vendor) { FactoryGirl.create(:vendor) }
+  let(:vendor_attributes) { FactoryGirl.attributes_for(:vendor, name: 'Name', type: 'Vendor') }
+  let(:invalid_vendor_attributes) { FactoryGirl.attributes_for(:vendor, name: '', type: '') }
+
 
   before do
     allow(controller).to receive(:authenticate_user!) { true }
@@ -35,6 +39,36 @@ RSpec.describe CounterpartiesController, :type => :controller do
       end
 
       it { expect(json.first['versions']).to have(1).item }
+    end
+  end
+
+  describe '#create' do
+    subject { -> { post :create, counterparty: counterparty_params } }
+
+    context 'with valid params' do
+      let(:counterparty_params) { vendor_attributes }
+      it { is_expected.to change(Counterparty, :count).by(1) }
+      it { expect(response).to be_success }
+    end
+
+    context 'with invalid params' do
+      let(:counterparty_params) { invalid_vendor_attributes }
+      it { is_expected.to_not change(Counterparty, :count) }
+    end
+  end
+
+  describe "#update" do
+    context 'with valid params' do
+      before { put :update, { id: vendor.id, counterparty: vendor_attributes } }
+
+      it { expect(json['name']).to eq(vendor_attributes[:name]) }
+      it { expect(json['type']).to eq(vendor_attributes[:type]) }
+    end
+
+    context 'with invalid params' do
+      before { put :update, { id: vendor.id, counterparty: invalid_vendor_attributes } }
+
+      it { expect(json['status']).to eq('error') }
     end
   end
 

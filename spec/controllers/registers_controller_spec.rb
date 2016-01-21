@@ -1,11 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe RegistersController, :type => :controller do
+RSpec.describe RegistersController, type: :controller do
+  let(:article) { FactoryGirl.create(:article) }
+  let(:register) { FactoryGirl.create(:register) }
+  let(:register_attributes) { FactoryGirl.attributes_for(:register, date: '18-01-2016', type: 'Fact', value: 100, article_id: article.id) }
+  let(:invalid_register_attributes) { FactoryGirl.attributes_for(:register, date: '', type: '', value: '', article_id: '') }
 
   before do
     allow(controller).to receive(:authenticate_user!) { true }
   end
-
 
   describe "#index" do
     let(:article_type_revenue) { FactoryGirl.create(:article, type: Article::TYPES::REVENUE) }
@@ -44,5 +47,39 @@ RSpec.describe RegistersController, :type => :controller do
 
       it { expect(json).to have(2).items }
     end
+  end
+
+  describe '#create' do
+    subject { -> { post :create, register: register_params } }
+
+    context 'with valid params' do
+      let(:register_params) { register_attributes }
+      it { is_expected.to change(Register, :count).by(1) }
+      it { expect(response).to be_success }
+    end
+
+    context 'with invalid params' do
+      let(:register_params) { invalid_register_attributes }
+      it { is_expected.to_not change(Register, :count) }
+    end
+  end
+
+  describe "#update" do
+    context 'with valid params' do
+      before { put :update, { id: register.id, register: register_attributes } }
+
+      it { expect(json['date']).to eq(register_attributes[:date]) }
+      it { expect(json['value']).to eq(register_attributes[:value]) }
+    end
+
+    context 'with invalid params' do
+      before { put :update, { id: register.id, register: invalid_register_attributes } }
+
+      it { expect(json['status']).to eq('error') }
+    end
+  end
+
+  describe '#destroy' do
+    it { expect { delete :destroy, id: register.id }.to change(Register, :count).by(0) }
   end
 end
