@@ -15,7 +15,7 @@
                 span.error
                   | {{newHoliday.errors.name[0]}}
             td
-              input.date ng-model="newHoliday.date" type="text" name='date' ng-required="true"
+              input.date ng-model="newHoliday.date" type="text" name='date' ng-required="true" ng-change="changeDate()"
                 br
                 span.error
                   | {{newHoliday.errors.type[0]}}
