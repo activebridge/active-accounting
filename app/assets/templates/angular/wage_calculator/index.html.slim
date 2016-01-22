@@ -1,14 +1,15 @@
 #main_container.container
   h1
     | {{ 'calc' | translate }}
-  table.table.table-striped
-    tr
-      th translate='social_tax'
-      th translate='single_tax'
-      th translate='cash_tax'
-      th
-    tbody
-      div ng-if='!vendor'
+  div ng-show='admin'
+    div flash-message='5000'
+    table.table.table-striped
+      tr
+        th translate='social_tax'
+        th translate='single_tax'
+        th translate='cash_tax'
+        th
+      tbody
         tr
           th
             input.form-control ng-model='socialTax' smart-float='' type='number'
@@ -19,23 +20,30 @@
           th
             button ng-click='setTaxes()'
               | OK
-  table.table.table-striped
-    tr
-      th translate='exchange_rate'
-      th translate='salary'
-      th translate='translation'
-    tbody
+    table.table.table-striped
+      tr
+        th translate='exchange_rate'
+        th translate='salary'
+        th translate='translation'
+      tbody
+        tr
+          th
+            input numeric='' class='form-control' ng-model='exchange' value='{{exchange | number:2}}' ng-change='report()' maxlength='5'
+          th
+            input.form-control numeric='' ng-change='report()' ng-model='salary' value='0' maxlength='6' type='number'
+          th
+            input.form-control numeric='' ng-change='report(translation)' ng-model='translation' value='0' maxlength='10' type='number'
+          th
+  div ng-show='!admin'
+    table.table.table-striped
+      tr
+        th translate='exchange_rate'
+        th translate='salary'
+        th translate='translation'
+      tbody
       tr
         th
-          input numeric='' class='form-control' ng-model='exchange' value='{{exchange | number:2}}' ng-change='report()' maxlength='5'
-        th
-          input.form-control numeric='' ng-change='report()' ng-model='salary' value='0' maxlength='6' type='number'
-        th
-          input.form-control numeric='' ng-change='report(translation)' ng-model='translation' value='0' maxlength='10' type='number'
-        th
-      tr ng-if='vendor'
-        th
-          input.form-control disabled='disable' ng-init='socialTax = #{VendorCalculator::SOCIAL_TAX}' ng-model='socialTax' smart-float='' type='number'
+          input.form-control disabled='disable' ng-model='socialTax' smart-float='' type='number'
         th
           input numeric='' class='form-control' ng-model='exchange' value='{{exchange | number:2}}' ng-change='report()' maxlength='5'
         th

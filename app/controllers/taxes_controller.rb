@@ -1,6 +1,7 @@
 class TaxesController < ApplicationController
+  skip_before_action :authenticate_user!
   before_action :find_tax
-  before_action :check_user
+  before_action :check_user, only: :update
 
   def edit
     render json: @tax.to_json(only: [:social, :single, :cash])

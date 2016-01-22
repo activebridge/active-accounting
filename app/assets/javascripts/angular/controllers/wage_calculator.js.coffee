@@ -1,7 +1,8 @@
-@WageCalculatorCtrl = ['$scope', '$http', ($scope, $http) ->
+@WageCalculatorCtrl = ['$scope', '$http', 'Flash', '$translate', ($scope, $http, Flash, $translate) ->
+  $scope.flashDuretion = 5000
   $scope.exchange = 0
   $scope.salary = 0
-  $scope.vendor = gon.current_counterparty
+  $scope.admin = gon.admin
 
   $scope.report = (translation) ->
     if angular.isUndefined($scope.translation)
@@ -34,8 +35,10 @@
           social: $scope.socialTax
           single: $scope.singleTax
           cash: $scope.cashTax
+    ).success(
+      Flash.create('success', $translate.instant('tax_updated'))
     ).error((response) ->
-      $scope.error = response
+      Flash.create('danger', $translate.instant('tax_update_error'))
     )
 
   percentToIndex = (tax) ->
