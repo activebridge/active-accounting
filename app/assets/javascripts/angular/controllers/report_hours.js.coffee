@@ -57,13 +57,15 @@
     $scope.newHour.vendor_id = $scope.vendor_id
     $scope.newHour.customer_id = $scope.customer_id
     $('select.year-select').select2({ 'minimumResultsForSearch': 5 })
-    return
 
   $scope.add = ->
     hour = ReportHours.save($scope.newHour,
       () ->
         if parseInt(hour.month.slice(0,2)) == $scope.selectedMonth
           $scope.hours.unshift(hour)
+        if $.inArray(parseInt(hour.month.slice(3,7)), $scope.years) == -1
+          $scope.years.push(parseInt(hour.month.slice(3,7)))
+          $scope.years.sort()
         $scope.newHour.hours = ''
         $scope.LoadHours($scope.year)
         $scope.newHour.month = moment().format('MM/YYYY')
@@ -111,6 +113,6 @@
     $scope.hours = Hours.query
       customer_id: $scope.filter.data.customer_id
       vendor_id: $scope.filter.data.vendor_id
-      month: $scope.selectedMonth + '/' + $scope.currentYear
+      month: $scope.selectedMonth + '/' + $.trim($scope.year)
     return
 ]
