@@ -4,23 +4,23 @@ class VendorCalculator
   def initialize(vendor, params)
     @vendor = vendor
     @translation = params[:translation].to_f
-    @rate = @vendor.currency_monthly_payment == "USD" ? params[:rateDollar].to_f : 1
+    @rate = @vendor.currency_monthly_payment == 'USD' ? params[:rateDollar].to_f : 1
     @month = params[:month]
   end
 
   def total_money
-    @total_money ||= sprintf("%.2f", (summ_salary + summ_salary * 0.0075)/0.95)
+    @total_money ||= sprintf('%.2f', (summ_salary + summ_salary * 0.0075) / 0.95)
   end
 
   def summ_salary
     @summ_salary ||= @vendor.value_payment * @rate + SOCIAL_TAX + @translation
   end
 
-  def total_money_words salary
+  def total_money_words(salary)
     (I18n.with_locale(:ua) { salary.to_i.to_words gender: :female } + name_currency(salary.split('.')[0])).mb_chars.capitalize.to_s
   end
 
-  def name_currency number
+  def name_currency(number)
     last_symbols = number.last(2)
     if last_symbols.last == '1' && last_symbols != '11'
       " гривня"

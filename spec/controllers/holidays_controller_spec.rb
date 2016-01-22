@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe HolidaysController, type: :controller do
   let!(:holiday) { FactoryGirl.create(:holiday) }
   let(:holiday_attributes) { FactoryGirl.attributes_for(:holiday, name: 'name', date: '20.01.2016') }
-  let(:invalid_holiday_attributes) { FactoryGirl.attributes_for(:holiday, name:'', date:'')}
+  let(:invalid_holiday_attributes) { FactoryGirl.attributes_for(:holiday, name: '', date: '') }
 
   before do
     allow(controller).to receive(:authenticate_user!) { true }
   end
 
-  describe "#index" do
+  describe '#index' do
     it 'returns a successful 200 response' do
       get :index, years: holiday.date
       expect(response).to be_success
@@ -45,7 +45,7 @@ RSpec.describe HolidaysController, type: :controller do
   end
 
   describe '#update' do
-    subject { -> { put :update, { id: holiday.id, holiday: holiday_params } } }
+    subject { -> { put :update, id: holiday.id, holiday: holiday_params } }
     before { subject.call }
 
     context 'with valid params' do
@@ -60,7 +60,7 @@ RSpec.describe HolidaysController, type: :controller do
     end
   end
 
-  describe "#destroy" do
+  describe '#destroy' do
     it { expect { delete :destroy, id: holiday.id }.to change(Holiday, :count).by(-1) }
   end
 end

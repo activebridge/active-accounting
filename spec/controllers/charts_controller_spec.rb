@@ -9,14 +9,14 @@ RSpec.describe ChartsController, type: :controller do
     allow(controller).to receive(:authenticate_user!) { true }
   end
 
-  describe "#index" do
+  describe '#index' do
     subject { get :index, register: register_attributes }
     it 'returns a successful 200 response' do
       is_expected.to be_success
     end
   end
 
-  describe "#years" do
+  describe '#years' do
     subject { get :years }
     it 'returns a successful 200 response' do
       is_expected.to be_success

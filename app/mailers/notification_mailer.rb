@@ -1,5 +1,5 @@
 class NotificationMailer < ActionMailer::Base
-  default from: "robot@accounting.active-bridge.com"
+  default from: 'robot@accounting.active-bridge.com'
 
   def vendor_add_hours(vendor, hour, token)
     @token = token

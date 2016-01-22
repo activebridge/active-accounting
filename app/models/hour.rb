@@ -7,29 +7,29 @@ class Hour < ActiveRecord::Base
   delegate :name, to: :customer, prefix: true
   delegate :name, to: :vendor, prefix: true
 
-  scope :by_month, -> (date) {
+  scope :by_month, lambda { |date|
     date = date.to_date
-    where("extract(month from month) = ? AND extract(year from month) = ?", date.month, date.year)
+    where('extract(month from month) = ? AND extract(year from month) = ?', date.month, date.year)
   }
 
-  scope :hours_by_month, -> (year) {
-    where("extract(year from month) = ?", year || Date.current.year)
-    .select("month(month) as report_month, sum(hours) as total_hours").group(:report_month)
+  scope :hours_by_month, lambda { |year|
+    where('extract(year from month) = ?', year || Date.current.year)
+      .select('month(month) as report_month, sum(hours) as total_hours').group(:report_month)
   }
 
-  scope :by_customer, -> (id) {
+  scope :by_customer, lambda  { |id|
     where(customer_id: id) if id
   }
 
-  scope :by_vendor, -> (id) {
+  scope :by_vendor, lambda  { |id|
     where(vendor_id: id) if id
   }
 
-  scope :uniq_years, -> {
+  scope :uniq_years, lambda {
     pluck(:month).map(&:year).uniq.sort
   }
 
-  scope :find_double, -> (params) {
+  scope :find_double, lambda { |params|
     where("customer_id = #{params[:customer_id]}
             AND vendor_id = #{params[:vendor_id]}
             AND hours = #{params[:hours]}

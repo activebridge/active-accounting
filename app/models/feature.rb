@@ -2,7 +2,7 @@ class Feature < ActiveRecord::Base
   has_many :order_features
   has_many :vendor_orders, through: :order_features
 
-  TYPES = ['Primary', 'Additional']
+  TYPES = %w(Primary Additional).freeze
 
   TYPES.each do |name_type|
     define_method("#{name_type.downcase}?") do
@@ -12,5 +12,5 @@ class Feature < ActiveRecord::Base
 
   validates :name, :type, presence: true
 
-  scope :by_group, -> (group) { where(type: group) if group}
+  scope :by_group, -> (group) { where(type: group) if group }
 end

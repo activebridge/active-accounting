@@ -3,8 +3,8 @@ class ArticlesController < ApplicationController
 
   def index
     json = ActiveModel::ArraySerializer.new(Article.all.by_group(params[:type]),
-                                           each_serializer: ArticleSerializer,
-                                           root: nil)
+                                            each_serializer: ArticleSerializer,
+                                            root: nil)
     render json: json, status: 200
   end
 
@@ -13,7 +13,7 @@ class ArticlesController < ApplicationController
     if article.save
       render json: ArticleSerializer.new(article), status: 200
     else
-      render json: {status: :error, error: article.errors.messages}, status: 422
+      render json: { status: :error, error: article.errors.messages }, status: 422
     end
   end
 
@@ -22,12 +22,11 @@ class ArticlesController < ApplicationController
     head(200)
   end
 
-
   def update
     if @article.update_attributes(article_params)
       render json: ArticleSerializer.new(@article), status: 201
     else
-      render json: {status: :error, error: @article.errors.messages}, status: 422
+      render json: { status: :error, error: @article.errors.messages }, status: 422
     end
   end
 

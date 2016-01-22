@@ -6,7 +6,7 @@ class HourSerializer < ActiveModel::Serializer
   end
 
   def month
-    object.month.strftime("%m-%Y") if object.month
+    object.month.strftime('%m-%Y') if object.month
   end
 
   def vendor

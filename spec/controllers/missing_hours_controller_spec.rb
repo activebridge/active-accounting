@@ -5,7 +5,7 @@ RSpec.describe MissingHoursController, type: :controller do
     allow(controller).to receive(:authenticate_user!) { true }
   end
 
-  describe "#index" do
+  describe '#index' do
     context 'hours are present' do
       let!(:vendor) { create(:vendor) }
       let(:customer) { create(:customer) }

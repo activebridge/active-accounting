@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Register, :type => :model do
+RSpec.describe Register, type: :model do
   context '.by_months' do
     let(:date1) { '10/12/2014' }
     let(:date2) { '05/10/2014' }

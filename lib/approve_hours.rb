@@ -1,6 +1,5 @@
 class ApproveHours
-
-  def initialize(current_day=nil)
+  def initialize(current_day = nil)
     @current_day = current_day || Time.current
   end
 
@@ -8,9 +7,8 @@ class ApproveHours
     vendors = Vendor.where(approve_hours: true)
     vendors.each do |vendor|
       unless vendor.customer_id.nil?
-        unless double?(vendor)
-          NotificationMailer.vendor_add_hours(vendor, hour_params(vendor), verifier.generate(hour_params(vendor)))
-        end
+        next if double?(vendor)
+        NotificationMailer.vendor_add_hours(vendor, hour_params(vendor), verifier.generate(hour_params(vendor)))
       end
     end
   end
@@ -24,13 +22,13 @@ class ApproveHours
       NotificationMailer.admin_auto_add_hours(hour)
     end
 
-    rescue
-      false
+  rescue
+    false
   end
 
   private
 
-  def hour_params(vendor, hours_in_day=8)
+  def hour_params(vendor, hours_in_day = 8)
     {
       customer_id: vendor.customer_id,
       vendor_id: vendor.id,

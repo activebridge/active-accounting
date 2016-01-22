@@ -14,7 +14,7 @@ class CounterpartiesController < ApplicationController
     if counterparty.save
       render json: CounterpartySerializer.new(counterparty), status: 200
     else
-      render json: {status: :error, error: counterparty.errors.messages}, status: 422
+      render json: { status: :error, error: counterparty.errors.messages }, status: 422
     end
   end
 
@@ -27,7 +27,7 @@ class CounterpartiesController < ApplicationController
     if @counterparty.update_attributes(counterparty_params)
       render json: CounterpartySerializer.new(@counterparty), status: 201
     else
-      render json: {status: :error, error: @counterparty.errors.messages}, status: 422
+      render json: { status: :error, error: @counterparty.errors.messages }, status: 422
     end
   end
 
@@ -35,8 +35,8 @@ class CounterpartiesController < ApplicationController
     type = params[:sandbox] ? Register::TYPES::PLAN : Register::TYPES::FACT
     counterparties = Counterparty.unpaid_for(Date.parse(params[:month]), type)
     json = ActiveModel::ArraySerializer.new(counterparties,
-                                           each_serializer: CounterpartyRegisterSerializer,
-                                           root: nil)
+                                            each_serializer: CounterpartyRegisterSerializer,
+                                            root: nil)
     render json: json, status: 200
   end
 

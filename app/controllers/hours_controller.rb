@@ -14,7 +14,7 @@ class HoursController < VendorApplicationController
     if hour.save
       render json: HourSerializer.new(hour), status: 200
     else
-      render json: {status: :error, error: hour.errors.messages}, status: 422
+      render json: { status: :error, error: hour.errors.messages }, status: 422
     end
   end
 
@@ -27,7 +27,7 @@ class HoursController < VendorApplicationController
     if @hour.update(update_params)
       render json: @hour, status: 201
     else
-      render json: {status: :error, error: @hour.errors.messages}, status: 422
+      render json: { status: :error, error: @hour.errors.messages }, status: 422
     end
   end
 

@@ -4,21 +4,21 @@ class VendorActsController < ApplicationController
 
   def index
     acts = ActiveModel::ArraySerializer.new(@vendor.vendor_acts.order('id desc'),
-                                           each_serializer: VendorActSerializer,
-                                           root: nil)
+                                            each_serializer: VendorActSerializer,
+                                            root: nil)
     render json: acts, status: 200
   end
 
   def create
     if @vendor.value_payment.nil? || info_empty.length > 0
       messages = @vendor.value_payment ? info_empty : ['no_monthly_payment']
-      render json: {status: :error, messages: messages}, status: 422
+      render json: { status: :error, messages: messages }, status: 422
     else
       @act_params = VendorAct.new(invoice_calculator.params_new_act)
       if @act_params.save
         @total_money_words = invoice_calculator.total_money_words(@act_params.total_money.to_s)
         respond_to do |format|
-          format.html { render "acts/show_vendor.pdf.erb" }
+          format.html { render 'acts/show_vendor.pdf.erb' }
         end
       else
         render json: { status: :error, messages:  @act_params.errors.messages[:month] }, status: 422
@@ -29,10 +29,10 @@ class VendorActsController < ApplicationController
   def show
     @total_money_words = invoice_calculator.total_money_words(@act_params.total_money.to_s)
     respond_to do |format|
-      format.html { render "acts/show_vendor.pdf.erb" }
+      format.html { render 'acts/show_vendor.pdf.erb' }
       format.pdf do
         render pdf: "act_#{@vendor.name + Time.current.strftime('%m-%d-%Y')}",
-               template: "acts/show_vendor.pdf.erb",
+               template: 'acts/show_vendor.pdf.erb',
                dpi: '1200'
       end
     end
@@ -42,7 +42,7 @@ class VendorActsController < ApplicationController
     if @act_params.update_attributes(vendor_act__params)
       render json: @act_params, status: 201
     else
-      render json: {status: :error, error: 'Something went wrong!'}, status: 422
+      render json: { status: :error, error: 'Something went wrong!' }, status: 422
     end
   end
 

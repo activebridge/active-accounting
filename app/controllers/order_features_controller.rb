@@ -15,7 +15,7 @@ class OrderFeaturesController < VendorApplicationController
       @order && @order.order_features.create(feature: feature)
       render json: FeatureSerializer.new(feature), status: 200
     else
-      render json: {status: :error, error: feature.errors.messages}, status: 422
+      render json: { status: :error, error: feature.errors.messages }, status: 422
     end
   end
 
@@ -37,7 +37,7 @@ class OrderFeaturesController < VendorApplicationController
     if @feature.update(feature_params)
       render json: FeatureSerializer.new(@feature), status: 201
     else
-      render json: {status: :error, error: @feature.errors.messages}, status: 422
+      render json: { status: :error, error: @feature.errors.messages }, status: 422
     end
   end
 

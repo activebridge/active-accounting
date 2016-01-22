@@ -15,13 +15,13 @@ class ReportItemSerializer < ActiveModel::Serializer
 
   def counterparties
     ActiveModel::ArraySerializer.new(object.counterparties,
-                                    each_serializer: CounterpartyReportItemSerializer,
-                                    root: nil)
+                                     each_serializer: CounterpartyReportItemSerializer,
+                                     root: nil)
   end
 
   def registers
     ActiveModel::ArraySerializer.new(object.registers,
-                                    each_serializer: RegisterSerializer,
-                                    root: nil)
+                                     each_serializer: RegisterSerializer,
+                                     root: nil)
   end
 end
