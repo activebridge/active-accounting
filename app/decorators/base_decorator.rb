@@ -1,5 +1,5 @@
 class BaseDecorator
-  def self.decorate_collection items
-    items.map { |item| self.new(item) }
+  def self.decorate_collection(items)
+    items.map { |item| new(item) }
   end
 end

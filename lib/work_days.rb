@@ -1,5 +1,4 @@
 class WorkDays
-
   def initialize(current_day)
     @current_day = current_day
   end
@@ -33,4 +32,3 @@ class WorkDays
     Holiday.by_month(@current_day)
   end
 end
-

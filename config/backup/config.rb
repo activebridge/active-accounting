@@ -123,12 +123,11 @@
 #   end
 
 Backup::Model.new(:backup_active_accounting, 'active-accounting') do
-
   database MySQL do |db|
-    db.name = "active_accounting_production2"
-    db.username = "root"
-    db.password = ""
-    db.host = "localhost"
+    db.name = 'active_accounting_production2'
+    db.username = 'root'
+    db.password = ''
+    db.host = 'localhost'
     db.port = 3306
     db.additional_options = ['--quick', '--single-transaction']
   end
@@ -137,5 +136,4 @@ Backup::Model.new(:backup_active_accounting, 'active-accounting') do
     local.path = '~/backups/'
     local.keep = 7
   end
-
 end

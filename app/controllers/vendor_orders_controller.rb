@@ -4,14 +4,14 @@ class VendorOrdersController < ApplicationController
 
   def index
     orders = ActiveModel::ArraySerializer.new(@vendor.vendor_orders.order('id desc'),
-                                           each_serializer: VendorOrderSerializer,
-                                           root: nil)
+                                              each_serializer: VendorOrderSerializer,
+                                              root: nil)
     render json: orders, status: 200
   end
 
   def create
     if info_empty.length > 0
-      render json: {status: :error, messages: info_empty}, status: 422
+      render json: { status: :error, messages: info_empty }, status: 422
     else
       order = VendorOrder.new(vendor_order_params)
       if order.save
@@ -30,7 +30,7 @@ class VendorOrdersController < ApplicationController
     respond_to do |format|
       format.pdf do
         render pdf: "order_#{@vendor.name + Time.current.strftime('%m-%d-%Y')}",
-               template: "acts/order_vendor.pdf.erb",
+               template: 'acts/order_vendor.pdf.erb',
                dpi: '1200'
       end
     end

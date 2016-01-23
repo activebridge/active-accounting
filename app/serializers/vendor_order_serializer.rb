@@ -15,7 +15,7 @@ class VendorOrderSerializer < ActiveModel::Serializer
 
   def features
     ActiveModel::ArraySerializer.new(object.features,
-                                    each_serializer: FeatureSerializer,
-                                    root: nil)
+                                     each_serializer: FeatureSerializer,
+                                     root: nil)
   end
 end

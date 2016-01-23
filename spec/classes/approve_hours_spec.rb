@@ -5,7 +5,7 @@ RSpec.describe ApproveHours, type: :class do
   let!(:vendor) { FactoryGirl.create(:vendor, approve_hours: true, customer_id: customer.id) }
   let(:approve_hours) { ApproveHours.new }
 
-  it "send an email for vendors" do
+  it 'send an email for vendors' do
     expect { approve_hours.working }.to change { ActionMailer::Base.deliveries.count }.by(1)
   end
 

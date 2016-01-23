@@ -1,5 +1,5 @@
 class InvitationMailer < ActionMailer::Base
-  default from: "admin@accounting.active-bridge.com"
+  default from: 'admin@accounting.active-bridge.com'
 
   def create_invite_for_vendor(user, password)
     @user = user

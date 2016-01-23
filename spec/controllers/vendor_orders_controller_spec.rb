@@ -27,12 +27,11 @@ RSpec.describe VendorOrdersController, type: :controller do
     context "responds with a 422 status, vendor hasn't info" do
       let(:vendor_not_info) { FactoryGirl.create(:vendor) }
 
-      before { post :create, { vendor_id: vendor_not_info.id, month: month} }
+      before { post :create, vendor_id: vendor_not_info.id, month: month }
 
       it { expect(response.status).to eq(422) }
-      it { expect(json['messages']).to eq(["you_must_fill_fields", "name", "ipn", "address", "contract", "account", "bank", "mfo", "agreement_date"]) }
+      it { expect(json['messages']).to eq(%w(you_must_fill_fields name ipn address contract account bank mfo agreement_date)) }
     end
-
   end
 
   describe '#show' do

@@ -14,7 +14,7 @@ class HolidaysController < ApplicationController
     if holiday.save
       render json: HolidaySerializer.new(holiday), status: 200
     else
-      render json: {status: :error, error: holiday.errors.messages}, status: 422
+      render json: { status: :error, error: holiday.errors.messages }, status: 422
     end
   end
 
@@ -27,7 +27,7 @@ class HolidaysController < ApplicationController
     if @holiday.update_attributes(holiday_params)
       render json: HolidaySerializer.new(@holiday), status: 201
     else
-      render json: {status: :error, error: @holiday.errors.messages}, status: 422
+      render json: { status: :error, error: @holiday.errors.messages }, status: 422
     end
   end
 

@@ -10,10 +10,10 @@ class Vendor < Counterparty
 
   delegate :name, to: :customer, prefix: true
 
-  scope :by_missing_hours, -> (date = Date.current.at_beginning_of_month) {
+  scope :by_missing_hours, lambda  { |date = Date.current.at_beginning_of_month|
     includes(:hours).active.reject do |v|
       v.hours.where(
-        "extract(month from month) = ? AND extract(year from month) = ?", date.month, date.year
+        'extract(month from month) = ? AND extract(year from month) = ?', date.month, date.year
       ).first
     end
   }
@@ -31,6 +31,6 @@ class Vendor < Counterparty
   end
 
   def create_info_record
-    self.create_vendor_info
+    create_vendor_info
   end
 end

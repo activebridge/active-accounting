@@ -10,7 +10,7 @@ RSpec.describe PlanRegistersController, type: :controller do
     allow(controller).to receive(:authenticate_user!) { true }
   end
 
-  describe "#create" do
+  describe '#create' do
     subject { -> { post :create, plan_register: plan_register_params } }
 
     context 'with valid params' do

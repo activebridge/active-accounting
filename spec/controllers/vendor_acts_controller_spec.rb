@@ -20,7 +20,7 @@ RSpec.describe VendorActsController, type: :controller do
     let(:month) { Time.current.strftime('%m/%Y') }
 
     context 'render html' do
-      before { post :create, { vendor_id: vendor.id, month: month, rateDollar: 22 } }
+      before { post :create, vendor_id: vendor.id, month: month, rateDollar: 22 }
 
       it { is_expected.to render_template('show_vendor.pdf.erb') }
     end
@@ -28,23 +28,23 @@ RSpec.describe VendorActsController, type: :controller do
     context "responds with a 422 status, vendor hasn't monthly payment" do
       let(:vendor_not_monthly_payment) { FactoryGirl.create(:vendor) }
 
-      before { post :create, { vendor_id: vendor_not_monthly_payment.id, month: month, rateDollar: 22 } }
+      before { post :create, vendor_id: vendor_not_monthly_payment.id, month: month, rateDollar: 22 }
 
       it { expect(response.status).to eq(422) }
-      it { expect(json['messages']).to eq(["no_monthly_payment"]) }
+      it { expect(json['messages']).to eq(['no_monthly_payment']) }
     end
 
     context "responds with a 422 status, vendor hasn't info" do
       let(:vendor_not_info) { FactoryGirl.create(:vendor, monthly_payment: true, value_payment: 1000) }
 
-      before { post :create, { vendor_id: vendor_not_info.id, month: month, rateDollar: 22 } }
+      before { post :create, vendor_id: vendor_not_info.id, month: month, rateDollar: 22 }
 
       it { expect(response.status).to eq(422) }
-      it { expect(json['messages']).to eq(["you_must_fill_fields", "name", "ipn", "address", "contract", "account", "bank", "mfo", "agreement_date"]) }
+      it { expect(json['messages']).to eq(%w(you_must_fill_fields name ipn address contract account bank mfo agreement_date)) }
     end
 
     it 'add act' do
-      expect { post :create, { vendor_id: vendor.id, month: month, rateDollar: 22 } }.to change(VendorAct, :count).by(1)
+      expect { post :create, vendor_id: vendor.id, month: month, rateDollar: 22 }.to change(VendorAct, :count).by(1)
     end
   end
 
@@ -55,7 +55,7 @@ RSpec.describe VendorActsController, type: :controller do
   end
 
   describe '#update' do
-    let(:attr) { { total_money: 200} }
+    let(:attr) { { total_money: 200 } }
 
     before { put :update, id: vendor_act.id, vendor_act: attr }
 

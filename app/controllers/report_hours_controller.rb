@@ -1,5 +1,4 @@
 class ReportHoursController < HoursController
-
   private
 
   def hour_params

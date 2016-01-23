@@ -8,10 +8,9 @@ RSpec.describe VendorInfosController, type: :controller do
     allow(controller).to receive(:authenticate_user!) { true }
   end
 
-  describe "#update" do
-
+  describe '#update' do
     before do
-      put :update, { id: vendor_info.id, vendor_info: vendor_info_attributes, format: :json }
+      put :update, id: vendor_info.id, vendor_info: vendor_info_attributes, format: :json
       vendor_info.reload
     end
 

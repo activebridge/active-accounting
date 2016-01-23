@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe VendorInfo, type: :model do
   let(:vendor_info) { FactoryGirl.create(:vendor_info, name: 'Галушка Олександр Анатолійович') }
 
-  context "associations" do
+  context 'associations' do
     it { is_expected.to belong_to(:vendor) }
   end
 

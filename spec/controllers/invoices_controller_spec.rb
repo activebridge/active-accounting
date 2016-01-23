@@ -8,7 +8,7 @@ RSpec.describe InvoicesController, type: :controller do
   end
 
   describe '#show' do
-    before { get :show, { id: customer.id, month: '01/2015' } }
+    before { get :show, id: customer.id, month: '01/2015' }
 
     it { is_expected.to render_template('show.pdf.slim') }
   end

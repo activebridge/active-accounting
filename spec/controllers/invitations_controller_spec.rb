@@ -7,7 +7,7 @@ RSpec.describe InvitationsController, type: :controller do
     allow(controller).to receive(:authenticate_user!) { true }
   end
 
-  describe "#create" do
+  describe '#create' do
     subject { -> { post :create, id: vendor.id } }
     it { is_expected.to change(ActionMailer::Base.deliveries, :count).by(1) }
     it { expect(response).to be_success }

@@ -16,7 +16,7 @@ class InvoiceCalculator
 
   def invoice_number
     @invoice_number ||= begin
-      ((@invoice_date.year *  MONTH_COUNT + @invoice_date.month) - ( @customer.start_date.year *  MONTH_COUNT +  @customer.start_date.month)) + 1
+      ((@invoice_date.year * MONTH_COUNT + @invoice_date.month) - (@customer.start_date.year * MONTH_COUNT + @customer.start_date.month)) + 1
     end
   end
 end

@@ -8,10 +8,9 @@ RSpec.describe ClientInfosController, type: :controller do
     allow(controller).to receive(:authenticate_user!) { true }
   end
 
-  describe "#update" do
-
+  describe '#update' do
     before do
-      put :update, { id: client_info.id, client_info: client_info_attributes, format: :json }
+      put :update, id: client_info.id, client_info: client_info_attributes, format: :json
       client_info.reload
     end
 

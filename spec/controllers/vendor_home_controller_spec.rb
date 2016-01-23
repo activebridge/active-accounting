@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe VendorHomeController, type: :controller do
   let(:vendor) { FactoryGirl.create(:vendor) }
 
-  describe "#index" do
+  describe '#index' do
     subject { get :index }
 
     context 'with vendor id' do
@@ -16,4 +16,3 @@ RSpec.describe VendorHomeController, type: :controller do
     end
   end
 end
-

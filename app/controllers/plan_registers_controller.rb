@@ -11,5 +11,4 @@ class PlanRegistersController < RegistersController
   def set_model
     @model = Plan
   end
-
 end

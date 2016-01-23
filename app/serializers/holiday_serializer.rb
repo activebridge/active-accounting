@@ -6,6 +6,6 @@ class HolidaySerializer < ActiveModel::Serializer
   end
 
   def month
-    object.date.strftime("%-m/%Y")
+    object.date.strftime('%-m/%Y')
   end
 end
