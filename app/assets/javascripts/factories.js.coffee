@@ -15,6 +15,17 @@ angular.module('accounting.services').factory 'Counterparty', ['$resource', ($re
     method: 'PUT'
 ]
 
+angular.module('accounting.services').factory 'Tax', ['$resource', ($resource) ->
+  $resource '/tax/',
+    id: '@id'
+  , edit:
+    url: '/tax/edit'
+    method: 'GET',
+    isArray: false
+  , update:
+    method: 'PUT'
+]
+
 angular.module('accounting.services').factory 'Article', ['$resource', ($resource) ->
   $resource('/articles/:id', {id: '@id'}, {update: {method: 'PUT'}})
 ]

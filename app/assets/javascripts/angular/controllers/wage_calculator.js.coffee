@@ -1,4 +1,4 @@
-@WageCalculatorCtrl = ['$scope', '$http', 'Flash', '$translate', ($scope, $http, Flash, $translate) ->
+@WageCalculatorCtrl = ['$scope', '$http', 'Flash', '$translate', 'Tax', ($scope, $http, Flash, $translate, Tax) ->
   $scope.flashDuretion = 5000
   $scope.exchange = 0
   $scope.salary = 0
@@ -16,30 +16,23 @@
     $scope.total = total.toFixed(2).replace('.', ',')
 
   # gets all taxes
-  $http(
-    method: 'GET'
-    url: '/tax/edit'
-  ).then((response) ->
-    $scope.socialTax = response.data.social
-    $scope.singleTax = response.data.single
-    $scope.cashTax = response.data.cash
+  Tax.edit((response) ->
+    $scope.socialTax = response.social
+    $scope.singleTax = response.single
+    $scope.cashTax = response.cash
   )
 
   # sets all taxes
   $scope.setTaxes = () ->
-    $http(
-      method: 'PUT'
-      url: '/tax'
-      data:
-        tax:
-          social: $scope.socialTax
-          single: $scope.singleTax
-          cash: $scope.cashTax
-    ).success(
-      Flash.create('success', $translate.instant('tax_updated'))
-    ).error((response) ->
-      Flash.create('danger', $translate.instant('tax_update_error'))
-    )
+    Tax.update
+      tax:
+        social: $scope.socialTax
+        single: $scope.singleTax
+        cash: $scope.cashTax
+      , (response) ->
+        Flash.create('success', $translate.instant('tax_updated'))
+      , (response) ->
+        Flash.create('danger', $translate.instant('tax_update_error'))
 
   percentToIndex = (tax) ->
     1 - tax/100

@@ -12,7 +12,7 @@
       tbody
         tr
           th
-            input.form-control ng-model='socialTax' smart-float='' type='number'
+            input.form-control ng-model='socialTax' smart-float='' type='number' ng-value='socialTax'
           th
             input.form-control ng-model='singleTax' smart-float='' type='number'
           th
@@ -64,12 +64,18 @@
         .text-right
           | {{socialTax}}
     tr
-      td Комісія за переведення в готівку (0.75%):
+      td
+        | Комісія за переведення в готівку (
+        | {{cashTax}}
+        | %):
       td
         .text-right
           | {{cashingTaxSum | number:2}}
     tr
-      td Єдиний податок (5%):
+      td
+        | Єдиний податок (
+        | {{singleTax}}
+        | %):
       td
         .text-right
           | {{singleTaxSum | number:2}}
