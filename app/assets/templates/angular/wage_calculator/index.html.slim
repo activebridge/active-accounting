@@ -12,11 +12,11 @@
       tbody
         tr
           th
-            input.form-control ng-model='socialTax' smart-float='' type='number' ng-value='socialTax'
+            input.form-control ng-model='tax.social' smart-float='' type='number'
           th
-            input.form-control ng-model='singleTax' smart-float='' type='number'
+            input.form-control ng-model='tax.single' smart-float='' type='number'
           th
-            input.form-control ng-model='cashTax' smart-float='' type='number'
+            input.form-control ng-model='tax.cash' smart-float='' type='number'
           th
             button ng-click='setTaxes()'
               | OK
@@ -44,7 +44,7 @@
       tbody
       tr
         th
-          input.form-control disabled='disable' ng-model='socialTax' smart-float='' type='number'
+          input.form-control disabled='disable' ng-model='tax.social' smart-float='' type='number'
         th
           input numeric='' class='form-control' ng-model='exchange' value='{{exchange | number:2}}' ng-change='report()' maxlength='5'
         th
@@ -54,28 +54,28 @@
         th
   table
     tr
-      td Заробітня плата:
+      td translate='salary'
       td
         .text-right
           | {{salaryHrn | number:2}}
     tr
-      td Єдиний соціальний внесок:
+      td translate='social_tax'
       td
         .text-right
-          | {{socialTax}}
+          | {{tax.social}}
     tr
       td
-        | Комісія за переведення в готівку (
-        | {{cashTax}}
-        | %):
+        span translate='cash_tax'
+        | &nbsp;
+        | ({{tax.cash}})
       td
         .text-right
           | {{cashingTaxSum | number:2}}
     tr
       td
-        | Єдиний податок (
-        | {{singleTax}}
-        | %):
+        span translate='single_tax'
+        | &nbsp;
+        | ({{tax.single}})
       td
         .text-right
           | {{singleTaxSum | number:2}}
