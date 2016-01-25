@@ -8,6 +8,7 @@
         table
           tr
             th translate="title"
+            th translate="year"
             th translate="date"
           tr
             td
@@ -15,7 +16,11 @@
                 span.error
                   | {{newHoliday.errors.name[0]}}
             td
-              input.date ng-model="newHoliday.date" type="text" name='date' ng-required="true" ng-change="changeDate()"
+              select#current_year ng-model="currentYear" ng-change="changeYear()"
+                option ng-repeat="year in yearsList" value="{{year}}" ng-selected='{{ year==currentYear }}' init-select2='setSelect2()'
+                  | {{ year }}
+            td
+              input.date ng-model="newHoliday.date" type="text" name='date' ng-required="true"
                 br
                 span.error
                   | {{newHoliday.errors.type[0]}}
