@@ -54,6 +54,7 @@ class VendorCalculator
   def cash_tax
     taxes.cash
   end
+
   def to_index(tax)
     1 - tax/100
   end

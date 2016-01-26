@@ -10,9 +10,9 @@ class TaxesController < ApplicationController
   def update
     @tax.assign_attributes(tax_params)
     if @tax.save
-      render json: {success: :ok}, status: 201
+      render json: {success: :accepted}, status: 202
     else
-      render json: 'Invalid Tax', status: 422
+      render json: :unprocessable_entity, status: 422
     end
   end
 
