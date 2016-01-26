@@ -1,8 +1,6 @@
 # encoding: utf-8
 
 class VendorCalculator
-  SOCIAL_TAX = 303.16
-
   def initialize(vendor, params)
     @vendor = vendor
     @translation = params[:translation].to_f
