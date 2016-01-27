@@ -17,6 +17,7 @@
 
   $scope.setSelect2 = ->
     $('select#current_year').select2()
+    return
 
   $scope.add = ->
     $scope.newHoliday.date += ".#{$scope.currentYear}"

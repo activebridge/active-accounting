@@ -1,24 +1,29 @@
 .row
-  .col-lg-3
-  .col-lg-6
-    h1
+  .col-lg-12.col-md-12.col-sm-12
+    h1.text-center
       | {{ 'list_holidays' | translate }} {{ currentYear }} {{ 'yearSmall' | translate}}
+.row
+  .col-lg-3.col-md-3.col-sm-3
+    table.pull-right
+      tr
+        th translate='year'
+      tr
+        td
+          select#current_year ng-model="currentYear" ng-change="changeYear()"
+            option ng-repeat="year in yearsList" value="{{year}}" ng-selected='{{ year==currentYear }}' init-select2='setSelect2()'
+              | {{ year }}
+  .col-lg-6.col-md-6.col-sm-6
     .form
       form#holiday_form ng-submit="add()"
         table
           tr
             th translate="title"
-            th translate="year"
             th translate="date"
           tr
             td
               input.width-270 ng-model="newHoliday.name" type="text" name='name' ng-required="true"
                 span.error
                   | {{newHoliday.errors.name[0]}}
-            td
-              select#current_year ng-model="currentYear" ng-change="changeYear()"
-                option ng-repeat="year in yearsList" value="{{year}}" ng-selected='{{ year==currentYear }}' init-select2='setSelect2()'
-                  | {{ year }}
             td
               input.date ng-model="newHoliday.date" type="text" name='date' ng-required="true"
                 br
