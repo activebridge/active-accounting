@@ -3,15 +3,24 @@
   $scope.newHoliday.errors = {}
 
   $scope.currentYear = moment().format('YYYY')
+  $scope.yearsList = [2015..parseInt($scope.currentYear, 10)+1]
 
   $scope.load = ->
     $scope.holidays = Holiday.query(year: $scope.currentYear)
-    return
 
   $('.date').datepicker
-    changeYear: true
+    dateFormat: 'dd.mm'
+    changeMonth: true
+    beforeShow: (input, inst) ->
+      inst.dpDiv.addClass 'hide-year'
+      return
+
+  $scope.setSelect2 = ->
+    $('select#current_year').select2()
+    return
 
   $scope.add = ->
+    $scope.newHoliday.date += ".#{$scope.currentYear}"
     holiday = Holiday.save($scope.newHoliday,
       () ->
         if holiday.date.slice(6) == $scope.currentYear
@@ -40,13 +49,13 @@
     return d.promise
 
   $scope.setDatepicker = ->
-    $('.date').datepicker()
+    $('.date').datepicker
+      yearRange: "#{$scope.currentYear}:#{$scope.currentYear}"
+      changeMonth: true
     return
 
-  $scope.changeDate = ->
-    if $scope.currentYear != $scope.newHoliday.date.slice(6)
-      $scope.currentYear = $scope.newHoliday.date.slice(6)
-      $scope.load()
+  $scope.changeYear = ->
+    $scope.load()
     return
 
   $scope.setDatepicker()
