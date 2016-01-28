@@ -11,3 +11,4 @@
 //= require angular-js/select2
 //= require angular-js/loading-bar.min
 //= require angular-js/collapse
+//= require angular-flash.js

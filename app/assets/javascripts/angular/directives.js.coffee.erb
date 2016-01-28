@@ -184,7 +184,9 @@ app.config ['$translateProvider', ($translateProvider) ->
     successfully_added_records: 'You have successfully added records ( quantity: '
     nothing_added: 'Nothing has been added'
     exchange_rate: 'currency exchange Rate'
-    social_tax: 'Single social tax'
+    social_tax: 'Single social tax, hrn'
+    single_tax: 'Single Tax, %'
+    cash_tax: 'Caching Tax, %'
     salary: 'Salary (in USD)'
     translation: 'Translation (in USD)'
     show: 'Form'
@@ -209,6 +211,9 @@ app.config ['$translateProvider', ($translateProvider) ->
     show_hide_profit_chart: 'Show/Hide profit charts'
     'Order for this month has been already created!': 'Order for this month has been already created!'
     'Act for this month has been already created!': 'Act for this month has been already created!'
+    tax_updated: 'Taxes was updated successfully!'
+    tax_update_error: 'Not Updated, wrong taxes'
+    salary: 'Salary, hrn'
 
   $translateProvider.translations "uk",
     brand: 'Активна бухгалтерія'
@@ -340,7 +345,9 @@ app.config ['$translateProvider', ($translateProvider) ->
     successfully_added_records: 'Ви успішно додали записи ( кількість: '
     nothing_added: 'Нічого не було додано'
     exchange_rate: 'Курс валют'
-    social_tax: 'Єд. соц. податок'
+    social_tax: 'Єд. соц. внесок, грн'
+    single_tax: 'Єдиний податок, %'
+    cash_tax: 'В готівку, %'
     salary: 'Зарплата (в USD)'
     translation: 'Трансляція (в грн)'
     show: 'Сформувати'
@@ -365,7 +372,20 @@ app.config ['$translateProvider', ($translateProvider) ->
     show_hide_profit_chart: 'Відобразити/Приховати графіки маржі'
     'Order for this month has been already created!': 'Замовлення для цього місяця вже створене!'
     'Act for this month has been already created!': 'Акт для цього місяця вже створений!'
+    tax_updated: 'Тарифи оподаткування оновлено!'
+    tax_update_error: 'Тарифи вказано не вірно.'
+    salary: 'Заробітна плата, грн'
 
   $translateProvider.preferredLanguage "uk"
   return
+
+  app.config (NotificationProvider) ->
+    NotificationProvider.setOptions
+      delay: 10000
+      startTop: 20
+      startRight: 10
+      verticalSpacing: 20
+      horizontalSpacing: 20
+      positionX: 'left'
+      positionY: 'bottom'
 ]

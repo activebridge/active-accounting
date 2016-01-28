@@ -1,17 +1,50 @@
 #main_container.container
   h1
     | {{ 'calc' | translate }}
-  table.table.table-striped
-    tr
-      th translate='social_tax'
-      th translate='exchange_rate'
-      th translate='salary'
-      th translate='translation'
-      th
-    tbody
+  div ng-show='admin'
+    div flash-message='5000'
+    table.table.table-striped
+      tr
+        th translate='social_tax'
+        th translate='single_tax'
+        th translate='cash_tax'
+        th
+      tbody
+        tr
+          th
+            input.form-control ng-model='tax.social' smart-float='' type='number'
+          th
+            input.form-control ng-model='tax.single' smart-float='' type='number'
+          th
+            input.form-control ng-model='tax.cash' smart-float='' type='number'
+          th
+            button ng-click='setTaxes()'
+              | OK
+    table.table.table-striped
+      tr
+        th translate='exchange_rate'
+        th translate='salary'
+        th translate='translation'
+      tbody
+        tr
+          th
+            input numeric='' class='form-control' ng-model='exchange' value='{{exchange | number:2}}' ng-change='report()' maxlength='5'
+          th
+            input.form-control numeric='' ng-change='report()' ng-model='salary' value='0' maxlength='6' type='number'
+          th
+            input.form-control numeric='' ng-change='report(translation)' ng-model='translation' value='0' maxlength='10' type='number'
+          th
+  div ng-show='!admin'
+    table.table.table-striped
+      tr
+        th translate='social_tax'
+        th translate='exchange_rate'
+        th translate='salary'
+        th translate='translation'
+      tbody
       tr
         th
-          input.form-control disabled='disable' ng-init='socialTax = #{VendorCalculator::SOCIAL_TAX}' ng-model='socialTax' smart-float='' type='number'
+          input.form-control disabled='disable' ng-model='tax.social' smart-float='' type='number'
         th
           input numeric='' class='form-control' ng-model='exchange' value='{{exchange | number:2}}' ng-change='report()' maxlength='5'
         th
@@ -21,22 +54,28 @@
         th
   table
     tr
-      td Заробітня плата:
+      td translate='salary'
       td
         .text-right
           | {{salaryHrn | number:2}}
     tr
-      td Єдиний соціальний внесок:
+      td translate='social_tax'
       td
         .text-right
-          | {{socialTax}}
+          | {{tax.social}}
     tr
-      td Комісія за переведення в готівку (0.75%):
+      td
+        span translate='cash_tax'
+        | &nbsp;
+        | ({{tax.cash}})
       td
         .text-right
           | {{cashingTaxSum | number:2}}
     tr
-      td Єдиний податок (5%):
+      td
+        span translate='single_tax'
+        | &nbsp;
+        | ({{tax.single}})
       td
         .text-right
           | {{singleTaxSum | number:2}}

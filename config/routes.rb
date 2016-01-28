@@ -75,4 +75,6 @@ Rails.application.routes.draw do
       post :change_password
     end
   end
+
+  resource :tax, only: [:edit, :update]
 end

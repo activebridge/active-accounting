@@ -3,4 +3,5 @@
 *= require jquery-css/angular-motion.min
 *= require jquery-css/angular-toggle-switch
 *= require jquery-css/loading-bar
+*= require angular-flash.css
 */
