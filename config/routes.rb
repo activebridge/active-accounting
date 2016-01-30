@@ -29,9 +29,9 @@ Rails.application.routes.draw do
     resources :plan_registers
     resources :invitations
     resources :client_infos, only: :update
-    resources :invoices, only: :show
+    resources :invoices
     resources :work_days, only: :index
-    resources :acts, only: :show
+    resources :acts
     resources :vendor_acts
     resources :vendor_orders
     resources :order_features

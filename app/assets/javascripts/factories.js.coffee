@@ -137,3 +137,15 @@ angular.module('accounting.services').factory 'MissingHours', ['$resource', ($re
   , update:
     method: 'PUT'
 ]
+
+angular.module('accounting.services').factory 'ClientActs', ['$resource', ($resource) ->
+  $resource '/acts/:id',
+    id: '@id'
+  , update:
+    method: 'PUT'
+]
+
+angular.module('accounting.services').factory 'ClientInvoices', ['$resource', ($resource) ->
+  $resource '/invoices/:id',
+    id: '@id'
+]

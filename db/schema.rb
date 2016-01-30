@@ -11,14 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916064154) do
+ActiveRecord::Schema.define(version: 20160126114610) do
 
   create_table "articles", force: true do |t|
-    t.string   "name",       limit: 255
-    t.string   "type",       limit: 255
+    t.string   "name"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "client_acts", force: true do |t|
+    t.string   "total_money"
+    t.date     "month"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "client_acts", ["customer_id"], name: "index_client_acts_on_customer_id", using: :btree
 
   create_table "client_infos", force: true do |t|
     t.integer  "customer_id"
@@ -37,10 +47,19 @@ ActiveRecord::Schema.define(version: 20150916064154) do
   add_index "client_infos", ["customer_id"], name: "index_client_infos_on_customer_id", using: :btree
   add_index "client_infos", ["invoice_id"], name: "index_client_infos_on_invoice_id", using: :btree
 
+  create_table "client_invoices", force: true do |t|
+    t.date     "month"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "client_invoices", ["customer_id"], name: "index_client_invoices_on_customer_id", using: :btree
+
   create_table "counterparties", force: true do |t|
-    t.string   "name",                     limit: 255
+    t.string   "name"
     t.date     "start_date"
-    t.boolean  "active",                               default: true
+    t.boolean  "active",                   default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "value_payment"
@@ -52,9 +71,9 @@ ActiveRecord::Schema.define(version: 20150916064154) do
     t.string   "auth_token"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
-    t.boolean  "approve_hours",                        default: false
-    t.boolean  "signed_in",                            default: false
-    t.string   "currency_monthly_payment",             default: "USD"
+    t.boolean  "approve_hours",            default: false
+    t.boolean  "signed_in",                default: false
+    t.string   "currency_monthly_payment", default: "USD"
   end
 
   create_table "features", force: true do |t|
@@ -92,14 +111,6 @@ ActiveRecord::Schema.define(version: 20150916064154) do
 
   add_index "order_features", ["feature_id"], name: "index_order_features_on_feature_id", using: :btree
   add_index "order_features", ["vendor_order_id"], name: "index_order_features_on_vendor_order_id", using: :btree
-
-  create_table "posts", force: true do |t|
-    t.text     "body"
-    t.integer  "popularity",     default: 0
-    t.boolean  "is_blacklisted", default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "registers", force: true do |t|
     t.date     "date"
