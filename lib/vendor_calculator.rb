@@ -1,6 +1,6 @@
-class VendorCalculator
-  SOCIAL_TAX = 303.16
+# encoding: utf-8
 
+class VendorCalculator
   def initialize(vendor, params)
     @vendor = vendor
     @translation = params[:translation].to_f
@@ -9,11 +9,11 @@ class VendorCalculator
   end
 
   def total_money
-    @total_money ||= sprintf('%.2f', (summ_salary + summ_salary * 0.0075) / 0.95)
+    @total_money ||= sprintf("%.2f", (summ_salary/to_index(cash_tax))/to_index(single_tax) + social_tax)
   end
 
   def summ_salary
-    @summ_salary ||= @vendor.value_payment * @rate + SOCIAL_TAX + @translation
+    @summ_salary ||= @vendor.value_payment * @rate + @translation
   end
 
   def total_money_words(salary)
@@ -35,5 +35,25 @@ class VendorCalculator
     { vendor_id: @vendor.id,
       total_money: total_money,
       month: @month.to_date }
+  end
+
+  def taxes
+    @taxes ||= Tax.first
+  end
+
+  def social_tax
+    taxes.social
+  end
+
+  def single_tax
+    taxes.single
+  end
+
+  def cash_tax
+    taxes.cash
+  end
+
+  def to_index(tax)
+    1 - tax/100
   end
 end

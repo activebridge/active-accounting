@@ -30,20 +30,6 @@ RSpec.describe HolidaysController, type: :controller do
     end
   end
 
-  describe '#create' do
-    subject { -> { post :create, holiday: holiday_params } }
-
-    context 'with valid params' do
-      let(:holiday_params) { holiday_attributes }
-      it { is_expected.to change(Holiday, :count).by(1) }
-    end
-
-    context 'with invalid params' do
-      let(:holiday_params) { invalid_holiday_attributes }
-      it { is_expected.to_not change(Holiday, :count) }
-    end
-  end
-
   describe '#update' do
     subject { -> { put :update, id: holiday.id, holiday: holiday_params } }
     before { subject.call }
