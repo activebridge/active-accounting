@@ -19,8 +19,8 @@
   .tab-content  ng-show="currentType == 'customer'"
     .tab-pane ng-class="{'active': currentTab == 'invoice'}"
       .row
-        .col-lg-3
-          select.custumers ng-model="params.customer_id"
+        .col-lg-4
+          select.custumers ng-model="params.customer_id" ng-change='changeSelect()'
             option ng-repeat="customer in customers" value="{{customer.id}}" ng-selected='{{ params.customer_id == customer.id }}' init-select2='setSelect2()'
               | {{customer.name}}
           button.btn.margin-left-2.margin-bottom-1 translate='create' ng-show='params.customer_id' ng-click='createInvoice()'
@@ -28,17 +28,38 @@
             .btn-group
               label ng-repeat='month in months' id='month_{{$index + 1}}' class="btn btn-danger" ng-model="$parent.params.month" btn-radio="'{{$index + 1 + "/" + currentYear}}'" ng-init="clicked = currentMonth ==  $index + 1 " ng-class="{ 'active': clicked }"
                 | {{ month }}
-        .col-lg-7
+        .col-lg-7 ng-show='showCurrentInvoice'
+          button.margin-left-50.icon-button.icon-back ng-click="hideCurrentInvoice()" type="button" title="{{ 'back_to_list' | translate }}"
+            span.glyphicon.glyphicon-arrow-left
           ng-include#invoices src='"#{asset_path('angular/invoices/invoice.html')}"' ng-show='hours.length > 0'
-          .info-alas ng-hide='hours.length>0 || !hours'
+          .info-alas ng-show='infoInvoiceEmpty' ng-hide='hours.length>0 || !hours'
             br
             .alert.alert-info.alert-dismissable
               strong
                 | {{ 'alas' | translate }}&nbsp;
               | {{ 'info_not_found' | translate }}
         .col-lg-1
-          a href='/invoices/{{params.customer_id}}?month={{params.month}}' target='_blank' data-method='get' ng-show='hours.length > 0'
-            button translate='savePdf'
+          a href='/invoices/{{idShowInvoice}}?month={{params.month}}' target='_blank' data-method='get' ng-show='hours.length > 0'
+            button translate='savePdf' ng-show='showCurrentInvoice'
+        div
+          h2 ng-show="showInvoicesRegistry()"
+            | {{ 'list_invoices_for' | translate }} {{ currentCustomer.name }}
+        .col-lg-8
+          table#invoice-table.ng-scope ng-show="showInvoicesRegistry()"
+            tr
+              th.col-lg-2 translate="number"
+              th.col-lg-2 translate="month"
+            tr ng-repeat="invoice in invoices"
+              td.col-lg-2
+                | {{ invoice.id }}
+              td.col-lg-2
+                | {{ invoice.month }}
+              td.col-lg-1
+                button.icon-button ng-click="showInvoice(invoice.id)" title="{{ 'preview' | translate }}" type="button"
+                  span.glyphicon.glyphicon-eye-open
+                a href='/invoices/{{invoice.id}}?month={{params.month}}&format=pdf' target='_blank' data-method='get'
+                  button.icon-button title="{{ 'savePdf' | translate }}" type="button"
+                    span.glyphicon.glyphicon-file
     .tab-pane ng-class="{'active': currentTab == 'act'}"
       ng-include src='"#{asset_path('angular/acts/index.slim')}"'
   .tab-content  ng-show="currentType == 'vendor'"
@@ -46,3 +67,4 @@
       ng-include src='"#{asset_path('angular/acts/vendor_order.html.slim')}"'
     .tab-pane ng-class="{'active': currentTab == 'act'}"
       ng-include src='"#{asset_path('angular/acts/vendor_act.html.slim')}"'
+

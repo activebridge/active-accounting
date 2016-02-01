@@ -1,16 +1,42 @@
 .row ng-controller='ActsCtrl'
-  .col-lg-3
-    select.custumers ng-model="actParams.id"
+  .col-lg-4
+    select.custumers ng-model="actParams.customer_id" ng-change='changeSelect()'
       option ng-repeat="customer in customers" value="{{customer.id}}" ng-selected='{{ actParams.customer_id == customer.id }}' init-select2='setSelect2()'
         | {{customer.name}}
-    button.btn.margin-left-2.margin-bottom-1 translate='create' ng-show='actParams.id' ng-click='createAct()'
+    button.btn.margin-left-2.margin-bottom-1 translate='create' ng-show='showCreateActButton()' ng-click='createAct()'
     .text-center.calendar.width-320
       .btn-group
         label ng-repeat='month in months' id='month_{{$index + 1}}' class="btn btn-danger" ng-model="$parent.actParams.month" btn-radio="'{{$index + 1 + "/" + currentYear}}'" ng-init="clicked = currentMonth ==  $index + 1 " ng-class="{ 'active': clicked }"
           | {{ month }}
-  .col-lg-7#generated-act ng-show='buttonExport'
-  a href='/acts/{{actParams.id}}?month={{actParams.month}}&format=pdf' target='_blank' data-method='get'
-    button.width-86 translate='savePdf' ng-show='buttonExport'
+  div
+    h2 ng-show="showActsRegistry()"
+      | {{ 'list_acts_for' | translate }} {{ currentCustomer.name }}
+  .col-lg-8
+    #acts-table.ng-scope ng-show="showActsRegistry()"
+      div.row
+        .col-lg-2 translate="month"
+        .col-lg-2 translate="totall"
+      div ng-repeat="act in acts"
+        .row
+          .col-lg-2
+            | {{ act.month }}
+          .col-lg-8
+            a href='#' editable-text='act.total_money' onbeforesave="updateAct(act.id, $data)"
+              | {{ act.total_money }} {{ 'uah' | translate }}
+          .col-lg-2
+            button.icon-button ng-click="showAct(act.id)" title="{{ 'preview' | translate }}" type="button"
+              span.glyphicon.glyphicon-eye-open
+            a href='/acts/{{act.id}}?month={{actParams.month}}&format=pdf' target='_blank' data-method='get'
+              button.icon-button title="{{ 'savePdf' | translate }}" type="button"
+                span.glyphicon.glyphicon-file
+  .col-lg-12 ng-show='showCurrentAct'
+    .col-lg-10
+      button.margin-left-50.icon-button.icon-back ng-click="hideCurrentAct()" type="button" title="{{ 'back_to_list' | translate }}"
+        span.glyphicon.glyphicon-arrow-left
+      #generated-act
+    .col-lg-2
+      a href='/acts/{{idShowAct}}?month={{actParams.month}}&format=pdf' target='_blank' data-method='get'
+        button.width-86 translate='savePdf' ng-show='showCurrentAct'
   .info-alas ng-show='infoActEmpty'
     br
     .alert.alert-info.alert-dismissable
