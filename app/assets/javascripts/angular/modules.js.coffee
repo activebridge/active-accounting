@@ -18,4 +18,5 @@ angular.module('accounting.services', [
   'ui.select2'
   'angular-loading-bar'
   'flash'
+  'ui.calendar'
 ])

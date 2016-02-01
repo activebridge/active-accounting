@@ -1,0 +1,18 @@
+.container
+  .row
+    .col-md-12
+      h2.text-center
+        | {{ 'vacations' | translate }}
+  .row
+    .col-md-4
+      table
+        tr
+          th translate='vacation_start'
+          th translate='vacation_end'
+        tr ng-repeat='vacation in vacations.events'
+          td
+            | {{ vacation.start }}
+          td
+            | {{ vacation.end }}
+    .col-md-8
+      .calendar ui-calendar='uiConfig.calendar' ng-model="eventSources"
