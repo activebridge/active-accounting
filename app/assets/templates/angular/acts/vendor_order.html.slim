@@ -1,5 +1,5 @@
 .row ng-controller='VendorOrdersCtrl'
-  .col-lg-3
+  .col-lg-4
     select.custumers ng-model="orderParams.id" ng-change='changeSelect()'
       option ng-repeat="vendor in vendors" value="{{vendor.id}}" ng-selected='{{ orderParams.vendor_id == vendor.id }}' init-select2='setSelect2()'
         | {{vendor.name}}
@@ -12,21 +12,22 @@
     button.btn.width-273.height-30 translate='control_characteristics' ng-click='showListFeaturesModal("#{asset_path("angular/acts/list_vendor_orders_modal.html")}")'
   h2 ng-show="orders.length > 0 && !showCurrentOrder"
     | {{ 'list_orders_for' | translate }} {{ currentVendor.name }}
-  table#acts-table.ng-scope ng-show="orders.length > 0 && !showCurrentOrder"
-    tr
-      th.col-lg-2 translate="number"
-      th.col-lg-2 translate="month"
-    tr ng-repeat="order in orders"
-      td.col-lg-2
-        | {{ order.id }}
-      td.col-lg-2
-        | {{ order.month }}
-      td.col-lg-1
-        button.icon-button.hidd ng-click="showOrder(order)" title="{{ 'preview' | translate }}" type="button"
-          span.glyphicon.glyphicon-eye-open
-        a href='/vendor_orders/{{order.id}}?format=pdf' target='_blank' data-method='get'
-          button.icon-button.hidd title="{{ 'savePdf' | translate }}" type="button"
-            span.glyphicon.glyphicon-file
+  .col-lg-8
+    table#acts-table.ng-scope ng-show="orders.length > 0 && !showCurrentOrder"
+      tr
+        th.col-lg-2 translate="number"
+        th.col-lg-2 translate="month"
+      tr ng-repeat="order in orders"
+        td.col-lg-2
+          | {{ order.id }}
+        td.col-lg-2
+          | {{ order.month }}
+        td.col-lg-1
+          button.icon-button ng-click="showOrder(order)" title="{{ 'preview' | translate }}" type="button"
+            span.glyphicon.glyphicon-eye-open
+          a href='/vendor_orders/{{order.id}}?format=pdf' target='_blank' data-method='get'
+            button.icon-button title="{{ 'savePdf' | translate }}" type="button"
+              span.glyphicon.glyphicon-file
   .col-lg-7#generated-order-vendor ng-show='showCurrentOrder'
     .act_body
       button.icon-button.icon-back ng-click="hideCurrentOrder()" type="button" title="{{ 'back_to_list' | translate }}"
