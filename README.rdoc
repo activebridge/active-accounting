@@ -1,3 +1,6 @@
+[![Circle CI](https://circleci.com/gh/activebridge/active-accounting.svg?style=svg)](https://circleci.com/gh/activebridge/active-accounting)
+
+
 == README
 
 This README would normally document whatever steps are necessary to get the
