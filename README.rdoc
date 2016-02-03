@@ -1,5 +1,4 @@
-[![Circle CI](https://circleci.com/gh/activebridge/active-accounting.svg?style=svg)](https://circleci.com/gh/activebridge/active-accounting)
-
+{<img src="https://circleci.com/gh/activebridge/active-accounting.svg?style=svg" alt="Circle CI" />}[https://circleci.com/gh/activebridge/active-accounting]
 
 == README
 
