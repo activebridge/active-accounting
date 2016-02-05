@@ -1,3 +1,22 @@
+.vacations {
+  .show_button {
+    height: 40px;
+    &:hover {
+      .hidde {
+        display: inline-table;
+      }
+    }
+  }
+}
+
+.month_text, .year_text {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.vacation_start {
+  padding-right: 65px;
+}
 /*!
  * FullCalendar v2.3.2 Stylesheet
  * Docs & License: http://fullcalendar.io/
@@ -677,7 +696,6 @@ a.fc-more:hover {
 
 .fc-toolbar {
 	text-align: center;
-	margin-bottom: 1em;
 }
 
 .fc-toolbar .fc-left {

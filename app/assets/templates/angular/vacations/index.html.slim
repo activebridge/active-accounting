@@ -1,18 +1,42 @@
-.container
+.vacations.container
   .row
     .col-md-12
-      h2.text-center
-        | {{ 'vacations' | translate }}
+      h2.text-center translate = 'vacations'
   .row
     .col-md-4
+      b
+        | {{ 'vacation_days' | translate }}:
+      i
+        br
+        | {{ 'vacation_days_left' | translate }}: {{ daysLeft }};&nbsp
+        | {{ 'vacation_days_used' | translate }}: {{ daysUsed }};&nbsp
+        | {{ 'vacation_days_reserved' | translate }}: {{ daysReserved }};
       table
         tr
-          th translate='vacation_start'
-          th translate='vacation_end'
-        tr ng-repeat='vacation in vacations.events'
-          td
-            | {{ vacation.start }}
-          td
-            | {{ vacation.end }}
+          th.vacation_start translate = 'vacation_start'
+          th translate = 'vacation_end'
+        tr.show_button ng-repeat='vacation in vacations'
+          td ng-bind = 'vacation.start'
+          td ng-bind = 'vacation.ending'
+          td ng-if = 'showDeleteButton(vacation.start)'
+            button.icon-button.hidde ng-click = 'delete(vacation, $index)' type = 'button'
+              span.glyphicon.glyphicon-trash
     .col-md-8
-      .calendar ui-calendar='uiConfig.calendar' ng-model="eventSources"
+      table
+        tr
+          td
+            button type = 'button' ng-click = "changeMonth('prev')"
+              span.glyphicon.glyphicon-chevron-left
+            span.month_text ng-bind = 'currentMonth'
+            button type = 'button' ng-click = "changeMonth('next')"
+              span.glyphicon.glyphicon-chevron-right
+          td
+            .pull-right
+              button type = 'button' ng-click = "changeYear('prevYear')"
+                span.glyphicon.glyphicon-chevron-left
+              span.year_text ng-bind = 'currentYear'
+              button type = 'button' ng-click = "changeYear('nextYear')"
+                span.glyphicon.glyphicon-chevron-right
+        tr
+          td colspan = '2'
+            .calendar ui-calendar = 'uiConfig.calendar' ng-model = 'eventSources' calendar='vacationCalendar'

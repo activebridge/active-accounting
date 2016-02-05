@@ -146,6 +146,14 @@ ActiveRecord::Schema.define(version: 20160205091306) do
     t.datetime "updated_at"
   end
 
+  create_table "vacations", force: true do |t|
+    t.integer "vendor_id"
+    t.date    "start"
+    t.date    "ending"
+  end
+
+  add_index "vacations", ["vendor_id"], name: "index_vacations_on_vendor_id", using: :btree
+
   create_table "vendor_acts", force: true do |t|
     t.string   "total_money"
     t.date     "month"

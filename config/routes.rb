@@ -77,4 +77,5 @@ Rails.application.routes.draw do
   end
 
   resource :tax, only: [:edit, :update]
+  resources :vacations
 end
