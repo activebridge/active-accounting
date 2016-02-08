@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users
-  devise_scope :user do
+  devise_for :admins
+  devise_scope :admin do
     get '/admin' => 'devise/sessions#new'
 
-    authenticated :user do
+    authenticated :admin do
       root to: 'home#index'
     end
 
-    unauthenticated :user do
+    unauthenticated :admin do
       root to: 'vendor_sessions#new', as: :unauthenticated_root
     end
 

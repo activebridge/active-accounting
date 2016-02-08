@@ -6,7 +6,7 @@ RSpec.describe ChartsController, type: :controller do
   let(:invalid_register_attributes) { FactoryGirl.attributes_for(:register, date: '', value: '', type: '') }
 
   before do
-    allow(controller).to receive(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_admin!) { true }
   end
 
   describe '#index' do

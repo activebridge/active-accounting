@@ -1,18 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe HomeController, type: :controller do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:admin) { FactoryGirl.create(:admin) }
 
   describe "#index" do
     subject { get :index }
 
-    context 'with current user' do
-      before { sign_in :user, user }
+    context 'with current admin' do
+      before { sign_in :admin, admin }
       it { is_expected.to be_success }
     end
-
-    #context 'without current user' do
-      #it { expect(response).to redirect_to(new_user_session_path) }
-    #end
   end
 end

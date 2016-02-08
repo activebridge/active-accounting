@@ -10,7 +10,7 @@ RSpec.describe HoursController, type: :controller do
   let(:unvalid_hour_attributes) { FactoryGirl.attributes_for(:hour, hours:'', customer_id:'', month: '')}
 
   before do
-    allow(controller).to receive(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_admin!) { true }
     session[:counterparty_id] = vendor.id
   end
 

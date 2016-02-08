@@ -4,10 +4,10 @@ class HomeController < ApplicationController
   layout 'angular'
 
   def index
-    if current_user && user_signed_in?
+    if current_admin && admin_signed_in?
       render 'index'
     else
-      redirect_to new_user_session_path
+      redirect_to new_admin_session_path
     end
   end
 
@@ -16,6 +16,6 @@ class HomeController < ApplicationController
   def set_gon_variables
     gon.article_types = Article::TYPES.constants
     gon.counterparty_display_types = Counterparty::TYPES::DISPLAY_TYPES
-    gon.admin = current_user.email
+    gon.admin = current_admin.email
   end
 end

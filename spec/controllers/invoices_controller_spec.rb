@@ -4,7 +4,7 @@ RSpec.describe InvoicesController, type: :controller do
   let(:customer) { FactoryGirl.create(:customer) }
 
   before do
-    allow(controller).to receive(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_admin!) { true }
   end
 
   describe '#show' do

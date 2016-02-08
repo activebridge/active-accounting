@@ -4,7 +4,7 @@ RSpec.describe InvitationsController, type: :controller do
   let(:vendor) { FactoryGirl.create(:vendor) }
 
   before do
-    allow(controller).to receive(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_admin!) { true }
   end
 
   describe '#create' do

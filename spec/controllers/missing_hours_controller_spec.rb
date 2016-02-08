@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe MissingHoursController, type: :controller do
   before do
-    allow(controller).to receive(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_admin!) { true }
   end
 
   describe '#index' do

@@ -1,5 +1,5 @@
 class HolidaysController < ApplicationController
-  before_filter :authenticate_user!, except: :index
+  before_filter :authenticate_admin!, except: :index
   before_action :find_holiday, only: [:destroy, :update]
 
   def index
