@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 20160121101542) do
     t.datetime "updated_at"
   end
 
+  create_table "client_acts", force: true do |t|
+    t.string   "total_money"
+    t.date     "month"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "client_acts", ["customer_id"], name: "index_client_acts_on_customer_id", using: :btree
+
   create_table "client_infos", force: true do |t|
     t.integer  "customer_id"
     t.string   "name"
@@ -36,6 +46,15 @@ ActiveRecord::Schema.define(version: 20160121101542) do
 
   add_index "client_infos", ["customer_id"], name: "index_client_infos_on_customer_id", using: :btree
   add_index "client_infos", ["invoice_id"], name: "index_client_infos_on_invoice_id", using: :btree
+
+  create_table "client_invoices", force: true do |t|
+    t.date     "month"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "client_invoices", ["customer_id"], name: "index_client_invoices_on_customer_id", using: :btree
 
   create_table "counterparties", force: true do |t|
     t.string   "name"
