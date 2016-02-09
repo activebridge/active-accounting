@@ -7,7 +7,7 @@ RSpec.describe PlanRegistersController, type: :controller do
   let(:invalid_plan_register_attributes) { FactoryGirl.attributes_for(:register_plan, date: '', value: '', type: '') }
 
   before do
-    allow(controller).to receive(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_admin!) { true }
   end
 
   describe '#create' do

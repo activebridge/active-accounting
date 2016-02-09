@@ -1,6 +1,6 @@
 class CounterpartiesController < ApplicationController
   before_action :find_conterparty, only: [:destroy, :update]
-  before_filter :authenticate_user!, except: [:update, :customers]
+  before_filter :authenticate_admin!, except: [:update, :customers]
 
   def index
     json = ActiveModel::ArraySerializer.new(Counterparty.by_group(params[:group]).by_active(params[:scope]),
