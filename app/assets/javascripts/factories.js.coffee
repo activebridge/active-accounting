@@ -153,7 +153,12 @@ angular.module('accounting.services').factory 'ClientActs', ['$resource', ($reso
   $resource '/acts/:id',
     id: '@id'
   , update:
-    method: 'PUT'
+      method: 'PUT'
+  , get:
+    method: 'GET'
+    transformResponse: (data) ->
+      return convert: data
+
 ]
 
 angular.module('accounting.services').factory 'ClientInvoices', ['$resource', ($resource) ->

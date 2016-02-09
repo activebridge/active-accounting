@@ -1,5 +1,5 @@
 class InvoicesController < ApplicationController
-  before_action :find_invoice, only: [:show, :update]
+  before_action :find_invoice, only: [:show, :update, :destroy]
   before_action :find_customer
 
   def index
@@ -10,16 +10,11 @@ class InvoicesController < ApplicationController
   end
 
   def create
-    if invoice_calculator.hours_by_month.empty? || info_empty.present?
-      messages = invoice_calculator.hours_by_month.empty? ? ['no_hours'] : info_empty
-      render json: { status: :error, messages: messages }, status: 422
+    invoice = ClientInvoice.new(invoice_params)
+    if invoice.save
+      render json: ClientInvoiceSerializer.new(invoice), status: 200
     else
-      invoice = ClientInvoice.new(invoice_params)
-      if invoice.save
-        render json: ClientInvoiceSerializer.new(invoice), status: 200
-      else
-        render json: { status: :error, messages:  invoice.errors.messages[:month] }, status: 422
-      end
+      render json: { status: :error, messages: invoice.errors }, status: 422
     end
   end
 
@@ -30,6 +25,11 @@ class InvoicesController < ApplicationController
     render pdf: "invoice_#{@customer.name + Time.current.strftime('%m-%d-%Y')}",
            template: 'invoices/show.pdf.slim',
            dpi: '600'
+  end
+
+  def destroy
+    @invoice_params.destroy
+    head(200)
   end
 
   private
@@ -44,15 +44,6 @@ class InvoicesController < ApplicationController
 
   def invoice_calculator
     @invoice_calculator ||= InvoiceCalculator.new(@customer, params[:month])
-  end
-
-  def info_empty
-    empty_fields = []
-    @customer.client_info.attributes.each do |a|
-      empty_fields << a[0] unless a[1]
-    end
-    empty_fields.unshift 'you_must_fill_fields' if empty_fields.present?
-    empty_fields
   end
 
   def invoice_params

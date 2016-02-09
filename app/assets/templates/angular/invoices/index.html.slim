@@ -47,19 +47,21 @@
         .col-lg-8
           table#invoice-table.ng-scope ng-show="showInvoicesRegistry()"
             tr
-              th.col-lg-2 translate="number"
-              th.col-lg-2 translate="month"
+              th.col-lg-3 translate="number"
+              th.col-lg-3 translate="month"
             tr ng-repeat="invoice in invoices"
               td.col-lg-2
                 | {{ invoice.id }}
               td.col-lg-2
                 | {{ invoice.month }}
-              td.col-lg-1
+              td.col-lg-2
                 button.icon-button ng-click="showInvoice(invoice.id)" title="{{ 'preview' | translate }}" type="button"
                   span.glyphicon.glyphicon-eye-open
                 a href='/invoices/{{invoice.id}}?month={{params.month}}&format=pdf' target='_blank' data-method='get'
                   button.icon-button title="{{ 'savePdf' | translate }}" type="button"
                     span.glyphicon.glyphicon-file
+                button.icon-button ng-click="delete(invoice.id)" title="{{ 'delete_reg' | translate }}" type="button"
+                  span.glyphicon.glyphicon-trash
     .tab-pane ng-class="{'active': currentTab == 'act'}"
       ng-include src='"#{asset_path('angular/acts/index.slim')}"'
   .tab-content  ng-show="currentType == 'vendor'"

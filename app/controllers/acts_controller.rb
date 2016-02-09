@@ -1,5 +1,5 @@
 class ActsController < ApplicationController
-  before_action :find_act, only: [:show, :update]
+  before_action :find_act, only: [:show, :update, :destroy]
   before_action :find_customer
   before_action :find_variables, only: [:create, :show]
 
@@ -11,18 +11,13 @@ class ActsController < ApplicationController
   end
 
   def create
-    if invoice_calculator.hours_by_month.empty? || info_empty.present?
-      messages = invoice_calculator.hours_by_month.empty? ? ['no_hours'] : info_empty
-      render json: { status: :error, messages: messages }, status: 422
-    else
-      @act_params = ClientAct.new(act_params)
-      if @act_params.save
-        respond_to do |format|
-          format.html { render 'acts/show_customer.pdf.erb' }
-        end
-      else
-        render json: { status: :error, messages:  @act_params.errors.messages[:month] }, status: 422
+    @act_params = ClientAct.new(act_params)
+    if @act_params.save
+      respond_to do |format|
+        format.html { render 'acts/show_customer.pdf.erb' }
       end
+    else
+      render json: { status: :error, messages: @act_params.errors }, status: 422
     end
   end
 
@@ -30,7 +25,7 @@ class ActsController < ApplicationController
     if @act_params.update(total_money: params[:total_money])
       render json: @act_params, status: 201
     else
-      render json: { status: :error, error: 'Something went wrong!' }, status: 422
+      render json: { status: :error, error: @act_params.errors }, status: 422
     end
   end
 
@@ -43,6 +38,11 @@ class ActsController < ApplicationController
           dpi: '1200'
       end
     end
+  end
+
+  def destroy
+    @act_params.destroy
+    head(200)
   end
 
   private
@@ -62,15 +62,6 @@ class ActsController < ApplicationController
 
   def invoice_calculator
     @invoice_calculator ||= InvoiceCalculator.new(@customer, params[:month])
-  end
-
-  def info_empty
-    empty_fields = []
-    @customer.client_info.attributes.each do |a|
-      empty_fields << a[0] unless a[1]
-    end
-    empty_fields.unshift 'you_must_fill_fields' if empty_fields.present?
-    empty_fields
   end
 
   def act_params

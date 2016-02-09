@@ -20,6 +20,25 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  activerecord:
+    errors:
+      models:
+        client_act:
+          attributes:
+            month:
+              uniqueness: Act for this month has been already created!
+        client_invoice:
+          attributes:
+            month:
+              uniqueness: Invoice for this month has been already created!
+        customer:
+          attributes:
+            monthly_payment:
+              inclusion: no_monthly_payment
+        hour:
+          attributes:
+            month:
+              presence: no_hours
   uk_month_names:
   - січня
   - лютого

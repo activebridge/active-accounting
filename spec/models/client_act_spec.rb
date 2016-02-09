@@ -6,6 +6,7 @@ RSpec.describe ClientAct, type: :model do
   end
 
   context 'validates' do
+    it { is_expected.to validate_presence_of(:total_money) }
     it { is_expected.to validate_uniqueness_of(:month).with_message('Act for this month has been already created!') }
   end
 end

@@ -1,5 +1,10 @@
 class ClientAct < ActiveRecord::Base
-  validates :month, uniqueness: { message: 'Act for this month has been already created!' }
+  include ClientMethods
+
+  validates :month, uniqueness: { message: I18n.t('activerecord.errors.models.client_act.attributes.month.uniqueness') }
   validates :total_money, presence: true
+  validate :monthly_payment_present
+  validate :client_info_present
+  validate :hours_present
   belongs_to :customer
 end

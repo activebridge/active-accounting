@@ -1,9 +1,10 @@
-@ActsCtrl = ['$q', '$scope', '$http', '$translate', '$cookies', 'ClientActs', ($q, $scope, $http, $translate, $cookies, ClientActs) ->
+@ActsCtrl = ['$q', '$scope', '$http', '$translate', '$cookies', 'ClientActs', 'clientActInvoiceDecorator', ($q, $scope, $http, $translate, $cookies, ClientActs, clientActInvoiceDecorator) ->
+  clientActInvoiceDecorator($scope)
   $scope.params = {
     month: moment().format('MM/YYYY')
   }
 
-  $scope.changeSelect = () ->
+  $scope.changeSelect = ->
     $scope.currentCustomer = _.find $scope.customers, (customer) ->
       parseInt($scope.params.customer_id) == customer.id
     $scope.acts = ClientActs.query(
@@ -15,36 +16,34 @@
     )
 
   displayAct = (response) ->
-    $("#generated-act").html response
+    $("#generated-act").html response.convert
     $scope.idShowAct = $('#act_id').text()
     $scope.showCurrentAct = true
     $scope.infoActEmpty = false
 
-  errorResponse = (response) ->
-    messages = ''
-    lengthMessages = response.messages.length
-    angular.forEach(response.messages, (v, k)->
-      messages += $translate.instant(v)
-      messages += ', ' if k != lengthMessages - 1 && k != 0
-    )
-    alert messages
-    $("#generated-act").html ''
-
   $scope.createAct = ->
-    $http.post('acts/', $scope.params).success(
+    ClientActs.save $scope.params,
       (response) ->
-        displayAct(response)
         $scope.acts = ClientActs.query(customer_id: $scope.currentCustomer.id)
-    ).error (response) ->
-      errorResponse(response)
-      response
+        $scope.infoActEmpty = false
+      (response) ->
+        $scope.errorResponse(response)
+        response
 
   $scope.showAct = (id) ->
-    $http.get('acts/' + id, params: $scope.params).success(
-      (response) ->
-        displayAct(response)
-    ).error (response) ->
-      errorResponse(response)
+    ClientActs.get(id: id, month: $scope.params.month,
+        (response) ->
+          displayAct(response)
+        (response) ->
+          $scope.errorResponse(response)
+    )
+
+  $scope.delete = (id) ->
+    if confirm($translate.instant('sure'))
+      ClientActs.delete
+        id: id
+      , (success) ->
+        $scope.acts = ClientActs.query(customer_id: $scope.currentCustomer.id)
 
   $scope.hideCurrentAct = ->
     $scope.showCurrentAct = false

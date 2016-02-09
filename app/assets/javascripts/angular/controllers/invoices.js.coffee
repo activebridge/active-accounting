@@ -1,4 +1,5 @@
-@InvoicesCtrl = ['$scope', '$http', 'Hours', 'Counterparty', 'ClientInvoices', '$translate', '$routeParams', ($scope, $http, Hours, Counterparty, ClientInvoices, $translate, $routeParams) ->
+@InvoicesCtrl = ['$scope', '$http', 'Hours', 'Counterparty', 'ClientInvoices', '$translate', '$routeParams', 'clientActInvoiceDecorator', ($scope, $http, Hours, Counterparty, ClientInvoices, $translate, $routeParams, clientActInvoiceDecorator) ->
+  clientActInvoiceDecorator($scope)
   $scope.params = {
     month: moment().format('MM/YYYY')
   }
@@ -16,21 +17,18 @@
         $scope.params = $routeParams
         $scope.createInvoice()
 
-  $scope.changeSelect = () ->
+  $scope.changeSelect = ->
     $scope.currentCustomer = _.find $scope.customers, (customer) ->
       parseInt($scope.params.customer_id) == customer.id
     $scope.invoices = ClientInvoices.query(
       customer_id: $scope.currentCustomer.id
       () ->
         $scope.showCurrentInvoice = false
-        $scope.infoInvoiceEmpty = $scope.invoices.length == 0
+        $scope.infoInvoiceEmpty = _.isEmpty $scope.invoices
     )
 
   displayInvoice = (id) ->
-    angular.forEach($scope.customers, ->
-      if @id == parseInt($scope.params.customer_id)
-        $scope.customer = @
-    )
+    $scope.customer = $scope.currentCustomer
     $scope.hours = Hours.query
       month: $scope.params.month
       customer_id: $scope.params.customer_id
@@ -46,30 +44,29 @@
     $scope.showCurrentInvoice = true
     $scope.infoInvoiceEmpty = false
 
-  errorResponse = (response) ->
-    messages = ''
-    lengthMessages = response.messages.length
-    angular.forEach(response.messages, (v, k)->
-      messages += $translate.instant(v)
-      messages += ', ' if k != lengthMessages - 1 && k != 0
-    )
-    alert messages
-
   $scope.createInvoice = ->
-    $http.post('invoices/', $scope.params).success(
+    ClientInvoices.save $scope.params,
       (response) ->
         displayInvoice(response.id)
         $scope.invoices = ClientInvoices.query(customer_id: $scope.currentCustomer.id)
-    ).error (response) ->
-      errorResponse(response)
-      response
+      (response) ->
+        $scope.errorResponse(response)
+        response
 
   $scope.showInvoice = (id) ->
-    $http.get('invoices/' + id, params: $scope.params).success(
+    ClientInvoices.get(id: id, month: $scope.params.month,
       () ->
         displayInvoice(id)
-    ).error (response) ->
-      errorResponse(response)
+      (response) ->
+        $scope.errorResponse(response)
+    )
+
+  $scope.delete = (id) ->
+    if confirm($translate.instant('sure'))
+      ClientInvoices.delete
+        id: id
+      , (success) ->
+        $scope.invoices = ClientInvoices.query(customer_id: $scope.currentCustomer.id)
 
   $scope.hideCurrentInvoice = ->
     $scope.showCurrentInvoice = false
