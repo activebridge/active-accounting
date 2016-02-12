@@ -8,7 +8,7 @@ RSpec.describe VacationsController, type: :controller do
   let(:unvalid_vacation_attributes) { FactoryGirl.attributes_for(:vacation, start:'', ending:'') }
 
   before do
-    allow(controller).to receive(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_admin!) { true }
     session[:counterparty_id] = vendor.id
   end
 

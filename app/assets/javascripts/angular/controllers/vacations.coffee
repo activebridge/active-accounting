@@ -12,7 +12,7 @@
     events: []
 
   $scope.load = ->
-    $scope.daysLeft = 21
+    $scope.daysLeft = 15
     $scope.daysUsed = $scope.daysReserved = 0
     $scope.vacations = Vacations.query(year: $scope.currentYear)
 
@@ -22,13 +22,7 @@
           start: key.start
           end: key.ending
           stick: true
-        days = moment(key.ending).diff(key.start, 'days')
-        if $scope.currentDate.isAfter(key.ending)
-          $scope.daysUsed += days
-        else
-          $scope.daysReserved += days
-
-      $scope.daysLeft -= $scope.daysReserved + $scope.daysUsed
+        $scope.vacationDayCount(key.start, key.ending, 1)
       return
 
   $scope.uiConfig = calendar:
@@ -42,16 +36,16 @@
     select: (start, end) ->
       days = end.diff(start, 'days')
       if $scope.currentDate.isBefore(start) and $scope.daysLeft >= days
-        $scope.vacationsSource.events.push
-          start: start.format()
-          end: end.format()
-          stick: true
-        $scope.newVacation =
-          start: start.format()
-          ending: end.format()
-        $scope.daysReserved += days
-        $scope.daysLeft -= days
-        $scope.add()
+        isWeekdays = $scope.vacationDayCount(start, end, 1)
+        if isWeekdays
+          $scope.vacationsSource.events.push
+            start: start.format()
+            end: end.format()
+            stick: true
+          $scope.newVacation =
+            start: start.format()
+            ending: end.format()
+          $scope.add()
       return
 
   $scope.changeYear = (direction) ->
@@ -75,6 +69,20 @@
   $scope.showDeleteButton = (date) ->
     $scope.currentDate.isBefore(date)
 
+  $scope.vacationDayCount = (start, end, day_count) ->
+    end = moment(end).subtract(1, 'day')
+    dates = moment.range(start, end)
+    weekdays = no
+    dates.by 'days', (date) ->
+      if date.day() > 0 and date.day() < 6
+        weekdays = yes if not weekdays
+        if $scope.currentDate.isBefore(start)
+          $scope.daysReserved += day_count
+        else
+          $scope.daysUsed += day_count
+        $scope.daysLeft -= day_count
+    return weekdays
+
   $scope.add = ->
     vacation = Vacations.save($scope.newVacation,
       () ->
@@ -87,9 +95,7 @@
       Vacations.delete
         id: vacation.id
       , (success) ->
-        days = moment(vacation.ending).diff(vacation.start, 'days')
-        $scope.daysLeft += days
-        $scope.daysReserved -= days
+        $scope.vacationDayCount(vacation.start, vacation.ending, -1)
         $scope.vacationsSource.events.splice(index, 1)
         $scope.vacations.splice(index, 1)
       return
