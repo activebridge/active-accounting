@@ -10,7 +10,7 @@ class Counterparty < ActiveRecord::Base
     DISPLAY_TYPES = constants.collect{ |type| const_get(type) }
   end
 
-  has_paper_trail only: :value_payment
+  has_paper_trail only: :value_payment, on: :update
 
   TYPES::DISPLAY_TYPES.each do |type|
     define_method("#{type.downcase}?") do

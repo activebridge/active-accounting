@@ -20,13 +20,26 @@ class CounterpartySerializer < ActiveModel::Serializer
 
   def versions
     versions = []
+    updated_by = nil
     object.versions.map do |v|
       versions << {
         created_at: v.created_at.strftime('%d-%m-%Y'),
         updated_by: Admin.find_by(id: v.whodunnit).try(:email),
-        value_payment: v.reify.try(:value_payment)
-      }
+        value_payment: v.reify.value_payment
+      } if v.reify.try(:value_payment)
+      updated_by = Admin.find_by(id: v.whodunnit).try(:email)
     end
+    versions << current_payment
     versions
+  end
+
+  private
+
+  def current_payment
+    {
+      created_at: object.updated_at.strftime('%d-%m-%Y'),
+      updated_by: Admin.find_by(id: object.versions.last.whodunnit).try(:email),
+      value_payment: object.value_payment
+    } if object.value_payment
   end
 end
