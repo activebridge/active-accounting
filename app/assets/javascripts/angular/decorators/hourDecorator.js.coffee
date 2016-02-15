@@ -48,12 +48,21 @@ angular.module('accounting.services').factory 'hourDecorator', ["$q", 'Hours', '
             else
               return [true, '']
 
+    $scope.getWorkingDays = (value) ->
+      WorkDay.get
+        date: value,
+        (response) ->
+          $scope.workingDays = response.count
+
+    $scope.getWorkingHours = ->
+      $scope.workingHours = $scope.workingDays * 8
+
     $scope.changeMonth = (value, options = {}) ->
       if value != $scope.selectedMonth || options.update
         $scope.selectedMonth = value
         $scope.monthAndYear = value + '/' + ($.trim($scope.year) || $scope.currentYear)
         $scope.hours = Hours.query(month: $scope.monthAndYear, type: options.type)
-        $scope.workingDays = WorkDay.get(date: $scope.monthAndYear)
+        $scope.getWorkingDays($scope.monthAndYear)
         setDay =
           if $scope.monthAndYear != $scope.currentMonth + '/' + $scope.currentYear
             '1'

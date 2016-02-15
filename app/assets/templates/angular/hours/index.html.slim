@@ -26,11 +26,11 @@
       .row
         b
           i
-            | {{ 'count_working_days' | translate }}: {{ workingDays.count }}
+            | {{ 'count_working_days' | translate }}: {{ workingDays }}
       .row
         b
           i
-            | {{ 'totalHours' | translate }}: {{ workingDays.count * 8 || 0 }}
+            | {{ 'totalHours' | translate }}: {{ workingHours }}
       .row
         .col-md-8.col-sm-6.col-xs-6
           b
