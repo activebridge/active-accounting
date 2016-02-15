@@ -1,5 +1,6 @@
 class Counterparty < ActiveRecord::Base
   has_many :registers
+  has_many :payment_histories, dependent: :destroy
 
   module TYPES
     CUSTOMER = 'Customer'
@@ -9,8 +10,6 @@ class Counterparty < ActiveRecord::Base
 
     DISPLAY_TYPES = constants.collect{ |type| const_get(type) }
   end
-
-  has_paper_trail only: :value_payment
 
   TYPES::DISPLAY_TYPES.each do |type|
     define_method("#{type.downcase}?") do
@@ -52,4 +51,5 @@ class Counterparty < ActiveRecord::Base
 
   alias_method :assigned, :assigned?
   alias_method :successful_payment, :successful_payment?
+
 end

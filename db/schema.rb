@@ -125,6 +125,16 @@ ActiveRecord::Schema.define(version: 20160217120921) do
   add_index "order_features", ["feature_id"], name: "index_order_features_on_feature_id", using: :btree
   add_index "order_features", ["vendor_order_id"], name: "index_order_features_on_vendor_order_id", using: :btree
 
+  create_table "payment_histories", force: true do |t|
+    t.integer  "counterparty_id"
+    t.integer  "admin_id"
+    t.float    "value_payment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "payment_histories", ["counterparty_id"], name: "index_payment_histories_on_counterparty_id", using: :btree
+
   create_table "registers", force: true do |t|
     t.date     "date"
     t.integer  "article_id"
@@ -188,16 +198,5 @@ ActiveRecord::Schema.define(version: 20160217120921) do
   end
 
   add_index "vendor_orders", ["vendor_id"], name: "index_vendor_orders_on_vendor_id", using: :btree
-
-  create_table "versions", force: true do |t|
-    t.string   "item_type",                     null: false
-    t.integer  "item_id",                       null: false
-    t.string   "event",                         null: false
-    t.string   "whodunnit"
-    t.text     "object",     limit: 2147483647
-    t.datetime "created_at"
-  end
-
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
 end

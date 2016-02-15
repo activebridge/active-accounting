@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe CounterpartiesController, type: :controller do
   let(:vendor) { FactoryGirl.create(:vendor) }
-  let(:vendor_attributes) { FactoryGirl.attributes_for(:vendor, name: 'Name', type: 'Vendor') }
-  let(:invalid_vendor_attributes) { FactoryGirl.attributes_for(:vendor, name: '', type: '') }
+  let(:vendor_attributes) { FactoryGirl.attributes_for(:vendor, name: 'Name', type: 'Vendor', value_payment: 100) }
+  let(:invalid_vendor_attributes) { FactoryGirl.attributes_for(:vendor, name: '', type: '', value_payment: '') }
+  let(:admin) { FactoryGirl.create(:admin) }
 
   before do
     allow(controller).to receive(:authenticate_admin!) { true }
@@ -30,15 +31,6 @@ RSpec.describe CounterpartiesController, type: :controller do
       it { expect(json).to have(1).items }
       it { expect(json.first['active']).to be_falsey }
     end
-
-    context 'returns list of versions' do
-      before do
-        get :index, scope: 'inactive', format: :json
-        inactive_counterparty.update(value_payment: 400)
-      end
-
-      it { expect(json.first['versions']).to have(1).item }
-    end
   end
 
   describe '#create' do
@@ -58,8 +50,12 @@ RSpec.describe CounterpartiesController, type: :controller do
 
   describe '#update' do
     context 'with valid params' do
-      before { put :update, id: vendor.id, counterparty: vendor_attributes }
+      before do
+        sign_in :admin, admin
+        put :update, id: vendor.id, counterparty: vendor_attributes
+      end
 
+      it { expect(json['payment_histories']).to have(1).items }
       it { expect(json['name']).to eq(vendor_attributes[:name]) }
       it { expect(json['type']).to eq(vendor_attributes[:type]) }
     end
