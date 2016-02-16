@@ -3,9 +3,9 @@
 var Authentication = { auth: ['Auth', function(Auth) {
                        Auth.currentUser().then((function(user) {}), function(error) { window.location.replace('vendor_profile#/hours'); }); }]}
 
-angular.module('ActiveAccounting').config(function(AuthProvider) {
+angular.module('ActiveAccounting').config(['AuthProvider', function(AuthProvider) {
   AuthProvider.loginPath('admins/sign_in.json');
-}).config([
+}]).config([
   '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider
       .when('/home', {
