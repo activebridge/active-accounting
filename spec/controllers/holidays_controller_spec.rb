@@ -6,7 +6,7 @@ RSpec.describe HolidaysController, type: :controller do
   let(:invalid_holiday_attributes) { FactoryGirl.attributes_for(:holiday, name: '', date: '') }
 
   before do
-    allow(controller).to receive(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_admin!) { true }
   end
 
   describe '#index' do

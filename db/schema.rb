@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160121101542) do
+ActiveRecord::Schema.define(version: 20160205091306) do
+
+  create_table "admins", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
+  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
   create_table "articles", force: true do |t|
     t.string   "name"
@@ -19,6 +32,16 @@ ActiveRecord::Schema.define(version: 20160121101542) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "client_acts", force: true do |t|
+    t.string   "total_money"
+    t.date     "month"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "client_acts", ["customer_id"], name: "index_client_acts_on_customer_id", using: :btree
 
   create_table "client_infos", force: true do |t|
     t.integer  "customer_id"
@@ -36,6 +59,15 @@ ActiveRecord::Schema.define(version: 20160121101542) do
 
   add_index "client_infos", ["customer_id"], name: "index_client_infos_on_customer_id", using: :btree
   add_index "client_infos", ["invoice_id"], name: "index_client_infos_on_invoice_id", using: :btree
+
+  create_table "client_invoices", force: true do |t|
+    t.date     "month"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "client_invoices", ["customer_id"], name: "index_client_invoices_on_customer_id", using: :btree
 
   create_table "counterparties", force: true do |t|
     t.string   "name"
@@ -113,19 +145,6 @@ ActiveRecord::Schema.define(version: 20160121101542) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "vendor_acts", force: true do |t|
     t.string   "total_money"

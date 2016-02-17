@@ -1,5 +1,5 @@
 class TaxesController < ApplicationController
-  skip_before_action :authenticate_user!
+  skip_before_action :authenticate_admin!
   before_action :find_tax
   before_action :check_user, only: :update
 
@@ -27,6 +27,6 @@ class TaxesController < ApplicationController
   end
 
   def check_user
-    render json: {error: 'Not authorization'} and return unless current_user
+    render json: {error: 'Not authorization'} and return unless current_admin
   end
 end

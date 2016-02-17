@@ -6,7 +6,7 @@ RSpec.describe VendorOrdersController, type: :controller do
   let!(:vendor_order) { FactoryGirl.create(:vendor_order, vendor_id: vendor.id) }
 
   before do
-    allow(controller).to receive(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_admin!) { true }
   end
 
   describe '#index' do

@@ -1,5 +1,5 @@
 class WorkDaysController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_admin!, except: :index
   before_action :work_days
 
   def index

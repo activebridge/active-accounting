@@ -7,7 +7,7 @@ RSpec.describe ArticlesController, type: :controller do
   let(:invalid_article_attributes) { FactoryGirl.attributes_for(:article, name: '', type: '') }
 
   before do
-    allow(controller).to receive(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_admin!) { true }
   end
 
   describe '#index' do

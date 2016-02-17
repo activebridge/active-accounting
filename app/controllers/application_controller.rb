@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
+  before_action :authenticate_admin!
   respond_to :html, :json
 
   protect_from_forgery with: :exception

@@ -6,7 +6,7 @@ RSpec.describe ActsController, type: :controller do
   let!(:hour) { FactoryGirl.create(:hour, customer_id: customer.id, vendor_id: vendor.id) }
 
   before do
-    allow(controller).to receive(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_admin!) { true }
   end
 
   describe '#show' do

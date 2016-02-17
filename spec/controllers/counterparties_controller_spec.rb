@@ -6,7 +6,7 @@ RSpec.describe CounterpartiesController, type: :controller do
   let(:invalid_vendor_attributes) { FactoryGirl.attributes_for(:vendor, name: '', type: '') }
 
   before do
-    allow(controller).to receive(:authenticate_user!) { true }
+    allow(controller).to receive(:authenticate_admin!) { true }
   end
 
   describe '#index' do
