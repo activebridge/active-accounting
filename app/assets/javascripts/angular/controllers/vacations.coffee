@@ -9,21 +9,26 @@
   $scope.vacationsSource =
     backgroundColor: 'green'
     color: 'green'
+    years: []
     events: []
 
   $scope.load = ->
     $scope.daysLeft = 15
     $scope.daysUsed = $scope.daysReserved = 0
     $scope.vacations = Vacations.query(year: $scope.currentYear)
-
     $scope.vacations.$promise.then ->
       for key in $scope.vacations
         $scope.vacationsSource.events.push
+          vacation_id: key.id
           start: key.start
           end: key.ending
           stick: true
+        unless _.contains($scope.vacationsSource.years, $scope.currentYear)
+          $scope.vacationsSource.years.push($scope.currentYear)
         $scope.vacationDayCount(key.start, key.ending, 1)
       return
+
+    $scope.showVacations($scope.vacations)
 
   $scope.uiConfig = calendar:
     selectable: true
@@ -38,18 +43,26 @@
       if $scope.currentDate.isBefore(start) and $scope.daysLeft >= days
         isWeekdays = $scope.vacationDayCount(start, end, 1)
         if isWeekdays
-          $scope.vacationsSource.events.push
-            start: start.format()
-            end: end.format()
-            stick: true
           $scope.newVacation =
             start: start.format()
             ending: end.format()
-          $scope.add()
+          $scope.vacation = Vacations.save $scope.newVacation,
+            (response) ->
+              $scope.vacations.push(response)
+              $scope.showVacations($scope.vacations)
+              $scope.newVacation = {}
+              response
+          $scope.vacation.$promise.then ->
+            $scope.vacationsSource.events.push
+              vacation_id: $scope.vacation.id
+              start: start.format()
+              end: end.format()
+              stick: true
       return
 
   $scope.changeYear = (direction) ->
-    $scope.vacationsSource.events = []
+    unless _.contains($scope.vacationsSource.years, $scope.currentYear)
+      $scope.vacationsSource.events = []
     uiCalendarConfig.calendars.vacationCalendar.fullCalendar('removeEvents')
     uiCalendarConfig.calendars.vacationCalendar.fullCalendar(direction)
     $scope.currentYear = uiCalendarConfig.calendars.vacationCalendar.fullCalendar('getDate').year()
@@ -64,6 +77,7 @@
     else if direction == 'next' and monthIndex < 11
       uiCalendarConfig.calendars.vacationCalendar.fullCalendar(direction)
       $scope.currentMonth = $scope.months[monthIndex+1]
+    $scope.showVacations($scope.vacations)
     return
 
   $scope.showDeleteButton = (date) ->
@@ -83,12 +97,14 @@
         $scope.daysLeft -= day_count
     return weekdays
 
-  $scope.add = ->
-    vacation = Vacations.save($scope.newVacation,
-      () ->
-        $scope.vacations.push(vacation)
-        $scope.newVacation = {}
-    )
+  $scope.showVacations = (vacations) ->
+    $scope.visibleVacations = []
+    monthIndex = _.indexOf($scope.months, $scope.currentMonth)
+    vacations.$promise.then ->
+      for vacation in vacations
+        if parseInt(vacation.start.slice(5,7)) == monthIndex + 1
+          $scope.visibleVacations.push(vacation)
+    $scope.visibleVacations
 
   $scope.delete = (vacation, index) ->
     if confirm('Впевнений?')
@@ -96,8 +112,14 @@
         id: vacation.id
       , (success) ->
         $scope.vacationDayCount(vacation.start, vacation.ending, -1)
-        $scope.vacationsSource.events.splice(index, 1)
-        $scope.vacations.splice(index, 1)
+        _.find($scope.vacationsSource.events, (event) ->
+          if event.vacation_id == vacation.id
+            id = _.indexOf($scope.vacationsSource.events, event)
+            $scope.vacationsSource.events.splice(id, 1)
+        )
+        id = _.indexOf($scope.vacations, vacation)
+        $scope.vacations.splice(id, 1)
+        $scope.showVacations($scope.vacations)
       return
 
   $scope.eventSources = [$scope.vacationsSource]

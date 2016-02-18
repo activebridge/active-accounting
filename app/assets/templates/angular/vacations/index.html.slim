@@ -15,7 +15,7 @@
         tr
           th.vacation_start translate = 'vacation_start'
           th translate = 'vacation_end'
-        tr.show_button ng-repeat='vacation in vacations'
+        tr.show_button ng-repeat='vacation in visibleVacations'
           td ng-bind = 'vacation.start'
           td ng-bind = 'vacation.ending'
           td ng-if = 'showDeleteButton(vacation.start)'
