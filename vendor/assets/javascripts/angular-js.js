@@ -12,3 +12,4 @@
 //= require angular-js/loading-bar.min
 //= require angular-js/collapse
 //= require angular-flash.js
+//= require angular-js/calendar

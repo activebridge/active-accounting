@@ -165,3 +165,8 @@ angular.module('accounting.services').factory 'ClientInvoices', ['$resource', ($
   $resource '/invoices/:id',
     id: '@id'
 ]
+
+angular.module('accounting.services').factory 'Vacations', ['$resource', ($resource) ->
+  $resource '/vacations/:id',
+    id: '@id'
+]

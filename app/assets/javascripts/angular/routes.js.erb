@@ -67,6 +67,10 @@ angular.module('ActiveAccounting').config(['AuthProvider', function(AuthProvider
         templateUrl: '<%= asset_path('angular/hrs/index.html') %>',
         controller: 'HrsCtrl'
       })
+      .when('/vacations', {
+        templateUrl: '<%= asset_path('angular/vacations/index.html') %>',
+        controller: 'VacationsCtrl'
+      })
       .otherwise({ redirectTo: '/home' });
   }
 ]).config(["$httpProvider", function($httpProvider) {
