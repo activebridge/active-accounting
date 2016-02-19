@@ -131,10 +131,6 @@ GEM
       activesupport
       i18n
     orm_adapter (0.5.0)
-    paper_trail (4.0.0)
-      activerecord (>= 3.0, < 6.0)
-      activesupport (>= 3.0, < 6.0)
-      request_store (~> 1.1)
     passenger (4.0.53)
       daemon_controller (>= 1.2.0)
       rack
@@ -303,7 +299,6 @@ DEPENDENCIES
   minitest
   mysql2 (~> 0.3.20)
   numbers_and_words
-  paper_trail (~> 4.0.0)
   passenger
   pry
   quiet_assets

@@ -25,6 +25,12 @@ class CounterpartiesController < ApplicationController
 
   def update
     if @counterparty.update_attributes(counterparty_params)
+      if @counterparty.previous_changes.include?('value_payment')
+        @counterparty.payment_histories.create(
+          admin_id: current_admin.id,
+          value_payment: @counterparty.value_payment
+        )
+      end
       render json: CounterpartySerializer.new(@counterparty), status: 201
     else
       render json: { status: :error, error: @counterparty.errors.messages }, status: 422

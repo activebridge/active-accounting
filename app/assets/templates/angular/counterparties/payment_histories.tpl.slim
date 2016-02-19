@@ -1,0 +1,16 @@
+.popover.custom-popover
+  .arrow
+  h3.popover-title ng-bind="title" ng-show="title"
+  div ng-init=("payment_histories = parseVersions(content)")
+    table.table
+      tr
+        th translate="date"
+        th translate="name"
+        th translate="payment"
+      tr ng-repeat=("payment_history in payment_histories")
+        td
+          | {{payment_history.created_at}}
+        td
+          | {{payment_history.updated_by}}
+        td
+          | {{payment_history.value_payment}}

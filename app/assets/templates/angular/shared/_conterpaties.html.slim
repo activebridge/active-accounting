@@ -39,7 +39,7 @@
           span.hidde.glyphicon.glyphicon-trash.mess-info ng-show="counterparty.assigned" title="{{ 'deleteInfo' | translate }}"
           button.icon-button.hidde ng-click="delete(counterparty)" ng-show="!counterparty.assigned" title="{{ 'delete_reg' | translate }}" type="button"
             span.glyphicon.glyphicon-trash
-          span.hidde.glyphicon.glyphicon-eye-open title="{{counterparty.name}}" data-trigger='hover' data-content="{{counterparty.versions}}" data-template="#{asset_path("angular/counterparties/versions.tpl.slim")}" bs-popover=true ng-show="showGroup != 'Customer'"
+          span.hidde.glyphicon.glyphicon-eye-open title="{{counterparty.name}}" data-trigger='hover' data-content="{{counterparty.payment_histories}}" data-template="#{asset_path("angular/counterparties/payment_histories.tpl.slim")}" bs-popover=true ng-show="showGroup != 'Customer'"
       td.monthly_payment
         .alert.alert-warning.alert-dismissable ng-show="!counterparty.successful_payment && counterparty.monthly_payment && endOfMonth()"
           button.close aria-hidden="true" data-dismiss="alert" type="button"  &times;
@@ -68,4 +68,4 @@
           button.icon-button.hidde ng-click="delete(counterparty)" ng-show="!counterparty.assigned" title="{{ 'delete_reg' | translate }}" type="button"
             span.glyphicon.glyphicon-trash
           span.hidde.glyphicon.glyphicon-question-sign.mess-info ng-show="counterparty.assigned" title="{{ 'deleteInfo' | translate }}"
-          span.hidde.glyphicon.glyphicon-eye-open title="{{counterparty.name}}" data-trigger='hover' data-content="{{counterparty.versions}}" data-template="#{asset_path("angular/counterparties/versions.tpl.slim")}" bs-popover=true
+          span.hidde.glyphicon.glyphicon-eye-open title="{{counterparty.name}}" data-trigger='hover' data-content="{{counterparty.payment_histories}}" data-template="#{asset_path("angular/counterparties/payment_histories.tpl.slim")}" bs-popover=true ng-show="showGroup != 'Customer'"

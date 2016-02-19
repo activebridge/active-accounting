@@ -1,5 +1,5 @@
 class CounterpartySerializer < ActiveModel::Serializer
-  attributes :id, :name, :start_date, :active, :assigned, :monthly_payment, :value_payment, :versions,
+  attributes :id, :name, :start_date, :active, :assigned, :monthly_payment, :value_payment, :payment_histories,
              :successful_payment, :type, :customer, :email, :client_info, :vendor_info, :signed_in, :currency_monthly_payment
 
   def start_date
@@ -18,15 +18,15 @@ class CounterpartySerializer < ActiveModel::Serializer
     VendorInfoSerializer.new(object.vendor_info) if object.vendor? && object.vendor_info
   end
 
-  def versions
-    versions = []
-    object.versions.map do |v|
-      versions << {
-        created_at: v.created_at.strftime('%d-%m-%Y'),
-        updated_by: Admin.find_by(id: v.whodunnit).try(:email),
-        value_payment: v.reify.try(:value_payment)
+  def payment_histories
+    payment_histories = []
+    object.payment_histories.map do |h|
+      payment_histories << {
+        created_at: h.created_at.strftime('%d-%m-%Y'),
+        updated_by: Admin.find_by(id: h.admin_id).email,
+        value_payment: h.value_payment
       }
     end
-    versions
+    payment_histories
   end
 end

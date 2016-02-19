@@ -36,7 +36,6 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary-edge'
 gem 'gon'
 gem 'numbers_and_words'
-gem 'paper_trail', '~> 4.0.0'
 gem 'highcharts-rails', '~> 3.0.0'
 
 group :development, :test do
