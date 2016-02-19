@@ -1,5 +1,4 @@
 class VendorSessionsController < VendorApplicationController
-  respond_to :js, only: :create
   before_action :fetch_counterparty, only: :create
 
   def create
@@ -10,7 +9,10 @@ class VendorSessionsController < VendorApplicationController
       flash.now[:error] = 'Invalid email or password'
     end
 
-    respond_with(@counterparty, layout: false)
+    respond_to do |format|
+      format.js { render layout: false }
+      format.json { render json: @counterparty }
+    end
   end
 
   def destroy
