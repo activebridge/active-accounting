@@ -5,6 +5,9 @@ class VendorApplicationController < ActionController::Base
   helper_method :current_counterparty
 
   def current_counterparty
+    token = request.headers['Authorization'].to_s.split(' ').last
+    return @current_counterparty ||= Counterparty.find_by_auth_token(token) if token
+
     @current_counterparty ||= Counterparty.find(session[:counterparty_id]) if session[:counterparty_id]
   end
 
