@@ -50,10 +50,6 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  config.before do
-    request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(USER, PASSWORD) if defined? request
-  end
-
   config.include Requests::JsonHelpers, type: :controller
   config.include Devise::TestHelpers, type: :controller
 end

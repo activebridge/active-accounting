@@ -1,16 +1,18 @@
 class VendorSessionsController < VendorApplicationController
-  respond_to :js, only: :create
   before_action :fetch_counterparty, only: :create
 
   def create
     if @counterparty
       session[:counterparty_id] = @counterparty.id
       @counterparty.update(signed_in: true)
+      respond_to do |format|
+        format.js { render layout: false }
+        format.json { render json: @counterparty }
+      end
     else
       flash.now[:error] = 'Invalid email or password'
+      render json: {message: 'Invalid credentials'}, status: 422
     end
-
-    respond_with(@counterparty, layout: false)
   end
 
   def destroy

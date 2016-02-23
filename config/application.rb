@@ -25,6 +25,13 @@ module ActiveAccounting
 
     # don't show asset logs in console
     config.assets.logger = nil if Rails.env.development?
+
+    config.middleware.insert_before 0, "Rack::Cors" do
+     allow do
+       origins '*'
+       resource '*', :headers => :any, :methods => [:get, :post, :options]
+     end
+   end
   end
 end
 

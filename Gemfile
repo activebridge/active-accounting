@@ -37,6 +37,7 @@ gem 'wkhtmltopdf-binary-edge'
 gem 'gon'
 gem 'numbers_and_words'
 gem 'highcharts-rails', '~> 3.0.0'
+gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
   gem 'pry'

@@ -8,6 +8,7 @@ default: &default
 development:
   <<: *default
   database: active-accounting-dev
+
 test:
   <<: *default
   database: active-accounting-test
