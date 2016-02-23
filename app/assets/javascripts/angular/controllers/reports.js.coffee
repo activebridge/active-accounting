@@ -4,6 +4,20 @@
   registerDecorator($scope)
 
   $scope.rateDollar = $cookies.rateDollar || 0
+  $scope.revenues = []
+  $scope.loans = []
+  $scope.costs = []
+  $scope.translations = []
+  $scope.existingMonths = []
+
+  $scope.totalRevenue = {}
+  $scope.totalRevenuePlan = {}
+  $scope.totalCost = {}
+  $scope.totalCostPlan = {}
+  $scope.totalTranslation = {}
+  $scope.totalTranslationPlan = {}
+  $scope.totalLoan = {}
+  $scope.totalLoanPlan = {}
 
   $scope.load = (value) ->
     $scope.months = $translate.instant('month_all').split(',')
@@ -14,44 +28,32 @@
     $scope.currentMonth = $scope.months[curr_date.getMonth()]
     $scope.loadDates()
 
-  $scope.loadDates = ->
+  $scope.loadDates = (date) ->
     $cookies.rateDollar = String($scope.rateDollar).replace(',','.')
+    date = date || moment().format('MM/YYYY')
+    month = date.split('/')[0]
 
-    Report.query
-      report_type: 'revenues'
-      , 'months[]': $scope.clickedMonths
-      , rate_currency: $scope.rateDollar
-      , (response) ->
-        $scope.revenues = response[0].articles
-        $scope.totalRevenue = response[0].total_values
-        $scope.totalRevenuePlan = response[0].total_values_plan
+    unless date in $scope.existingMonths
+      $scope.existingMonths.push date
 
-    Report.query
-      report_type: 'costs'
-      , 'months[]': $scope.clickedMonths
-      , rate_currency: $scope.rateDollar
-      , (response) ->
-        $scope.costs = response[0].articles
-        $scope.totalCost = response[0].total_values
-        $scope.totalCostPlan = response[0].total_values_plan
+      angular.forEach ['revenues', 'costs', 'translations', 'loans'], (type) ->
+        Report.query
+          report_type: type
+          , 'months[]': date
+          , rate_currency: $scope.rateDollar
+          , (response) ->
+            angular.forEach response[0].articles, (value) ->
+              existingArticle = _.find $scope[type], (v, k) ->
+                $scope.articleIndex = k
+                return v.article == value.article
 
-    Report.query
-      report_type: 'translations'
-      , 'months[]': $scope.clickedMonths
-      , rate_currency: $scope.rateDollar
-      , (response) ->
-        $scope.translations = response[0].articles
-        $scope.totalTranslation = response[0].total_values
-        $scope.totalTranslationPlan = response[0].total_values_plan
+              if existingArticle
+                mergeObjects($scope[type][$scope.articleIndex], value)
+              else
+                $scope[type].push value
 
-    Report.query
-      report_type: 'loans'
-      , 'months[]': $scope.clickedMonths
-      , rate_currency: $scope.rateDollar
-      , (response) ->
-        $scope.loans = response[0].articles
-        $scope.totalLoan = response[0].total_values
-        $scope.totalLoanPlan = response[0].total_values_plan
+            $scope["total#{_.capitalize(type.slice(0, -1))}"][month] = response[0].total_values[month] if response[0].total_values[month]
+            $scope["total#{_.capitalize(type.slice(0, -1))}Plan"][month] = response[0].total_values_plan[month] if response[0].total_values_plan[month]
 
   $scope.monthsChange = (month, clicked) ->
     m = $scope.months.indexOf(month)+1
@@ -64,7 +66,7 @@
       trashMonth = $scope.clickedMonths.indexOf(date)
       $scope.clickedMonths.splice(trashMonth, 1)
       delete $scope.funcPlan.show[m-1]
-    $scope.loadDates()
+    $scope.loadDates(date)
 
   $scope.range = (start, end) ->
     return [start..end]
