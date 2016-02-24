@@ -28,6 +28,9 @@
           a href='/vendor_orders/{{order.id}}?format=pdf' target='_blank' data-method='get'
             button.icon-button title="{{ 'savePdf' | translate }}" type="button"
               span.glyphicon.glyphicon-file
+          a href='/vendor_orders/{{order.id}}?format=xlsx' target='_blank' data-method='get'
+            button.icon-button title="{{ 'saveExcel' | translate }}" type="button"
+              span.glyphicon.glyphicon-list-alt
   .col-lg-7#generated-order-vendor ng-show='showCurrentOrder'
     .act_body
       button.icon-button.icon-back ng-click="hideCurrentOrder()" type="button" title="{{ 'back_to_list' | translate }}"
@@ -141,6 +144,8 @@
           .act_003 М.П.
   a href='/vendor_orders/{{currentOrder.id}}?format=pdf' target='_blank' data-method='get'
     button.width-86 translate='savePdf' ng-show='showCurrentOrder'
+  a href='/vendor_orders/{{currentOrder.id}}?format=xlsx' target='_blank' data-method='get'
+    button.width-86 translate='saveExcel' ng-show='showCurrentOrder'
   .info-alas ng-show='orders.length == 0 && !showCurrentOrder'
     br
     .alert.alert-info.alert-dismissable

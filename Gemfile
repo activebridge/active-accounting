@@ -70,3 +70,7 @@ gem 'whenever', require: false
 gem 'mandrill_mailer'
 gem 'letter_opener'
 gem 'simplecov'
+gem 'rubyzip'
+gem 'zip-zip'
+gem 'axlsx', '2.0.1'
+gem 'axlsx_rails'

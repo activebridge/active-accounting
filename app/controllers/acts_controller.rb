@@ -37,6 +37,7 @@ class ActsController < ApplicationController
           template: 'acts/show_customer.pdf.erb',
           dpi: '1200'
       end
+      format.xlsx { render xlsx: 'show_customer', filename: 'act.xlsx' }
     end
   end
 

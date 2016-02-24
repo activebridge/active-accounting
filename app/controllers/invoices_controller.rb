@@ -22,9 +22,15 @@ class InvoicesController < ApplicationController
     @invoice_number = invoice_calculator.invoice_number
     @total_money = invoice_calculator.total_money
     @hours = invoice_calculator.hours_by_month
-    render pdf: "invoice_#{@customer.name + Time.current.strftime('%m-%d-%Y')}",
-           template: 'invoices/show.pdf.slim',
-           dpi: '600'
+    respond_to do |format|
+      format.html { render 'invoices/show.pdf.slim' }
+      format.pdf do
+        render pdf: "invoice_#{@customer.name + Time.current.strftime('%m-%d-%Y')}",
+               template: 'invoices/show.pdf.slim',
+               dpi: '600'
+      end
+      format.xlsx { render xlsx: 'show', filename: 'invoice.xlsx' }
+    end
   end
 
   def destroy

@@ -1,0 +1,58 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Act', page_margins: { left: 0.5, top: 0.5, bottom: 0.5, right: 0.5 }) do |sheet|
+  default = wb.styles.add_style({ alignment: { horizontal: :justify, vertical: :top }, sz: 7 })
+  bg = wb.styles.add_style({ alignment: { horizontal: :justify, vertical: :center }, b: true, sz: 7, bg_color: "c9cbcd" })
+  bold = wb.styles.add_style({ alignment: { horizontal: :justify, vertical: :top }, sz: 7, b: true })
+  header = [bg, bg, default, bg, bg]
+
+  sheet.add_row ["Act# #{@act_date.month}/#{@act_date.end_of_month.day} dated #{@act_date.end_of_month.strftime('%m/%d/%Y')} submitting/accepting", '', '', 'АКТ приймання/здачі Послуг №', "#{@act_date.month}/#{@act_date.end_of_month.day}"], style: header
+  sheet.add_row ['the works done to the Development Services Agreement', '', '', "від #{@act_date.end_of_month.strftime('%d/%m/%Y')}"], style: header
+  sheet.add_row ["# #{@customer.client_info_agreement_number} dated #{@customer.client_info_agreement_date.strftime("%B #{@customer.client_info_agreement_date.day.ordinalize}, %Y")}", '', '', 'до Договору про надання послуг', "№ #{@customer.client_info_agreement_date} від #{@customer.client_info_agreement_date.strftime("%e #{t('uk_month_names')[@customer.client_info_agreement_date.month - 1]} %Y")} р."], style: header
+
+  sheet.add_row ['Between Active Bridge, LLC', '', '', 'Між ТОВ "Ектів Брідж"', ''], style: default
+  sheet.add_row ["137 Gogolya Street, Cherkasy, 18000, Ukraine, and", '', '', '18000, Черкаська обл., місто Черкаси, вул.. Гоголя 137, Україна, і', ''], style: default
+  sheet.add_row ["#{@customer.client_info_name}", '', '', "#{@customer.client_info_name}", ""], style: default
+  sheet.add_row ["#{@customer.client_info_address}", '', '', "#{@customer.client_info_address}", ""], style: default
+  sheet.add_row ['further together referred to as "Parties" and separately as "Party", have concluded this Act of submitting/accepting the works done (further together referred to as "Act") about the following:', '', '', 'далі за текстом "Сторони", а окремо "Сторона", склали дійсний Акт приймання/здачі Послуг по виготовленню програмного продукту (далі - "Акт") про нижченаведене:', ""], style: default, height: 26
+  sheet.add_row ["General Objective of Act", '', '', 'Предмет підписання Акту', ""], style: header
+  sheet.add_row ["The CONSULTANT submits and the COMPANY accepts the works", '', '', 'Виконавець здає, а Компанія приймає надані послуги по', ""], style: default
+  sheet.add_row ["done", "since #{@act_date.strftime('%d')} till #{@act_date.end_of_month.day} #{@act_date.strftime("%B")}", '', 'виготовленню програмного продукту', "з #{@act_date.day} по #{@act_date.end_of_month.day} #{t('uk_month_names')[@act_date.month - 1]}"], style: [default, bold, default, default, bold]
+  sheet.add_row ["The works are done to the amount of", "#{sprintf('%.2f', @total_by_hours).gsub('.',',')} USD", '', 'Плата за надані Послуги становить', "#{sprintf('%.2f', @total_by_hours).gsub('.',',')}"], style: [default, bold, default, default, bold]
+  sheet.add_row ["VAT excluded", '', '', 'доларів США без ПДВ', ""], style: default
+  sheet.add_row ["The CONSULTANT provided the COMPANY with following software development services:", '', '', 'Виконавець надав Компанії такі Послуги по виготовленню програмного продукту:', ""], style: default
+  sheet.add_row ["design and development of standard software, testing and support, that includes: software development, development, creation, design improvement; further maintenance on the use of the product implemented by the CONSULTANT.", '', '', "розробка та виготовлення стандартного програмного забезпечення, тестування та супровід, що включає в себе: виготовлення комп'ютерного програмування (продукту), розробку, формування, дизайнерське облаштування; подальше консультування питань інформатизації та використання продукту виготовленого Виконавцем.", ""], style: default, height: 40
+  sheet.add_row ['These services are to produce a "computer program" as an objective presentation of the data set and commands, designed for the operation of computer devices in order to get to the Company result.', '', '', "Дані послуги являють собою виготовлення «комп’ютерної програми», як об’єктивної форми представлення сукупності даних і команд, призначених для функціонування комп’ютерних пристроїв з метою отримання визначеного Компанією результату.", ""], style: default, height: 32
+  sheet.add_row ["The software is a computer program (software package) that transferred in full ownership and operation to the Company.", '', '', 'Програмний продукт являє собою комп’ютерну програму (пакет комп’ютерних програм), які передаються у повне володіння та експлуатацію Компанії.', ""], style: default
+  sheet.add_row ["The present act confirmed that the Consultant develops «computer programs» on Company demand. And the «computer programs» is accepted by the Company. The software is delivered to the customer on relevant information carriers.", '', '', 'Даним актом підтверджується виготовлення Виконавцем «комп’ютерної програми» на замовлення Компанії. Та прийняття її останньою. Програмний продукт передано Замовнику на відповідних інформаційних носіях.', ""], style: default, height: 24
+  sheet.add_row ["At the time of the signing of the act the ownership of the software moves from the Consultant to the Company. This time is counted as the start of obtaining the ownership of the software and as the moment of its delivery from the Consultant to the Company.", '', '', 'В момент підписання даного акту право власності на програмний продукт переходить від Виконавця до Замовника та вважається моментом виникнення права власності на програмний продукт та моментом його поставки від Виконавця до Замовника.', ""], style: default, height: 80
+  sheet.add_row ["Governing Law", '', '', 'Керівний Закон', ""], style: header
+  sheet.add_row ["The terms of this Act shall be construed and enforced under the
+  laws of the active Legislation of Ukraine.", '', '', 'Умови цього Акту будуть тлумачитися й пропонуватися відповідно до чинного законодавства України.', ""], style: default
+  sheet.add_row ["Language of the Act", '', '', 'Мова Акту', ""], style: header
+  sheet.add_row ["This Act is issued in two languages: Ukrainian and English. Both versions of the Act are equal in power. In case of different interpretations or erroneous translation the preferences is given a text of the agreement in the English.", '', '', 'Цей акт складений двома мовами: українською та англійською. Обидві версії акту є рівноправними. У випадку виникнення різночитань або некоректності перекладу перевага надається тексту Акту англійською мовою.', ""], style: default, height: 28
+  sheet.add_row ["IN WITNESS WHEREOF, the parties have executed this Act by their duly authorized representatives on the dates first above written.", '', '', 'У ПОСВІДЧЕННЯ ЧОГО, сторони підписали цей Акт уповноваженими ними представниками у вищевказані дати.', ""], style: header
+  sheet.add_row ['By:', '', '', 'Від:', ""], style: bold
+  sheet.add_row ["#{@customer.client_info_name}", '', '', "#{@customer.client_info_name}", ""], style: bold
+  sheet.add_row ["#{@customer.client_info_address}", '', '', "#{@customer.client_info_address}", ""], style: bold
+  sheet.add_row ["Printed Name: #{@customer.client_info_repr_name}", '', '', "Друковане ім'я: #{@customer.client_info_repr_name}", ""], style: bold
+  sheet.add_row ["Title: #{@customer.client_info_title_en}", '', '', "Посада: #{@customer.client_info_title_en}", ""], style: bold
+  sheet.add_row ["Signature: _______________", '', '', "Підпис: ________________________", ""], style: bold
+  sheet.add_row ["and", '', '', "та", ""], style: default
+  sheet.add_row ["Active Bridge, LLC", '', '', "ТОВ “Ектів Брідж”", ""], style: bold
+  sheet.add_row ["137 Gogolya Street, Cherkasy, 18000, Ukraine", '', '', "18000, Черкаська обл., місто Черкаси, вулиця Гоголя, будинок 137, Україна", ""], style: default
+  sheet.add_row ["Printed Name: Ievgenii O. Korpan", '', '', "Друковане ім’я: Корпань Євгеній Олександрович", ""], style: bold
+  sheet.add_row ["Title: CEO", '', '', "Посада: Генеральний Директор", ""], style: bold
+  sheet.add_row ["Signature: ______________", '', '', "Підпис: ________________________", ""], style: bold
+
+  sheet.column_widths 21, 21, 1, 21, 21
+
+  [(1..10).to_a, (13..36).to_a].flatten.each do |row|
+    sheet.merge_cells("A#{row}:B#{row}")
+  end
+
+  [2, (4..10).to_a, (13..36).to_a].flatten.each do |row|
+    sheet.merge_cells("D#{row}:E#{row}")
+  end
+
+  sheet.rows.values_at(3..6, 9..11, 24..35).each {|row| row.height = 15}
+end
