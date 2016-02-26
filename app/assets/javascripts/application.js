@@ -21,6 +21,7 @@
 //= require angular.min
 //= require angular-resource.min
 //= require angular-js
+//= require angular-devise
 //= require angular/directives
 //= require angular/routes
 //= require angular/modules
