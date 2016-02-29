@@ -8,8 +8,10 @@ class Hour < ActiveRecord::Base
   delegate :name, to: :vendor, prefix: true
 
   scope :by_month, lambda { |date|
-    date = date.to_date
-    where('extract(month from month) = ? AND extract(year from month) = ?', date.month, date.year)
+    if date
+      date = date.to_date
+      where('extract(month from month) = ? AND extract(year from month) = ?', date.month, date.year)
+    end
   }
 
   scope :hours_by_month, lambda { |year|

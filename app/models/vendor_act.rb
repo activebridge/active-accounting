@@ -1,5 +1,10 @@
 class VendorAct < ActiveRecord::Base
-  validates :month, uniqueness: { message: 'Act for this month has been already created!' }
+  include ValidationOnMonth
 
+  validate :month_uniqueness, on: :create, if: :vendor
   belongs_to :vendor
+
+  def months
+    vendor.vendor_acts.map(&:month)
+  end
 end

@@ -1,9 +1,14 @@
 class ClientInvoice < ActiveRecord::Base
   include ClientMethods
+  include ValidationOnMonth
 
-  validates :month, uniqueness: { message: I18n.t('activerecord.errors.models.client_invoice.attributes.month.uniqueness') }
-  validate :monthly_payment_present
+  validate :month_uniqueness, on: :create
+  validate :monthly_payment_present, if: :customer
   validate :client_info_present
   validate :hours_present
   belongs_to :customer
+
+  def months
+    customer.client_invoices.map(&:month)
+  end
 end
