@@ -23,14 +23,22 @@ en:
   activerecord:
     errors:
       models:
-        client_act:
+        clientact:
           attributes:
             month:
               uniqueness: Act for this month has been already created!
-        client_invoice:
+        clientinvoice:
           attributes:
             month:
               uniqueness: Invoice for this month has been already created!
+        vendoract:
+          attributes:
+            month:
+              uniqueness: Act for this month has been already created!
+        vendororder:
+          attributes:
+            month:
+              uniqueness: Order for this month has been already created!
         customer:
           attributes:
             monthly_payment:
