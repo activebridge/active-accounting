@@ -40,15 +40,8 @@ RSpec.describe ActsController, type: :controller do
   end
 
   describe '#update' do
-    context 'valid params' do
-      subject { put :update, id: client_act.id, total_money: '1200' }
-      it { is_expected.to be_success }
-    end
-
-    context 'invalid params' do
-      subject { put :update, id: client_act.id, total_money: nil }
-      it { expect(subject.status).to eq(422) }
-    end
+    subject { put :update, id: client_act.id, total_money: '1200' }
+    it { is_expected.to be_success }
   end
 
   describe '#destroy' do
