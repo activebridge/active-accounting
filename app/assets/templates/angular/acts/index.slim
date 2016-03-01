@@ -28,6 +28,9 @@
             a href='/acts/{{act.id}}?month={{params.month}}&format=pdf' target='_blank' data-method='get'
               button.icon-button title="{{ 'savePdf' | translate }}" type="button"
                 span.glyphicon.glyphicon-file
+            a href='/acts/{{act.id}}?month={{params.month}}&format=xlsx' target='_blank' data-method='get'
+              button.icon-button title="{{ 'saveExcel' | translate }}" type="button"
+                span.glyphicon.glyphicon-list-alt
             button.icon-button ng-click="delete(act.id)" title="{{ 'delete_reg' | translate }}" type="button"
               span.glyphicon.glyphicon-trash
   .col-lg-12 ng-show='showCurrentAct'
@@ -38,6 +41,8 @@
     .col-lg-2
       a href='/acts/{{idShowAct}}?month={{params.month}}&format=pdf' target='_blank' data-method='get'
         button.width-86 translate='savePdf' ng-show='showCurrentAct'
+      a href='/acts/{{idShowAct}}?month={{params.month}}&format=xlsx' target='_blank' data-method='get'
+        button.width-86 translate='saveExcel' ng-show='showCurrentAct'
   .info-alas ng-show='infoActEmpty'
     br
     .alert.alert-info.alert-dismissable

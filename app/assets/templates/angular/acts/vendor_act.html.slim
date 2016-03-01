@@ -20,21 +20,26 @@
         .row
           .col-lg-2
             | {{ act.month }}
-          .col-lg-8
+          .col-lg-7
             a href='#' editable-text='act.total_money' onbeforesave="updateAct(act.id, $data)"
               | {{ act.total_money }} {{ 'uah' | translate }}
-          .col-lg-2
+          .col-lg-3
             button.icon-button ng-click="showAct(act.id)" title="{{ 'preview' | translate }}" type="button"
               span.glyphicon.glyphicon-eye-open
             a href='/vendor_acts/{{act.id}}?format=pdf' target='_blank' data-method='get'
               button.icon-button title="{{ 'savePdf' | translate }}" type="button"
                 span.glyphicon.glyphicon-file
+            a href='/vendor_acts/{{act.id}}?format=xlsx' target='_blank' data-method='get'
+              button.icon-button title="{{ 'saveExcel' | translate }}" type="button"
+                span.glyphicon.glyphicon-list-alt
   .col-lg-7 ng-show='showCurrentAct'
     button.margin-left-50.icon-button.icon-back ng-click="hideCurrentAct()" type="button" title="{{ 'back_to_list' | translate }}"
       span.glyphicon.glyphicon-arrow-left
     #generated-act-vendor
   a href='/vendor_acts/{{idShowAct}}?format=pdf' target='_blank' data-method='get'
     button.width-86 translate='savePdf' ng-show='showCurrentAct'
+  a href='/vendor_acts/{{idShowAct}}?format=xlsx' target='_blank' data-method='get'
+    button.width-86 translate='saveExcel' ng-show='showCurrentAct'
   .info-alas ng-show='infoActEmpty'
     br
     .alert.alert-info.alert-dismissable

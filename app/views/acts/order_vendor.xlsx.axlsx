@@ -1,0 +1,60 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Act', page_margins: { left: 1.0, top: 0.5, bottom: 0.5, right: 1.0 }) do |sheet|
+  default = wb.styles.add_style({ alignment: { horizontal: :justify, vertical: :center, wrap_text: true }, sz: 9 })
+  default2 = wb.styles.add_style({ alignment: { horizontal: :justify, vertical: :center, wrap_text: true }, sz: 8 })
+  head = wb.styles.add_style({ alignment: { horizontal: :center, vertical: :center }, sz: 9, b: true })
+  bold = wb.styles.add_style({ alignment: { horizontal: :justify, vertical: :center }, sz: 9, b: true })
+  bold2 = wb.styles.add_style({ alignment: { horizontal: :center, vertical: :center }, sz: 7, b: true })
+  bold3 = wb.styles.add_style({ alignment: { horizontal: :left, vertical: :center }, sz: 7, b: true })
+  bold_right = wb.styles.add_style({ alignment: { horizontal: :right, vertical: :center }, sz: 9, b: true })
+  cursive = wb.styles.add_style({ alignment: { horizontal: :center, vertical: :center, wrap_text: true }, sz: 8, b: true, i: true })
+  cursive2 = wb.styles.add_style({ alignment: { horizontal: :center, vertical: :center, wrap_text: true }, sz: 9, i: true })
+  cursive3 = wb.styles.add_style({ alignment: { horizontal: :left, vertical: :center, wrap_text: true }, sz: 9, i: true })
+  string1 = ""
+  string2 = ""
+  height1 = height2 = 12
+  @primaries.each_with_index do |primary, index|
+    string1.insert(-1, "\n\t2.1.#{index + 1} #{primary.name}")
+    height1 += 12
+  end
+  @additionals.each_with_index do |additional, index|
+    string2.insert(-1, "\n\t2.2.#{index + 1} #{additional.name}")
+    height2 += 12
+  end
+
+  sheet.add_row ["Замовлення № #{@order.id} АА/#{@order.month.month}/#{@order.month.year}", "", ""], style: head
+  sheet.add_row ["до Договору про надання послуг #{@vendor.vendor_info.contract} вiд #{@vendor.start_date.strftime('%d.%m.%Y')} по виготовленню продукту комп’ютерного програмування.", "", ""], style: cursive
+  sheet.add_row ["м. Черкаси", "", "#{@order.month.strftime('%d.%m.%Y')}"], style: [bold, default, bold_right]
+  sheet.add_row ["\tМи, що нижче підписалися, представник ТОВ „ЕКТІВ БРІДЖ” (код ЄДРПОУ 38988046), що зареєстровано за адресою: 18000, Черкаська обл., м. Черкаси, вул. Гоголя, будинок 137, в особі Генерального Директора Корпаня Євгенія Олександровича, що діє на підставі Статуту (надалі іменується „Замовник”), з одного боку, та фізична особа підприємець #{@vendor.vendor_info.name} (надалі іменується „Виконавець”), який діє на підставі свідоцтва про державну реєстрацію і свідоцтва про сплату єдиного податку з іншого боку, зобов’язується виконати ЗАМОВЛЕННЯ, яке складається із наступного:", "", ""], style: default, height: 70
+  sheet.add_row ["1. Предмет замовлення", "", ""], style: head
+  sheet.add_row ["\t1.1. Замовник замовляє, а Виконавець зобов'язується надати із застосуванням власних сил та засобів Замовнику послуги з виготовлення комп'ютерного програмування (продукту); подальшого консультування з питань інформатизації та використання продукту виготовленого Виконавцем. Дані послуги являють собою виготовлення «комп’ютерної програми», як об’єктивної форми представлення сукупності даних і команд, призначених для функціонування комп’ютерних пристроїв з метою отримання визначеного Замовником результату. Відповідно, програмний продукт являє собою комп’ютерну програму, або пакет комп’ютерних програм (в залежності від складності та характеру замовлення), які після виготовлення передаютьсяв експлуатацію відповідно до призначення.", "", ""], style: default, height: 90
+  sheet.add_row ["\tТобто, предметом даного Замовлення є безпосереднє виготовлення Виконавцем «комп’ютерної програми» на замовлення Замовника. По тексту предмет Замовлення – послуги з виготовлення продукту комп’ютерного програмування. Предмет Замовлення після його виготовлення має бути передано Замовнику на відповідних інформаційних носіях вказаних Замовником.", "", ""], style: default, height: 40
+  sheet.add_row ["2. Характеристики замовлення", "", ""], style: head
+  sheet.add_row ["(необхідне помітити)", "", ""], style: cursive2
+  sheet.add_row ["2.1 Імплементація WEB-додатку: #{string1}", "", ""], style: cursive3, height: height1
+  sheet.add_row ["2.2 Імплементація додаткових функцій WEB-додатку: #{string2}", "", ""], style: cursive3, height: height2
+  sheet.add_row ["Замовник:", "", "Виконавець:"], style: bold2
+  sheet.add_row ["ТОВ „ЕКТІВ БРІДЖ”", "", "Фізична особа – підприємець"], style: bold2
+  sheet.add_row ["", "", "#{@vendor.vendor_info.name}"], style: bold2
+  sheet.add_row ["КОД ЄДРПОУ 38988046", "", "ІПН: #{@vendor.vendor_info.ipn}"], style: default2
+  sheet.add_row ["18000, Черкаська обл., м. Черкаси, вул. Гоголя, будинок 137", "", "#{@vendor.vendor_info.address}"], style: default2
+  sheet.add_row ["Р/р 26000051511947 у ПАТ КБ", "", "Р/р #{@vendor.vendor_info.account}"], style: default2
+  sheet.add_row ["ПРИВАТБАНК", "", "#{@vendor.vendor_info.bank}"], style: default2
+  sheet.add_row ["МФО 354347", "", "МФО #{@vendor.vendor_info.mfo}"], style: default2
+  sheet.add_row ["", "", ""], style: default, height: 50
+  sheet.add_row ["Генеральний директор", "", "Фізична особа – підприємець"], style: bold3
+  sheet.add_row ["_________________   Корпань Є.О.", "", "_________________    #{@vendor.vendor_info.short_name}"], style: default2
+  sheet.add_row ["            М.П.", "", "            М.П."], style: default2
+
+
+  sheet.column_widths 27, 20, 27
+
+  [(1..2).to_a, (4..11).to_a].flatten.each do |row|
+    sheet.merge_cells("A#{row}:C#{row}")
+  end
+
+  sheet.rows.values_at(0..2).each {|row| row.height = 20}
+  sheet.rows.values_at(8, 11..14, 16..18).each {|row| row.height = 12}
+  sheet.rows.values_at(20..22).each {|row| row.height = 27}
+end
+

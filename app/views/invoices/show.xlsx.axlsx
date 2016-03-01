@@ -1,0 +1,61 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Act', page_margins: { left: 0.8, top: 0.8, bottom: 0.4, right: 0.4 }) do |sheet|
+  default = wb.styles.add_style({ alignment: { horizontal: :justify, vertical: :bottom, wrap_text: true }, sz: 8 })
+  default_with_bg = wb.styles.add_style({ alignment: { horizontal: :right, vertical: :bottom, wrap_text: true }, sz: 8, bg_color: "E4E8F3" })
+  default_right = wb.styles.add_style({ alignment: { horizontal: :right, vertical: :bottom, wrap_text: true }, sz: 8 })
+  bold = wb.styles.add_style({ alignment: { horizontal: :justify, vertical: :bottom, wrap_text: true }, sz: 8, b: true })
+  head = wb.styles.add_style({ alignment: { horizontal: :left, vertical: :bottom, wrap_text: true }, sz: 14 })
+  head2 = wb.styles.add_style({ alignment: { horizontal: :right, vertical: :bottom, wrap_text: true }, sz: 26, b: true, fg_color: "8394C9" })
+  border = wb.styles.add_style({ alignment: { horizontal: :center, vertical: :bottom, wrap_text: true }, sz: 8, bg_color: "C6D9F0", border: { style: :thin, color: "000000" } })
+  bill_to = wb.styles.add_style({ alignment: { horizontal: :left, vertical: :bottom, wrap_text: true }, sz: 8, bg_color: "3B4E87", fg_color: "FFFFFF", border: { style: :medium, color: "000000", edges: [:bottom]} })
+  table_head = wb.styles.add_style({ alignment: { horizontal: :center, vertical: :center, wrap_text: true }, sz: 8, bg_color: "3B4E87", fg_color: "FFFFFF", border: { style: :medium, color: "000000", edges: [:bottom]} })
+  table_left = wb.styles.add_style({ alignment: { horizontal: :left, vertical: :bottom, wrap_text: true }, sz: 8, border: { style: :medium, color: "000000"} })
+  table_center = wb.styles.add_style({ alignment: { horizontal: :center, vertical: :bottom, wrap_text: true }, sz: 8, border: { style: :medium, color: "000000"} })
+  table_right = wb.styles.add_style({ alignment: { horizontal: :right, vertical: :bottom, wrap_text: true }, sz: 8, bg_color: "E4E8F3", border: { style: :medium, color: "000000"} })
+  table_bottom = wb.styles.add_style(border: { style: :medium, color: "666666", edges: [:top] })
+  grid = wb.styles.add_style({ alignment: { horizontal: :left, vertical: :bottom, wrap_text: true }, sz: 8, border: { style: :medium, color: "666666", edges: [:left]} })
+  total = wb.styles.add_style({ alignment: { horizontal: :right, vertical: :bottom, wrap_text: true }, sz: 8, bg_color: "E4E8F3", border: { style: :medium, color: "000000", edges: [:top]} })
+  under_line = wb.styles.add_style(border: { style: :medium, color: "000000", edges: [:bottom] })
+  valign = wb.styles.add_style({ alignment: { horizontal: :justify, vertical: :center, wrap_text: true }, sz: 8 })
+  thank = wb.styles.add_style({ alignment: { horizontal: :center, vertical: :center, wrap_text: true }, sz: 8})
+  thank2 = wb.styles.add_style({ alignment: { horizontal: :center, vertical: :center, wrap_text: true }, sz: 11, b: true, i: true})
+
+  sheet.add_row ["Active Bridge, LLC", "", "", "INVOICE", ""], style: [head, 0, 0, head2, 0]
+  sheet.add_row ["", "", "", "DATE:", "#{Time.current.strftime("%m/%d/%Y")}"], style: [0, 0, 0, default, border]
+  sheet.add_row ["EDRPOU Code: 38988046", "", "", "INVOICE #", "#{@customer.client_info_invoice_id}-0#{@invoice_number}"], style: [default, 0, 0, default, border]
+  sheet.add_row ["18000, Cherkasy, 137 Gogolya Street, Ukraine", "", "", "DUE DATE", "#{14.days.from_now.strftime("%m/%d/%Y")}"], style: [default, 0, 0, default, border]
+  sheet.add_row ["", "", "", "", ""], style: 0, height: 20
+  sheet.add_row ["BILL TO:", "", "", "", ""], style: [bill_to, 0, 0, 0, 0]
+  sheet.add_row ["#{@customer.client_info_repr_name}", "", "", "", ""], style: default
+  sheet.add_row ["#{@customer.client_info_name}", "", "", "", ""], style: default
+  sheet.add_row ["#{@customer.client_info_address}", "", "", "", ""], style: default
+  sheet.add_row ["", "", "", "", ""], style: 0, height: 30
+  sheet.add_row ["DESCRIPTION", "", "HOURS", "RATE", "AMOUNT"], style: table_head
+  @hours.each do |hour|
+    sheet.add_row ["Ruby on Rails developer", "", "#{hour.hours}", "$#{@customer.value_payment}", "#{hour.hours * @customer.value_payment if @customer.value_payment}"], style: [table_left, table_left, table_center, table_center, table_right]
+  end
+  sheet.add_row ["", "", "", "SUBTOTAL", "#{@total_money}"], style: [0, 0, 0, default, default_with_bg]
+  sheet.add_row ["INVOICE COMMENTS", "", "", "TAX RATE", "0.000%"], style: [bill_to, 0, 0, default, default_right]
+  sheet.add_row ["1. Total payment due in 14 days", "", "", "TAX", "$0.00"], style: [grid, 0, grid, default, default_with_bg]
+  sheet.add_row ["2. Please provide description in your payment", "", "", "OTHER", "$0.00"], style: [grid, 0, grid, default, default_right]
+  sheet.add_row ["", "", "", "TOTAL", "#{@total_money}"], style: [grid, 0, grid, default, total]
+  sheet.add_row ["", "", "", "", ""], style: [grid, 0, grid, 0, 0]
+  sheet.add_row ["", "", "", "", ""], style: [grid, 0, grid, 0, 0]
+  sheet.add_row ["", "", "", "", ""], style: [table_bottom, table_bottom, 0, 0, 0]
+  sheet.add_row ["", "CEO: Ievgenii O. Korpan", "", "", ""], style: [0, valign, under_line, under_line, 0]
+  sheet.add_row ["", "", "", "", ""], style: 0, height: 30
+  sheet.add_row ["If you have any questions about this invoice, please contact", "", "", "", ""], style: thank
+  sheet.add_row ["Ievgenii Korpan, +380977535731, eugene@active-bridge.com", "", "", "", ""], style: thank
+  sheet.add_row ["Thank You For Your Business!", "", "", "", ""], style: thank2
+
+
+  sheet.column_widths 30, 17, 12, 12, 12
+
+  sheet.merge_cells("D1:E1")
+  [(1..4).to_a, (7..15).to_a].flatten.each do |row|
+    sheet.merge_cells("A#{row}:B#{row}")
+  end
+  [(24..26).to_a].flatten.each do |row|
+    sheet.merge_cells("A#{row}:E#{row}")
+  end
+end

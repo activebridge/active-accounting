@@ -1,0 +1,51 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Act', page_margins: { left: 1.0, top: 0.5, bottom: 0.5, right: 1.0 }) do |sheet|
+  default = wb.styles.add_style({ alignment: { horizontal: :justify, vertical: :center, wrap_text: true }, sz: 9 })
+  default2 = wb.styles.add_style({ alignment: { horizontal: :justify, vertical: :center, wrap_text: true }, sz: 8 })
+  head = wb.styles.add_style({ alignment: { horizontal: :center, vertical: :center }, sz: 9, b: true })
+  bold = wb.styles.add_style({ alignment: { horizontal: :justify, vertical: :center }, sz: 9, b: true })
+  bold2 = wb.styles.add_style({ alignment: { horizontal: :center, vertical: :center }, sz: 7, b: true })
+  bold3 = wb.styles.add_style({ alignment: { horizontal: :left, vertical: :center }, sz: 7, b: true })
+  bold_right = wb.styles.add_style({ alignment: { horizontal: :right, vertical: :center }, sz: 9, b: true })
+  cursive = wb.styles.add_style({ alignment: { horizontal: :center, vertical: :center, wrap_text: true }, sz: 8, b: true, i: true })
+  cursive2 = wb.styles.add_style({ alignment: { horizontal: :left, vertical: :center, wrap_text: true }, sz: 9, b: true, i: true })
+
+  bold_string_1 = "за #{t('uk_month_nominative')[@act_params.month.month - 1]} #{@act_params.month.year} року"
+  bold_string_2 = "#{@act_params.total_money.to_s.tr_s('.', ',')}"
+
+  sheet.add_row ["Акт № #{@act_params.id} АА/#{@act_params.month.month}/#{@act_params.month.year}", "", ""], style: head
+  sheet.add_row ["приймання - передачі наданих послуг з проведення робіт по виготовленню (створенню) та постачання програмної продукції згідно п.п. 2.1. Договору про надання послуг #{@vendor.vendor_info.contract} вiд #{@vendor.vendor_info.agreement_date.strftime('%d.%m.%Y')}", "", ""], style: cursive
+  sheet.add_row ["м. Черкаси", "", "#{@act_params.month.strftime('%d.%m.%Y')}"], style: [bold, default, bold_right]
+  sheet.add_row ["\tМи, що нижче підписалися, представник ТОВ „ЕКТІВ БРІДЖ” (код ЄДРПОУ 38988046), що зареєстровано за адресою: 18000, Черкаська обл., м. Черкаси, вул. Гоголя, будинок 137, в особі Генерального Директора Корпаня Євгенія Олександровича, що діє на підставі Статуту (надалі іменується „Замовник”), з одного боку, та фізична особа підприємець – #{@vendor.vendor_info.name} (надалі іменується „Виконавець”), який діє на підставі свідоцтва про державну реєстрацію і свідоцтва про сплату єдиного податку з іншого боку, приймає наступні послуги з проведення робіт по виготовленню комп'ютерного програмування (програмного продукту); подальшого консультування з питань інформатизації та використання продукту виготовленого Виконавцем. Дані послуги являють собою виготовлення «комп’ютерної програми», як об’єктивної форми представлення сукупності даних і команд, призначених для функціонування комп’ютерних пристроїв з метою отримання визначеного Замовником результату. Відповідно, програмний продукт являє собою комп’ютерну програму, або пакет комп’ютерних програм, які після виготовлення передаються в експлуатацію. Даний акт є підтвердженням виготовлення Виконавцем програмного продукту на замовлення Замовника #{bold_string_1}, на суму #{bold_string_2} грн, без ПДВ.", "", ""], style: default, height: 160
+  sheet.add_row ["#{@total_money_words} #{@act_params.total_money.to_s.split(".")[1]} коп. ( без ПДВ )", "", ""], style: cursive2
+  sheet.add_row ["\tХарактеристики та об’єми продукту є змістом самого продукту і містяться у відповідних інформаційних носіях та повністю влаштовують Замовника і відповідають Замовленню, яке передувало його (продукту) виготовленню.", "", ""], style: default
+  sheet.add_row ["\tРазом із даним актом приймання-передачі Виконавець передає Замовнику виготовлений предмет Договору на відповідних інформаційних носіях, копія якого залишається у Виконавця.", "", ""], style: default
+  sheet.add_row ["\tВ момент підписання даного акту (з дати його підписання та отримання оплати) право власності на виготовлений програмний продукт переходить від Виконавця до Замовника та є моментом поставки даного програмного продукту від Виконавця до Замовника.", "", ""], style: default
+  sheet.add_row ["\tЗамовник приймає програмний продукт (результат наданих послуг) повністю і ніяких претензій до Виконавця не має.", "", ""], style: default
+  sheet.add_row ["\tДаний акт складено у двох примірниках.", "", ""], style: default
+  sheet.add_row ["Замовник:", "", "Виконавець:"], style: bold2
+  sheet.add_row ["ТОВ „ЕКТІВ БРІДЖ”", "", "Фізична особа – підприємець"], style: bold2
+  sheet.add_row ["", "", "#{@vendor.vendor_info.name}"], style: bold2
+  sheet.add_row ["КОД ЄДРПОУ 38988046", "", "ІПН: #{@vendor.vendor_info.ipn}"], style: default2
+  sheet.add_row ["18000, Черкаська обл., м. Черкаси, вул. Гоголя, будинок 137", "", "#{@vendor.vendor_info.address}"], style: default2
+  sheet.add_row ["Р/р 26000051511947 у ПАТ КБ", "", "Р/р #{@vendor.vendor_info.account}"], style: default2
+  sheet.add_row ["ПРИВАТБАНК", "", "#{@vendor.vendor_info.bank}"], style: default2
+  sheet.add_row ["МФО 354347", "", "МФО #{@vendor.vendor_info.mfo}"], style: default2
+  sheet.add_row ["", "", ""], style: default, height: 50
+  sheet.add_row ["Генеральний директор", "", "Фізична особа – підприємець"], style: bold3
+  sheet.add_row ["_________________   Корпань Є.О.", "", "_________________    #{@vendor.vendor_info.short_name}"], style: default2
+  sheet.add_row ["            М.П.", "", "            М.П."], style: default2
+
+
+  sheet.column_widths 27, 20, 27
+
+  [(0..2).to_a, (4..10).to_a].flatten.each do |row|
+    sheet.merge_cells("A#{row}:C#{row}")
+  end
+
+  sheet.rows.values_at(0..2).each {|row| row.height = 20}
+  sheet.rows.values_at(4..9).each {|row| row.height = 30}
+  sheet.rows.values_at(10..13).each {|row| row.height = 12}
+  sheet.rows.values_at(15..17).each {|row| row.height = 12}
+  sheet.rows.values_at(19..21).each {|row| row.height = 27}
+end
