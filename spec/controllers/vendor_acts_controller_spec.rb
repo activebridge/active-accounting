@@ -3,17 +3,16 @@ require 'rails_helper'
 RSpec.describe VendorActsController, type: :controller do
   let(:vendor) { FactoryGirl.create(:vendor, monthly_payment: true, value_payment: 1000) }
   let!(:vendor_info) { vendor.vendor_info.update(FactoryGirl.attributes_for(:vendor_info)) }
-  let!(:vendor_act) { FactoryGirl.create(:vendor_act, vendor_id: vendor.id) }
+  let(:vendor_act) { FactoryGirl.create(:vendor_act, vendor_id: vendor.id) }
 
   before do
     allow(controller).to receive(:authenticate_admin!) { true }
   end
 
   describe '#index' do
-    before { get :index, vendor_id: vendor.id }
+    subject { get :index, vendor_id: vendor.id }
 
-    it { expect(json).to have(1).items }
-    it { expect(json.first['id']).to eq(vendor_act.id) }
+    it { is_expected.to be_success }
   end
 
   describe '#create' do

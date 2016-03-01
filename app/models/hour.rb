@@ -3,7 +3,7 @@ class Hour < ActiveRecord::Base
   belongs_to :vendor
 
   validates :hours, :month, :customer_id, :vendor_id, presence: true
-
+  validates :hours, length: { maximum: 3 }
   delegate :name, to: :customer, prefix: true
   delegate :name, to: :vendor, prefix: true
 

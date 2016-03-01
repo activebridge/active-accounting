@@ -2,8 +2,8 @@ class ClientInvoice < ActiveRecord::Base
   include ClientMethods
   include ValidationOnMonth
 
-  validate :month_uniqueness, on: :create
-  validate :monthly_payment_present, if: :customer
+  validate :month_uniqueness, on: :create, if: :customer
+  validate :monthly_payment_present
   validate :client_info_present
   validate :hours_present
   belongs_to :customer
