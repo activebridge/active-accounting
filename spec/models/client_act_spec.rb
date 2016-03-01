@@ -6,8 +6,6 @@ RSpec.describe ClientAct, type: :model do
   end
 
   context 'validates' do
-    it { is_expected.to validate_presence_of(:total_money) }
-
     context 'month_uniqueness' do
       let(:vendor) { FactoryGirl.create(:vendor) }
       let(:customer) { FactoryGirl.create(:customer, monthly_payment: true, value_payment: 15) }
