@@ -49,6 +49,14 @@ RSpec.describe RegistersController, type: :controller do
     end
   end
 
+  describe '#show' do
+    context 'returns register in json' do
+      before { get :show, id: register.id }
+
+      it { expect(JSON.parse(response.body)['id']).to eq(register.id) }
+    end
+  end
+
   describe '#create' do
     subject { -> { post :create, register: register_params } }
 
