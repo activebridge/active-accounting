@@ -1,6 +1,6 @@
 class RegistersController < ApplicationController
   before_action :parse_month, only: :destroy
-  before_action :find_register, only: [:destroy, :update]
+  before_action :find_register, only: [:destroy, :update, :show]
   before_action :set_model
 
   def index
@@ -17,6 +17,10 @@ class RegistersController < ApplicationController
                                             each_serializer: RegisterSerializer,
                                             root: nil)
     render json: json, status: 200
+  end
+
+  def show
+    render json: @register
   end
 
   def create
@@ -48,7 +52,7 @@ class RegistersController < ApplicationController
   end
 
   def register_params
-    params.require(:register).permit!
+    params.require(:register).permit(:date, :article_id, :counterparty_id, :value, :notes, :background, :currency)
   end
 
   def find_register
