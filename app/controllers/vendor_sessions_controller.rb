@@ -7,7 +7,7 @@ class VendorSessionsController < VendorApplicationController
       @counterparty.update(signed_in: true)
       respond_to do |format|
         format.js { render layout: false }
-        format.json { render json: @counterparty }
+        format.json { render json: @counterparty.authenticate! }
       end
     else
       flash.now[:error] = 'Invalid email or password'
