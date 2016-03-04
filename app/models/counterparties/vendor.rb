@@ -34,4 +34,10 @@ class Vendor < Counterparty
   def create_info_record
     create_vendor_info
   end
+
+  def authenticate!
+    generate_token(:auth_token)
+    save
+    self
+  end
 end
