@@ -10,7 +10,7 @@ class CounterpartiesController < ApplicationController
   end
 
   def show
-    render json: @counterparty, serializer: CounterpartySerializer, status: 200
+    render json: @counterparty, serializer: CounterpartySerializer, status: :ok
   end
 
   def create

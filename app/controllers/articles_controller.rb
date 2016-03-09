@@ -9,7 +9,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    render json: @article, serializer: ArticleSerializer, status: 200
+    render json: @article, serializer: ArticleSerializer, status: :ok
   end
 
   def create
