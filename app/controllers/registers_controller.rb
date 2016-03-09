@@ -20,7 +20,7 @@ class RegistersController < ApplicationController
   end
 
   def show
-    render json: @register
+    render json: @register, status: 200
   end
 
   def create

@@ -1,11 +1,15 @@
 class ArticlesController < ApplicationController
-  before_action :find_article, only: [:destroy, :update]
+  before_action :find_article, only: [:destroy, :update, :show]
 
   def index
     json = ActiveModel::ArraySerializer.new(Article.all.by_group(params[:type]),
                                             each_serializer: ArticleSerializer,
                                             root: nil)
     render json: json, status: 200
+  end
+
+  def show
+    render json: @article, serializer: ArticleSerializer, status: 200
   end
 
   def create
