@@ -1,5 +1,5 @@
 class CounterpartiesController < ApplicationController
-  before_action :find_conterparty, only: [:destroy, :update]
+  before_action :find_conterparty, only: [:destroy, :update, :show]
   before_filter :authenticate_admin!, except: [:update, :customers]
 
   def index
@@ -7,6 +7,10 @@ class CounterpartiesController < ApplicationController
                                             each_serializer: CounterpartySerializer,
                                             root: nil)
     render json: json, status: 200
+  end
+
+  def show
+    render json: @counterparty, serializer: CounterpartySerializer, status: :ok
   end
 
   def create
@@ -53,7 +57,8 @@ class CounterpartiesController < ApplicationController
   private
 
   def counterparty_params
-    params.require(:counterparty).permit!
+    params.require(:counterparty).permit(:id, :name, :start_date, :active, :value_payment, :monthly_payment, :type, :customer_id,
+      :email, :password, :auth_token, :password_reset_token, :password_reset_sent_at, :approve_hours, :signed_in, :currency_monthly_payment)
   end
 
   def find_conterparty

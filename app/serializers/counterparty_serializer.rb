@@ -1,6 +1,6 @@
 class CounterpartySerializer < ActiveModel::Serializer
   attributes :id, :name, :start_date, :active, :assigned, :monthly_payment, :value_payment, :payment_histories,
-             :successful_payment, :type, :customer, :email, :client_info, :vendor_info, :signed_in, :currency_monthly_payment
+  :successful_payment, :type, :customer, :email, :client_info, :vendor_info, :signed_in, :currency_monthly_payment
 
   def start_date
     object.start_date.strftime('%d-%m-%Y') if object.start_date
