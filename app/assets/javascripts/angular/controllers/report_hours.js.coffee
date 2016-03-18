@@ -57,6 +57,7 @@
     $scope.newHour.vendor_id = $scope.vendor_id
     $scope.newHour.customer_id = $scope.customer_id
     $('select.year-select').select2({ 'minimumResultsForSearch': 5 })
+    return
 
   $scope.add = ->
     hour = ReportHours.save($scope.newHour,
