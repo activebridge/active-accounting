@@ -28,10 +28,10 @@
                 | {{ holiday.name }}
         b
           i
-            | {{ 'count_working_days' | translate }} : {{ workingDays.count }}
+            | {{ 'count_working_days' | translate }} : {{ workingDays }}
           br
           i
-            | {{ 'totalHours' | translate }} : {{ workingDays.count * 8 || 0 }}
+            | {{ 'totalHours' | translate }} : {{ workingHours }}
       br
       button.btn-auto-hours.ng-scope ng-click="approveHours()" translate="autoFill_hours"
 

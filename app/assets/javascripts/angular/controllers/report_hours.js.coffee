@@ -15,6 +15,9 @@
   $scope.year = $scope.currentYear
   $scope.newHour.month = moment().format('MM/YYYY')
 
+  $scope.$watch 'workingDays', (value) ->
+    $scope.getWorkingHours()
+    
   loadYears = ->
     Hours.years (response) ->
       $scope.years = response['years']
