@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe PaymentHistory, :type => :model do
+RSpec.describe PaymentHistory, type: :model do
   let(:payment_history) { FactoryGirl.create(:payment_history) }
 
   context 'associations' do

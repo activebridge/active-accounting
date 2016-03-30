@@ -14,7 +14,8 @@ RSpec.describe VendorSessionsController, type: :controller do
 
     context 'with invalid params' do
       let(:vendor_params) { { email: '', password: '' } }
-      it { subject.call; expect(flash[:error]).to eq 'Invalid email or password' }
+      before { subject.call }
+      it { expect(flash[:error]).to eq 'Invalid email or password' }
     end
   end
 

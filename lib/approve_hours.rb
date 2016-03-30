@@ -42,7 +42,7 @@ class ApproveHours
   end
 
   def work_days
-    working_days = WorkDays.new(@current_day)
+    WorkDays.new(@current_day)
   end
 
   def verifier

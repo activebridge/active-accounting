@@ -4,8 +4,8 @@ class Register < ActiveRecord::Base
   belongs_to :article
 
   module TYPES
-    FACT = 'Fact'.freeze
-    PLAN = 'Plan'.freeze
+    FACT = 'Fact'
+    PLAN = 'Plan'
   end
 
   def fact?
@@ -32,6 +32,18 @@ class Register < ActiveRecord::Base
 
   scope :loans, lambda {
     joins(:article).where(articles: { type: Article::TYPES::LOAN })
+  }
+
+  scope :index_sort, lambda { |params|
+    order(date: :desc)
+      .by_month(params[:month])
+      .by_type(params[:type])
+      .by_article(params[:article_id])
+      .by_counterparty(params[:counterparty_id])
+      .by_date(params[:date])
+      .by_value(params[:value])
+      .limit(10)
+      .offset(params[:offset] ? params[:offset].to_i : 0)
   }
 
   scope :by_month, lambda { |date|

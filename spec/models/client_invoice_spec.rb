@@ -77,4 +77,3 @@ RSpec.describe ClientInvoice, type: :model do
     end
   end
 end
-

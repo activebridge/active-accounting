@@ -1,24 +1,24 @@
 class ReportsJsonBuilder
   attr_accessor :months, :type, :rate
 
-  def initialize months, type, rate
+  def initialize(months, type, rate)
     @months = months
     @type = type
     @rate = rate
   end
 
-  def to_json(*args)
+  def to_json(*_args)
     hash.to_json
   end
 
   private
 
   def hash
-     [{
-       "articles" => build_articles,
-       "total_values" => build_totals,
-       "total_values_plan" => build_totals_plan
-     }]
+    [{
+      'articles' => build_articles,
+      'total_values' => build_totals,
+      'total_values_plan' => build_totals_plan
+    }]
   end
 
   def build_articles
@@ -74,7 +74,7 @@ class ReportsJsonBuilder
                        end
   end
 
-  def build_counterparties(article_id, months)
+  def build_counterparties(article_id, _months)
     fact = Fact.send(type)
                .where(article_id: article_id)
                .by_months(parsed_months)
@@ -103,7 +103,7 @@ class ReportsJsonBuilder
     result.uniq
   end
 
-  def build_values registers, association_id, object_type
+  def build_values(registers, association_id, object_type)
     result = {}
     parsed_months.each do |date|
       registers.each do |r|

@@ -34,8 +34,8 @@ class ActsController < ApplicationController
       format.html { render 'acts/show_customer.pdf.erb' }
       format.pdf do
         render pdf: "act_#{@customer.name + Time.current.strftime('%m-%d-%Y')}",
-          template: 'acts/show_customer.pdf.erb',
-          dpi: '1200'
+               template: 'acts/show_customer.pdf.erb',
+               dpi: '1200'
       end
       format.xlsx { render xlsx: 'show_customer', filename: 'act.xlsx' }
     end

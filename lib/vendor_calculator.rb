@@ -9,7 +9,7 @@ class VendorCalculator
   end
 
   def total_money
-    @total_money ||= sprintf("%.2f", (summ_salary/to_index(cash_tax))/to_index(single_tax) + social_tax)
+    @total_money ||= format('%.2f', (summ_salary / to_index(cash_tax)) / to_index(single_tax) + social_tax)
   end
 
   def summ_salary
@@ -54,6 +54,6 @@ class VendorCalculator
   end
 
   def to_index(tax)
-    1 - tax/100
+    1 - tax / 100
   end
 end

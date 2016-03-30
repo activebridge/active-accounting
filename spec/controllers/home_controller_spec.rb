@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe HomeController, type: :controller do
   let(:admin) { FactoryGirl.create(:admin) }
 
-  describe "#index" do
+  describe '#index' do
     subject { get :index }
 
     context 'with current admin' do

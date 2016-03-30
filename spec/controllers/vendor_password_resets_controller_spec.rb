@@ -13,7 +13,7 @@ RSpec.describe VendorPasswordResetsController, type: :controller do
 
       it { expect(Vendor.last.password_reset_token).to be }
       it { expect(response).to redirect_to(vendor_login_url) }
-      it { expect(flash[:notice]).to eq("Email sent with password reset instructions.") }
+      it { expect(flash[:notice]).to eq('Email sent with password reset instructions.') }
     end
   end
 
@@ -33,22 +33,22 @@ RSpec.describe VendorPasswordResetsController, type: :controller do
         put :update, id: vendor.password_reset_token, vendor: { password: vendor.password }
       end
 
-      #context 'password reset sent at < 2 hours ago' do
-        #it { expect(response).to redirect_to(new_password_reset_path) }
-        #it { expect(flash[:alert]).to eq("Password reset has expired.") }
-      #end
+      # context 'password reset sent at < 2 hours ago' do
+      # it { expect(response).to redirect_to(new_password_reset_path) }
+      # it { expect(flash[:alert]).to eq("Password reset has expired.") }
+      # end
 
       context 'password reset sent at > 2 hours ago' do
         it { expect(response).to redirect_to(vendor_login_url) }
-        it { expect(flash[:notice]).to eq("Password has been reset!") }
+        it { expect(flash[:notice]).to eq('Password has been reset!') }
       end
     end
 
-    #context 'with invalid params' do
-      #before { put :update, id: '', vendor: { password: '' } }
+    # context 'with invalid params' do
+    # before { put :update, id: '', vendor: { password: '' } }
 
-      #it { expect(response).to render_template(:edit) }
-    #end
+    # it { expect(response).to render_template(:edit) }
+    # end
   end
 
   describe '#change_password' do

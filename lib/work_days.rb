@@ -7,7 +7,7 @@ class WorkDays
     weekdays.count - count_holidays(holidays_by_month)
   end
 
-  def is_working?
+  def working?
     last_weekday = (weekdays - holidays_by_month.pluck(:date)).last
     last_weekday.day == @current_day.day
   end
@@ -17,13 +17,13 @@ class WorkDays
   def weekdays
     first_day = Date.new(@current_day.year, @current_day.month, 1)
     last_day = Date.new(@current_day.year, @current_day.month, -1)
-    weekdays = (first_day..last_day).reject { |d| Weekend.parse(d.to_s).is_weekend? }
+    (first_day..last_day).reject { |d| Weekend.parse(d.to_s).weekend? }
   end
 
   def count_holidays(array)
     holidays = []
     array.each do |holiday|
-      holidays << holiday unless Weekend.parse(holiday.date.to_s).is_weekend?
+      holidays << holiday unless Weekend.parse(holiday.date.to_s).weekend?
     end
     holidays.count
   end

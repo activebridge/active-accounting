@@ -4,8 +4,8 @@ class InvoicesController < ApplicationController
 
   def index
     invoices = ActiveModel::ArraySerializer.new(@customer.client_invoices.order('id desc'),
-                                            each_serializer: ClientInvoiceSerializer,
-                                            root: nil)
+                                                each_serializer: ClientInvoiceSerializer,
+                                                root: nil)
     render json: invoices, status: 200
   end
 
@@ -19,9 +19,6 @@ class InvoicesController < ApplicationController
   end
 
   def show
-    @invoice_number = invoice_calculator.invoice_number
-    @total_money = invoice_calculator.total_money
-    @hours = invoice_calculator.hours_by_month
     respond_to do |format|
       format.html { render 'invoices/show.pdf.slim' }
       format.pdf do
@@ -49,7 +46,10 @@ class InvoicesController < ApplicationController
   end
 
   def invoice_calculator
-    @invoice_calculator ||= InvoiceCalculator.new(@customer, params[:month])
+    @invoice_calculator = InvoiceCalculator.new(@customer, params[:month])
+    @invoice_number = invoice_calculator.invoice_number
+    @total_money = invoice_calculator.total_money
+    @hours = invoice_calculator.hours_by_month
   end
 
   def invoice_params

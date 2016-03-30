@@ -8,7 +8,7 @@ RSpec.describe ActsController, type: :controller do
   let(:client_act) { FactoryGirl.create(:client_act, customer_id: customer.id, month: hour.month) }
   let(:fail_customer) { FactoryGirl.create(:customer, value_payment: 1000) }
   let(:fail_hour) { FactoryGirl.create(:hour, customer_id: fail_customer.id, vendor_id: vendor.id) }
-  let(:params) { FactoryGirl.attributes_for(:client_act, customer_id: customer.id, month: hour.month, act: act ) }
+  let(:params) { FactoryGirl.attributes_for(:client_act, customer_id: customer.id, month: hour.month, act: act) }
 
   before do
     allow(controller).to receive(:authenticate_admin!) { true }
@@ -21,14 +21,14 @@ RSpec.describe ActsController, type: :controller do
 
   describe '#create' do
     context 'valid params' do
-      let(:act) { FactoryGirl.attributes_for(:client_act, customer_id: customer.id, month: hour.month ) }
+      let(:act) { FactoryGirl.attributes_for(:client_act, customer_id: customer.id, month: hour.month) }
       subject { -> { post :create, params } }
       it { expect(subject.call).to render_template('show_customer.pdf.erb') }
       it { is_expected.to change(ClientAct, :count).by(1) }
     end
 
     context 'invalid params' do
-      let(:act) { FactoryGirl.attributes_for(:client_act, customer_id: fail_customer.id, month: fail_hour.month ) }
+      let(:act) { FactoryGirl.attributes_for(:client_act, customer_id: fail_customer.id, month: fail_hour.month) }
       subject { -> { post :create, params } }
       it { is_expected.to_not change(ClientAct, :count) }
     end
@@ -46,6 +46,6 @@ RSpec.describe ActsController, type: :controller do
 
   describe '#destroy' do
     subject { delete :destroy, id: client_act.id }
-    it { is_expected.to be_success}
+    it { is_expected.to be_success }
   end
 end
