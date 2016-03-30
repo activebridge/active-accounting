@@ -1,0 +1,14 @@
+table
+  tr
+    th translate= 'email'
+    th translate= 'vacation_days_left'
+    th translate= 'vacation_days_used'
+    th translate= 'vacation_days_reserved'
+    th
+  tr ng-repeat= 'vendor in vendors'
+    td ng-bind= 'vendor.email'
+    td ng-bind= 'vendor.vacations_info.days_left'
+    td ng-bind= 'vendor.vacations_info.days_reserved'
+    td ng-bind= 'vendor.vacations_info.days_used'
+    td
+      a ng-href='#/vacations?counterparty_id={{ vendor.id }}' translate='vacations'

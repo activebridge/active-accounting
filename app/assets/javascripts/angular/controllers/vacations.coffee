@@ -1,5 +1,4 @@
-@VacationsCtrl = ['$scope', '$translate', 'uiCalendarConfig', 'Vacations', ($scope, $translate, uiCalendarConfig, Vacations) ->
-
+@VacationsCtrl = ['$scope', '$translate', '$routeParams', 'uiCalendarConfig', 'Vacations', ($scope, $translate, $routeParams, uiCalendarConfig, Vacations) ->
   $scope.newVacation = {}
   $scope.currentDate = moment()
   $scope.currentYear = $scope.currentDate.year()
@@ -15,7 +14,11 @@
   $scope.load = ->
     $scope.daysLeft = 15
     $scope.daysUsed = $scope.daysReserved = 0
-    $scope.vacations = Vacations.query(year: $scope.currentYear)
+    $scope.vacations =
+      if $routeParams.counterparty_id
+        Vacations.query(year: $scope.currentYear, counterparty_id: $routeParams.counterparty_id)
+      else
+        Vacations.query(year: $scope.currentYear)
     $scope.vacations.$promise.then ->
       for key in $scope.vacations
         $scope.vacationsSource.events.push

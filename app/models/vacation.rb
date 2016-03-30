@@ -1,4 +1,6 @@
 class Vacation < ActiveRecord::Base
+  DAYS = 15
+
   belongs_to :vendor
 
   validates :start, :ending, :vendor_id, presence: true

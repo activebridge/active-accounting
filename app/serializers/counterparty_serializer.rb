@@ -1,6 +1,6 @@
 class CounterpartySerializer < ActiveModel::Serializer
   attributes :id, :name, :start_date, :active, :assigned, :monthly_payment, :value_payment, :payment_histories,
-  :successful_payment, :type, :customer, :email, :client_info, :vendor_info, :signed_in, :currency_monthly_payment
+  :successful_payment, :type, :customer, :email, :client_info, :vendor_info, :signed_in, :currency_monthly_payment, :vacations_info
 
   def start_date
     object.start_date.strftime('%d-%m-%Y') if object.start_date
@@ -28,5 +28,25 @@ class CounterpartySerializer < ActiveModel::Serializer
       }
     end
     payment_histories
+  end
+
+  def vacations_info
+    return unless object.type == Counterparty::TYPES::VENDOR
+    vacations = object.vacations
+    vacations_count = vacations.count
+    days_used = vacations.map(&:start).select { |date| date < Time.now }.count
+    days_reserved = vacations_count - days_used
+    days_left = Vacation::DAYS - vacations_count
+    vacation_info_params(days_used, days_reserved, days_left)
+  end
+
+  private
+
+  def vacation_info_params(*args)
+    {
+      days_used: args[0],
+      days_reserved: args[1],
+      days_left: args[2]
+    }
   end
 end
