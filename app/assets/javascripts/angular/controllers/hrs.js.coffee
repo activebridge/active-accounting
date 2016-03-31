@@ -1,3 +1,3 @@
-@HrsCtrl = ['$scope', '$q', '$translate', ($scope, $q , $translate) ->
-  
+@HrsCtrl = ['$scope', '$q', '$translate', 'Counterparty', ($scope, $q , $translate, Counterparty) ->
+  $scope.vendors = Counterparty.query(group: 'vendor')
 ]
