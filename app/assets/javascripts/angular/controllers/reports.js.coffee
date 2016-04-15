@@ -6,52 +6,76 @@
   $scope.rateDollar = $cookies.rateDollar || 0
 
   $scope.load = (value) ->
+    $scope.data = {}
+    $scope.data.revenues = {}
+    $scope.data.costs = {}
+    $scope.data.translations = {}
+    $scope.data.loans = {}
     $scope.months = $translate.instant('month_all').split(',')
     curr_date = new Date()
     $scope.funcPlan.show[curr_date.getMonth()] = false
     $scope.CheckedYear = value
     $scope.clickedMonths = [(curr_date.getMonth()+1) + '/' + $scope.CheckedYear]
     $scope.currentMonth = $scope.months[curr_date.getMonth()]
-    $scope.loadDates()
+    $scope.loadDates($scope.clickedMonths, true)
 
-  $scope.loadDates = ->
+  mergeObjects = (result, object) ->
+    angular.forEach object, (value, key) ->
+      result = $.extend(true, [], result, value)
+    result
+
+  unmergeObjects = (month, object) ->
+    angular.forEach object, (value, key) ->
+      delete value[month]
+      $scope[key] = {}
+      $scope[key] = mergeObjects($scope[key], value)
+
+  $scope.loadDates = (month, clicked) ->
     $cookies.rateDollar = String($scope.rateDollar).replace(',','.')
+    m = parseInt(String(month).split('/')[0])
 
-    Report.query
-      report_type: 'revenues'
-      , 'months[]': $scope.clickedMonths
-      , rate_currency: $scope.rateDollar
-      , (response) ->
-        $scope.revenues = response[0].articles
-        $scope.totalRevenue = response[0].total_values
-        $scope.totalRevenuePlan = response[0].total_values_plan
+    if clicked
+      Report.query
+        report_type: 'revenues'
+        , 'months[]': month
+        , rate_currency: $scope.rateDollar
+        , (response) ->
+          $scope.data.revenues[m] = response[0].articles
+          $scope.revenues = mergeObjects($scope.revenues, $scope.data.revenues)
+          $scope.totalRevenue = $.extend(true, [], $scope.totalRevenue, response[0].total_values)
+          $scope.totalRevenuePlan = $.extend(true, [], $scope.totalRevenuePlan, response[0].total_values_plan)
 
-    Report.query
-      report_type: 'costs'
-      , 'months[]': $scope.clickedMonths
-      , rate_currency: $scope.rateDollar
-      , (response) ->
-        $scope.costs = response[0].articles
-        $scope.totalCost = response[0].total_values
-        $scope.totalCostPlan = response[0].total_values_plan
+      Report.query
+        report_type: 'costs'
+        , 'months[]': month
+        , rate_currency: $scope.rateDollar
+        , (response) ->
+          $scope.data.costs[m] = response[0].articles
+          $scope.costs = mergeObjects($scope.costs, $scope.data.costs)
+          $scope.totalCost = $.extend(true, [], $scope.totalCost, response[0].total_values)
+          $scope.totalCostPlan = $.extend(true, [], $scope.totalCostPlan, response[0].total_values_plan)
 
-    Report.query
-      report_type: 'translations'
-      , 'months[]': $scope.clickedMonths
-      , rate_currency: $scope.rateDollar
-      , (response) ->
-        $scope.translations = response[0].articles
-        $scope.totalTranslation = response[0].total_values
-        $scope.totalTranslationPlan = response[0].total_values_plan
+      Report.query
+        report_type: 'translations'
+        , 'months[]': month
+        , rate_currency: $scope.rateDollar
+        , (response) ->
+          $scope.data.translations[m] = response[0].articles
+          $scope.translations = mergeObjects($scope.translations, $scope.data.translations)
+          $scope.totalTranslation = $.extend(true, [], $scope.totalTranslation, response[0].total_values)
+          $scope.totalTranslationPlan = $.extend(true, [], $scope.totalTranslationPlan, response[0].total_values_plan)
 
-    Report.query
-      report_type: 'loans'
-      , 'months[]': $scope.clickedMonths
-      , rate_currency: $scope.rateDollar
-      , (response) ->
-        $scope.loans = response[0].articles
-        $scope.totalLoan = response[0].total_values
-        $scope.totalLoanPlan = response[0].total_values_plan
+      Report.query
+        report_type: 'loans'
+        , 'months[]': month
+        , rate_currency: $scope.rateDollar
+        , (response) ->
+          $scope.data.loans[m] = response[0].articles
+          $scope.loans = mergeObjects($scope.loans, $scope.data.loans)
+          $scope.totalLoan = $.extend(true, [], $scope.totalLoan, response[0].total_values)
+          $scope.totalLoanPlan = $.extend(true, [], $scope.totalLoanPlan, response[0].total_values_plan)
+    else
+      unmergeObjects(m, $scope.data)
 
   $scope.monthsChange = (month, clicked) ->
     m = $scope.months.indexOf(month)+1
@@ -64,7 +88,7 @@
       trashMonth = $scope.clickedMonths.indexOf(date)
       $scope.clickedMonths.splice(trashMonth, 1)
       delete $scope.funcPlan.show[m-1]
-    $scope.loadDates()
+    $scope.loadDates(date, clicked)
 
   $scope.range = (start, end) ->
     return [start..end]
