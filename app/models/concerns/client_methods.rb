@@ -19,7 +19,7 @@ module ClientMethods
   end
 
   def hours_present
-    months = customer.hours.map(&:month) if customer
+    months = customer.hours.pluck(:month) if customer
     unless months && months.include?(month)
       errors.add(:hours, I18n.t('activerecord.errors.models.hour.attributes.month.presence'))
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212130006) do
+ActiveRecord::Schema.define(version: 20160602112508) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -39,9 +39,11 @@ ActiveRecord::Schema.define(version: 20160212130006) do
     t.integer  "customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "signature_id"
   end
 
   add_index "client_acts", ["customer_id"], name: "index_client_acts_on_customer_id", using: :btree
+  add_index "client_acts", ["signature_id"], name: "index_client_acts_on_signature_id", using: :btree
 
   create_table "client_infos", force: true do |t|
     t.integer  "customer_id"
@@ -65,9 +67,11 @@ ActiveRecord::Schema.define(version: 20160212130006) do
     t.integer  "customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "signature_id"
   end
 
   add_index "client_invoices", ["customer_id"], name: "index_client_invoices_on_customer_id", using: :btree
+  add_index "client_invoices", ["signature_id"], name: "index_client_invoices_on_signature_id", using: :btree
 
   create_table "counterparties", force: true do |t|
     t.string   "name"
@@ -148,6 +152,17 @@ ActiveRecord::Schema.define(version: 20160212130006) do
     t.string   "currency",        default: "UAH"
   end
 
+  create_table "signatures", force: true do |t|
+    t.string   "name_ua"
+    t.string   "name_en"
+    t.string   "title_en"
+    t.string   "title_ua"
+    t.string   "tel"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "taxes", force: true do |t|
     t.float    "social"
     t.float    "single"
@@ -170,8 +185,10 @@ ActiveRecord::Schema.define(version: 20160212130006) do
     t.integer  "vendor_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "signature_id"
   end
 
+  add_index "vendor_acts", ["signature_id"], name: "index_vendor_acts_on_signature_id", using: :btree
   add_index "vendor_acts", ["vendor_id"], name: "index_vendor_acts_on_vendor_id", using: :btree
 
   create_table "vendor_infos", force: true do |t|
@@ -195,8 +212,10 @@ ActiveRecord::Schema.define(version: 20160212130006) do
     t.integer  "vendor_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "signature_id"
   end
 
+  add_index "vendor_orders", ["signature_id"], name: "index_vendor_orders_on_signature_id", using: :btree
   add_index "vendor_orders", ["vendor_id"], name: "index_vendor_orders_on_vendor_id", using: :btree
 
 end
