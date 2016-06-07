@@ -11,6 +11,7 @@ RSpec.describe InvoicesController, type: :controller do
   let(:params) { FactoryGirl.attributes_for(:client_invoice, customer_id: customer.id, month: hour.month, invoice: invoice) }
 
   before do
+    create(:signature)
     allow(controller).to receive(:authenticate_admin!) { true }
   end
 

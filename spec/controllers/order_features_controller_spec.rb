@@ -6,6 +6,7 @@ RSpec.describe OrderFeaturesController, type: :controller do
   let(:vendor_order) { FactoryGirl.create(:vendor_order, vendor_id: vendor.id) }
 
   before do
+    create(:signature)
     allow(controller).to receive(:authenticate_admin!) { true }
   end
 

@@ -11,6 +11,7 @@ RSpec.describe ActsController, type: :controller do
   let(:params) { FactoryGirl.attributes_for(:client_act, customer_id: customer.id, month: hour.month, act: act) }
 
   before do
+    create(:signature)
     allow(controller).to receive(:authenticate_admin!) { true }
   end
 
