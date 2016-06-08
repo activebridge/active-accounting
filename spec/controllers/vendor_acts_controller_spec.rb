@@ -30,7 +30,7 @@ RSpec.describe VendorActsController, type: :controller do
       before { post :create, vendor_id: vendor_not_monthly_payment.id, month: month, rateDollar: 22 }
 
       it { expect(response.status).to eq(422) }
-      it { expect(json['messages']).to eq(['no_monthly_payment']) }
+      it { expect(json['messages']).to eq('vendor_value_payment' => ['no_monthly_payment']) }
     end
 
     context "responds with a 422 status, vendor hasn't info" do
@@ -39,7 +39,7 @@ RSpec.describe VendorActsController, type: :controller do
       before { post :create, vendor_id: vendor_not_info.id, month: month, rateDollar: 22 }
 
       it { expect(response.status).to eq(422) }
-      it { expect(json['messages']).to eq(%w(you_must_fill_fields name ipn address contract account bank mfo agreement_date)) }
+      it { expect(json['messages']).to eq('you_must_fill_fields' => %w(name ipn address contract account bank mfo agreement_date)) }
     end
 
     it 'add act' do

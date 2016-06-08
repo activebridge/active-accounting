@@ -10,16 +10,11 @@ class VendorOrdersController < ApplicationController
   end
 
   def create
-    if !info_empty.empty?
-      render json: { status: :error, messages: info_empty }, status: 422
+    order = VendorOrder.new(vendor_order_params)
+    if order.save
+      render json: VendorOrderSerializer.new(order), status: 200
     else
-      order = VendorOrder.new(vendor_order_params)
-      if order.save
-        order.features << Feature.all
-        render json: VendorOrderSerializer.new(order), status: 200
-      else
-        render json: { status: :error, messages:  order.errors.messages[:month] }, status: 422
-      end
+      render json: { status: :error, messages:  order.errors }, status: 422
     end
   end
 
@@ -46,15 +41,6 @@ class VendorOrdersController < ApplicationController
 
   def vendor_order_params
     params.require(:vendor_order).permit!.merge(month: params[:vendor_order][:month].to_date)
-  end
-
-  def info_empty
-    empty_fields = []
-    @vendor.vendor_info.attributes.each do |a|
-      empty_fields.push a[0] unless a[1]
-    end
-    empty_fields.unshift 'you_must_fill_fields' unless empty_fields.empty?
-    empty_fields
   end
 
   def group_features

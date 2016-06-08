@@ -85,7 +85,8 @@ Rails.application.configure do
     address:              'smtp.mandrillapp.com',
     port:                 587,
     user_name:            SECRETS['mandrill_username'],
-    password:             SECRETS['mandrill_password'] }
+    password:             SECRETS['mandrill_password']
+  }
 
   config.action_mailer.default_url_options = {
     host: 'accounting.active-bridge.com'
