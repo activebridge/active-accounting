@@ -1,5 +1,6 @@
 class VendorAct < ActiveRecord::Base
   include ValidationOnMonth
+  include ValidationInfoVendor
 
   validate :month_uniqueness, on: :create, if: :vendor
   belongs_to :vendor

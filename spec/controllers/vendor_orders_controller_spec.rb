@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe VendorOrdersController, type: :controller do
-  let(:vendor) { FactoryGirl.create(:vendor) }
-  let!(:vendor_info) { vendor.vendor_info.update(FactoryGirl.attributes_for(:vendor_info)) }
+  let(:vendor) { FactoryGirl.create(:vendor, :with_info) }
   let(:vendor_order) { FactoryGirl.create(:vendor_order, vendor_id: vendor.id) }
 
   before do
@@ -25,11 +24,12 @@ RSpec.describe VendorOrdersController, type: :controller do
 
     context "responds with a 422 status, vendor hasn't info" do
       let(:vendor_not_info) { FactoryGirl.create(:vendor) }
+      let(:attributes_for_order) { { month: month, vendor_id: vendor_not_info.id } }
 
-      before { post :create, vendor_id: vendor_not_info.id, month: month }
+      before { post :create, vendor_order: attributes_for_order, vendor_id: vendor.id }
 
       it { expect(response.status).to eq(422) }
-      it { expect(json['messages']).to eq(%w(you_must_fill_fields name ipn address contract account bank mfo agreement_date)) }
+      it { expect(json['messages']).to eq('you_must_fill_fields' => %w(name ipn address contract account bank mfo agreement_date)) }
     end
   end
 

@@ -117,8 +117,7 @@ RSpec.describe CounterpartiesController, type: :controller do
           [{ 'name' => counterparty_without_pay.name,
              'id' => counterparty_without_pay.id,
              'value_payment' => 2000.0,
-             'type' => counterparty_without_pay.type }
-          ]
+             'type' => counterparty_without_pay.type }]
         )
       end
     end
@@ -138,8 +137,7 @@ RSpec.describe CounterpartiesController, type: :controller do
            { 'name' => counterparty_without_pay.name,
              'id' => counterparty_without_pay.id,
              'value_payment' => 2000.0,
-             'type' => counterparty_without_pay.type }
-          ]
+             'type' => counterparty_without_pay.type }]
         )
       end
     end

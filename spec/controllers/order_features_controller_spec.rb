@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe OrderFeaturesController, type: :controller do
   let(:primary_feature) { FactoryGirl.create(:primary) }
-  let(:vendor) { FactoryGirl.create(:vendor) }
+  let(:vendor) { FactoryGirl.create(:vendor, :with_info) }
   let(:vendor_order) { FactoryGirl.create(:vendor_order, vendor_id: vendor.id) }
 
   before do

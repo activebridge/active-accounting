@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-
+ruby '2.3.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.1'
+gem 'rails', '4.2.6'
 # Use sqlite3 as the database for Active Record
 gem 'mysql2', '~> 0.3.20'
 # Use SCSS for stylesheets
@@ -66,14 +66,14 @@ group :development do
   gem 'capistrano-rvm'
   gem 'passenger'
   gem 'quiet_assets'
+  gem 'letter_opener'
 end
 
 gem 'slim-rails'
-gem 'active_model_serializers'
-gem 'bootstrap-sass'
+gem 'active_model_serializers', "~> 0.7.0"
+gem 'bootstrap-sass', "~> 3.2.0.1"
 gem 'whenever', require: false
-gem 'mandrill_mailer'
-gem 'letter_opener'
+gem 'mandrill_mailer', "~> 0.5.1"
 gem 'simplecov'
 gem 'rubyzip'
 gem 'zip-zip'

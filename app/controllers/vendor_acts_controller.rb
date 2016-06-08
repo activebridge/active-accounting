@@ -10,19 +10,15 @@ class VendorActsController < ApplicationController
   end
 
   def create
-    if !@vendor.value_payment || info_empty.present?
-      messages = @vendor.value_payment ? info_empty : ['no_monthly_payment']
-      render json: { status: :error, messages: messages }, status: 422
-    else
-      @act_params = VendorAct.new(invoice_calculator.params_new_act)
-      if @act_params.save
-        total_money_words
-        respond_to do |format|
-          format.html { render 'acts/show_vendor.pdf.erb' }
-        end
-      else
-        render json: { status: :error, messages:  @act_params.errors.messages[:month] }, status: 422
+    return render json: { status: :error, messages: vendor_payment_empty }, status: 422 unless @vendor.value_payment
+    @act_params = VendorAct.new(invoice_calculator.params_new_act)
+    if @act_params.save
+      total_money_words
+      respond_to do |format|
+        format.html { render 'acts/show_vendor.pdf.erb' }
       end
+    else
+      render json: { status: :error, messages:  @act_params.errors }, status: 422
     end
   end
 
@@ -65,13 +61,8 @@ class VendorActsController < ApplicationController
     @invoice_calculator ||= VendorCalculator.new(@vendor, params)
   end
 
-  def info_empty
-    empty_fields = []
-    @vendor.vendor_info.attributes.each do |a|
-      empty_fields.push a[0] unless a[1]
-    end
-    empty_fields.unshift 'you_must_fill_fields' unless empty_fields.empty?
-    empty_fields
+  def vendor_payment_empty
+    { vendor_value_payment: ['no_monthly_payment'] }
   end
 
   def vendor_act__params

@@ -23,7 +23,7 @@ class Vendor < Counterparty
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
     save!
-    VendorMailer.password_reset(self).deliver
+    VendorMailer.password_reset(self).deliver_now
   end
 
   def generate_token(column)

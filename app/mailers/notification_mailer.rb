@@ -5,11 +5,11 @@ class NotificationMailer < ActionMailer::Base
     @token = token
     @vendor = vendor
     @hour = hour
-    mail(to: vendor.email, subject: 'Оповіщення про необхідність додання витрачених годин на клієнта').deliver!
+    mail(to: vendor.email, subject: 'Оповіщення про необхідність додання витрачених годин на клієнта')
   end
 
   def admin_auto_add_hours(hour)
     @hour = hour
-    mail(to: 'eugene@active-bridge.com', subject: 'Звіт про підтвердження додавання годин постачальників').deliver!
+    mail(to: 'eugene@active-bridge.com', subject: 'Звіт про підтвердження додавання годин постачальників')
   end
 end

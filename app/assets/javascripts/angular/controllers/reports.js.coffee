@@ -155,7 +155,7 @@
 
   loadYears = ->
     Report.years (response) ->
-      $scope.years = response['reports']
+      $scope.years = response['years']
 
   loadYears()
 

@@ -77,8 +77,7 @@ RSpec.describe ReportsController, type: :controller do
               }
             ],
            'total_values' => { '10' => 30.0, '11' => 25.0 },
-           'total_values_plan' => { '10' => 50.0 }
-          ]
+           'total_values_plan' => { '10' => 50.0 }]
         )
       end
     end

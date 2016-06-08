@@ -4,8 +4,7 @@ class InvitationsController < CounterpartiesController
   def create
     password = SecureRandom.hex(8)
     @counterparty.update(password: password)
-
-    InvitationMailer.create_invite_for_vendor(@counterparty, password)
+    InvitationMailer.create_invite_for_vendor(@counterparty, password).deliver_now
     render json: { success: 'success_send' }
   end
 end

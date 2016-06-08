@@ -26,13 +26,16 @@
     $scope.infoActEmpty = false
 
   errorResponse = (response) ->
-    messages = ''
-    lengthMessages = response.messages.length
-    $.each response.messages, (k, v)->
-      messages += $translate.instant(v)
-      messages += ', ' if k != lengthMessages - 1 && k != 0
-    alert messages
     $("#generated-act-vendor").html ''
+    $.each response.messages, (key, array)->
+      messages = if key == 'you_must_fill_fields'
+        $translate.instant(key)
+      else
+        ''
+      $.each array, (index, value)->
+        messages += $translate.instant(value)
+        messages += ', ' if index != array.length - 1
+      alert messages
 
   $scope.extraOptions =
     translation: 0

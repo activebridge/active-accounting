@@ -14,6 +14,12 @@ FactoryGirl.define do
       type 'Vendor'
       email { Faker::Internet.email }
       password { Faker::Internet.password(8) }
+
+      trait :with_info do
+        after :create do |v|
+          v.vendor_info.update(attributes_for(:vendor_info))
+        end
+      end
     end
 
     factory :hr, parent: :counterparty, class: 'HR' do
