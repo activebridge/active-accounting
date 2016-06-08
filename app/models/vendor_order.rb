@@ -4,14 +4,13 @@ class VendorOrder < ActiveRecord::Base
   include HasSignature
 
   validate :month_uniqueness, on: :create, if: :vendor
-  has_many :order_features
-  has_many :features, through: :order_features
+  has_and_belongs_to_many :features, dependent: :destroy
   belongs_to :vendor
 
   after_create :set_features
 
   def months
-    vendor.vendor_orders.map(&:month)
+    vendor.vendor_orders.pluck(:month)
   end
 
   private

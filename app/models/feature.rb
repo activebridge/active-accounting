@@ -1,6 +1,5 @@
 class Feature < ActiveRecord::Base
-  has_many :order_features
-  has_many :vendor_orders, through: :order_features
+  has_and_belongs_to_many :vendor_orders, dependent: :destroy
 
   TYPES = %w(Primary Additional).freeze
 

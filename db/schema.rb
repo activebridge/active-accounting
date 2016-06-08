@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160602112508) do
+ActiveRecord::Schema.define(version: 20160607174627) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -76,10 +76,10 @@ ActiveRecord::Schema.define(version: 20160602112508) do
   create_table "counterparties", force: true do |t|
     t.string   "name"
     t.date     "start_date"
-    t.boolean  "active",                   default: true
+    t.boolean  "active",                              default: true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "value_payment"
+    t.float    "value_payment",            limit: 24
     t.boolean  "monthly_payment"
     t.string   "type"
     t.integer  "customer_id"
@@ -88,14 +88,21 @@ ActiveRecord::Schema.define(version: 20160602112508) do
     t.string   "auth_token"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
-    t.boolean  "approve_hours",            default: false
-    t.boolean  "signed_in",                default: false
-    t.string   "currency_monthly_payment", default: "USD"
+    t.boolean  "approve_hours",                       default: false
+    t.boolean  "signed_in",                           default: false
+    t.string   "currency_monthly_payment",            default: "USD"
   end
 
   create_table "features", force: true do |t|
     t.string   "name"
     t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "features_vendor_orders", id: false, force: true do |t|
+    t.integer  "vendor_order_id", null: false
+    t.integer  "feature_id",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -119,20 +126,10 @@ ActiveRecord::Schema.define(version: 20160602112508) do
   add_index "hours", ["customer_id"], name: "index_hours_on_customer_id", using: :btree
   add_index "hours", ["vendor_id"], name: "index_hours_on_vendor_id", using: :btree
 
-  create_table "order_features", force: true do |t|
-    t.integer  "vendor_order_id"
-    t.integer  "feature_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "order_features", ["feature_id"], name: "index_order_features_on_feature_id", using: :btree
-  add_index "order_features", ["vendor_order_id"], name: "index_order_features_on_vendor_order_id", using: :btree
-
   create_table "payment_histories", force: true do |t|
     t.integer  "counterparty_id"
     t.integer  "admin_id"
-    t.float    "value_payment"
+    t.float    "value_payment",   limit: 24
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -143,13 +140,13 @@ ActiveRecord::Schema.define(version: 20160602112508) do
     t.date     "date"
     t.integer  "article_id"
     t.integer  "counterparty_id"
-    t.float    "value"
+    t.float    "value",           limit: 24
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "background"
     t.string   "type"
-    t.string   "currency",        default: "UAH"
+    t.string   "currency",                   default: "UAH"
   end
 
   create_table "signatures", force: true do |t|
@@ -164,9 +161,9 @@ ActiveRecord::Schema.define(version: 20160602112508) do
   end
 
   create_table "taxes", force: true do |t|
-    t.float    "social"
-    t.float    "single"
-    t.float    "cash"
+    t.float    "social",     limit: 24
+    t.float    "single",     limit: 24
+    t.float    "cash",       limit: 24
     t.datetime "created_at"
     t.datetime "updated_at"
   end

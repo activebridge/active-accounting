@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Feature, type: :model do
   context 'association' do
-    it { is_expected.to have_many(:order_features) }
+    it { is_expected.to have_and_belong_to_many(:vendor_orders) }
   end
 
   context 'validation rules' do
