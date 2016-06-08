@@ -48,7 +48,7 @@
 
   loadYears = ->
     Chart.years (response) ->
-      $scope.years = response['charts']
+      $scope.years = response['years']
       $scope.load($scope.currYear, 'chartcontainer' + $scope.currYear)
 
   loadYears()

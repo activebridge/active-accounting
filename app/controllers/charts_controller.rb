@@ -8,6 +8,6 @@ class ChartsController < ApplicationController
 
   def years
     json = Fact.pluck(:date).map(&:year).uniq.sort
-    render json: json, status: 200
+    render json: { years: json }, status: 200
   end
 end

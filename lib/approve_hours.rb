@@ -8,7 +8,7 @@ class ApproveHours
     vendors.each do |vendor|
       unless vendor.customer_id.nil?
         next if double?(vendor)
-        NotificationMailer.vendor_add_hours(vendor, hour_params(vendor), verifier.generate(hour_params(vendor)))
+        NotificationMailer.vendor_add_hours(vendor, hour_params(vendor), verifier.generate(hour_params(vendor))).deliver_now
       end
     end
   end
@@ -19,7 +19,7 @@ class ApproveHours
 
     unless double?(vendor)
       hour = Hour.create(params)
-      NotificationMailer.admin_auto_add_hours(hour)
+      NotificationMailer.admin_auto_add_hours(hour).deliver_now
     end
 
   rescue
