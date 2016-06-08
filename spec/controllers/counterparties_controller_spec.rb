@@ -35,7 +35,7 @@ RSpec.describe CounterpartiesController, type: :controller do
 
   describe '#show' do
     context 'returns vendor in json' do
-      before { get :show, id: vendor.id, counterparty: vendor_attributes}
+      before { get :show, id: vendor.id, counterparty: vendor_attributes }
 
       it { expect(JSON.parse(response.body)['id']).to eq(vendor.id) }
     end

@@ -1,5 +1,5 @@
 class VendorOrdersController < ApplicationController
-  before_action :find_order, only: :show
+  before_action :find_order, :group_features, only: :show
   before_action :find_vendor
 
   def index
@@ -10,7 +10,7 @@ class VendorOrdersController < ApplicationController
   end
 
   def create
-    if info_empty.length > 0
+    if !info_empty.empty?
       render json: { status: :error, messages: info_empty }, status: 422
     else
       order = VendorOrder.new(vendor_order_params)
@@ -24,9 +24,6 @@ class VendorOrdersController < ApplicationController
   end
 
   def show
-    features = @order.features
-    @primaries = features.by_group('primary')
-    @additionals = features.by_group('additional')
     respond_to do |format|
       format.pdf do
         render pdf: "order_#{@vendor.name + Time.current.strftime('%m-%d-%Y')}",
@@ -56,7 +53,13 @@ class VendorOrdersController < ApplicationController
     @vendor.vendor_info.attributes.each do |a|
       empty_fields.push a[0] unless a[1]
     end
-    empty_fields.unshift 'you_must_fill_fields' if empty_fields.length > 0
+    empty_fields.unshift 'you_must_fill_fields' unless empty_fields.empty?
     empty_fields
+  end
+
+  def group_features
+    features = @order.features
+    @primaries = features.by_group('primary')
+    @additionals = features.by_group('additional')
   end
 end

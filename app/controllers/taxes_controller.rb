@@ -10,7 +10,7 @@ class TaxesController < ApplicationController
   def update
     @tax.assign_attributes(tax_params)
     if @tax.save
-      render json: {success: :accepted}, status: 202
+      render json: { success: :accepted }, status: 202
     else
       render json: :unprocessable_entity, status: 422
     end
@@ -27,6 +27,6 @@ class TaxesController < ApplicationController
   end
 
   def check_user
-    render json: {error: 'Not authorization'} and return unless current_admin
+    render(json: { error: 'Not authorization' }) && return unless current_admin
   end
 end

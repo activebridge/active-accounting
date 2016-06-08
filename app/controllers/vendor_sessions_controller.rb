@@ -3,15 +3,14 @@ class VendorSessionsController < VendorApplicationController
 
   def create
     if @counterparty
-      session[:counterparty_id] = @counterparty.id
-      @counterparty.update(signed_in: true)
+      authorize_counteparty
       respond_to do |format|
         format.js { render layout: false }
         format.json { render json: @counterparty.authenticate! }
       end
     else
       flash.now[:error] = 'Invalid email or password'
-      render json: {message: 'Invalid credentials'}, status: 422
+      render json: { message: 'Invalid credentials' }, status: 422
     end
   end
 
@@ -24,5 +23,10 @@ class VendorSessionsController < VendorApplicationController
 
   def fetch_counterparty
     @counterparty ||= Counterparty.find_by(email: params[:email], password: params[:password])
+  end
+
+  def authorize_counteparty
+    session[:counterparty_id] = @counterparty.id
+    @counterparty.update(signed_in: true)
   end
 end

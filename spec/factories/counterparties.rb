@@ -3,7 +3,7 @@ FactoryGirl.define do
     name { Faker::Name.name }
     start_date { Date.yesterday }
     active true
-    type { Counterparty::TYPES::DISPLAY_TYPES[rand(1)] }
+    type { Counterparty::TYPES::DISPLAY_TYPES[0] }
     currency_monthly_payment 'USD'
 
     factory :customer, parent: :counterparty, class: 'Customer' do

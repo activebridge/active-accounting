@@ -1,11 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe VacationsController, type: :controller do
-
   let(:vendor) { FactoryGirl.create(:vendor) }
   let(:vacation) { FactoryGirl.create(:vacation, vendor_id: vendor.id) }
   let(:vacation_attributes) { FactoryGirl.attributes_for(:vacation) }
-  let(:invalid_vacation_attributes) { FactoryGirl.attributes_for(:vacation, start: true, ending:'') }
+  let(:invalid_vacation_attributes) { FactoryGirl.attributes_for(:vacation, start: true, ending: '') }
 
   before do
     allow(controller).to receive(:authenticate_admin!) { true }

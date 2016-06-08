@@ -4,15 +4,7 @@ class RegistersController < ApplicationController
   before_action :set_model
 
   def index
-    registers = @model.order('date desc')
-                      .by_month(params[:month])
-                      .by_type(params[:type])
-                      .by_article(params[:article_id])
-                      .by_counterparty(params[:counterparty_id])
-                      .by_date(params[:date])
-                      .by_value(params[:value])
-                      .limit(10)
-                      .offset(params[:offset] ? params[:offset].to_i : 0)
+    registers = @model.index_sort(params.slice(:month, :type, :article_id, :counterparty_id, :date, :value, :offset))
     json = ActiveModel::ArraySerializer.new(registers,
                                             each_serializer: RegisterSerializer,
                                             root: nil)
@@ -62,17 +54,5 @@ class RegistersController < ApplicationController
 
   def parse_month
     @month = params[:month].blank? ? Date.today : Date.parse(params[:month])
-  end
-
-  def count_profit(data)
-    month_value = Array.new(12, 0)
-    data.merge(data) do |month, objs|
-      cost = objs.find { |obj| obj.type == 'Cost' }.try(:total)
-      revenue = objs.find { |obj| obj.type == 'Revenue' }.try(:total)
-      rate = cost && revenue ? (cost / revenue) * 100 : 0
-      # HACK: to display chart by profit instead of cost
-      month_value[month] = (100 - rate.round(2))
-    end
-    month_value.to_a
   end
 end

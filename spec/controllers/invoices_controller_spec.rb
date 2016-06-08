@@ -8,7 +8,7 @@ RSpec.describe InvoicesController, type: :controller do
   let(:client_invoice) { FactoryGirl.create(:client_invoice, customer_id: customer.id, month: hour.month) }
   let(:fail_customer) { FactoryGirl.create(:customer, value_payment: 1000) }
   let(:fail_hour) { FactoryGirl.create(:hour, customer_id: fail_customer.id, vendor_id: vendor.id) }
-  let(:params) { FactoryGirl.attributes_for(:client_invoice, customer_id: customer.id, month: hour.month, invoice: invoice ) }
+  let(:params) { FactoryGirl.attributes_for(:client_invoice, customer_id: customer.id, month: hour.month, invoice: invoice) }
 
   before do
     allow(controller).to receive(:authenticate_admin!) { true }
@@ -21,13 +21,13 @@ RSpec.describe InvoicesController, type: :controller do
 
   describe '#create' do
     context 'valid params' do
-      let(:invoice) { FactoryGirl.attributes_for(:client_invoice, customer_id: customer.id, month: hour.month ) }
+      let(:invoice) { FactoryGirl.attributes_for(:client_invoice, customer_id: customer.id, month: hour.month) }
       subject { -> { post :create, params } }
       it { is_expected.to change(ClientInvoice, :count).by(1) }
     end
 
     context 'invalid params' do
-      let(:invoice) { FactoryGirl.attributes_for(:client_invoice, customer_id: fail_customer.id, month: fail_hour.month ) }
+      let(:invoice) { FactoryGirl.attributes_for(:client_invoice, customer_id: fail_customer.id, month: fail_hour.month) }
       subject { -> { post :create, params } }
       it { is_expected.to_not change(ClientInvoice, :count) }
     end
@@ -40,6 +40,6 @@ RSpec.describe InvoicesController, type: :controller do
 
   describe '#destroy' do
     subject { delete :destroy, id: client_invoice.id }
-    it { is_expected.to be_success}
+    it { is_expected.to be_success }
   end
 end

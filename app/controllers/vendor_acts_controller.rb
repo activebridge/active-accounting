@@ -10,13 +10,13 @@ class VendorActsController < ApplicationController
   end
 
   def create
-    if @vendor.value_payment.nil? || info_empty.length > 0
+    if !@vendor.value_payment || info_empty.present?
       messages = @vendor.value_payment ? info_empty : ['no_monthly_payment']
       render json: { status: :error, messages: messages }, status: 422
     else
       @act_params = VendorAct.new(invoice_calculator.params_new_act)
       if @act_params.save
-        @total_money_words = invoice_calculator.total_money_words(@act_params.total_money.to_s)
+        total_money_words
         respond_to do |format|
           format.html { render 'acts/show_vendor.pdf.erb' }
         end
@@ -27,7 +27,7 @@ class VendorActsController < ApplicationController
   end
 
   def show
-    @total_money_words = invoice_calculator.total_money_words(@act_params.total_money.to_s)
+    total_money_words
     respond_to do |format|
       format.html { render 'acts/show_vendor.pdf.erb' }
       format.pdf do
@@ -49,6 +49,10 @@ class VendorActsController < ApplicationController
 
   private
 
+  def total_money_words
+    @total_money_words = invoice_calculator.total_money_words(@act_params.total_money.to_s)
+  end
+
   def find_act
     @act_params = VendorAct.find(params[:id])
   end
@@ -66,7 +70,7 @@ class VendorActsController < ApplicationController
     @vendor.vendor_info.attributes.each do |a|
       empty_fields.push a[0] unless a[1]
     end
-    empty_fields.unshift 'you_must_fill_fields' if empty_fields.length > 0
+    empty_fields.unshift 'you_must_fill_fields' unless empty_fields.empty?
     empty_fields
   end
 

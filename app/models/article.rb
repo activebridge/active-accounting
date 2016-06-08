@@ -1,5 +1,4 @@
 class Article < ActiveRecord::Base
-
   has_many :registers
 
   module TYPES
@@ -14,7 +13,7 @@ class Article < ActiveRecord::Base
   scope :by_group, -> (group) { where(type: group) if group }
 
   def name_with_type
-    "#{ name } (#{ type_msg })"
+    "#{name} (#{type_msg})"
   end
 
   TYPES.constants.each do |article_type|
@@ -27,6 +26,6 @@ class Article < ActiveRecord::Base
     registers.any?
   end
 
-  alias_method :article_name, :name_with_type
-  alias_method :assigned, :assigned?
+  alias article_name name_with_type
+  alias assigned assigned?
 end

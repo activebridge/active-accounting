@@ -28,13 +28,8 @@ class CounterpartiesController < ApplicationController
   end
 
   def update
-    if @counterparty.update_attributes(counterparty_params)
-      if @counterparty.previous_changes.include?('value_payment')
-        @counterparty.payment_histories.create(
-          admin_id: current_admin.id,
-          value_payment: @counterparty.value_payment
-        )
-      end
+    if @counterparty.update(counterparty_params)
+      @counterparty.check_changes(current_admin.id)
       render json: CounterpartySerializer.new(@counterparty), status: 201
     else
       render json: { status: :error, error: @counterparty.errors.messages }, status: 422
@@ -58,7 +53,7 @@ class CounterpartiesController < ApplicationController
 
   def counterparty_params
     params.require(:counterparty).permit(:id, :name, :start_date, :active, :value_payment, :monthly_payment, :type, :customer_id,
-      :email, :password, :auth_token, :password_reset_token, :password_reset_sent_at, :approve_hours, :signed_in, :currency_monthly_payment)
+                                         :email, :password, :auth_token, :password_reset_token, :password_reset_sent_at, :approve_hours, :signed_in, :currency_monthly_payment)
   end
 
   def find_conterparty
