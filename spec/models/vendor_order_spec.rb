@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe VendorOrder, type: :model do
   before { create(:signature) }
 
-  it_behaves_like "has signature"
+  it_behaves_like 'has signature'
 
   context 'association' do
     it { is_expected.to have_and_belong_to_many(:features) }

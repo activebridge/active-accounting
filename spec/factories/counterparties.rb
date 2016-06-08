@@ -18,12 +18,10 @@ FactoryGirl.define do
       end
 
       trait :with_info do
-        after(:create) do |c|
-          c.client_info.attributes = attributes_for :client_info
-          c.client_info.save
+        after :create do |c|
+          c.client_info.update(attributes_for(:client_info))
         end
       end
-
     end
 
     factory :vendor, parent: :counterparty, class: 'Vendor' do

@@ -7,7 +7,6 @@ module HasSignature
     validates :signature_id, presence: true
 
     before_validation :set_signature, on: :create
-
   end
 
   private

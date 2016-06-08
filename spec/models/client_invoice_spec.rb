@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ClientInvoice, type: :model do
   before { create(:signature) }
 
-  it_behaves_like "has signature"
+  it_behaves_like 'has signature'
 
   context 'associations' do
     it { is_expected.to belong_to(:customer) }

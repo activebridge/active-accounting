@@ -49,8 +49,6 @@ RSpec.describe OrderFeaturesController, type: :controller do
     context 'removal of feature in order' do
       let(:vendor_order) { create(:vendor_order) }
 
-      before { vendor_order.features << primary_feature }
-
       subject { delete :destroy, id: primary_feature.id, vendor_order_id: vendor_order.id }
 
       it { expect { subject }.to change(Feature, :count).by(0) }

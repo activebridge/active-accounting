@@ -1,6 +1,6 @@
 RSpec.shared_examples "has signature" do
 
-  subject { create(described_class.table_name.singularize, :for_signature) }
+  subject { create(described_class.table_name.singularize) }
 
   describe "associations" do
     it { is_expected.to belong_to(:signature) }
