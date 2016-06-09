@@ -1,6 +1,7 @@
 class VendorActsController < ApplicationController
   before_action :find_act, only: [:show, :update]
   before_action :find_vendor
+  before_action :signature, only: :show
 
   def index
     acts = ActiveModel::ArraySerializer.new(@vendor.vendor_acts.order('id desc'),
@@ -13,7 +14,7 @@ class VendorActsController < ApplicationController
     return render json: { status: :error, messages: vendor_payment_empty }, status: 422 unless @vendor.value_payment
     @act_params = VendorAct.new(invoice_calculator.params_new_act)
     if @act_params.save
-      total_money_words
+      total_money_words && signature
       respond_to do |format|
         format.html { render 'acts/show_vendor.pdf.erb' }
       end
@@ -27,11 +28,11 @@ class VendorActsController < ApplicationController
     respond_to do |format|
       format.html { render 'acts/show_vendor.pdf.erb' }
       format.pdf do
-        render pdf: "act_#{@vendor.name + Time.current.strftime('%m-%d-%Y')}",
+        render pdf: filename,
                template: 'acts/show_vendor.pdf.erb',
                dpi: '1200'
       end
-      format.xlsx { render xlsx: 'acts/show_vendor.xlsx.axlsx', template: 'show_vendor.xlsx.axlsx', filename: 'vendor_act.xlsx' }
+      format.xlsx { render xlsx: 'acts/show_vendor.xlsx.axlsx', template: 'acts/show_vendor.xlsx.axlsx', filename: filename + '.xlsx' }
     end
   end
 
@@ -67,5 +68,13 @@ class VendorActsController < ApplicationController
 
   def vendor_act__params
     params.require(:vendor_act).permit!
+  end
+
+  def signature
+    @signature = @act_params.signature
+  end
+
+  def filename
+    "act_vendor_#{@vendor.name}_#{@act_params.month.strftime('%m_%Y')}"
   end
 end

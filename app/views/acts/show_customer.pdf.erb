@@ -231,12 +231,12 @@
  </tr>
  <tr height="28" style="mso-height-source:userset;height:21.0pt">
   <td colspan="22" height="28" class="xl768282" style="height:21.0pt">Printed Name:
-  Ievgenii O. Korpan</td>
-  <td colspan="21" class="xl768282">Друковане ім’я: Корпань Євгеній Олександрович</td>
+  <%= @signature.name_en %></td>
+  <td colspan="21" class="xl768282">Друковане ім’я: <%= @signature.name_ua %></td>
  </tr>
  <tr height="25" style="mso-height-source:userset;height:18.75pt">
-  <td colspan="22" height="25" class="xl768282" style="height:18.75pt">Title: CEO</td>
-  <td colspan="21" class="xl768282">Посада: Генеральний Директор</td>
+  <td colspan="22" height="25" class="xl768282" style="height:18.75pt">Title: <%= @signature.title_en %></td>
+  <td colspan="21" class="xl768282">Посада: <%= @signature.title_ua %></td>
  </tr>
  <tr height="33" style="mso-height-source:userset;height:24.75pt">
   <td colspan="22" height="33" class="xl768282" style="height:24.75pt">Signature:______________</td>

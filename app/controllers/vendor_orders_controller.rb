@@ -1,6 +1,7 @@
 class VendorOrdersController < ApplicationController
   before_action :find_order, :group_features, only: :show
   before_action :find_vendor
+  before_action :signature, only: :show
 
   def index
     orders = ActiveModel::ArraySerializer.new(@vendor.vendor_orders.order('id desc'),
@@ -21,11 +22,11 @@ class VendorOrdersController < ApplicationController
   def show
     respond_to do |format|
       format.pdf do
-        render pdf: "order_#{@vendor.name + Time.current.strftime('%m-%d-%Y')}",
+        render pdf: filename,
                template: 'acts/order_vendor.pdf.erb',
                dpi: '1200'
       end
-      format.xlsx { render xlsx: 'acts/order_vendor.xlsx.axlsx', template: 'order_vendor.xlsx.axlsx', filename: 'order_vendor.xlsx' }
+      format.xlsx { render xlsx: 'acts/order_vendor.xlsx.axlsx', template: 'acts/order_vendor.xlsx.axlsx', filename: filename + 'order.xlsx' }
     end
   end
 
@@ -47,5 +48,13 @@ class VendorOrdersController < ApplicationController
     features = @order.features
     @primaries = features.by_group('primary')
     @additionals = features.by_group('additional')
+  end
+
+  def signature
+    @signature = @order.signature
+  end
+
+  def filename
+    "order_#{@vendor.name}_#{@order.month.strftime('%m_%Y')}"
   end
 end

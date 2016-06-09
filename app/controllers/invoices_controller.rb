@@ -1,6 +1,7 @@
 class InvoicesController < ApplicationController
   before_action :find_invoice, only: [:show, :update, :destroy]
   before_action :find_customer
+  before_action :signature, only: :show
 
   def index
     invoices = ActiveModel::ArraySerializer.new(@customer.client_invoices.order('id desc'),
@@ -19,14 +20,15 @@ class InvoicesController < ApplicationController
   end
 
   def show
+    invoice_calculator
     respond_to do |format|
       format.html { render 'invoices/show.pdf.slim' }
       format.pdf do
-        render pdf: "invoice_#{@customer.name + Time.current.strftime('%m-%d-%Y')}",
+        render pdf: filename,
                template: 'invoices/show.pdf.slim',
                dpi: '600'
       end
-      format.xlsx { render xlsx: 'show', filename: 'invoice.xlsx' }
+      format.xlsx { render xlsx: 'show', filename: filename + '.xlsx' }
     end
   end
 
@@ -46,7 +48,7 @@ class InvoicesController < ApplicationController
   end
 
   def invoice_calculator
-    @invoice_calculator = InvoiceCalculator.new(@customer, params[:month])
+    invoice_calculator = InvoiceCalculator.new(@customer, params[:month])
     @invoice_number = invoice_calculator.invoice_number
     @total_money = invoice_calculator.total_money
     @hours = invoice_calculator.hours_by_month
@@ -54,5 +56,13 @@ class InvoicesController < ApplicationController
 
   def invoice_params
     params.require(:invoice).permit(:customer_id).merge(month: params[:invoice][:month].to_date)
+  end
+
+  def signature
+    @signature = @invoice_params.signature
+  end
+
+  def filename
+    "invoice_#{@customer.name}_#{params[:month].tr!('/', '_')}"
   end
 end
