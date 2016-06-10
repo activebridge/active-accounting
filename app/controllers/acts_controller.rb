@@ -24,7 +24,7 @@ class ActsController < ApplicationController
   end
 
   def update
-    if @act_params.update(total_money: params[:total_money])
+    if @act_params.update(act_params_update)
       render json: @act_params, status: 201
     else
       render json: { status: :error, error: @act_params.errors }, status: 422
@@ -69,6 +69,10 @@ class ActsController < ApplicationController
 
   def act_params
     params.require(:act).permit(:customer_id).merge(month: params[:act][:month].to_date, total_money: @total_by_hours)
+  end
+
+  def act_params_update
+    params.require(:act).permit(:total_money, :signature_id)
   end
 
   def signature

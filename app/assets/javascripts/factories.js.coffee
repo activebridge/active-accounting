@@ -142,6 +142,13 @@ angular.module('accounting.services').factory 'VendorActs', ['$resource', ($reso
     method: 'PUT'
 ]
 
+angular.module('accounting.services').factory 'VendorOrders', ['$resource', ($resource) ->
+  $resource '/vendor_orders/:id',
+    id: '@id'
+  , update:
+    method: 'PUT'
+]
+
 angular.module('accounting.services').factory 'MissingHours', ['$resource', ($resource) ->
   $resource '/missing_hours/:id',
     id: '@id'
@@ -169,4 +176,11 @@ angular.module('accounting.services').factory 'ClientInvoices', ['$resource', ($
 angular.module('accounting.services').factory 'Vacations', ['$resource', ($resource) ->
   $resource '/vacations/:id',
     id: '@id'
+]
+
+angular.module('accounting.services').factory 'Signatures', ['$resource', ($resource) ->
+  $resource '/signatures/:id',
+    id: '@id'
+  , update:
+    method: 'PUT'
 ]

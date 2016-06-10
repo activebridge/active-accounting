@@ -37,6 +37,14 @@ class InvoicesController < ApplicationController
     head(200)
   end
 
+  def update
+    if @invoice_params.update(invoice_params_update)
+      render json: ClientInvoiceSerializer.new(@invoice_params), status: :accepted
+    else
+      render json: { status: :error, messages: @invoice_params.errors }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def find_invoice
@@ -56,6 +64,10 @@ class InvoicesController < ApplicationController
 
   def invoice_params
     params.require(:invoice).permit(:customer_id).merge(month: params[:invoice][:month].to_date)
+  end
+
+  def invoice_params_update
+    params.require(:invoice).permit(:signature_id)
   end
 
   def signature

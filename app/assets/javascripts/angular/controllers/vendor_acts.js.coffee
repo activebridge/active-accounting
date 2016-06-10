@@ -1,4 +1,6 @@
-@VendorActsCtrl = ['$q', '$scope', '$http', '$translate', '$modal', '$cookies', 'VendorActs', ($q, $scope, $http, $translate, $modal, $cookies, VendorActs) ->
+@VendorActsCtrl = ['$q', '$scope', '$http', '$translate', '$modal', '$cookies', 'VendorActs', 'signatureDecorator', ($q, $scope, $http, $translate, $modal, $cookies, VendorActs, signatureDecorator) ->
+  signatureDecorator($scope)
+
   $scope.actParams = {
     month: moment().format('MM/YYYY')
   }
@@ -69,7 +71,7 @@
 
   $scope.updateAct = (id, data) ->
     d = $q.defer()
-    VendorActs.update(id: id, { total_money: data }
+    VendorActs.update(id: id, { vendor_act: data }
       (response) ->
         d.resolve()
       (response) ->

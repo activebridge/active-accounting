@@ -22,3 +22,11 @@
 
   .custumers { margin-bottom: 1px; }
 }
+
+#acts-table, #invoice-table {
+  form.editable-wrap {
+    background-color: initial;
+    position: inherit;
+    z-index: 2;
+  }
+}

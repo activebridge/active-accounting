@@ -1,5 +1,7 @@
-@InvoicesCtrl = ['$scope', '$http', 'Hours', 'Counterparty', 'ClientInvoices', '$translate', '$routeParams', 'clientActInvoiceDecorator', ($scope, $http, Hours, Counterparty, ClientInvoices, $translate, $routeParams, clientActInvoiceDecorator) ->
+@InvoicesCtrl = ['$scope', '$http', 'Hours', 'Counterparty', 'ClientInvoices', '$translate', '$routeParams', 'clientActInvoiceDecorator', 'signatureDecorator', ($scope, $http, Hours, Counterparty, ClientInvoices, $translate, $routeParams, clientActInvoiceDecorator, signatureDecorator) ->
   clientActInvoiceDecorator($scope)
+  signatureDecorator($scope)
+
   $scope.params = {
     month: moment().format('MM/YYYY')
   }
@@ -52,6 +54,15 @@
       (response) ->
         $scope.errorResponse(response)
         response
+
+  $scope.createInvoice = (id, data)->
+    ClientInvoices.update(id: id, {invoice: data}
+      (response) ->
+        response
+      (response) ->
+        $scope.errorResponse(response)
+        response
+    )
 
   $scope.showInvoice = (id) ->
     ClientInvoices.get(id: id, month: $scope.params.month,

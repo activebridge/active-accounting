@@ -67,7 +67,7 @@ class VendorActsController < ApplicationController
   end
 
   def vendor_act__params
-    params.require(:vendor_act).permit!
+    params.require(:vendor_act).permit(:total_money, :signature_id)
   end
 
   def signature

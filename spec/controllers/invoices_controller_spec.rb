@@ -43,4 +43,13 @@ RSpec.describe InvoicesController, type: :controller do
     subject { delete :destroy, id: client_invoice.id }
     it { is_expected.to be_success }
   end
+
+  describe '#update' do
+    let(:invoice) { create(:client_invoice) }
+    let(:signature) { create(:signature) }
+    let(:params_invoice) { attributes_for(:client_invoice, signature_id: signature.id) }
+
+    before { put :update, id: invoice.id, invoice: params_invoice }
+    it { expect(json['signature']['id']).to eq signature.id }
+  end
 end

@@ -15,14 +15,17 @@
   .col-lg-8
     table#acts-table.ng-scope ng-show="orders.length > 0 && !showCurrentOrder"
       tr
-        th.col-lg-2 translate="number"
-        th.col-lg-2 translate="month"
+        th.col-lg-1 translate="Vendor"
+        th.col-lg-1 translate="number"
+        th.col-lg-1 translate="month"
+        th.col-lg-2 translate="signature"
       tr ng-repeat="order in orders"
+        td.col-lg-1 ng-bind="order.vendor.name"
+        td.col-lg-1 ng-bind="order.id"
+        td.col-lg-1 ng-bind="order.month"
         td.col-lg-2
-          | {{ order.id }}
+          a href='#' e-ng-options="s.id as s.short_name_ua for s in signatures" editable-select="order.signature.id" ng-bind="order.signature.short_name_ua" onbeforesave="updateOrder(order.id, {signature_id: $data})"
         td.col-lg-2
-          | {{ order.month }}
-        td.col-lg-1
           button.icon-button ng-click="showOrder(order)" title="{{ 'preview' | translate }}" type="button"
             span.glyphicon.glyphicon-eye-open
           a href='/vendor_orders/{{order.id}}?format=pdf' target='_blank' data-method='get'
@@ -128,10 +131,10 @@
       .act_clearbord_40
       span.act_details_all
         span.act_details.act_left
-          .act_text_bold Генеральний директор
+          .act_text_bold ng-bind='currentOrder.signature.title_ua'
           .act_clearbord_20
           span _________________
-          span.act_003 Корпань Є.О.
+          span.act_003 ng-bind='currentOrder.signature.short_name_ua'
           .act_clearbord_20
           .act_003 М.П.
         span.act_details.act_right

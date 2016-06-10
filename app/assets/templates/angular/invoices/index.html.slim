@@ -49,14 +49,17 @@
         .col-lg-8
           table#invoice-table.ng-scope ng-show="showInvoicesRegistry()"
             tr
-              th.col-lg-3 translate="number"
-              th.col-lg-3 translate="month"
+              th.col-lg-1 translate="Vendor"
+              th.col-lg-1 translate="number"
+              th.col-lg-1 translate="month"
+              th.col-lg-3 translate="signature"
             tr ng-repeat="invoice in invoices"
-              td.col-lg-2
-                | {{ invoice.id }}
-              td.col-lg-2
-                | {{ invoice.month }}
-              td.col-lg-2
+              td.col-lg-1 ng-bind="invoice.customer.name"
+              td.col-lg-1 ng-bind="invoice.id"
+              td.col-lg-1 ng-bind="invoice.month"
+              td.col-lg-3
+                a href='#' e-ng-options="s.id as s.short_name_ua for s in signatures" editable-select="invoice.signature.id" ng-bind="invoice.signature.short_name_ua" onbeforesave="updateInvoice(invoice.id, {signature_id: $data})"
+              td.col-lg-3
                 button.icon-button ng-click="showInvoice(invoice.id)" title="{{ 'preview' | translate }}" type="button"
                   span.glyphicon.glyphicon-eye-open
                 a href='/invoices/{{invoice.id}}?month={{params.month}}&format=pdf' target='_blank' data-method='get'

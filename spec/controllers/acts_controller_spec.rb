@@ -41,7 +41,7 @@ RSpec.describe ActsController, type: :controller do
   end
 
   describe '#update' do
-    subject { put :update, id: client_act.id, total_money: '1200' }
+    subject { put :update, id: client_act.id, act: { total_money: '1200' } }
     it { is_expected.to be_success }
   end
 
