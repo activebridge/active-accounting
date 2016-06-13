@@ -1,6 +1,5 @@
-@InvoicesCtrl = ['$scope', '$http', 'Hours', 'Counterparty', 'ClientInvoices', '$translate', '$routeParams', 'clientActInvoiceDecorator', 'signatureDecorator', ($scope, $http, Hours, Counterparty, ClientInvoices, $translate, $routeParams, clientActInvoiceDecorator, signatureDecorator) ->
+@InvoicesCtrl = ['$scope', '$http', 'Hours', 'Counterparty', 'ClientInvoices', '$translate', '$routeParams', 'clientActInvoiceDecorator', '$rootScope', 'Signatures', ($scope, $http, Hours, Counterparty, ClientInvoices, $translate, $routeParams, clientActInvoiceDecorator, $rootScope, Signatures) ->
   clientActInvoiceDecorator($scope)
-  signatureDecorator($scope)
 
   $scope.params = {
     month: moment().format('MM/YYYY')
@@ -101,4 +100,11 @@
 
   $scope.showInvoicesRegistry = () ->
     return $scope.invoices && !$scope.showCurrentInvoice && $scope.invoices.length > 0
+
+  $rootScope.getSignatures = ->
+    getSignatures()
+
+  getSignatures = ->
+    $scope.signatures = Signatures.query()
+  getSignatures()
 ]

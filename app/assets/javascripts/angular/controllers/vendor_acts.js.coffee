@@ -1,6 +1,4 @@
-@VendorActsCtrl = ['$q', '$scope', '$http', '$translate', '$modal', '$cookies', 'VendorActs', 'signatureDecorator', ($q, $scope, $http, $translate, $modal, $cookies, VendorActs, signatureDecorator) ->
-  signatureDecorator($scope)
-
+@VendorActsCtrl = ['$q', '$scope', '$http', '$translate', '$modal', '$cookies', 'VendorActs', ($q, $scope, $http, $translate, $modal, $cookies, VendorActs) ->
   $scope.actParams = {
     month: moment().format('MM/YYYY')
   }

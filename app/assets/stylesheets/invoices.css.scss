@@ -30,3 +30,25 @@
     z-index: 2;
   }
 }
+
+#signature {
+  form {
+    label, input {
+      display: block;
+      width: 100%;
+    }
+
+    .row {
+      margin: 15px 0;
+    }
+
+    button {
+      margin: 20px 20px 0 0;
+    }
+  }
+
+  .record:hover {
+    .icon_buttons { display: flex;}
+    .hidde { display: initial; }
+  }
+}

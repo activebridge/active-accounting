@@ -47,6 +47,10 @@ en:
           attributes:
             month:
               presence: no_hours
+        signature:
+          attributes:
+            name:
+              short: short
   uk_month_names:
   - січня
   - лютого

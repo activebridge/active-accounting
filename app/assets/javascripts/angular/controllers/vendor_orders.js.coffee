@@ -1,5 +1,4 @@
-@VendorOrdersCtrl = ['$scope', '$http', '$translate', 'OrderFeatures', '$modal', '$q', 'VendorOrders', 'signatureDecorator', ($scope, $http, $translate, OrderFeatures, $modal, $q, VendorOrders, signatureDecorator) ->
-  signatureDecorator($scope)
+@VendorOrdersCtrl = ['$scope', '$http', '$translate', 'OrderFeatures', '$modal', '$q', 'VendorOrders', ($scope, $http, $translate, OrderFeatures, $modal, $q, VendorOrders) ->
 
   $scope.orderParams = {
     month: moment().format('MM/YYYY')

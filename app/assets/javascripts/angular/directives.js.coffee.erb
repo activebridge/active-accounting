@@ -226,8 +226,17 @@ app.config ['$translateProvider', ($translateProvider) ->
     vacation_days_left: 'Left'
     vacation_days_used: 'Used'
     vacation_days_reserved: 'Reserved'
-    signature: 'Signature'
-    signatures: 'Signatures'
+    signatures:
+      signatures: 'Signatures'
+      signature: 'Signature'
+      name_ua: 'Ukrainian name'
+      name_en: 'English name'
+      title_ua: 'Ukrainian Title'
+      title_en: 'English Title'
+      tel: 'Phone number'
+      email: 'Email'
+    errors:
+      short: 'short'
 
   $translateProvider.translations "uk",
     brand: 'Активна бухгалтерія'
@@ -401,8 +410,18 @@ app.config ['$translateProvider', ($translateProvider) ->
     vacation_days_left: 'Залишилось'
     vacation_days_used: 'Використано'
     vacation_days_reserved: 'Зарезервовано'
-    signature: 'Підпис'
-    signatures: 'Підписи'
+    signatures:
+      signatures: 'Підписи'
+      signature: 'Підпис'
+      name_ua: 'Ім\'я українською'
+      name_en:  'Ім\'я англійською'
+      title_ua: 'Посада українською'
+      title_en: 'Посада англійською'
+      tel: 'Телефон'
+      email: 'Email'
+    errors:
+      short: 'коротке'
+
 
   $translateProvider.preferredLanguage "uk"
   return

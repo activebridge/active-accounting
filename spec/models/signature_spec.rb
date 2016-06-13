@@ -90,4 +90,17 @@ RSpec.describe Signature, type: :model do
       it { is_expected.to eq 'Jackson S.' }
     end
   end
+
+  describe '.assigned?' do
+    let(:signature) { create(:signature) }
+    subject { signature.assigned? }
+
+    it { is_expected.to eq false }
+
+    context 'has vendor_act' do
+      before { create(:vendor_act, signature_id: signature.id) }
+
+      it { is_expected.to eq true }
+    end
+  end
 end

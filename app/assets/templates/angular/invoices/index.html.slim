@@ -6,8 +6,10 @@
           a href="javascript:void(false);" ng-click="changeType('customer')" translate="Customers"
         li ng-class="{'active': currentType == 'vendor'}"
           a href="javascript:void(false);" ng-click="changeType('vendor');" translate="Vendors"
+        li ng-class="{'active': currentType == 'signature'}"
+          a href="javascript:void(false);" ng-click="changeType('signature');" translate="signatures"
   .clearboth
-  .row
+  .row ng-hide="currentType == 'signature'"
     .col-lg-12
       ul.nav.nav-tabs
         li ng-class="{'active': currentTab == 'invoice'}"
@@ -52,7 +54,7 @@
               th.col-lg-1 translate="Vendor"
               th.col-lg-1 translate="number"
               th.col-lg-1 translate="month"
-              th.col-lg-3 translate="signature"
+              th.col-lg-3 translate="signatures.signature"
             tr ng-repeat="invoice in invoices"
               td.col-lg-1 ng-bind="invoice.customer.name"
               td.col-lg-1 ng-bind="invoice.id"
@@ -72,8 +74,10 @@
                   span.glyphicon.glyphicon-trash
     .tab-pane ng-class="{'active': currentTab == 'act'}"
       ng-include src='"#{asset_path('angular/acts/index.slim')}"'
-  .tab-content  ng-show="currentType == 'vendor'"
+  .tab-content ng-show="currentType == 'vendor'"
     .tab-pane ng-class="{'active': currentTab == 'invoice'}"
       ng-include src='"#{asset_path('angular/acts/vendor_order.html.slim')}"'
     .tab-pane ng-class="{'active': currentTab == 'act'}"
       ng-include src='"#{asset_path('angular/acts/vendor_act.html.slim')}"'
+  .row ng-show="currentType == 'signature'"
+    ng-include src='"#{asset_path('angular/acts/signature.html.slim')}"'

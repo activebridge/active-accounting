@@ -22,6 +22,12 @@ class Signature < ActiveRecord::Base
     short_name(name_ua)
   end
 
+  def assigned?
+    client_acts.any? || vendor_acts.any? || client_invoices.any? || vendor_orders.any?
+  end
+
+  alias assigned assigned?
+
   private
 
   def short_name(name)

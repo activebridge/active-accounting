@@ -1,0 +1,45 @@
+#signature.row ng-controller="SignaturesCtrl"
+  div
+    form.ng-pristine.ng-valid ng-submit="currentSignature.id ? updateSignature(currentSignature.id, $data) : createSignature()" name="signatureForm" novalidate=""
+      .row
+        .col-lg-4
+          label translate="signatures.name_ua"
+          input.ng-pristine.ng-valid ng-model="currentSignature.name_ua" type="text" name="name_ua" required=""
+        .col-lg-3
+          label translate="signatures.title_ua"
+          input.ng-pristine.ng-valid ng-model="currentSignature.title_ua" type="text" name="title_ua" required=""
+        .col-lg-3
+          label translate="signatures.email"
+          input.ng-pristine.ng-valid ng-model="currentSignature.email" type="email" name="email"
+        .col-lg-2
+          label translate="signatures.tel"
+          input.ng-pristine.ng-valid ng-model="currentSignature.tel" type="text" name="tel"
+      .row
+        .col-lg-4
+          label translate="signatures.name_en"
+          input.ng-pristine.ng-valid ng-model="currentSignature.name_en" type="text" name="name_en"required=""
+        .col-lg-3
+          label translate="signatures.title_en"
+          input.ng-pristine.ng-valid ng-model="currentSignature.title_en" type="text" name="title_en" required=""
+        .col-lg-3
+          button.btn type="submit" ng-disabled="signatureForm.$invalid" ng-bind="(currentSignature.id ? 'update' : 'add') | translate"
+          button.btn type="button" ng-click='getCacheSignature()' translate="cancel" ng-if='currentSignature.id'
+  .clearboth
+  div ng-show="signatures.length > 0"
+    table
+      tr
+        th.col-lg-3 translate="signatures.name_ua"
+        th.col-lg-3 translate="signatures.title_ua"
+        th.col-lg-2 translate="signatures.email"
+        th.col-lg-2 translate="signatures.tel"
+        td.col-lg-2.icon_buttons
+      tr.record ng-repeat="signature in signatures"
+        td.col-lg-3 ng-bind="signature.short_name_ua"
+        td.col-lg-3 ng-bind="signature.title_ua"
+        td.col-lg-2 ng-bind="signature.email"
+        td.col-lg-2 ng-bind="signature.tel"
+        td.col-lg-2.icon_buttons
+          button.icon-button.hidde title="{{ 'edit_reg' | translate }}" ng-click='editSignature(signature)' ng-hide='currentSignature.id'
+            span.glyphicon.glyphicon-edit
+          button.icon-button.hidde title="{{ 'delete_reg' | translate }}" ng-click='deleteSignature(signature.id)' ng-if='!signature.assigned'
+            span.glyphicon.glyphicon-trash
