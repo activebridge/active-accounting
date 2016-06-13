@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.2.1'
+lock '3.4.1'
 
 user = ENV['USER']
 branch = ENV['BRANCH'] || 'master'
@@ -18,7 +18,7 @@ set :application, application
 set :repo_url, 'git@github.com:activebridge/active-accounting.git'
 set :default_env, rvm_bin_path: '~/.rvm/bin'
 set :rvm_type, :user
-set :rvm_ruby_version, '2.0.0'
+set :rvm_ruby_version, '2.3.0'
 set :default_shell, '/bin/bash -l'
 
 # Default value for keep_releases is 5
