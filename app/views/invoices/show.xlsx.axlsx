@@ -42,10 +42,10 @@ wb.add_worksheet(name: 'Act', page_margins: { left: 0.8, top: 0.8, bottom: 0.4, 
   sheet.add_row ["", "", "", "", ""], style: [grid, 0, grid, 0, 0]
   sheet.add_row ["", "", "", "", ""], style: [grid, 0, grid, 0, 0]
   sheet.add_row ["", "", "", "", ""], style: [table_bottom, table_bottom, 0, 0, 0]
-  sheet.add_row ["", "CEO: Ievgenii O. Korpan", "", "", ""], style: [0, valign, under_line, under_line, 0]
+  sheet.add_row ["", "#{@signature.title_en}: #{@signature.name_en}", "", "", ""], style: [0, valign, under_line, under_line, 0]
   sheet.add_row ["", "", "", "", ""], style: 0, height: 30
   sheet.add_row ["If you have any questions about this invoice, please contact", "", "", "", ""], style: thank
-  sheet.add_row ["Ievgenii Korpan, +380977535731, eugene@active-bridge.com", "", "", "", ""], style: thank
+  sheet.add_row ["#{@signature.simple_name_en}, #{@signature.tel}, #{@signature.email}", "", "", "", ""], style: thank
   sheet.add_row ["Thank You For Your Business!", "", "", "", ""], style: thank2
 
 

@@ -40,8 +40,8 @@ wb.add_worksheet(name: 'Act', page_margins: { left: 0.5, top: 0.5, bottom: 0.5, 
   sheet.add_row ["and", '', '', "та", ""], style: default
   sheet.add_row ["Active Bridge, LLC", '', '', "ТОВ “Ектів Брідж”", ""], style: bold
   sheet.add_row ["137 Gogolya Street, Cherkasy, 18000, Ukraine", '', '', "18000, Черкаська обл., місто Черкаси, вулиця Гоголя, будинок 137, Україна", ""], style: default
-  sheet.add_row ["Printed Name: Ievgenii O. Korpan", '', '', "Друковане ім’я: Корпань Євгеній Олександрович", ""], style: bold
-  sheet.add_row ["Title: CEO", '', '', "Посада: Генеральний Директор", ""], style: bold
+  sheet.add_row ["Printed Name: #{@signature.name_en}", '', '', "Друковане ім’я: #{@signature.name_ua}", ""], style: bold
+  sheet.add_row ["Title: #{@signature.title_en}", '', '', "Посада: #{@signature.title_ua}", ""], style: bold
   sheet.add_row ["Signature: ______________", '', '', "Підпис: ________________________", ""], style: bold
 
   sheet.column_widths 21, 21, 1, 21, 21

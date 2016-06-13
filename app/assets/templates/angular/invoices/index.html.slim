@@ -6,8 +6,10 @@
           a href="javascript:void(false);" ng-click="changeType('customer')" translate="Customers"
         li ng-class="{'active': currentType == 'vendor'}"
           a href="javascript:void(false);" ng-click="changeType('vendor');" translate="Vendors"
+        li ng-class="{'active': currentType == 'signature'}"
+          a href="javascript:void(false);" ng-click="changeType('signature');" translate="signatures"
   .clearboth
-  .row
+  .row ng-hide="currentType == 'signature'"
     .col-lg-12
       ul.nav.nav-tabs
         li ng-class="{'active': currentTab == 'invoice'}"
@@ -49,14 +51,17 @@
         .col-lg-8
           table#invoice-table.ng-scope ng-show="showInvoicesRegistry()"
             tr
-              th.col-lg-3 translate="number"
-              th.col-lg-3 translate="month"
+              th.col-lg-1 translate="Vendor"
+              th.col-lg-1 translate="number"
+              th.col-lg-1 translate="month"
+              th.col-lg-3 translate="signatures.signature"
             tr ng-repeat="invoice in invoices"
-              td.col-lg-2
-                | {{ invoice.id }}
-              td.col-lg-2
-                | {{ invoice.month }}
-              td.col-lg-2
+              td.col-lg-1 ng-bind="invoice.customer.name"
+              td.col-lg-1 ng-bind="invoice.id"
+              td.col-lg-1 ng-bind="invoice.month"
+              td.col-lg-3
+                a href='#' e-ng-options="s.id as s.short_name_ua for s in signatures" editable-select="invoice.signature.id" ng-bind="invoice.signature.short_name_ua" onbeforesave="updateInvoice(invoice.id, {signature_id: $data})"
+              td.col-lg-3
                 button.icon-button ng-click="showInvoice(invoice.id)" title="{{ 'preview' | translate }}" type="button"
                   span.glyphicon.glyphicon-eye-open
                 a href='/invoices/{{invoice.id}}?month={{params.month}}&format=pdf' target='_blank' data-method='get'
@@ -69,8 +74,10 @@
                   span.glyphicon.glyphicon-trash
     .tab-pane ng-class="{'active': currentTab == 'act'}"
       ng-include src='"#{asset_path('angular/acts/index.slim')}"'
-  .tab-content  ng-show="currentType == 'vendor'"
+  .tab-content ng-show="currentType == 'vendor'"
     .tab-pane ng-class="{'active': currentTab == 'invoice'}"
       ng-include src='"#{asset_path('angular/acts/vendor_order.html.slim')}"'
     .tab-pane ng-class="{'active': currentTab == 'act'}"
       ng-include src='"#{asset_path('angular/acts/vendor_act.html.slim')}"'
+  .row ng-show="currentType == 'signature'"
+    ng-include src='"#{asset_path('angular/acts/signature.html.slim')}"'

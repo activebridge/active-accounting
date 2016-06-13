@@ -6,6 +6,7 @@ RSpec.describe VendorActsController, type: :controller do
   let(:vendor_act) { FactoryGirl.create(:vendor_act, vendor_id: vendor.id) }
 
   before do
+    create(:signature)
     allow(controller).to receive(:authenticate_admin!) { true }
   end
 
@@ -54,10 +55,13 @@ RSpec.describe VendorActsController, type: :controller do
   end
 
   describe '#update' do
-    let(:attr) { { total_money: 200 } }
+    let(:signature) { create(:signature) }
+    let(:attr) { { total_money: 200, signature_id: signature.id } }
 
     before { put :update, id: vendor_act.id, vendor_act: attr }
 
     it { expect(vendor_act.reload.total_money).to eq('200') }
+    it { expect(vendor_act.signature).not_to eq signature }
+    it { expect(vendor_act.reload.signature).to eq signature }
   end
 end

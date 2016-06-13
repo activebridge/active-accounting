@@ -42,8 +42,8 @@ wb.add_worksheet(name: 'Act', page_margins: { left: 1.0, top: 0.5, bottom: 0.5, 
   sheet.add_row ["ПРИВАТБАНК", "", "#{@vendor.vendor_info.bank}"], style: default2
   sheet.add_row ["МФО 354347", "", "МФО #{@vendor.vendor_info.mfo}"], style: default2
   sheet.add_row ["", "", ""], style: default, height: 50
-  sheet.add_row ["Генеральний директор", "", "Фізична особа – підприємець"], style: bold3
-  sheet.add_row ["_________________   Корпань Є.О.", "", "_________________    #{@vendor.vendor_info.short_name}"], style: default2
+  sheet.add_row ["#{@signature.title_ua}", "", "Фізична особа – підприємець"], style: bold3
+  sheet.add_row ["_________________   #{@signature.short_name_ua}", "", "_________________    #{@vendor.vendor_info.short_name}"], style: default2
   sheet.add_row ["            М.П.", "", "            М.П."], style: default2
 
 

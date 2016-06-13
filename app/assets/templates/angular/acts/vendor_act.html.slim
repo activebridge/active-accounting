@@ -14,16 +14,20 @@
   .col-lg-8
     #acts-table.ng-scope ng-show="showActsRegistry()"
       div.row
+        .col-lg-2 translate="Vendor"
         .col-lg-2 translate="month"
         .col-lg-2 translate="totall"
+        .col-lg-2 translate="signatures.signature"
       div ng-repeat="act in acts"
         .row
+          .col-lg-2 ng-bind="act.vendor.name"
+          .col-lg-2 ng-bind='act.month'
           .col-lg-2
-            | {{ act.month }}
-          .col-lg-7
-            a href='#' editable-text='act.total_money' onbeforesave="updateAct(act.id, $data)"
+            a href='#' editable-text='act.total_money' onbeforesave="updateAct(act.id, {total_money: $data})"
               | {{ act.total_money }} {{ 'uah' | translate }}
           .col-lg-3
+            a href='#' e-ng-options="s.id as s.short_name_ua for s in signatures" editable-select="act.signature.id" ng-bind="act.signature.short_name_ua" onbeforesave="updateAct(act.id, {signature_id: $data})"
+          .col-lg-3.float-left
             button.icon-button ng-click="showAct(act.id)" title="{{ 'preview' | translate }}" type="button"
               span.glyphicon.glyphicon-eye-open
             a href='/vendor_acts/{{act.id}}?format=pdf' target='_blank' data-method='get'

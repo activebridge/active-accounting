@@ -2,6 +2,7 @@ class ActsController < ApplicationController
   before_action :find_act, only: [:show, :update, :destroy]
   before_action :find_customer
   before_action :find_variables, only: [:create, :show]
+  before_action :signature, only: :show
 
   def index
     acts = ActiveModel::ArraySerializer.new(@customer.client_acts.order('id desc'),
@@ -13,6 +14,7 @@ class ActsController < ApplicationController
   def create
     @act_params = ClientAct.new(act_params)
     if @act_params.save
+      signature
       respond_to do |format|
         format.html { render 'acts/show_customer.pdf.erb' }
       end
@@ -22,7 +24,7 @@ class ActsController < ApplicationController
   end
 
   def update
-    if @act_params.update(total_money: params[:total_money])
+    if @act_params.update(act_params_update)
       render json: @act_params, status: 201
     else
       render json: { status: :error, error: @act_params.errors }, status: 422
@@ -33,11 +35,11 @@ class ActsController < ApplicationController
     respond_to do |format|
       format.html { render 'acts/show_customer.pdf.erb' }
       format.pdf do
-        render pdf: "act_#{@customer.name + Time.current.strftime('%m-%d-%Y')}",
+        render pdf: filename,
                template: 'acts/show_customer.pdf.erb',
                dpi: '1200'
       end
-      format.xlsx { render xlsx: 'show_customer', filename: 'act.xlsx' }
+      format.xlsx { render xlsx: 'show_customer', filename: filename + '.xlsx' }
     end
   end
 
@@ -67,5 +69,17 @@ class ActsController < ApplicationController
 
   def act_params
     params.require(:act).permit(:customer_id).merge(month: params[:act][:month].to_date, total_money: @total_by_hours)
+  end
+
+  def act_params_update
+    params.require(:act).permit(:total_money, :signature_id)
+  end
+
+  def signature
+    @signature = @act_params.signature
+  end
+
+  def filename
+    "act_#{@customer.name}_#{params[:month].tr!('/', '_')}"
   end
 end

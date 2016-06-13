@@ -1,4 +1,5 @@
-@VendorOrdersCtrl = ['$scope', '$http', '$translate', 'OrderFeatures', '$modal', '$q', ($scope, $http, $translate, OrderFeatures, $modal, $q) ->
+@VendorOrdersCtrl = ['$scope', '$http', '$translate', 'OrderFeatures', '$modal', '$q', 'VendorOrders', ($scope, $http, $translate, OrderFeatures, $modal, $q, VendorOrders) ->
+
   $scope.orderParams = {
     month: moment().format('MM/YYYY')
   }
@@ -136,7 +137,8 @@
     $scope.currentVendor = _.find $scope.vendors, (vendor) ->
       parseInt($scope.orderParams.id) == vendor.id
     $scope.currentVendor.start_date = $scope.currentVendor.start_date.split("-").join(".")
-    $http.get("vendor_orders?vendor_id=#{$scope.orderParams.id}").success(
+    VendorOrders.query(
+      vendor_id: $scope.orderParams.id
       (response) ->
         $scope.orders = response
         $scope.showCurrentOrder = false
@@ -153,11 +155,21 @@
     )
     return d.promise
 
+  $scope.updateOrder = (id, data) ->
+    d = $q.defer()
+    VendorOrders.update(id: id, {vendor_order: data}
+      (response) ->
+        d.resolve()
+      (response) ->
+        d.resolve(response.data.errors)
+    )
+    return d.promise
+
   $scope.createOrder = ->
     data =
       month: $scope.orderParams.month
       vendor_id: $scope.orderParams.id
-    $http.post('vendor_orders/', data).success(
+    VendorOrders.save(data
       (response) ->
         $scope.currentOrder = response
         addVirtualFeature($scope.currentOrder.features)
@@ -165,15 +177,16 @@
         $scope.showCurrentOrder = true
         $scope.orders.unshift(response)
         defaultParams()
-    ).error (response) ->
-      $.each response.messages, (key, array)->
-        messages = if key == 'you_must_fill_fields'
-          $translate.instant(key)
-        else
-          ''
-        console.log  messages, key, array
-        $.each array, (index, value)->
-          messages += $translate.instant(value)
-          messages += ', ' if index != array.length - 1
-        alert messages
+      , (error) ->
+        $.each error.data.messages, (key, array)->
+          messages = if key == 'you_must_fill_fields'
+            $translate.instant(key)
+          else
+            ''
+          $.each array, (index, value)->
+            messages += $translate.instant(value)
+            messages += ', ' if index != array.length - 1
+          alert messages
+
+    )
 ]

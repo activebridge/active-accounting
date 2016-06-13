@@ -518,7 +518,10 @@ table#pdf-invoice-table border="0" cellspacing="0" cols="7" frame="VOID" rules="
         font color="#000000" face=("Trebuchet MS")
           br
       td.font-size align="LEFT" valign="BOTTOM"
-        font color="#000000" face=("Trebuchet MS")  CEO: Ievgenii O. Korpan
+        font color="#000000" face=("Trebuchet MS")
+          = @signature.title_en
+          | :&nbsp;
+          = @signature.name_en
       td align="LEFT" style=("border-bottom: 1px solid #000000") valign="BOTTOM"
         font color="#000000" face=("Trebuchet MS")
           br
@@ -583,7 +586,12 @@ table#pdf-invoice-table border="0" cellspacing="0" cols="7" frame="VOID" rules="
         font color="#000000" face=("Trebuchet MS")
           br
       td.font-size align="CENTER" colspan="7" valign="BOTTOM"
-        font color="#000000" face=("Trebuchet MS")  Ievgenii Korpan, +380977535731, eugene@active-bridge.com
+        font color="#000000" face=("Trebuchet MS")
+          = @signature.simple_name_en
+          | ,&nbsp;
+          = @signature.tel
+          | ,&nbsp;
+          = @signature.email
     tr
       td align="LEFT" height="24" valign="BOTTOM"
         font color="#000000" face=("Trebuchet MS")

@@ -69,7 +69,7 @@
 
   $scope.updateAct = (id, data) ->
     d = $q.defer()
-    VendorActs.update(id: id, { total_money: data }
+    VendorActs.update(id: id, { vendor_act: data }
       (response) ->
         d.resolve()
       (response) ->

@@ -1,16 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe OrderFeaturesController, type: :controller do
-  let(:primary_feature) { FactoryGirl.create(:primary) }
-  let(:vendor) { FactoryGirl.create(:vendor, :with_info) }
-  let(:vendor_order) { FactoryGirl.create(:vendor_order, vendor_id: vendor.id) }
+  let(:primary_feature) { create(:primary) }
+  let(:vendor) { create(:vendor, :with_info) }
+  let(:vendor_order) { create(:vendor_order, vendor_id: vendor.id) }
 
   before do
+    create(:signature)
     allow(controller).to receive(:authenticate_admin!) { true }
   end
 
   describe '#index' do
-    let!(:additional_feature) { FactoryGirl.create(:additional) }
+    let!(:additional_feature) { create(:additional) }
 
     context 'returns primary features' do
       before do
@@ -39,17 +40,19 @@ RSpec.describe OrderFeaturesController, type: :controller do
   end
 
   describe '#destroy' do
+    let!(:primary_feature) { create(:primary) }
+
     context 'successful removal of feature' do
-      it { expect { delete :destroy, id: primary_feature.id }.to change(Feature, :count).by(0) }
+      it { expect { delete :destroy, id: primary_feature.id }.to change(Feature, :count).by(-1) }
     end
 
     context 'removal of feature in order' do
-      let(:order_feature) { FactoryGirl.create(:order_feature) }
-      let(:primary_feature) { order_feature.feature }
-      let(:vendor_order) { order_feature.vendor_order }
+      let(:vendor_order) { create(:vendor_order) }
 
-      it { expect { delete :destroy, id: primary_feature.id, vendor_order_id: vendor_order.id }.to change(Feature, :count).by(1) }
-      it { expect { delete :destroy, id: primary_feature.id, vendor_order_id: vendor_order.id }.to change(OrderFeature, :count).by(0) }
+      subject { delete :destroy, id: primary_feature.id, vendor_order_id: vendor_order.id }
+
+      it { expect { subject }.to change(Feature, :count).by(0) }
+      it { expect { subject }.to change(vendor_order.features, :count).by(-1) }
     end
   end
 
@@ -61,13 +64,15 @@ RSpec.describe OrderFeaturesController, type: :controller do
     end
 
     context 'successfully adding of feature and add feature in order' do
-      it { expect { post :create, feature: attributes_for_feature, vendor_order_id: vendor_order.id }.to change(Feature, :count).by(1) }
-      it { expect { post :create, feature: attributes_for_feature, vendor_order_id: vendor_order.id }.to change(OrderFeature, :count).by(1) }
+      subject { post :create, feature: attributes_for_feature, vendor_order_id: vendor_order.id }
+
+      it { expect { subject }.to change(Feature, :count).by(1) }
+      it { expect { subject }.to change(vendor_order.features, :count).by(1) }
     end
   end
 
   describe '#show' do
-    it { expect { get :show, id: primary_feature.id, vendor_order_id: vendor_order.id }.to change(OrderFeature, :count).by(1) }
+    it { expect { get :show, id: primary_feature.id, vendor_order_id: vendor_order.id }.to change(vendor_order.features, :count).by(1) }
   end
 
   describe '#update' do

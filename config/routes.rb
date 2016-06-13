@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     resources :holidays
     resources :missing_hours, only: :index
     resources :report_hours, only: :create
+    resources :signatures, except: [:new, :edit, :show]
 
     resources :reports do
       collection do

@@ -8,6 +8,20 @@ FactoryGirl.define do
 
     factory :customer, parent: :counterparty, class: 'Customer' do
       type 'Customer'
+
+      trait :with_monthly_payment do
+        monthly_payment true
+        value_payment 15
+        after(:create) do |c|
+          c.hours = create_list(:hour, 1)
+        end
+      end
+
+      trait :with_info do
+        after :create do |c|
+          c.client_info.update(attributes_for(:client_info))
+        end
+      end
     end
 
     factory :vendor, parent: :counterparty, class: 'Vendor' do

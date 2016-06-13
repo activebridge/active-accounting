@@ -50,7 +50,7 @@
 
   $scope.updateAct = (id, data) ->
     d = $q.defer()
-    ClientActs.update(id: id, { total_money: data, month: $scope.params.month }
+    ClientActs.update(id: id, { act: data }
       (response) ->
         d.resolve()
       (response) ->

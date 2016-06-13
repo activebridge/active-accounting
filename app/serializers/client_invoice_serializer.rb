@@ -1,5 +1,5 @@
 class ClientInvoiceSerializer < ActiveModel::Serializer
-  attributes :id, :customer, :month, :first_day_month
+  attributes :id, :customer, :month, :first_day_month, :signature
 
   def month
     object.month.strftime('%m/%Y')
@@ -11,5 +11,9 @@ class ClientInvoiceSerializer < ActiveModel::Serializer
 
   def customer
     object.customer
+  end
+
+  def signature
+    object.signature.as_json(methods: :short_name_ua)
   end
 end
