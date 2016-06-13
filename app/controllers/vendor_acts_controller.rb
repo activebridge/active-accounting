@@ -38,7 +38,7 @@ class VendorActsController < ApplicationController
 
   def update
     if @act_params.update_attributes(vendor_act__params)
-      render json: @act_params, status: 201
+      render json: VendorActSerializer.new(@act_params), status: 201
     else
       render json: { status: :error, error: 'Something went wrong!' }, status: 422
     end

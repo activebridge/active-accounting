@@ -52,6 +52,9 @@
     d = $q.defer()
     ClientActs.update(id: id, { act: data }
       (response) ->
+        act = _.find $scope.acts, (act) -> act.id == id
+        index = $scope.acts.indexOf(act)
+        $scope.acts[index] = response
         d.resolve()
       (response) ->
         d.resolve(response.data.errors)

@@ -54,10 +54,12 @@
         $scope.errorResponse(response)
         response
 
-  $scope.createInvoice = (id, data)->
+  $scope.updateInvoice = (id, data)->
     ClientInvoices.update(id: id, {invoice: data}
       (response) ->
-        response
+        invoice = _.find $scope.invoices, (invoice) -> invoice.id == id
+        index = $scope.invoices.indexOf(invoice)
+        $scope.invoices[index] = response
       (response) ->
         $scope.errorResponse(response)
         response

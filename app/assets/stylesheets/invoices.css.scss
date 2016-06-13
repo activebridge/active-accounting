@@ -47,8 +47,5 @@
     }
   }
 
-  .record:hover {
-    .icon_buttons { display: flex;}
-    .hidde { display: initial; }
-  }
+  .record:hover .hidde { display: initial; }
 }
