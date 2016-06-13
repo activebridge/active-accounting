@@ -25,7 +25,7 @@ class ActsController < ApplicationController
 
   def update
     if @act_params.update(act_params_update)
-      render json: @act_params, status: 201
+      render json: ClientActSerializer.new(@act_params), status: 201
     else
       render json: { status: :error, error: @act_params.errors }, status: 422
     end

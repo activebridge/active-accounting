@@ -71,6 +71,9 @@
     d = $q.defer()
     VendorActs.update(id: id, { vendor_act: data }
       (response) ->
+        act = _.find $scope.acts, (act) -> act.id == id
+        index = $scope.acts.indexOf(act)
+        $scope.acts[index] = response
         d.resolve()
       (response) ->
         d.resolve(response.data.errors)

@@ -171,6 +171,8 @@ angular.module('accounting.services').factory 'ClientActs', ['$resource', ($reso
 angular.module('accounting.services').factory 'ClientInvoices', ['$resource', ($resource) ->
   $resource '/invoices/:id',
     id: '@id'
+  , update:
+    method: 'PUT'
 ]
 
 angular.module('accounting.services').factory 'Vacations', ['$resource', ($resource) ->

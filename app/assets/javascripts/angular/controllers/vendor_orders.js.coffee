@@ -159,6 +159,9 @@
     d = $q.defer()
     VendorOrders.update(id: id, {vendor_order: data}
       (response) ->
+        order = _.find $scope.orders, (order) -> order.id == id
+        index = $scope.orders.indexOf(order)
+        $scope.orders[index] = response
         d.resolve()
       (response) ->
         d.resolve(response.data.errors)
