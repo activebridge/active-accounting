@@ -1,6 +1,7 @@
 class Counterparty < ActiveRecord::Base
-  has_many :registers
   has_many :payment_histories, dependent: :destroy
+  has_many :registers, dependent: :destroy
+  has_many :vendors, through: :registers
 
   module TYPES
     CUSTOMER = 'Customer'

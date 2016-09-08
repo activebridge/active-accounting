@@ -1,7 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
-  it { is_expected.to have_many(:vendors) }
+  context 'associations' do
+    it { is_expected.to have_one(:client_info).dependent(:destroy) }
+    it { is_expected.to have_many(:client_acts).dependent(:destroy) }
+    it { is_expected.to have_many(:client_invoices).dependent(:destroy) }
+    it { is_expected.to have_many(:hours) }
+  end
 
   context 'after create callbacks' do
     let(:customer) { create(:customer) }

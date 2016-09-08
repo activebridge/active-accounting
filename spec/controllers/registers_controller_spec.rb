@@ -1,20 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe RegistersController, type: :controller do
-  let(:article) { FactoryGirl.create(:article) }
-  let(:register) { FactoryGirl.create(:register) }
-  let(:register_attributes) { FactoryGirl.attributes_for(:register, date: '18-01-2016', type: 'Fact', value: 100, article_id: article.id) }
-  let(:invalid_register_attributes) { FactoryGirl.attributes_for(:register, date: '', type: '', value: '', article_id: '') }
+  let(:article) { create(:article) }
+  let(:counterparty) { create(:counterparty) }
+  let(:vendor) { create(:counterparty) }
+  let(:register) { create(:register) }
+  let(:register_attributes) { attributes_for(:register, article_id: article.id, date: '18-01-2016', counterparty_id: counterparty.id, vendor_id: vendor.id) }
+  let(:invalid_register_attributes) { attributes_for(:register, date: '', type: '', value: '', article_id: '') }
 
   before do
     allow(controller).to receive(:authenticate_admin!) { true }
   end
 
   describe '#index' do
-    let(:article_type_revenue) { FactoryGirl.create(:article, type: Article::TYPES::REVENUE) }
-    let!(:register_article_cost) { FactoryGirl.create(:register, value: 200) }
-    let!(:register_date_not_yesterday) { FactoryGirl.create(:register, date: Date.yesterday - 1.day, value: 150) }
-    let!(:register_article_revenue) { FactoryGirl.create(:register, article_id: article_type_revenue.id) }
+    let(:article_type_revenue) { create(:article, type: Article::TYPES::REVENUE) }
+    let!(:register_article_cost) { create(:register, value: 200) }
+    let!(:register_date_not_yesterday) { create(:register, date: Date.yesterday - 1.day, value: 150) }
+    let!(:register_article_revenue) { create(:register, article_id: article_type_revenue.id) }
 
     context 'returns registers with article type "cost"' do
       before do
