@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 class Register < ActiveRecord::Base
-  belongs_to :counterparty
   belongs_to :article
+  belongs_to :counterparty
+  belongs_to :vendor
 
   module TYPES
     FACT = 'Fact'
@@ -16,7 +17,8 @@ class Register < ActiveRecord::Base
     type == TYPES::PLAN
   end
 
-  validates :date, :article, :value, presence: true
+  validates :date, :article, :value, :counterparty_id, :vendor_id, presence: true
+  validates :counterparty_id, uniqueness: { scope: :vendor_id }
 
   scope :revenues, lambda {
     joins(:article).where(articles: { type: Article::TYPES::REVENUE })
