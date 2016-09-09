@@ -20,6 +20,8 @@ class Register < ActiveRecord::Base
   validates :date, :article, :value, :counterparty_id, :vendor_id, presence: true
   validates :counterparty_id, uniqueness: { scope: :vendor_id }
 
+  delegate :article_name, :type, to: :article
+
   scope :revenues, lambda {
     joins(:article).where(articles: { type: Article::TYPES::REVENUE })
   }
@@ -42,6 +44,7 @@ class Register < ActiveRecord::Base
       .by_type(params[:type])
       .by_article(params[:article_id])
       .by_counterparty(params[:counterparty_id])
+      .by_vendor(params[:vendor_id])
       .by_date(params[:date])
       .by_value(params[:value])
       .limit(10)
@@ -68,6 +71,7 @@ class Register < ActiveRecord::Base
 
   scope :by_date, -> (date) { where(date: Date.parse(date)) unless date.blank? }
   scope :by_counterparty, -> (data) { where(counterparty_id: data) if data }
+  scope :by_vendor, -> (data) { where(vendor_id: data) if data }
   scope :by_value, -> (data) { where('value >= ?', data) if data }
   scope :by_type, -> (type) { send(type) if type }
 
@@ -83,8 +87,6 @@ class Register < ActiveRecord::Base
   scope :by_year, lambda { |year|
     where('extract(year from date) = ?', year)
   }
-
-  delegate :article_name, :type, to: :article
 
   scope :group_by_month, lambda {
     joins(:article).select(" month(date) as month,
