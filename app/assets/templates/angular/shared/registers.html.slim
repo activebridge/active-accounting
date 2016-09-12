@@ -5,8 +5,9 @@
         tr
           th translate="date"
           th translate="article"
-          th translate="counterparty"
-          th translate="totall"
+          th translate="customer"
+          th translate="vendor"
+          th translate="total"
           th translate="note"
         tr
           td
@@ -17,7 +18,11 @@
                 | {{article.name}} ({{article.type | translate}})
           td
             select.counterparty.clear_after_add ng-model="newRegister.counterparty_id"
-              option ng-repeat="counterparty in counterparties" value="{{counterparty.id}}"
+              option ng-repeat="counterparty in counterparties | filter: {type: 'Customer'}" value="{{counterparty.id}}"
+                | {{counterparty.name}}
+          td
+            select.counterparty.clear_after_add ng-model="newRegister.vendor_id"
+              option ng-repeat="counterparty in counterparties | filter: {type: 'Vendor'}" value="{{counterparty.id}}"
                 | {{counterparty.name}}
           td ng-class=("{td_correction: sandbox, input_and_select: sandbox}")
             input.value ng-model="newRegister.value" type="text"
@@ -43,7 +48,7 @@
     span.rate_currency ng-show="sandbox"
       | {{ 'rate_currency' | translate }}
       input.value ng-change="changeValue()" ng-model="rateDollar" type="text"
-    a.show_list_count href="" ng-click="showlistCount = !showlistCount" ng-show="counterpartiesWithoutPay.length>0 && !showlistCount"
+    a.show_list_count href="" ng-click="showlistCount = !showlistCount" ng-show="counterpartiesWithoutPay.length > 0 && !showlistCount"
       | {{ 'show' | translate }}: {{ 'count_without_pay' | translate }}
     form.form-filter.ng-pristine.ng-valid ng-class="{open_form_filter: filter.active}" ng-submit="filter.fetchRegisters({initLoad: true})"
       .head_filter ng-show="filter.active"
@@ -71,9 +76,11 @@
           th
             | {{ 'articles' | translate }}
           th
-            | {{ 'counterparty' | translate }}
+            | {{ 'customer' | translate }}
           th
-            | {{ 'totall_min' | translate }}
+            | {{ 'vendor' | translate }}
+          th
+            | {{ 'total_min' | translate }}
         tr
           td
             input#dateFilter.input_data.ng-pristine.ng-valid ng-change="filter.data.month = undefined" ng-model="filter.data.date" type="text"
@@ -85,7 +92,11 @@
                 | {{article.name}} ({{article.type | translate}})
           td
             select.counterparty.search ng-model="filter.data.counterparty_id"
-              option ng-repeat="counterparty in counterparties" value="{{counterparty.id}}"
+              option ng-repeat="counterparty in counterparties | filter: {type: 'Customer'}" value="{{counterparty.id}}"
+                | {{counterparty.name}}
+          td
+            select.counterparty.search ng-model="filter.data.vendor_id"
+              option ng-repeat="counterparty in counterparties | filter: {type: 'Vendor'}" value="{{counterparty.id}}"
                 | {{counterparty.name}}
           td
             input.value.search ng-model="filter.data.value" type="text"
@@ -133,10 +144,13 @@
             | {{ 'article' | translate }}
         th
           a href="" ng-class="{'up_arrow' : predicate=='counterparty.name' && reverse, 'down_arrow' : predicate=='counterparty.name' && !reverse}" ng-click="predicate='counterparty.name'; reverse=!reverse"
-            | {{ 'counterparty' | translate }}
+            | {{ 'customer' | translate }}
+        th
+          a href="" ng-class="{'up_arrow' : predicate=='vendor.name' && reverse, 'down_arrow' : predicate=='vendor.name' && !reverse}" ng-click="predicate='vendor.name'; reverse=!reverse"
+            | {{ 'vendor' | translate }}
         th
           a href="" ng-class="{'up_arrow' : predicate=='value_currency' && reverse, 'down_arrow' : predicate=='value_currency' && !reverse}" ng-click="predicate='value_currency'; reverse=!reverse"
-            | {{ 'totall' | translate }}
+            | {{ 'total' | translate }}
         th translate="notes"
       tr ng-repeat="register in registers | orderBy:(predicate || 'date_reverse'):reverse" repeat-complete="" style="background: {{ register.background }}"
         td
@@ -155,6 +169,10 @@
           span e-class="search-select" e-form="rowform" e-name="counterparty_id" e-ng-options="s.id as s.name for s in counterparties" editable-select="register.counterparty.id"
           .buttons ng-show="!rowform.$visible"
             | {{ register.counterparty.name }}
+        td
+          span e-class="search-select" e-form="rowform" e-name="vendor_id" e-ng-options="s.id as s.name for s in counterparties" editable-select="register.vendor.id"
+          .buttons ng-show="!rowform.$visible"
+            | {{ register.vendor.name }}
         td.td_correction ng-class=("{input_and_select: sandbox}")
           span e-class="value" e-form="rowform" e-name="value" e-ng-class="{value_plan: sandbox}" editable-text="register.value"
             span.buttons ng-show="!rowform.$visible"

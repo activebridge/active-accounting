@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe PlanRegistersController, type: :controller do
-  let(:article) { FactoryGirl.create(:article) }
-  let(:plan_register) { FactoryGirl.create(:register_plan) }
-  let(:plan_register_attributes) { FactoryGirl.attributes_for(:register_plan, date: Date.yesterday, value: '100', type: 'Plan', article_id: article.id) }
-  let(:invalid_plan_register_attributes) { FactoryGirl.attributes_for(:register_plan, date: '', value: '', type: '') }
+  let(:article) { create(:article) }
+  let(:counterparty) { create(:counterparty) }
+  let(:vendor) { create(:counterparty) }
+  let(:plan_register) { create(:register_plan) }
+  let(:plan_register_attributes) { attributes_for(:register_plan, article_id: article.id, date: '18-01-2016', counterparty_id: counterparty.id, vendor_id: vendor.id) }
+  let(:invalid_plan_register_attributes) { attributes_for(:register_plan, date: '', value: '', type: '') }
 
   before do
     allow(controller).to receive(:authenticate_admin!) { true }

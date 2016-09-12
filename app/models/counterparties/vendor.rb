@@ -1,15 +1,14 @@
 class Vendor < Counterparty
-  after_create :create_info_record
-  belongs_to :customer
-  has_many :hours
   has_one  :vendor_info, dependent: :destroy
+  has_many :counterparties, through: :registers
+  has_many :hours
+  has_many :registers, dependent: :destroy
+  has_many :vacations, dependent: :destroy
   has_many :vendor_acts, dependent: :destroy
   has_many :vendor_orders, dependent: :destroy
-  has_many :vacations, dependent: :destroy
 
   before_create { generate_token(:auth_token) }
-
-  delegate :name, to: :customer, prefix: true
+  after_create :create_info_record
 
   scope :by_missing_hours, lambda  { |date = Date.current.at_beginning_of_month|
     includes(:hours).active.reject do |v|

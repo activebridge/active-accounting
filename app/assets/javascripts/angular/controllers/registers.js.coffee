@@ -61,7 +61,6 @@
     {value: "translations", text: $translate.instant('Translation')}
   ]
 
-
   $scope.CounterpartyTypes = [
     { value: "Customer", text: 'Customers' },
     { value: "Vendor", text: 'Vendors' },
@@ -114,7 +113,7 @@
           if v.id == parseInt($scope.newRegister.counterparty_id)
             $scope.counterpartiesWithoutPay.splice(k,1)
             return
-        $scope.newRegister = {date: $scope.newRegister.date, currency: $scope.newRegister.currency}
+        $scope.newRegister = {date: $scope.newRegister.date, currency: $scope.newRegister.currency, vendor_id: $scope.vendor_id}
       , (response) ->
         $scope.newRegister.errors = response.data.errors
       )
