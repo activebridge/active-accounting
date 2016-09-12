@@ -1,19 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe Vendor, type: :model do
-  context 'association' do
-    it { is_expected.to belong_to(:customer) }
-    it { is_expected.to have_many(:vendor_acts) }
+  context 'associations' do
+    it { is_expected.to have_one(:vendor_info).dependent(:destroy) }
+    it { is_expected.to have_many(:counterparties).through(:registers) }
+    it { is_expected.to have_many(:hours) }
+    it { is_expected.to have_many(:registers).dependent(:destroy) }
+    it { is_expected.to have_many(:vacations).dependent(:destroy) }
+    it { is_expected.to have_many(:vendor_acts).dependent(:destroy) }
+    it { is_expected.to have_many(:vendor_orders).dependent(:destroy) }
   end
 
   context 'after create callbacks' do
     let(:vendor) { create(:vendor) }
 
     it { expect(vendor).to callback(:create_info_record).after(:create) }
-  end
-
-  context 'delegate' do
-    it { is_expected.to delegate_method(:name).to(:customer).with_prefix(true) }
   end
 
   describe 'scope' do

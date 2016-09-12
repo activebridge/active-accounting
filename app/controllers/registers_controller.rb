@@ -4,7 +4,7 @@ class RegistersController < ApplicationController
   before_action :set_model
 
   def index
-    registers = @model.index_sort(params.slice(:month, :type, :article_id, :counterparty_id, :date, :value, :offset))
+    registers = @model.index_sort(params.slice(:month, :type, :article_id, :counterparty_id, :vendor_id, :date, :value, :offset))
     json = ActiveModel::ArraySerializer.new(registers,
                                             each_serializer: RegisterSerializer,
                                             root: nil)
@@ -44,7 +44,7 @@ class RegistersController < ApplicationController
   end
 
   def register_params
-    params.require(:register).permit(:date, :article_id, :counterparty_id, :value, :notes, :background, :currency)
+    params.require(:register).permit(:date, :article_id, :counterparty_id, :vendor_id, :value, :notes, :background, :currency)
   end
 
   def find_register
