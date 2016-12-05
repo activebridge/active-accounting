@@ -11,5 +11,5 @@ class Feature < ActiveRecord::Base
 
   validates :name, :type, presence: true
 
-  scope :by_group, -> (group) { where(type: group) if group }
+  scope :by_group, ->(group) { where(type: group) if group }
 end

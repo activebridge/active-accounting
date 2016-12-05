@@ -31,7 +31,7 @@ class Signature < ActiveRecord::Base
   private
 
   def short_name(name)
-    name.split(' ').each_with_index.map { |s, i| i == 0 ? s + ' ' : s[0] + '.' }.join
+    name.split(' ').each_with_index.map { |s, i| i.zero? ? s + ' ' : s[0] + '.' }.join
   end
 
   def check_names
@@ -41,8 +41,7 @@ class Signature < ActiveRecord::Base
 
   def check_name(column)
     name = self[column]
-    unless name && name.split(' ').size > 1
-      errors.add(column.to_sym, I18n.t('activerecord.errors.models.signature.attributes.name.short'))
-    end
+    return if name && name.split(' ').size > 1
+    errors.add(column.to_sym, I18n.t('activerecord.errors.models.signature.attributes.name.short'))
   end
 end

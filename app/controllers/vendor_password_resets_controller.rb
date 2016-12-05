@@ -3,7 +3,7 @@ class VendorPasswordResetsController < VendorApplicationController
 
   def create
     vendor = Vendor.find_by_email(params[:email])
-    vendor.send_password_reset if vendor
+    vendor&.send_password_reset
     redirect_to vendor_login_url, notice: 'Email sent with password reset instructions.'
   end
 
