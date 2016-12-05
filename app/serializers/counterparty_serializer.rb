@@ -3,7 +3,7 @@ class CounterpartySerializer < ActiveModel::Serializer
              :successful_payment, :type, :customer, :email, :client_info, :vendor_info, :signed_in, :currency_monthly_payment
 
   def start_date
-    object.start_date.strftime('%d-%m-%Y') if object.start_date
+    object.start_date&.strftime('%d-%m-%Y')
   end
 
   def customer

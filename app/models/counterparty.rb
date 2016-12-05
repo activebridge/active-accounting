@@ -11,17 +11,17 @@ class Counterparty < ActiveRecord::Base
     DISPLAY_TYPES = constants.collect { |type| const_get(type) }
   end
 
-  TYPES::DISPLAY_TYPES.each do |type|
-    define_method("#{type.downcase}?") do
-      self.type == type
+  TYPES::DISPLAY_TYPES.each do |display_type|
+    define_method("#{display_type.downcase}?") do
+      type == display_type
     end
   end
 
   validates :name, :type, presence: true
 
-  scope :by_active, -> (scope) { send(scope) if scope }
+  scope :by_active, ->(scope) { send(scope) if scope }
 
-  scope :by_group, -> (group) { where(type: group) if group }
+  scope :by_group, ->(group) { where(type: group) if group }
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
   scope :monthly_payment, -> { where(monthly_payment: true) }
@@ -35,7 +35,7 @@ class Counterparty < ActiveRecord::Base
     monthly_payment.where('id not in (?)', paid_ids).active
   }
 
-  scope :for_registers, -> (type) { joins(:registers).where(registers: { type: type }) }
+  scope :for_registers, ->(type) { joins(:registers).where(registers: { type: type }) }
 
   def assigned?
     registers.any?

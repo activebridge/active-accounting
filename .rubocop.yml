@@ -9,6 +9,7 @@ AllCops:
     - 'Gemfile'
     - 'spec/support/**/*'
     - 'lib/**/*'
+    - 'config/routes.rb'
 Metrics/LineLength:
   Enabled: false
 Style/Documentation:

@@ -4,5 +4,5 @@ class Vacation < ActiveRecord::Base
   validates :start, :ending, :vendor_id, presence: true
   validates :start, :ending, uniqueness: { scope: :vendor_id }
 
-  scope :by_year, -> (year) { where('extract(year from start) = ?', year) if year }
+  scope :by_year, ->(year) { where('extract(year from start) = ?', year) if year }
 end

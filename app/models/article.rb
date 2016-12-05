@@ -10,7 +10,7 @@ class Article < ActiveRecord::Base
 
   validates :type, :name, presence: true
 
-  scope :by_group, -> (group) { where(type: group) if group }
+  scope :by_group, ->(group) { where(type: group) if group }
 
   def name_with_type
     "#{name} (#{type_msg})"

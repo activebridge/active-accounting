@@ -15,7 +15,7 @@ class VendorOrdersController < ApplicationController
     if order.save
       render json: VendorOrderSerializer.new(order), status: :created
     else
-      render json: { status: :error, messages:  order.errors }, status: :unprocessable_entity
+      render json: { status: :error, messages: order.errors }, status: :unprocessable_entity
     end
   end
 
@@ -34,7 +34,7 @@ class VendorOrdersController < ApplicationController
     if @order.update(order_params_update)
       render json: VendorOrderSerializer.new(@order), status: :accepted
     else
-      render json: { status: :error, messages:  @order.errors }, status: :unprocessable_entity
+      render json: { status: :error, messages: @order.errors }, status: :unprocessable_entity
     end
   end
 

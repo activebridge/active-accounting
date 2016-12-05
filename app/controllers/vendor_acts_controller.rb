@@ -19,7 +19,7 @@ class VendorActsController < ApplicationController
         format.html { render 'acts/show_vendor.pdf.erb' }
       end
     else
-      render json: { status: :error, messages:  @act_params.errors }, status: 422
+      render json: { status: :error, messages: @act_params.errors }, status: 422
     end
   end
 
