@@ -50,18 +50,14 @@
             span ng-show="!showCount"  ▼
             span ng-show="showCount"  ▲
         .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
-          span.pointer.plan ng-click="getRegisters(month, $event, 'revenues', revenue.article_id, true)" ng-show="funcPlan.show[$index]"
-            | {{revenue.valuesPlan[month]}}
-          span.pointer.fact ng-class="{add_background: funcPlan.show[$index]}" ng-click="getRegisters(month, $event, 'revenues', revenue.article_id, null)"
-            | {{revenue.values[month]}}
+          span.pointer.plan ng-click="getRegisters(month, $event, 'revenues', revenue.article_id, true)" ng-show="funcPlan.show[$index]" ng-bind="revenue.valuesPlan[month] || 0"
+          span.pointer.fact ng-class="{add_background: funcPlan.show[$index]}" ng-click="getRegisters(month, $event, 'revenues', revenue.article_id, null)" ng-bind="revenue.values[month] || 0"
       .values class="{{revenue.article_type}}" ng-repeat="c in revenue.counterparties" ng-show="showCount && funcPlan.showRecord(c)"
         .left.counterparty
           | {{c.counterparty}}
         .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
-          span.plan ng-show="funcPlan.show[$index]"
-            | {{c.valuesPlan[month]}}
-          span.fact ng-class="{add_background: funcPlan.show[$index]}"
-            | {{c.values[month]}}
+          span.plan ng-show="funcPlan.show[$index]" ng-bind="c.valuesPlan[month] || 0"
+          span.fact ng-class="{add_background: funcPlan.show[$index]}" ng-bind="c.values[month] || 0"
     ng-include src='"#{asset_path('angular/shared/clearbord_reports.html')}"'
     .values.bold.report-item
       .left
@@ -79,18 +75,14 @@
             span ng-show="!showCount"  ▼
             span ng-show="showCount"  ▲
         .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
-          span.pointer.plan ng-click="getRegisters(month, $event, 'costs', cost.article_id, true)" ng-show="funcPlan.show[$index]"
-            | {{cost.valuesPlan[month]}}
-          span.pointer.fact ng-class="{add_background: funcPlan.show[$index]}" ng-click="getRegisters(month, $event, 'costs', cost.article_id, null)"
-            | {{cost.values[month]}}
+          span.pointer.plan ng-click="getRegisters(month, $event, 'costs', cost.article_id, true)" ng-show="funcPlan.show[$index]" ng-bind="cost.valuesPlan[month] || 0"
+          span.pointer.fact ng-class="{add_background: funcPlan.show[$index]}" ng-click="getRegisters(month, $event, 'costs', cost.article_id, null)" ng-bind="cost.values[month] || 0"
       .values class="{{cost.article_type}}" ng-repeat="c in cost.counterparties" ng-show="showCount && funcPlan.showRecord(c)"
         .left.counterparty
           | {{c.counterparty}}
         .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
-          span.plan ng-show="funcPlan.show[$index]"
-            | {{c.valuesPlan[month]}}
-          span.fact ng-class="{add_background: funcPlan.show[$index]}"
-            | {{c.values[month]}}
+          span.plan ng-show="funcPlan.show[$index]" ng-bind="c.valuesPlan[month] || 0"
+          span.fact ng-class="{add_background: funcPlan.show[$index]}" ng-bind="c.values[month] || 0"
     ng-include src='"#{asset_path('angular/shared/clearbord_reports.html')}"'
     .values.bold
       .left
@@ -117,18 +109,14 @@
             span ng-show="!showCount"  ▼
             span ng-show="showCount"  ▲
         .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
-          span.pointer.plan ng-click="getRegisters(month, $event, 'translations', translation.article_id, true)" ng-show="funcPlan.show[$index]"
-            | {{translation.valuesPlan[month]}}
-          span.pointer.fact ng-class="{add_background: funcPlan.show[$index]}" ng-click="getRegisters(month, $event, 'translations', translation.article_id, null)"
-            | {{translation.values[month]}}
+          span.pointer.plan ng-click="getRegisters(month, $event, 'translations', translation.article_id, true)" ng-show="funcPlan.show[$index]" ng-bind="translation.valuesPlan[month] || 0"
+          span.pointer.fact ng-class="{add_background: funcPlan.show[$index]}" ng-click="getRegisters(month, $event, 'translations', translation.article_id, null)" ng-bind="translation.values[month] || 0"
       .values class="{{translation.article_type}}" ng-repeat="c in translation.counterparties" ng-show="showCount && funcPlan.showRecord(c)"
         .left.counterparty
           | {{c.counterparty}}
         .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
-          span.plan ng-show="funcPlan.show[$index]"
-            | {{c.valuesPlan[month]}}
-          span.fact ng-class="{add_background: funcPlan.show[$index]}"
-            | {{c.values[month]}}
+          span.plan ng-show="funcPlan.show[$index]" ng-bind="c.valuesPlan[month] || 0"
+          span.fact ng-class="{add_background: funcPlan.show[$index]}" ng-bind="c.values[month] || 0"
     ng-include src='"#{asset_path('angular/shared/clearbord_reports.html')}"'
     .values.bold.report-item
       .left
@@ -146,15 +134,11 @@
             span ng-show="!showCount"  ▼
             span ng-show="showCount"  ▲
         .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
-          span.pointer.plan ng-click="getRegisters(month, $event, 'loans', loan.article_id, true)" ng-show="funcPlan.show[$index]"
-            | {{loan.valuesPlan[month]}}
-          span.pointer.fact ng-class="{add_background: funcPlan.show[$index]}" ng-click="getRegisters(month, $event, 'loans', loan.article_id, null)"
-            | {{loan.values[month]}}
+          span.pointer.plan ng-click="getRegisters(month, $event, 'loans', loan.article_id, true)" ng-show="funcPlan.show[$index]" ng-bind="loan.valuesPlan[month] || 0"
+          span.pointer.fact ng-class="{add_background: funcPlan.show[$index]}" ng-click="getRegisters(month, $event, 'loans', loan.article_id, null)" ng-bind="loan.values[month] || 0"
       .values class="{{loan.article_type}}" ng-repeat="c in loan.counterparties" ng-show="showCount && funcPlan.showRecord(c)"
         .left.counterparty
           | {{c.counterparty}}
         .value ng-class="{plan_show: funcPlan.show[$index]}" ng-repeat="month in range(1,12)" ng-show="isShow(month)"
-          span.plan ng-show="funcPlan.show[$index]"
-            | {{c.valuesPlan[month]}}
-          span.fact ng-class="{add_background: funcPlan.show[$index]}"
-            | {{c.values[month]}}
+          span.plan ng-show="funcPlan.show[$index]" ng-bind="c.valuesPlan[month] || 0"
+          span.fact ng-class="{add_background: funcPlan.show[$index]}" ng-bind="c.values[month] || 0"
